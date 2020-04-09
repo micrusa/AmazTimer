@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="save">Guardar</string>
+    <string name="placeholder">Escribe aquí</string>
+    <string name="start">Iniciar</string>
+    <string name="work">Trabajo</string>
+    <string name="rest">Descanso</string>
+    <string name="prepare">Preparate!</string>
+</resources>

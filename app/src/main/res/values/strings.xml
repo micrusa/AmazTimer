@@ -1,0 +1,7 @@
+<resources>
+    <string name="start">Start</string>
+    <string name="work">Work</string>
+    <string name="rest">Rest</string>
+    <string name="sets" translatable="false">Sets</string>
+    <string name="prepare">Get prepared!</string>
+</resources>
