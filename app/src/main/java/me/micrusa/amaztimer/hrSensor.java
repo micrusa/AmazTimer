@@ -24,17 +24,17 @@ public class hrSensor implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         int v = (int) event.values[0];
-        this.hrText.setText(Integer.toString(v));
+        this.hrText.setText(String.valueOf(v));
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) { }
 
-    public void registerListener() {
+    void registerListener() {
         sensorManager.registerListener(this, this.hrSens, delay);
     }
 
-    public void unregisterListener() {
+    void unregisterListener() {
         sensorManager.unregisterListener(this, this.hrSens);
     }
 }
