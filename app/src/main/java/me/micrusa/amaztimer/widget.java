@@ -35,6 +35,13 @@ public class widget extends AbstractPlugin {
     private ConstraintLayout L1, L2;
     //Classes
     private utils utils = new utils();
+    //Default values
+    private int defSets = 8;
+    private int defWork = 30;
+    private int defRest = 20;
+    //Vibration times in ms
+    private int sVibration = 100; //0.1s
+    private int lVibration = 500; //0.5s
 
 
     //Much like a fragment, getView returns the content view of the page. You can set up your layout here
@@ -47,14 +54,14 @@ public class widget extends AbstractPlugin {
         final file file = new file("amaztimer", mView.getContext());
         this.init();
         //Text default values
-        sets.setText(Integer.toString(file.get("sets", 8)));
-        work.setText(utils.sToMinS(file.get("work", 30)));
-        rest.setText(utils.sToMinS(file.get("rest", 20)));
+        sets.setText(Integer.toString(file.get("sets", defSets)));
+        work.setText(utils.sToMinS(file.get("work", defWork)));
+        rest.setText(utils.sToMinS(file.get("rest", defRest)));
         //Sets
         plus.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("sets", 8) + 1;
+                v = file.get("sets", defSets) + 1;
                 file.set("sets", v);
                 sets.setText(Integer.toString(v));
             }
@@ -62,7 +69,7 @@ public class widget extends AbstractPlugin {
         minus.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("sets", 8) - 1;
+                v = file.get("sets", defSets) - 1;
                 file.set("sets", v);
                 sets.setText(Integer.toString(v));
             }
@@ -71,7 +78,7 @@ public class widget extends AbstractPlugin {
         plus2.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("work", 30) + 1;
+                v = file.get("work", defWork) + 1;
                 file.set("work", v);
                 work.setText(utils.sToMinS(v));
             }
@@ -79,7 +86,7 @@ public class widget extends AbstractPlugin {
         minus2.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("work", 30) - 1;
+                v = file.get("work", defWork) - 1;
                 file.set("work", v);
                 work.setText(utils.sToMinS(v));
             }
@@ -88,7 +95,7 @@ public class widget extends AbstractPlugin {
         plus3.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("rest", 20) + 1;
+                v = file.get("rest", defRest) + 1;
                 file.set("rest", v);
                 rest.setText(utils.sToMinS(v));
             }
@@ -96,7 +103,7 @@ public class widget extends AbstractPlugin {
         minus3.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("rest", 20) - 1;
+                v = file.get("rest", defRest) - 1;
                 file.set("rest", v);
                 rest.setText(utils.sToMinS(v));
             }
@@ -109,7 +116,7 @@ public class widget extends AbstractPlugin {
                 L1.setVisibility(View.GONE);
                 L2.setVisibility(View.VISIBLE);
                 L2.setBackgroundColor(gView.getResources().getColor(R.color.yellow));
-                rSets.setText(Integer.toString(file.get("sets", 8)));
+                rSets.setText(Integer.toString(file.get("sets", defSets)));
                 hrSensor task = new hrSensor(gView.getContext(), hr);
                 task.registerListener();
                 final CountDownTimer PrepareTimer = new CountDownTimer(5 * 1000, 1000) {
@@ -119,16 +126,16 @@ public class widget extends AbstractPlugin {
                         time.setText(utils.sToMinS(v));
                         if(v<4){
                             if(v==1){
-                                utils.vibrate(500, gView.getContext());}
+                                utils.vibrate(lVibration, gView.getContext());}
                             if(v!=1){
-                                utils.vibrate(100, gView.getContext());};
+                                utils.vibrate(sVibration, gView.getContext());}
                         }
 
                     }
 
                     @Override
                     public void onFinish() {
-                        startTimer(gView, gView.getResources().getString(R.string.work), gView.getResources().getString(R.string.rest), file.get("work", 30), file.get("rest", 20)); }
+                        startTimer(gView, gView.getResources().getString(R.string.work), gView.getResources().getString(R.string.rest), file.get("work", defWork), file.get("rest", defRest)); }
                 };
                 status.setText(gView.getResources().getString(R.string.prepare));
                 PrepareTimer.start();
@@ -196,9 +203,9 @@ public class widget extends AbstractPlugin {
                 time.setText(utils.sToMinS(v));
                 if (v < 4) {
                     if (v != 1) {
-                        utils.vibrate(100, c.getContext());
+                        utils.vibrate(sVibration, c.getContext());
                     } else{
-                        utils.vibrate(500, c.getContext());}
+                        utils.vibrate(lVibration, c.getContext());}
                 }
             }
 
