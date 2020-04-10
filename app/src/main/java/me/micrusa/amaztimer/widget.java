@@ -35,10 +35,10 @@ public class widget extends AbstractPlugin {
     private ConstraintLayout L1, L2;
     //Classes
     private utils utils = new utils();
-    //Default values
+    //Default values (Tabata values)
     private int defSets = 8;
-    private int defWork = 30;
-    private int defRest = 20;
+    private int defWork = 20;
+    private int defRest = 10;
     //Vibration times in ms
     private int sVibration = 100; //0.1s
     private int lVibration = 500; //0.5s
