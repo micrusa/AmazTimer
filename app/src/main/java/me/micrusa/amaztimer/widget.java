@@ -62,6 +62,10 @@ public class widget extends AbstractPlugin {
             @Override
             public void onClick(View view) {
                 v = file.get("sets", defSets) + 1;
+                if(v>99){
+                    v = 99;
+                    utils.vibrate(sVibration, gView.getContext());
+                }
                 file.set("sets", v);
                 sets.setText(String.valueOf(v));
             }
@@ -70,6 +74,10 @@ public class widget extends AbstractPlugin {
             @Override
             public void onClick(View view) {
                 v = file.get("sets", defSets) - 1;
+                if(v<1){
+                    v = 1;
+                    utils.vibrate(sVibration, gView.getContext());
+                }
                 file.set("sets", v);
                 sets.setText(String.valueOf(v));
             }
@@ -79,6 +87,10 @@ public class widget extends AbstractPlugin {
             @Override
             public void onClick(View view) {
                 v = file.get("work", defWork) + 1;
+                if(v>300){
+                    v = 300;
+                    utils.vibrate(sVibration, gView.getContext());
+                }
                 file.set("work", v);
                 work.setText(utils.sToMinS(v));
             }
@@ -87,6 +99,10 @@ public class widget extends AbstractPlugin {
             @Override
             public void onClick(View view) {
                 v = file.get("work", defWork) - 1;
+                if(v<1){
+                    v = 1;
+                    utils.vibrate(sVibration, gView.getContext());
+                }
                 file.set("work", v);
                 work.setText(utils.sToMinS(v));
             }
@@ -96,6 +112,10 @@ public class widget extends AbstractPlugin {
             @Override
             public void onClick(View view) {
                 v = file.get("rest", defRest) + 1;
+                if(v>300){
+                    v = 300;
+                    utils.vibrate(sVibration, gView.getContext());
+                }
                 file.set("rest", v);
                 rest.setText(utils.sToMinS(v));
             }
@@ -104,6 +124,10 @@ public class widget extends AbstractPlugin {
             @Override
             public void onClick(View view) {
                 v = file.get("rest", defRest) - 1;
+                if(v<1){
+                    v = 1;
+                    utils.vibrate(sVibration, gView.getContext());
+                }
                 file.set("rest", v);
                 rest.setText(utils.sToMinS(v));
             }
