@@ -54,7 +54,7 @@ public class widget extends AbstractPlugin {
         final file file = new file("amaztimer", mView.getContext());
         this.init();
         //Text default values
-        sets.setText(Integer.toString(file.get("sets", defSets)));
+        sets.setText(String.valueOf(file.get("sets", defSets)));
         work.setText(utils.sToMinS(file.get("work", defWork)));
         rest.setText(utils.sToMinS(file.get("rest", defRest)));
         //Sets
@@ -63,7 +63,7 @@ public class widget extends AbstractPlugin {
             public void onClick(View view) {
                 v = file.get("sets", defSets) + 1;
                 file.set("sets", v);
-                sets.setText(Integer.toString(v));
+                sets.setText(String.valueOf(v));
             }
         });
         minus.setOnClickListener(new OnClickListener(){
@@ -71,7 +71,7 @@ public class widget extends AbstractPlugin {
             public void onClick(View view) {
                 v = file.get("sets", defSets) - 1;
                 file.set("sets", v);
-                sets.setText(Integer.toString(v));
+                sets.setText(String.valueOf(v));
             }
         });
         //Work
@@ -116,7 +116,7 @@ public class widget extends AbstractPlugin {
                 L1.setVisibility(View.GONE);
                 L2.setVisibility(View.VISIBLE);
                 L2.setBackgroundColor(gView.getResources().getColor(R.color.yellow));
-                rSets.setText(Integer.toString(file.get("sets", defSets)));
+                rSets.setText(String.valueOf(file.get("sets", defSets)));
                 hrSensor task = new hrSensor(gView.getContext(), hr);
                 task.registerListener();
                 final CountDownTimer PrepareTimer = new CountDownTimer(5 * 1000, 1000) {
@@ -212,7 +212,7 @@ public class widget extends AbstractPlugin {
             @Override
             public void onFinish() {
                 if(Integer.parseInt(rSets.getText().toString())!=1){
-                    rSets.setText(Integer.toString(Integer.parseInt(rSets.getText().toString()) - 1));
+                    rSets.setText(String.valueOf(Integer.parseInt(rSets.getText().toString()) - 1));
                     startTimer(c, sWork, sRest, work, rest);
                 }else{
                     hrSensor task = new hrSensor(c.getContext(), hr);
@@ -234,12 +234,7 @@ public class widget extends AbstractPlugin {
     //Return the launcher intent for this page. This might be used for the launcher as well when the page is disabled?
     @Override
     public Intent getWidgetIntent() {
-        Intent localIntent = new Intent();
-        /*localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-        localIntent.setAction("android.intent.action.MAIN");
-        localIntent.addCategory("android.intent.category.LAUNCHER");
-        localIntent.setComponent(new ComponentName(this.mContext.getPackageName(), "com.huami.watch.deskclock.countdown.CountdownListActivity"));*/
-        return localIntent;
+        return new Intent();
     }
 
     //Return the title for this page, used when the page is disabled in the app list. In this case, the app name is used
