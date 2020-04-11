@@ -17,3 +17,11 @@ I have just tested it in Amazfit Pace with Hybrid ROM by Saratoga using stratos 
 
 ## Screenshots
 <img src="https://github.com/micrusa/AmazTimer/raw/master/screen1.png"/><img src="https://github.com/micrusa/AmazTimer/raw/master/screen2.png"/><img src="https://github.com/micrusa/AmazTimer/raw/master/screen3.png"/><img src="https://github.com/micrusa/AmazTimer/raw/master/screen4.png"/>
+
+## Thanks to
+- [@KieronQuinn](https://github.com/KieronQuinn) for [Springboard Plugin Example](https://github.com/KieronQuinn/AmazfitSpringboardPluginExample)
+- [@GreatApo](https://github.com/GreatApo) for [Amazfit Calendar Widget](https://github.com/GreatApo/AmazfitPaceCalendarWidget)
+
+## How to move or disable widget
+- If you have AmazMod, you can do it through mobile app or watch app
+- If you don't have AmazMod, you can use [@KieronQuinn](https://github.com/KieronQuinn)'s [springboard settings app](https://github.com/KieronQuinn/AmazfitSpringboardSettings)
