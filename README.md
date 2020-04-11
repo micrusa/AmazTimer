@@ -10,7 +10,7 @@ This app is in development so you may find bugs, if you have any please create a
 I have just tested it in Amazfit Pace with Hybrid ROM by Saratoga using stratos 3's apps but it should work in all amazfit devices running their modified android
 
 ## Instalation
-`adb install app-release.apk
+`adb install app-release.apk <br />
 adb shell am force-stop com.huami.watch.launcher`
 
 ## Uninstallation
