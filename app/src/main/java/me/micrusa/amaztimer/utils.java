@@ -6,20 +6,17 @@ import android.os.Vibrator;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
-public class utils {
+class utils {
 
-    public void vibrate(int q, Context Context) {
+    void vibrate(int time, Context Context) {
         Vibrator v = (Vibrator) Context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
-        v.vibrate(q);
+        v.vibrate(time);
     }
 
-    public String sToMinS(int seconds){
-        int millis = seconds * 1000;
-        TimeZone tz = TimeZone.getTimeZone("UTC");
+    String sToMinS(int seconds) {
         SimpleDateFormat df = new SimpleDateFormat("mm:ss", Locale.getDefault());
-        return df.format(new Date(millis));
+        return df.format(new Date(seconds * 1000));
     }
 
 }
