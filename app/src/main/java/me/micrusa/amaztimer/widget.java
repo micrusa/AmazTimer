@@ -192,6 +192,9 @@ public class widget extends AbstractPlugin {
         this.init();
         status.setText(sWork);
         L2.setBackgroundColor(c.getResources().getColor(R.color.red));
+        if(!this.mHasActive){
+            return;
+        }
         CountDownTimer Timer = new CountDownTimer(work * 1000, 1000) {
             @Override
             public void onTick(long l) {
@@ -217,6 +220,9 @@ public class widget extends AbstractPlugin {
         this.init();
         status.setText(sRest);
         L2.setBackgroundColor(c.getResources().getColor(R.color.green));
+        if(!this.mHasActive){
+            return;
+        }
         CountDownTimer Timer = new CountDownTimer(rest * 1000, 1000) {
             @Override
             public void onTick(long l) {
