@@ -15,6 +15,7 @@ class utils {
     }
 
     String sToMinS(int seconds) {
+        //Format seconds to mm:ss
         SimpleDateFormat df = new SimpleDateFormat("mm:ss", Locale.getDefault());
         return df.format(new Date(seconds * 1000));
     }

@@ -52,7 +52,7 @@ public class widget extends AbstractPlugin {
         sets.setText(String.valueOf(file.get("sets", defValues.sets)));
         work.setText(utils.sToMinS(file.get("work", defValues.workTime)));
         rest.setText(utils.sToMinS(file.get("rest", defValues.restTime)));
-        //Sets
+        //Plus and minus buttons
         plus.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -132,10 +132,13 @@ public class widget extends AbstractPlugin {
         start.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
+                //Move to second layout with timer's stuff and set all texts
                 L1.setVisibility(View.GONE);
                 L2.setVisibility(View.VISIBLE);
                 L2.setBackgroundColor(gView.getResources().getColor(R.color.yellow));
                 rSets.setText(String.valueOf(file.get("sets", defValues.sets)));
+                status.setText(gView.getResources().getString(R.string.prepare));
+                //Start hrSensor listener
                 final hrSensor hrSensor = new hrSensor(gView.getContext(), hr);
                 hrSensor.registerListener();
                 final CountDownTimer PrepareTimer = new CountDownTimer(5 * 1000, 1000) {
@@ -156,7 +159,6 @@ public class widget extends AbstractPlugin {
                     public void onFinish() {
                         startTimer(gView, gView.getResources().getString(R.string.work), gView.getResources().getString(R.string.rest), file.get("work", defValues.workTime), file.get("rest", defValues.restTime), hrSensor); }
                 };
-                status.setText(gView.getResources().getString(R.string.prepare));
                 PrepareTimer.start();
 
             }
@@ -234,6 +236,7 @@ public class widget extends AbstractPlugin {
                     rSets.setText(String.valueOf(Integer.parseInt(rSets.getText().toString()) - 1));
                     startTimer(c, sWork, sRest, work, rest, hrSensor);
                 }else{
+                    //Unregister hrSensor listener and make visible initial screen again
                     hrSensor.unregisterListener();
                     L1.setVisibility(View.VISIBLE);
                     L2.setVisibility(View.GONE);

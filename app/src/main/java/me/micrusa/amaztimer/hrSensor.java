@@ -15,6 +15,7 @@ public class hrSensor implements SensorEventListener {
     private defValues defValues = new defValues();
 
     hrSensor(Context c, TextView hr){
+        //Setup sensor manager, sensor and textview
         sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
         hrSens = sensorManager.getDefaultSensor(defValues.hrSensor);
         this.hrText = hr;
@@ -30,6 +31,7 @@ public class hrSensor implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) { }
 
     void registerListener() {
+        //Register listener with delay in defValues class
         sensorManager.registerListener(this, this.hrSens, defValues.hrSensorDelay);
     }
 
