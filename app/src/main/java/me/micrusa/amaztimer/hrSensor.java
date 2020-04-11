@@ -12,11 +12,11 @@ public class hrSensor implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor hrSens;
     private TextView hrText;
-    private final int delay = SensorManager.SENSOR_DELAY_UI;
+    private defValues defValues = new defValues();
 
     hrSensor(Context c, TextView hr){
         sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
-        hrSens = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
+        hrSens = sensorManager.getDefaultSensor(defValues.hrSensor);
         this.hrText = hr;
     }
 
@@ -30,7 +30,7 @@ public class hrSensor implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) { }
 
     void registerListener() {
-        sensorManager.registerListener(this, this.hrSens, delay);
+        sensorManager.registerListener(this, this.hrSens, defValues.hrSensorDelay);
     }
 
     void unregisterListener() {
