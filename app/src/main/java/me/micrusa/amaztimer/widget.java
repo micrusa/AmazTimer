@@ -136,8 +136,8 @@ public class widget extends AbstractPlugin {
                 L2.setVisibility(View.VISIBLE);
                 L2.setBackgroundColor(gView.getResources().getColor(R.color.yellow));
                 rSets.setText(String.valueOf(file.get("sets", defValues.sets)));
-                hrSensor task = new hrSensor(gView.getContext(), hr);
-                task.registerListener();
+                final hrSensor hrSensor = new hrSensor(gView.getContext(), hr);
+                hrSensor.registerListener();
                 final CountDownTimer PrepareTimer = new CountDownTimer(5 * 1000, 1000) {
                     @Override
                     public void onTick(long l) {
@@ -154,7 +154,7 @@ public class widget extends AbstractPlugin {
 
                     @Override
                     public void onFinish() {
-                        startTimer(gView, gView.getResources().getString(R.string.work), gView.getResources().getString(R.string.rest), file.get("work", defValues.workTime), file.get("rest", defValues.restTime)); }
+                        startTimer(gView, gView.getResources().getString(R.string.work), gView.getResources().getString(R.string.rest), file.get("work", defValues.workTime), file.get("rest", defValues.restTime), hrSensor); }
                 };
                 status.setText(gView.getResources().getString(R.string.prepare));
                 PrepareTimer.start();
@@ -186,7 +186,7 @@ public class widget extends AbstractPlugin {
         L2 = this.mView.findViewById(R.id.timerScreen);
     }
 
-    private void startTimer(final View c, final String sWork, final String sRest, final int work, final int rest){
+    private void startTimer(final View c, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
         this.init();
         status.setText(sWork);
         L2.setBackgroundColor(c.getResources().getColor(R.color.red));
@@ -205,13 +205,13 @@ public class widget extends AbstractPlugin {
 
             @Override
             public void onFinish() {
-                restTimer(c, sWork, sRest, work, rest);
+                restTimer(c, sWork, sRest, work, rest, hrSensor);
             }
         };
         Timer.start();
     }
 
-    private void restTimer(final View c, final String sWork, final String sRest, final int work, final int rest){
+    private void restTimer(final View c, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
         this.init();
         status.setText(sRest);
         L2.setBackgroundColor(c.getResources().getColor(R.color.green));
@@ -232,12 +232,11 @@ public class widget extends AbstractPlugin {
             public void onFinish() {
                 if(Integer.parseInt(rSets.getText().toString())!=1){
                     rSets.setText(String.valueOf(Integer.parseInt(rSets.getText().toString()) - 1));
-                    startTimer(c, sWork, sRest, work, rest);
+                    startTimer(c, sWork, sRest, work, rest, hrSensor);
                 }else{
-                    hrSensor task = new hrSensor(c.getContext(), hr);
+                    hrSensor.unregisterListener();
                     L1.setVisibility(View.VISIBLE);
                     L2.setVisibility(View.GONE);
-                    task.unregisterListener();
                 }
             }
         };
