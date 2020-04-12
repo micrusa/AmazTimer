@@ -14,4 +14,9 @@ class defValues {
     //Sensor value and sensor delay
     int hrSensorDelay = SensorManager.SENSOR_DELAY_UI;
     int hrSensor = Sensor.TYPE_HEART_RATE;
+    //Max and min values
+    int minSets = 1;
+    int maxSets = 99;
+    int minTime = 1; //1s
+    int maxTime = 300; //5m
 }
