@@ -4,4 +4,6 @@
     <string name="work">Trabajo</string>
     <string name="rest">Descanso</string>
     <string name="prepare">Preparate!</string>
+    <string name="cancel">Cancelar</string>
+    <string name="canceltoast">¡Mantén pulsado!</string>
 </resources>

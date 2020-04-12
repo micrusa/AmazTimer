@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import clc.sliteplugin.flowboard.AbstractPlugin;
 import clc.sliteplugin.flowboard.ISpringBoardHostStub;
@@ -29,10 +31,15 @@ public class widget extends AbstractPlugin {
     private boolean mHasActive = false;
     private ISpringBoardHostStub mHost = null;
     private int v;
-    //Setup objects
-    private Button plus, plus2, plus3, minus, minus2, minus3, start;
+    //Define items
+    private Button plus, plus2, plus3, minus, minus2, minus3, start, cancel;
     private TextView sets, rest, work, time, hr, rSets, status;
     private ConstraintLayout L1, L2;
+    //Define timers and timer booleans
+    private CountDownTimer workTimer;
+    private CountDownTimer restTimer;
+    private boolean workStarted = false;
+    private boolean restStarted = false;
     //Classes
     private utils utils = new utils();
     //Default values
@@ -144,15 +151,7 @@ public class widget extends AbstractPlugin {
                 final CountDownTimer PrepareTimer = new CountDownTimer(5 * 1000, 1000) {
                     @Override
                     public void onTick(long l) {
-                        v = (int) l / 1000;
-                        time.setText(utils.sToMinS(v));
-                        if(v<4){
-                            if(v==1){
-                                utils.vibrate(defValues.lVibration, gView.getContext());}
-                            if(v!=1){
-                                utils.vibrate(defValues.sVibration, gView.getContext());}
-                        }
-
+                        timerUpdate((int) l / 1000);
                     }
 
                     @Override
@@ -161,6 +160,27 @@ public class widget extends AbstractPlugin {
                 };
                 PrepareTimer.start();
 
+            }
+        });
+
+        //Cancel button
+        //To avoid accidental clicks, just a long click will cancel it
+        cancel.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //Display start layout
+                L1.setVisibility(View.VISIBLE);
+                L2.setVisibility(View.GONE);
+                //Stop timers
+                stopTimers();
+                return true;
+            }
+        });
+        cancel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Send toast
+                Toast.makeText(gView.getContext(), gView.getResources().getString(R.string.canceltoast), Toast.LENGTH_SHORT);
             }
         });
         return this.mView;
@@ -175,6 +195,7 @@ public class widget extends AbstractPlugin {
         minus2 = this.mView.findViewById(R.id.minus);
         minus3 = this.mView.findViewById(R.id.minus3);
         start = this.mView.findViewById(R.id.start);
+        cancel = this.mView.findViewById(R.id.cancel);
         //TextViews
         sets = this.mView.findViewById(R.id.sets);
         rest = this.mView.findViewById(R.id.rest);
@@ -188,24 +209,41 @@ public class widget extends AbstractPlugin {
         L2 = this.mView.findViewById(R.id.timerScreen);
     }
 
+    private void timerUpdate(int v){
+        this.init();
+        time.setText(utils.sToMinS(v));
+        if(v<4){
+            if(v==1){
+                utils.vibrate(defValues.lVibration, this.mView.getContext());}
+            if(v!=1){
+                utils.vibrate(defValues.sVibration, this.mView.getContext());}
+        }
+    }
+
+    private void stopTimers(){
+        if(this.workStarted){
+            this.workTimer.cancel();
+        }
+        if(this.restStarted){
+            this.restTimer.cancel();
+        }
+    }
+
     private void startTimer(final View c, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
         this.init();
-        status.setText(sWork);
-        L2.setBackgroundColor(c.getResources().getColor(R.color.red));
+        this.workStarted = true;
+        this.restStarted = false;
         if(!this.mHasActive){
+            this.workStarted = false;
+            this.restStarted = false;
             return;
         }
-        CountDownTimer Timer = new CountDownTimer(work * 1000, 1000) {
+        status.setText(sWork);
+        L2.setBackgroundColor(c.getResources().getColor(R.color.red));
+        this.workTimer = new CountDownTimer(work * 1000, 1000) {
             @Override
             public void onTick(long l) {
-                v = (int) l / 1000;
-                time.setText(utils.sToMinS(v));
-                if(v<4){
-                    if(v==1){
-                        utils.vibrate(defValues.lVibration, c.getContext());}
-                    if(v!=1){
-                        utils.vibrate(defValues.sVibration, c.getContext());}
-                }
+                timerUpdate((int) l / 1000);
             }
 
             @Override
@@ -213,27 +251,24 @@ public class widget extends AbstractPlugin {
                 restTimer(c, sWork, sRest, work, rest, hrSensor);
             }
         };
-        Timer.start();
+        this.workTimer.start();
     }
 
     private void restTimer(final View c, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
         this.init();
-        status.setText(sRest);
-        L2.setBackgroundColor(c.getResources().getColor(R.color.green));
+        this.workStarted = false;
+        this.restStarted = true;
         if(!this.mHasActive){
+            this.workStarted = false;
+            this.restStarted = false;
             return;
         }
-        CountDownTimer Timer = new CountDownTimer(rest * 1000, 1000) {
+        status.setText(sRest);
+        L2.setBackgroundColor(c.getResources().getColor(R.color.green));
+        this.restTimer = new CountDownTimer(rest * 1000, 1000) {
             @Override
             public void onTick(long l) {
-                v = (int) l / 1000;
-                time.setText(utils.sToMinS(v));
-                if (v < 4) {
-                    if (v != 1) {
-                        utils.vibrate(defValues.sVibration, c.getContext());
-                    } else{
-                        utils.vibrate(defValues.lVibration, c.getContext());}
-                }
+                timerUpdate((int) l / 1000);
             }
 
             @Override
@@ -249,7 +284,7 @@ public class widget extends AbstractPlugin {
                 }
             }
         };
-        Timer.start();
+        this.restTimer.start();
     }
 
     //Return the icon for this page, used when the page is disabled in the app list. In this case, the launcher icon is used

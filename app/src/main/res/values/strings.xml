@@ -4,4 +4,6 @@
     <string name="rest">Rest</string>
     <string name="sets" translatable="false">Sets</string>
     <string name="prepare">Get prepared!</string>
+    <string name="cancel">Cancel</string>
+    <string name="canceltoast">Long click!</string>
 </resources>
