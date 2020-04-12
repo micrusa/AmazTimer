@@ -180,7 +180,7 @@ public class widget extends AbstractPlugin {
             @Override
             public void onClick(View v) {
                 //Send toast
-                Toast.makeText(gView.getContext(), gView.getResources().getString(R.string.canceltoast), Toast.LENGTH_SHORT);
+                Toast.makeText(gView.getContext(), gView.getResources().getString(R.string.canceltoast), Toast.LENGTH_SHORT).show();
             }
         });
         return this.mView;
