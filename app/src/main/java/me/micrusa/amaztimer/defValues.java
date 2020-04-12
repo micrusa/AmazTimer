@@ -12,7 +12,7 @@ class defValues {
     int sVibration = 100; //0.1s
     int lVibration = 500; //0.5s
     //Sensor value and sensor delay
-    int hrSensorDelay = SensorManager.SENSOR_DELAY_UI;
+    int hrSensorDelay = SensorManager.SENSOR_DELAY_FASTEST;
     int hrSensor = Sensor.TYPE_HEART_RATE;
     //Max and min values
     int minSets = 1;
