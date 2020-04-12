@@ -49,12 +49,16 @@ public class widget extends AbstractPlugin {
     //Much like a fragment, getView returns the content view of the page. You can set up your layout here
     @Override
     public View getView(final Context paramContext) {
+        //Setup view
         Log.d(TAG, "getView()" + paramContext.getPackageName() + " AmazTimer");
         this.mContext = paramContext;
         this.mView = LayoutInflater.from(paramContext).inflate(R.layout.amaztimer, null);
         final View gView = this.mView;
         final file file = new file("amaztimer", mView.getContext());
+        //Setup items
         this.init();
+        //Setup hrSensor class
+        final hrSensor hrSensor = new hrSensor(this.mView.getContext(), hr);
         //Text default values
         sets.setText(String.valueOf(file.get("sets", defValues.sets)));
         work.setText(utils.sToMinS(file.get("work", defValues.workTime)));
@@ -146,7 +150,6 @@ public class widget extends AbstractPlugin {
                 rSets.setText(String.valueOf(file.get("sets", defValues.sets)));
                 status.setText(gView.getResources().getString(R.string.prepare));
                 //Start hrSensor listener
-                final hrSensor hrSensor = new hrSensor(gView.getContext(), hr);
                 hrSensor.registerListener();
                 final CountDownTimer PrepareTimer = new CountDownTimer(5 * 1000, 1000) {
                     @Override
@@ -173,6 +176,8 @@ public class widget extends AbstractPlugin {
                 L2.setVisibility(View.GONE);
                 //Stop timers
                 stopTimers();
+                //Unregister hr sensor listener to avoid battery drain
+                hrSensor.unregisterListener();
                 return true;
             }
         });
