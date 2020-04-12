@@ -18,5 +18,5 @@ class defValues {
     int minSets = 1;
     int maxSets = 99;
     int minTime = 1; //1s
-    int maxTime = 300; //5m
+    int maxTime = 900; //15m
 }
