@@ -45,6 +45,8 @@ public class widget extends AbstractPlugin {
     //Default values
     private defValues defValues = new defValues();
 
+    private boolean batterySaving;
+
 
     //Much like a fragment, getView returns the content view of the page. You can set up your layout here
     @Override
@@ -55,6 +57,7 @@ public class widget extends AbstractPlugin {
         this.mView = LayoutInflater.from(paramContext).inflate(R.layout.amaztimer, null);
         final View gView = this.mView;
         final file file = new file("amaztimer", mView.getContext());
+
         //Setup items
         this.init();
         //Setup hrSensor class
@@ -151,6 +154,8 @@ public class widget extends AbstractPlugin {
                 status.setText(gView.getResources().getString(R.string.prepare));
                 //Start hrSensor listener
                 hrSensor.registerListener();
+                //Get battery saving settings
+                getBatterySaving(file);
                 final CountDownTimer PrepareTimer = new CountDownTimer(5 * 1000, 1000) {
                     @Override
                     public void onTick(long l) {
@@ -165,7 +170,6 @@ public class widget extends AbstractPlugin {
 
             }
         });
-
         //Cancel button
         //To avoid accidental clicks, just a long click will cancel it
         cancel.setOnLongClickListener(new OnLongClickListener() {
@@ -189,6 +193,10 @@ public class widget extends AbstractPlugin {
             }
         });
         return this.mView;
+    }
+
+    private void getBatterySaving(file file){
+        this.batterySaving = file.get("batterySaving", defValues.batterySaving);
     }
 
     private void init(){
@@ -216,7 +224,9 @@ public class widget extends AbstractPlugin {
 
     private void timerUpdate(int v){
         this.init();
-        time.setText(utils.sToMinS(v));
+        if(!this.batterySaving){
+            time.setText(utils.sToMinS(v));
+        }
         if(v<4){
             if(v==1){
                 utils.vibrate(defValues.lVibration, this.mView.getContext());}
