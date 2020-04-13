@@ -19,4 +19,7 @@ class defValues {
     int maxSets = 99;
     int minTime = 1; //1s
     int maxTime = 900; //15m
+    //Settings
+    String lang = "en";
+    boolean batterySaving = false;
 }
