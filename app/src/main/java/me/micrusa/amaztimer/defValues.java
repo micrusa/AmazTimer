@@ -22,4 +22,7 @@ class defValues {
     //Settings
     String lang = "en";
     boolean batterySaving = false;
+    //Files name
+    String timerFile = "amaztimer";
+    String settingsFile = "settings";
 }

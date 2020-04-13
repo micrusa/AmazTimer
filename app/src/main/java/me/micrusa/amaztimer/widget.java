@@ -56,7 +56,7 @@ public class widget extends AbstractPlugin {
         this.mContext = paramContext;
         this.mView = LayoutInflater.from(paramContext).inflate(R.layout.amaztimer, null);
         final View gView = this.mView;
-        final file file = new file("amaztimer", mView.getContext());
+        final file file = new file(defValues.timerFile, mView.getContext());
 
         //Setup items
         this.init();
@@ -206,7 +206,7 @@ public class widget extends AbstractPlugin {
     }
 
     private void getBatterySaving(){
-        file file = new file("amaztimer", this.mView.getContext());
+        file file = new file(defValues.settingsFile, this.mView.getContext());
         this.batterySaving = file.get("batterySaving", defValues.batterySaving);
     }
 

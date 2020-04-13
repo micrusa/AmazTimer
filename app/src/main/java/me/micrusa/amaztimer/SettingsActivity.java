@@ -15,6 +15,8 @@ import me.micrusa.app.amazwidgets.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private static defValues defValues = new defValues();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             Log.i("AmazTimer", "Changing batterySaving preference");
-            file file = new file("amaztimer", preference.getContext());
+            file file = new file(defValues.settingsFile, preference.getContext());
             file.set("batterySaving", (Boolean) newValue);
             return true;
         }
