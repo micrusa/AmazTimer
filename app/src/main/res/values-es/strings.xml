@@ -6,4 +6,8 @@
     <string name="prepare">Preparate!</string>
     <string name="cancel">Cancelar</string>
     <string name="canceltoast">¡Mantén pulsado!</string>
+    <string name="settings">Ajustes</string>
+    <string name="batterysaving">Ahorro de batería</string>
+    <string name="lang">Idioma</string>
+    <string name="startsettings">Mantén pulsado iniciar para ajustes</string>
 </resources>

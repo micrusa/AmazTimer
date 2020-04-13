@@ -155,7 +155,7 @@ public class widget extends AbstractPlugin {
                 //Start hrSensor listener
                 hrSensor.registerListener();
                 //Get battery saving settings
-                getBatterySaving(file);
+                getBatterySaving();
                 final CountDownTimer PrepareTimer = new CountDownTimer(5 * 1000, 1000) {
                     @Override
                     public void onTick(long l) {
@@ -168,6 +168,16 @@ public class widget extends AbstractPlugin {
                 };
                 PrepareTimer.start();
 
+            }
+        });
+        //Start long press opens settings
+        start.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(gView.getContext(), SettingsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                gView.getContext().startActivity(intent);
+                return true;
             }
         });
         //Cancel button
@@ -195,7 +205,8 @@ public class widget extends AbstractPlugin {
         return this.mView;
     }
 
-    private void getBatterySaving(file file){
+    private void getBatterySaving(){
+        file file = new file("amaztimer", this.mView.getContext());
         this.batterySaving = file.get("batterySaving", defValues.batterySaving);
     }
 

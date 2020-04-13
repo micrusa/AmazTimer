@@ -153,6 +153,16 @@
             app:layout_constraintEnd_toStartOf="@+id/plus2"
             app:layout_constraintStart_toEndOf="@+id/minus" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/startsettings"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/start"
+            app:layout_constraintEnd_toEndOf="@+id/start"
+            app:layout_constraintStart_toStartOf="@+id/start" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
