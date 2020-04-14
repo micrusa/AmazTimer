@@ -30,22 +30,17 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private static OnPreferenceChangeListener batterySavingListener = new OnPreferenceChangeListener() {
+    private static OnPreferenceChangeListener onPreferenceChangeListener = new OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
-            Log.i("AmazTimer", "Changing batterySaving preference");
             file file = new file(defValues.settingsFile, preference.getContext());
-            file.set(defValues.sBatterySaving, (Boolean) newValue);
-            return true;
-        }
-    };
-
-    private static OnPreferenceChangeListener hrSwitchListener = new OnPreferenceChangeListener() {
-        @Override
-        public boolean onPreferenceChange(Preference preference, Object newValue) {
-            Log.i("AmazTimer", "Changing hrSwitch preference");
-            file file = new file(defValues.settingsFile, preference.getContext());
-            file.set(defValues.sHrSwitch, (Boolean) newValue);
+            String prefname = preference.getKey();
+            Log.i("AmazTimer", "Changing '" + prefname + "' preference");
+            if(prefname.equals("batterySaving")){
+                file.set(defValues.sBatterySaving, (Boolean) newValue);
+            }else if(prefname.equals("hrOn")){
+                file.set(defValues.sHrSwitch, (Boolean) newValue);
+            }
             return true;
         }
     };
@@ -56,8 +51,8 @@ public class SettingsActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             SwitchPreferenceCompat batterySaving = findPreference("batterySaving");
             SwitchPreferenceCompat hrSwitch = findPreference("hrOn");
-            batterySaving.setOnPreferenceChangeListener(batterySavingListener);
-            hrSwitch.setOnPreferenceChangeListener(hrSwitchListener);
+            batterySaving.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
         }
     }
 }
