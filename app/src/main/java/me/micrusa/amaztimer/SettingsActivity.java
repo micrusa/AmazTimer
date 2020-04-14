@@ -8,7 +8,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SwitchPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import me.micrusa.app.amazwidgets.R;
@@ -36,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             Log.i("AmazTimer", "Changing batterySaving preference");
             file file = new file(defValues.settingsFile, preference.getContext());
-            file.set(defValues.sBattSvg, (Boolean) newValue);
+            file.set(defValues.sBatterySaving, (Boolean) newValue);
             return true;
         }
     };
@@ -46,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             Log.i("AmazTimer", "Changing hrSwitch preference");
             file file = new file(defValues.settingsFile, preference.getContext());
-            file.set(defValues.hrSwitch, (Boolean) newValue);
+            file.set(defValues.sHrSwitch, (Boolean) newValue);
             return true;
         }
     };

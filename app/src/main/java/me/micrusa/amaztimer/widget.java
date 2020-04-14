@@ -64,14 +64,14 @@ public class widget extends AbstractPlugin {
         //Setup hrSensor class
         final hrSensor hrSensor = new hrSensor(this.mView.getContext(), hr);
         //Text default values
-        sets.setText(String.valueOf(file.get(defValues.sSets, defValues.sets)));
-        work.setText(utils.sToMinS(file.get(defValues.sWork, defValues.workTime)));
-        rest.setText(utils.sToMinS(file.get(defValues.sRest, defValues.restTime)));
+        sets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
+        work.setText(utils.sToMinS(file.get(defValues.sWork, defValues.defWorkTime)));
+        rest.setText(utils.sToMinS(file.get(defValues.sRest, defValues.defRestTime)));
         //Plus and minus buttons
         plus.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get(defValues.sSets, defValues.sets) + 1;
+                v = file.get(defValues.sSets, defValues.defSets) + 1;
                 if(v>defValues.maxSets){
                     v = defValues.maxSets;
                     utils.vibrate(defValues.sVibration, gView.getContext());
@@ -83,7 +83,7 @@ public class widget extends AbstractPlugin {
         minus.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get(defValues.sSets, defValues.sets) - 1;
+                v = file.get(defValues.sSets, defValues.defSets) - 1;
                 if(v<defValues.minSets){
                     v = defValues.minSets;
                     utils.vibrate(defValues.sVibration, gView.getContext());
@@ -96,7 +96,7 @@ public class widget extends AbstractPlugin {
         plus2.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get(defValues.sWork, defValues.workTime) + 1;
+                v = file.get(defValues.sWork, defValues.defWorkTime) + 1;
                 if(v>defValues.maxTime){
                     v = defValues.maxTime;
                     utils.vibrate(defValues.sVibration, gView.getContext());
@@ -108,7 +108,7 @@ public class widget extends AbstractPlugin {
         minus2.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get(defValues.sWork, defValues.workTime) - 1;
+                v = file.get(defValues.sWork, defValues.defWorkTime) - 1;
                 if(v<defValues.minTime){
                     v = defValues.minTime;
                     utils.vibrate(defValues.sVibration, gView.getContext());
@@ -121,7 +121,7 @@ public class widget extends AbstractPlugin {
         plus3.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get(defValues.sRest, defValues.restTime) + 1;
+                v = file.get(defValues.sRest, defValues.defRestTime) + 1;
                 if(v>defValues.maxTime){
                     v = defValues.maxTime;
                     utils.vibrate(defValues.sVibration, gView.getContext());
@@ -133,7 +133,7 @@ public class widget extends AbstractPlugin {
         minus3.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get(defValues.sRest, defValues.restTime) - 1;
+                v = file.get(defValues.sRest, defValues.defRestTime) - 1;
                 if(v<defValues.minTime){
                     v = defValues.minTime;
                     utils.vibrate(defValues.sVibration, gView.getContext());
@@ -151,7 +151,7 @@ public class widget extends AbstractPlugin {
                 L1.setVisibility(View.GONE);
                 L2.setVisibility(View.VISIBLE);
                 L2.setBackgroundColor(gView.getResources().getColor(R.color.yellow));
-                rSets.setText(String.valueOf(file.get(defValues.sSets, defValues.sets)));
+                rSets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
                 status.setText(gView.getResources().getString(R.string.prepare));
                 //Get battery saving settings
                 getSettings();
@@ -165,7 +165,7 @@ public class widget extends AbstractPlugin {
 
                     @Override
                     public void onFinish() {
-                        startTimer(gView, gView.getResources().getString(R.string.work), gView.getResources().getString(R.string.rest), file.get(defValues.sWork, defValues.workTime), file.get(defValues.sRest, defValues.restTime), hrSensor); }
+                        startTimer(gView, gView.getResources().getString(R.string.work), gView.getResources().getString(R.string.rest), file.get(defValues.sWork, defValues.defWorkTime), file.get(defValues.sRest, defValues.defRestTime), hrSensor); }
                 };
                 PrepareTimer.start();
 
@@ -208,8 +208,8 @@ public class widget extends AbstractPlugin {
 
     private void getSettings(){
         file file = new file(defValues.settingsFile, this.mView.getContext());
-        this.batterySaving = file.get(defValues.sBattSvg, defValues.batterySaving);
-        this.hrEnabled = file.get(defValues.hrSwitch, defValues.hrEnabled);
+        this.batterySaving = file.get(defValues.sBatterySaving, defValues.BatterySavingDefault);
+        this.hrEnabled = file.get(defValues.sHrSwitch, defValues.HrSwitchDefault);
     }
 
     private void hrState(boolean state, hrSensor hrSensor, TextView hr){

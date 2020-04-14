@@ -7,9 +7,9 @@ class defValues {
     //Format for times
     String timeFormat = "mm:ss";
     //Default sets and times
-    int sets = 8;
-    int workTime = 20;
-    int restTime = 10;
+    int defSets = 8;
+    int defWorkTime = 20;
+    int defRestTime = 10;
     //Vibration times
     int sVibration = 100; //0.1s
     int lVibration = 500; //0.5s
@@ -23,8 +23,8 @@ class defValues {
     int maxTime = 900; //15m
     //Settings
     String lang = "en";
-    boolean batterySaving = false;
-    boolean hrEnabled = true;
+    boolean BatterySavingDefault = false;
+    boolean HrSwitchDefault = true;
     //Files name
     String timerFile = "amaztimer";
     String settingsFile = "settings";
@@ -32,6 +32,6 @@ class defValues {
     String sSets = "sets";
     String sWork = "work";
     String sRest = "rest";
-    String sBattSvg = "batterySaving";
-    String hrSwitch = "hrEnabled";
+    String sBatterySaving = "batterySaving";
+    String sHrSwitch = "hrEnabled";
 }
