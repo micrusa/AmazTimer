@@ -56,8 +56,7 @@ public class widget extends AbstractPlugin {
         Log.d(TAG, "getView()" + paramContext.getPackageName() + " AmazTimer");
         this.mContext = paramContext;
         this.mView = LayoutInflater.from(paramContext).inflate(R.layout.amaztimer, null);
-        final View gView = this.mView;
-        final file file = new file(defValues.timerFile, mView.getContext());
+        final file file = new file(defValues.timerFile, this.mView.getContext());
 
         //Setup items
         this.init();
@@ -74,7 +73,7 @@ public class widget extends AbstractPlugin {
                 v = file.get(defValues.sSets, defValues.defSets) + 1;
                 if(v>defValues.maxSets){
                     v = defValues.maxSets;
-                    utils.vibrate(defValues.sVibration, gView.getContext());
+                    utils.vibrate(defValues.sVibration, view.getContext());
                 }
                 file.set(defValues.sSets, v);
                 sets.setText(String.valueOf(v));
@@ -86,7 +85,7 @@ public class widget extends AbstractPlugin {
                 v = file.get(defValues.sSets, defValues.defSets) - 1;
                 if(v<defValues.minSets){
                     v = defValues.minSets;
-                    utils.vibrate(defValues.sVibration, gView.getContext());
+                    utils.vibrate(defValues.sVibration, view.getContext());
                 }
                 file.set(defValues.sSets, v);
                 sets.setText(String.valueOf(v));
@@ -99,7 +98,7 @@ public class widget extends AbstractPlugin {
                 v = file.get(defValues.sWork, defValues.defWorkTime) + 1;
                 if(v>defValues.maxTime){
                     v = defValues.maxTime;
-                    utils.vibrate(defValues.sVibration, gView.getContext());
+                    utils.vibrate(defValues.sVibration, view.getContext());
                 }
                 file.set(defValues.sWork, v);
                 work.setText(utils.sToMinS(v));
@@ -111,7 +110,7 @@ public class widget extends AbstractPlugin {
                 v = file.get(defValues.sWork, defValues.defWorkTime) - 1;
                 if(v<defValues.minTime){
                     v = defValues.minTime;
-                    utils.vibrate(defValues.sVibration, gView.getContext());
+                    utils.vibrate(defValues.sVibration, view.getContext());
                 }
                 file.set(defValues.sWork, v);
                 work.setText(utils.sToMinS(v));
@@ -124,7 +123,7 @@ public class widget extends AbstractPlugin {
                 v = file.get(defValues.sRest, defValues.defRestTime) + 1;
                 if(v>defValues.maxTime){
                     v = defValues.maxTime;
-                    utils.vibrate(defValues.sVibration, gView.getContext());
+                    utils.vibrate(defValues.sVibration, view.getContext());
                 }
                 file.set(defValues.sRest, v);
                 rest.setText(utils.sToMinS(v));
@@ -136,7 +135,7 @@ public class widget extends AbstractPlugin {
                 v = file.get(defValues.sRest, defValues.defRestTime) - 1;
                 if(v<defValues.minTime){
                     v = defValues.minTime;
-                    utils.vibrate(defValues.sVibration, gView.getContext());
+                    utils.vibrate(defValues.sVibration, view.getContext());
                 }
                 file.set(defValues.sRest, v);
                 rest.setText(utils.sToMinS(v));
@@ -146,13 +145,13 @@ public class widget extends AbstractPlugin {
         //Start button
         start.setOnClickListener(new OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 //Move to second layout with timer's stuff and set all texts
                 L1.setVisibility(View.GONE);
                 L2.setVisibility(View.VISIBLE);
-                L2.setBackgroundColor(gView.getResources().getColor(R.color.yellow));
+                L2.setBackgroundColor(view.getResources().getColor(R.color.yellow));
                 rSets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
-                status.setText(gView.getResources().getString(R.string.prepare));
+                status.setText(view.getResources().getString(R.string.prepare));
                 //Get battery saving settings
                 getSettings();
                 //hrSensor stuff
@@ -165,7 +164,7 @@ public class widget extends AbstractPlugin {
 
                     @Override
                     public void onFinish() {
-                        startTimer(gView, gView.getResources().getString(R.string.work), gView.getResources().getString(R.string.rest), file.get(defValues.sWork, defValues.defWorkTime), file.get(defValues.sRest, defValues.defRestTime), hrSensor); }
+                        startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.sWork, defValues.defWorkTime), file.get(defValues.sRest, defValues.defRestTime), hrSensor); }
                 };
                 PrepareTimer.start();
 
@@ -174,10 +173,10 @@ public class widget extends AbstractPlugin {
         //Start long press opens settings
         start.setOnLongClickListener(new OnLongClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(gView.getContext(), SettingsActivity.class);
+            public boolean onLongClick(View view) {
+                Intent intent = new Intent(view.getContext(), SettingsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                gView.getContext().startActivity(intent);
+                view.getContext().startActivity(intent);
                 return true;
             }
         });
@@ -185,7 +184,7 @@ public class widget extends AbstractPlugin {
         //To avoid accidental clicks, just a long click will cancel it
         cancel.setOnLongClickListener(new OnLongClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public boolean onLongClick(View view) {
                 //Display start layout
                 L1.setVisibility(View.VISIBLE);
                 L2.setVisibility(View.GONE);
@@ -198,9 +197,9 @@ public class widget extends AbstractPlugin {
         });
         cancel.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 //Send toast
-                Toast.makeText(gView.getContext(), gView.getResources().getString(R.string.canceltoast), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), view.getResources().getString(R.string.canceltoast), Toast.LENGTH_SHORT).show();
             }
         });
         return this.mView;
@@ -278,7 +277,7 @@ public class widget extends AbstractPlugin {
         }
     }
 
-    private void startTimer(final View c, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
+    private void startTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
         this.init();
         this.workStarted = true;
         this.restStarted = false;
@@ -288,7 +287,7 @@ public class widget extends AbstractPlugin {
             return;
         }
         status.setText(sWork);
-        L2.setBackgroundColor(c.getResources().getColor(R.color.red));
+        L2.setBackgroundColor(view.getResources().getColor(R.color.red));
         this.workTimer = new CountDownTimer(work * 1000, 1000) {
             @Override
             public void onTick(long l) {
@@ -297,13 +296,13 @@ public class widget extends AbstractPlugin {
 
             @Override
             public void onFinish() {
-                restTimer(c, sWork, sRest, work, rest, hrSensor);
+                restTimer(view, sWork, sRest, work, rest, hrSensor);
             }
         };
         this.workTimer.start();
     }
 
-    private void restTimer(final View c, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
+    private void restTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
         this.init();
         this.workStarted = false;
         this.restStarted = true;
@@ -313,7 +312,7 @@ public class widget extends AbstractPlugin {
             return;
         }
         status.setText(sRest);
-        L2.setBackgroundColor(c.getResources().getColor(R.color.green));
+        L2.setBackgroundColor(view.getResources().getColor(R.color.green));
         this.restTimer = new CountDownTimer(rest * 1000, 1000) {
             @Override
             public void onTick(long l) {
@@ -324,7 +323,7 @@ public class widget extends AbstractPlugin {
             public void onFinish() {
                 if(Integer.parseInt(rSets.getText().toString())!=1){
                     rSets.setText(String.valueOf(Integer.parseInt(rSets.getText().toString()) - 1));
-                    startTimer(c, sWork, sRest, work, rest, hrSensor);
+                    startTimer(view, sWork, sRest, work, rest, hrSensor);
                 }else{
                     //Unregister hrSensor listener and make visible initial screen again
                     hrState(false, hrSensor, hr);
