@@ -44,8 +44,9 @@ public class widget extends AbstractPlugin {
     private utils utils = new utils();
     //Default values
     private defValues defValues = new defValues();
-
+    //Settings
     private boolean batterySaving;
+    private boolean hrEnabled;
 
 
     //Much like a fragment, getView returns the content view of the page. You can set up your layout here
@@ -152,10 +153,10 @@ public class widget extends AbstractPlugin {
                 L2.setBackgroundColor(gView.getResources().getColor(R.color.yellow));
                 rSets.setText(String.valueOf(file.get(defValues.sSets, defValues.sets)));
                 status.setText(gView.getResources().getString(R.string.prepare));
-                //Start hrSensor listener
-                hrSensor.registerListener();
                 //Get battery saving settings
-                getBatterySaving();
+                getSettings();
+                //hrSensor stuff
+                hrState(true, hrSensor, hr);
                 final CountDownTimer PrepareTimer = new CountDownTimer(5 * 1000, 1000) {
                     @Override
                     public void onTick(long l) {
@@ -191,7 +192,7 @@ public class widget extends AbstractPlugin {
                 //Stop timers
                 stopTimers();
                 //Unregister hr sensor listener to avoid battery drain
-                hrSensor.unregisterListener();
+                hrState(false, hrSensor, hr);
                 return true;
             }
         });
@@ -205,9 +206,29 @@ public class widget extends AbstractPlugin {
         return this.mView;
     }
 
-    private void getBatterySaving(){
+    private void getSettings(){
         file file = new file(defValues.settingsFile, this.mView.getContext());
         this.batterySaving = file.get(defValues.sBattSvg, defValues.batterySaving);
+        this.hrEnabled = file.get(defValues.hrSwitch, defValues.hrEnabled);
+    }
+
+    private void hrState(boolean state, hrSensor hrSensor, TextView hr){
+        if(state){
+            if(this.hrEnabled){
+                hrSensor.registerListener();
+                if(hr.getVisibility() == View.INVISIBLE){
+                    hr.setVisibility(View.VISIBLE);
+                }
+            }else{
+                if(hr.getVisibility() == View.VISIBLE){
+                    hr.setVisibility(View.INVISIBLE);
+                }
+            }
+        }else{
+            if(this.hrEnabled){
+                hrSensor.unregisterListener();
+            }
+        }
     }
 
     private void init(){
@@ -306,7 +327,7 @@ public class widget extends AbstractPlugin {
                     startTimer(c, sWork, sRest, work, rest, hrSensor);
                 }else{
                     //Unregister hrSensor listener and make visible initial screen again
-                    hrSensor.unregisterListener();
+                    hrState(false, hrSensor, hr);
                     L1.setVisibility(View.VISIBLE);
                     L2.setVisibility(View.GONE);
                 }
