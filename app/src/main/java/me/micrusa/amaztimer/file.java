@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.File;
 
 
-public class file {
+class file {
     // Settings file name
     private File save_directory;
     private String settings_file_name;
@@ -73,20 +73,20 @@ public class file {
     }
 
     // Data Getter methods
-    public String get(String key) {
+    String get(String key) {
         return this.getString (key, "");
     }
-    public String get(String key, String defvalue) {
+    String get(String key, String defvalue) {
         return this.getString (key, defvalue);
     }
-    public int get(String key, int defvalue) {
+    int get(String key, int defvalue) {
         return this.getInt (key, defvalue);
     }
-    public boolean get(String key, boolean defvalue) {
+    boolean get(String key, boolean defvalue) {
         return this.getBoolean (key, defvalue);
     }
 
-    public String getString (String key, String defvalue) {
+    String getString (String key, String defvalue) {
         String value;
         try {
             value = this.data.getString(key);
@@ -96,7 +96,7 @@ public class file {
         }
         return value;
     }
-    public int getInt (String key, int defvalue) {
+    int getInt (String key, int defvalue) {
         int value;
         try {
             value = this.data.getInt(key);
@@ -106,7 +106,7 @@ public class file {
         }
         return value;
     }
-    public boolean getBoolean (String key, boolean defvalue) {
+    boolean getBoolean (String key, boolean defvalue) {
         boolean value;
         try {
             value = this.data.getBoolean(key);
@@ -118,16 +118,16 @@ public class file {
     }
 
 
-    public boolean set(String key, String value) {
+    boolean set(String key, String value) {
         return this.setString(key, value);
     }
-    public boolean set(String key, int value) {
+    boolean set(String key, int value) {
         return this.setInt(key, value);
     }
-    public boolean set(String key, boolean value) {
+    boolean set(String key, boolean value) {
         return this.setBoolean(key, value);
     }
-    public boolean setString(String key, String value) {
+    boolean setString(String key, String value) {
         // Check if it has the same value
         try {
             if(this.data.getString(key).equals(value)){
@@ -146,7 +146,7 @@ public class file {
         }
         return true;
     }
-    public boolean setInt(String key, int value) {
+    boolean setInt(String key, int value) {
         // Check if it has the same value
         try {
             if(this.data.getInt(key) == value){
@@ -165,7 +165,7 @@ public class file {
         }
         return true;
     }
-    public boolean setBoolean(String key, boolean value) {
+    boolean setBoolean(String key, boolean value) {
         // Check if it has the same value
         try {
             if (this.data.getBoolean(key) == value){
