@@ -24,6 +24,7 @@ class defValues {
     //Settings
     String lang = "en";
     boolean batterySaving = false;
+    boolean hrEnabled = true;
     //Files name
     String timerFile = "amaztimer";
     String settingsFile = "settings";
@@ -32,4 +33,5 @@ class defValues {
     String sWork = "work";
     String sRest = "rest";
     String sBattSvg = "batterySaving";
+    String hrSwitch = "hrEnabled";
 }

@@ -41,12 +41,24 @@ public class SettingsActivity extends AppCompatActivity {
         }
     };
 
+    private static OnPreferenceChangeListener hrSwitchListener = new OnPreferenceChangeListener() {
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue) {
+            Log.i("AmazTimer", "Changing hrSwitch preference");
+            file file = new file(defValues.settingsFile, preference.getContext());
+            file.set(defValues.hrSwitch, (Boolean) newValue);
+            return true;
+        }
+    };
+
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             SwitchPreferenceCompat batterySaving = findPreference("batterySaving");
+            SwitchPreferenceCompat hrSwitch = findPreference("hrOn");
             batterySaving.setOnPreferenceChangeListener(batterySavingListener);
+            hrSwitch.setOnPreferenceChangeListener(hrSwitchListener);
         }
     }
 }
