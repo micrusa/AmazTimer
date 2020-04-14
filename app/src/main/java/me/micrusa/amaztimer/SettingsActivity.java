@@ -57,6 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             SwitchPreferenceCompat batterySaving = findPreference("batterySaving");
             SwitchPreferenceCompat hrSwitch = findPreference("hrOn");
+            hrSwitch.setDefaultValue(true);
             batterySaving.setOnPreferenceChangeListener(batterySavingListener);
             hrSwitch.setOnPreferenceChangeListener(hrSwitchListener);
         }
