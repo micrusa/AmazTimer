@@ -57,7 +57,6 @@ public class widget extends AbstractPlugin {
         this.mContext = paramContext;
         this.mView = LayoutInflater.from(paramContext).inflate(R.layout.amaztimer, null);
         final file file = new file(defValues.timerFile, this.mView.getContext());
-
         //Setup items
         this.init();
         //Setup hrSensor class
@@ -283,7 +282,6 @@ public class widget extends AbstractPlugin {
         this.restStarted = false;
         if(!this.mHasActive){
             this.workStarted = false;
-            this.restStarted = false;
             return;
         }
         status.setText(sWork);
@@ -307,7 +305,6 @@ public class widget extends AbstractPlugin {
         this.workStarted = false;
         this.restStarted = true;
         if(!this.mHasActive){
-            this.workStarted = false;
             this.restStarted = false;
             return;
         }
