@@ -35,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             file file = new file(defValues.settingsFile, preference.getContext());
             String prefname = preference.getKey();
-            Log.i("AmazTimer", "Changing '" + prefname + "' preference");
+            //Log.i("AmazTimer", "Changing '" + prefname + "' preference");
             if(prefname.equals("batterySaving")){
                 file.set(defValues.sBatterySaving, (Boolean) newValue);
             }else if(prefname.equals("hrOn")){

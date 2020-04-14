@@ -53,7 +53,7 @@ public class widget extends AbstractPlugin {
     @Override
     public View getView(final Context paramContext) {
         //Setup view
-        Log.d(TAG, "getView()" + paramContext.getPackageName() + " AmazTimer");
+        //Log.d(TAG, "getView()" + paramContext.getPackageName() + " AmazTimer");
         this.mContext = paramContext;
         this.mView = LayoutInflater.from(paramContext).inflate(R.layout.amaztimer, null);
         final file file = new file(defValues.timerFile, this.mView.getContext());
