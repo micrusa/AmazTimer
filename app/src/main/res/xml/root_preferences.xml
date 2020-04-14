@@ -6,6 +6,10 @@
             app:key="batterySaving"
             app:title="@string/batterysaving"/>
 
+        <SwitchPreferenceCompat
+            app:key="hrOn"
+            app:title="@string/hrEnabled"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

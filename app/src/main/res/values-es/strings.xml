@@ -10,4 +10,5 @@
     <string name="batterysaving">Ahorro de batería</string>
     <string name="lang">Idioma</string>
     <string name="startsettings">Mantén pulsado iniciar para ajustes</string>
+    <string name="hrEnabled">Medir ritmo cardiaco</string>
 </resources>
