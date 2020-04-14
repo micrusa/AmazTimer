@@ -8,6 +8,7 @@
 
         <SwitchPreferenceCompat
             app:key="hrOn"
+            app:defaultValue="true"
             app:title="@string/hrEnabled"/>
 
     </PreferenceCategory>
