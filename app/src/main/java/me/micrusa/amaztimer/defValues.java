@@ -3,6 +3,8 @@ package me.micrusa.amaztimer;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
+import java.util.ArrayList;
+
 class defValues {
     //Format for times
     String timeFormat = "mm:ss";
@@ -22,7 +24,7 @@ class defValues {
     int minTime = 1; //1s
     int maxTime = 900; //15m
     //Settings
-    String lang = "en";
+    String LangDefault = "en";
     boolean BatterySavingDefault = false;
     boolean HrSwitchDefault = true;
     //Files name
@@ -34,4 +36,5 @@ class defValues {
     String sRest = "rest";
     String sBatterySaving = "batterySaving";
     String sHrSwitch = "hrEnabled";
+    String sLang = "lang";
 }
