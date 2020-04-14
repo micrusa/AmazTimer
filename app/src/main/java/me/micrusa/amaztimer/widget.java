@@ -63,31 +63,31 @@ public class widget extends AbstractPlugin {
         //Setup hrSensor class
         final hrSensor hrSensor = new hrSensor(this.mView.getContext(), hr);
         //Text default values
-        sets.setText(String.valueOf(file.get("sets", defValues.sets)));
-        work.setText(utils.sToMinS(file.get("work", defValues.workTime)));
-        rest.setText(utils.sToMinS(file.get("rest", defValues.restTime)));
+        sets.setText(String.valueOf(file.get(defValues.sSets, defValues.sets)));
+        work.setText(utils.sToMinS(file.get(defValues.sWork, defValues.workTime)));
+        rest.setText(utils.sToMinS(file.get(defValues.sRest, defValues.restTime)));
         //Plus and minus buttons
         plus.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("sets", defValues.sets) + 1;
+                v = file.get(defValues.sSets, defValues.sets) + 1;
                 if(v>defValues.maxSets){
                     v = defValues.maxSets;
                     utils.vibrate(defValues.sVibration, gView.getContext());
                 }
-                file.set("sets", v);
+                file.set(defValues.sSets, v);
                 sets.setText(String.valueOf(v));
             }
         });
         minus.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("sets", defValues.sets) - 1;
+                v = file.get(defValues.sSets, defValues.sets) - 1;
                 if(v<defValues.minSets){
                     v = defValues.minSets;
                     utils.vibrate(defValues.sVibration, gView.getContext());
                 }
-                file.set("sets", v);
+                file.set(defValues.sSets, v);
                 sets.setText(String.valueOf(v));
             }
         });
@@ -95,24 +95,24 @@ public class widget extends AbstractPlugin {
         plus2.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("work", defValues.workTime) + 1;
+                v = file.get(defValues.sWork, defValues.workTime) + 1;
                 if(v>defValues.maxTime){
                     v = defValues.maxTime;
                     utils.vibrate(defValues.sVibration, gView.getContext());
                 }
-                file.set("work", v);
+                file.set(defValues.sWork, v);
                 work.setText(utils.sToMinS(v));
             }
         });
         minus2.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("work", defValues.workTime) - 1;
+                v = file.get(defValues.sWork, defValues.workTime) - 1;
                 if(v<defValues.minTime){
                     v = defValues.minTime;
                     utils.vibrate(defValues.sVibration, gView.getContext());
                 }
-                file.set("work", v);
+                file.set(defValues.sWork, v);
                 work.setText(utils.sToMinS(v));
             }
         });
@@ -120,24 +120,24 @@ public class widget extends AbstractPlugin {
         plus3.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("rest", defValues.restTime) + 1;
+                v = file.get(defValues.sRest, defValues.restTime) + 1;
                 if(v>defValues.maxTime){
                     v = defValues.maxTime;
                     utils.vibrate(defValues.sVibration, gView.getContext());
                 }
-                file.set("rest", v);
+                file.set(defValues.sRest, v);
                 rest.setText(utils.sToMinS(v));
             }
         });
         minus3.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View view) {
-                v = file.get("rest", defValues.restTime) - 1;
+                v = file.get(defValues.sRest, defValues.restTime) - 1;
                 if(v<defValues.minTime){
                     v = defValues.minTime;
                     utils.vibrate(defValues.sVibration, gView.getContext());
                 }
-                file.set("rest", v);
+                file.set(defValues.sRest, v);
                 rest.setText(utils.sToMinS(v));
             }
         });
@@ -150,7 +150,7 @@ public class widget extends AbstractPlugin {
                 L1.setVisibility(View.GONE);
                 L2.setVisibility(View.VISIBLE);
                 L2.setBackgroundColor(gView.getResources().getColor(R.color.yellow));
-                rSets.setText(String.valueOf(file.get("sets", defValues.sets)));
+                rSets.setText(String.valueOf(file.get(defValues.sSets, defValues.sets)));
                 status.setText(gView.getResources().getString(R.string.prepare));
                 //Start hrSensor listener
                 hrSensor.registerListener();
@@ -164,7 +164,7 @@ public class widget extends AbstractPlugin {
 
                     @Override
                     public void onFinish() {
-                        startTimer(gView, gView.getResources().getString(R.string.work), gView.getResources().getString(R.string.rest), file.get("work", defValues.workTime), file.get("rest", defValues.restTime), hrSensor); }
+                        startTimer(gView, gView.getResources().getString(R.string.work), gView.getResources().getString(R.string.rest), file.get(defValues.sWork, defValues.workTime), file.get(defValues.sRest, defValues.restTime), hrSensor); }
                 };
                 PrepareTimer.start();
 
@@ -207,7 +207,7 @@ public class widget extends AbstractPlugin {
 
     private void getBatterySaving(){
         file file = new file(defValues.settingsFile, this.mView.getContext());
-        this.batterySaving = file.get("batterySaving", defValues.batterySaving);
+        this.batterySaving = file.get(defValues.sBattSvg, defValues.batterySaving);
     }
 
     private void init(){

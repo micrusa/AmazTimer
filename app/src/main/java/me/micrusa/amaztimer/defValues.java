@@ -4,6 +4,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
 class defValues {
+    //Format for times
+    String timeFormat = "mm:ss";
     //Default sets and times
     int sets = 8;
     int workTime = 20;
@@ -25,4 +27,9 @@ class defValues {
     //Files name
     String timerFile = "amaztimer";
     String settingsFile = "settings";
+    //Training settings name
+    String sSets = "sets";
+    String sWork = "work";
+    String sRest = "rest";
+    String sBattSvg = "batterySaving";
 }

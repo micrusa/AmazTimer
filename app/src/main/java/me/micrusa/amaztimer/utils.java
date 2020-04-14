@@ -9,6 +9,8 @@ import java.util.Locale;
 
 class utils {
 
+    private defValues defValues = new defValues();
+
     void vibrate(int time, Context Context) {
         Vibrator v = (Vibrator) Context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         v.vibrate(time);
@@ -16,7 +18,7 @@ class utils {
 
     String sToMinS(int seconds) {
         //Format seconds to mm:ss
-        SimpleDateFormat df = new SimpleDateFormat("mm:ss", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat(defValues.timeFormat, Locale.getDefault());
         return df.format(new Date(seconds * 1000));
     }
 
