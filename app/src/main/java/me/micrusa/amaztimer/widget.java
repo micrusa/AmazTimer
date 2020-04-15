@@ -3,6 +3,7 @@ package me.micrusa.amaztimer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -61,6 +62,8 @@ public class widget extends AbstractPlugin {
         this.init();
         //Set language to setting's language
         utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
+        //Set texts
+        this.setTexts();
         //Setup hrSensor class
         final hrSensor hrSensor = new hrSensor(this.mView.getContext(), hr);
         //Text default values
@@ -147,6 +150,8 @@ public class widget extends AbstractPlugin {
         start.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(final View view) {
+                //Set language to setting's language
+                utils.setLang(view.getContext(), new file(defValues.settingsFile, view.getContext()).get(defValues.sLang, defValues.LangDefault));
                 //Move to second layout with timer's stuff and set all texts
                 L1.setVisibility(View.GONE);
                 L2.setVisibility(View.VISIBLE);
@@ -253,6 +258,15 @@ public class widget extends AbstractPlugin {
         L1 = this.mView.findViewById(R.id.startScreen);
         L2 = this.mView.findViewById(R.id.timerScreen);
     }
+    private void setTexts(){
+        Resources res = this.mView.getContext().getResources();
+        this.init();
+        start.setText(res.getString(R.string.start));
+        cancel.setText(res.getString(R.string.cancel));
+        sets.setText(res.getString(R.string.sets));
+        rest.setText(res.getString(R.string.rest));
+        work.setText(res.getString(R.string.work));
+    }
 
     private void timerUpdate(int v){
         this.init();
@@ -358,6 +372,8 @@ public class widget extends AbstractPlugin {
         super.onActive(paramBundle);
         //Set language to setting's language
         utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
+        //Set texts
+        this.setTexts();
         //Check if the view is already inflated (reloading)
         if ((!this.mHasActive) && (this.mView != null)) {
             //It is, simply refresh
@@ -370,6 +386,8 @@ public class widget extends AbstractPlugin {
     private void refreshView() {
         //Set language to setting's language
         utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
+        //Set texts
+        this.setTexts();
     }
 
     //Returns the springboard host
@@ -417,6 +435,8 @@ public class widget extends AbstractPlugin {
         super.onResume();
         //Set language to setting's language
         utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
+        //Set texts
+        this.setTexts();
         //Check if view already loaded
         if ((!this.mHasActive) && (this.mView != null)) {
             //It is, simply refresh
