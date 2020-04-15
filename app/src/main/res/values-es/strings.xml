@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="start">Iniciar</string>
-    <string name="work">Trabajo</string>
-    <string name="rest">Descanso</string>
+    <string name="work">Trabaja</string>
+    <string name="rest">Descansa</string>
     <string name="prepare">Preparate!</string>
     <string name="cancel">Cancelar</string>
     <string name="canceltoast">¡Mantén pulsado!</string>
