@@ -11,6 +11,13 @@
             app:defaultValue="true"
             app:title="@string/hrEnabled"/>
 
+        <ListPreference
+            app:key="lang"
+            app:title="@string/lang"
+            app:entries="@array/languages"
+            app:entryValues="@array/langvalues"
+            app:defaultValue="en" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
