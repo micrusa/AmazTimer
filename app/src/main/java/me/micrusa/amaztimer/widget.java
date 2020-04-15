@@ -34,7 +34,7 @@ public class widget extends AbstractPlugin {
     private int v;
     //Define items
     private Button plus, plus2, plus3, minus, minus2, minus3, start, cancel;
-    private TextView sets, rest, work, time, hr, rSets, status, settingstext;
+    private TextView sets, rest, work, time, hr, rSets, status, settingstext, setsText, workText, restText;
     private ConstraintLayout L1, L2;
     //Define timers and timer booleans
     private CountDownTimer workTimer;
@@ -255,6 +255,9 @@ public class widget extends AbstractPlugin {
         rSets = this.mView.findViewById(R.id.remSets);
         status = this.mView.findViewById(R.id.status);
         settingstext = this.mView.findViewById(R.id.textView);
+        setsText = this.mView.findViewById(R.id.textView4);
+        workText = this.mView.findViewById(R.id.textView5);
+        restText = this.mView.findViewById(R.id.textView6);
         //Layouts
         L1 = this.mView.findViewById(R.id.startScreen);
         L2 = this.mView.findViewById(R.id.timerScreen);
@@ -264,9 +267,9 @@ public class widget extends AbstractPlugin {
         this.init();
         start.setText(res.getString(R.string.start));
         cancel.setText(res.getString(R.string.cancel));
-        sets.setText(res.getString(R.string.sets));
-        rest.setText(res.getString(R.string.rest));
-        work.setText(res.getString(R.string.work));
+        setsText.setText(res.getString(R.string.sets));
+        workText.setText(res.getString(R.string.work));
+        restText.setText(res.getString(R.string.rest));
         settingstext.setText(res.getString(R.string.startsettings));
     }
 
