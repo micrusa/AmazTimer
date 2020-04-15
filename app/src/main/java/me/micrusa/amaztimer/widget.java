@@ -356,6 +356,8 @@ public class widget extends AbstractPlugin {
     @Override
     public void onActive(Bundle paramBundle) {
         super.onActive(paramBundle);
+        //Set language to setting's language
+        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
         //Check if the view is already inflated (reloading)
         if ((!this.mHasActive) && (this.mView != null)) {
             //It is, simply refresh
@@ -366,6 +368,8 @@ public class widget extends AbstractPlugin {
     }
 
     private void refreshView() {
+        //Set language to setting's language
+        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
     }
 
     //Returns the springboard host
@@ -411,6 +415,8 @@ public class widget extends AbstractPlugin {
     @Override
     public void onResume() {
         super.onResume();
+        //Set language to setting's language
+        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
         //Check if view already loaded
         if ((!this.mHasActive) && (this.mView != null)) {
             //It is, simply refresh
