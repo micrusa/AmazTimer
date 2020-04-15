@@ -59,6 +59,8 @@ public class widget extends AbstractPlugin {
         final file file = new file(defValues.timerFile, this.mView.getContext());
         //Setup items
         this.init();
+        //Set language to setting's language
+        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
         //Setup hrSensor class
         final hrSensor hrSensor = new hrSensor(this.mView.getContext(), hr);
         //Text default values
