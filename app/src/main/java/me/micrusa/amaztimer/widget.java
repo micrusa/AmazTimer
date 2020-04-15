@@ -34,7 +34,7 @@ public class widget extends AbstractPlugin {
     private int v;
     //Define items
     private Button plus, plus2, plus3, minus, minus2, minus3, start, cancel;
-    private TextView sets, rest, work, time, hr, rSets, status;
+    private TextView sets, rest, work, time, hr, rSets, status, settingstext;
     private ConstraintLayout L1, L2;
     //Define timers and timer booleans
     private CountDownTimer workTimer;
@@ -254,6 +254,7 @@ public class widget extends AbstractPlugin {
         hr = this.mView.findViewById(R.id.heartbeat);
         rSets = this.mView.findViewById(R.id.remSets);
         status = this.mView.findViewById(R.id.status);
+        settingstext = this.mView.findViewById(R.id.textView);
         //Layouts
         L1 = this.mView.findViewById(R.id.startScreen);
         L2 = this.mView.findViewById(R.id.timerScreen);
@@ -266,6 +267,7 @@ public class widget extends AbstractPlugin {
         sets.setText(res.getString(R.string.sets));
         rest.setText(res.getString(R.string.rest));
         work.setText(res.getString(R.string.work));
+        settingstext.setText(res.getString(R.string.startsettings));
     }
 
     private void timerUpdate(int v){
