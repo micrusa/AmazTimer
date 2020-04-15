@@ -42,7 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
             }else if(prefkey.equals("hrOn")){
                 file.set(defValues.sHrSwitch, (Boolean) newValue);
             }else if(prefkey.equals("lang")){
-                Log.i("AmazTimer", "New lang is " + newValue.toString());
+                //Log.i("AmazTimer", "New lang is " + newValue.toString());
                 file.set(defValues.sLang, newValue.toString());
             }
             return true;
