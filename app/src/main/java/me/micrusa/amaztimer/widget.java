@@ -224,15 +224,11 @@ public class widget extends AbstractPlugin {
                 if(hr.getVisibility() == View.INVISIBLE){
                     hr.setVisibility(View.VISIBLE);
                 }
-            }else{
-                if(hr.getVisibility() == View.VISIBLE){
+            }else if(hr.getVisibility() == View.VISIBLE){
                     hr.setVisibility(View.INVISIBLE);
-                }
             }
-        }else{
-            if(this.hrEnabled){
+        }else if(this.hrEnabled){
                 hrSensor.unregisterListener();
-            }
         }
     }
 
