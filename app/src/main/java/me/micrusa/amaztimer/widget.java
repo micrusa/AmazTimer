@@ -273,7 +273,7 @@ public class widget extends AbstractPlugin {
         this.init();
         if(!this.batterySaving){
             time.setText(utils.sToMinS(v));
-        } else if(time.getText().toString() != "--:--"){
+        } else if(!time.getText().toString().equals("--:--")){
             time.setText("--:--");
         }
         if(v<4){
