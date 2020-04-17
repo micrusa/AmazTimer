@@ -57,11 +57,11 @@ public class AmazTimer extends Activity {
         activity = this;
         setContentView(R.layout.amaztimer);
         this.mView = this.findViewById(android.R.id.content);
-        final file file = new file(defValues.timerFile, this.mView.getContext());
+        final file file = new file(defValues.timerFile, this);
         //Setup items
         this.init();
         //Set language to setting's language
-        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
+        utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         //Set texts
         this.setTexts();
         //Check if the view is already inflated (reloading)
@@ -70,11 +70,8 @@ public class AmazTimer extends Activity {
             refreshView();
         }
         //Setup hrSensor class
-        final hrSensor hrSensor = new hrSensor(this.mView.getContext(), hr);
-        //Text default values
-        sets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
-        work.setText(utils.sToMinS(file.get(defValues.sWork, defValues.defWorkTime)));
-        rest.setText(utils.sToMinS(file.get(defValues.sRest, defValues.defRestTime)));
+        final hrSensor hrSensor = new hrSensor(this, hr);
+
         //Plus and minus buttons
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +152,7 @@ public class AmazTimer extends Activity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                final file file = new file(defValues.timerFile, view.getContext());
                 //Set language to setting's language
                 utils.setLang(view.getContext(), new file(defValues.settingsFile, view.getContext()).get(defValues.sLang, defValues.LangDefault));
                 //Move to second layout with timer's stuff and set all texts
@@ -216,8 +214,15 @@ public class AmazTimer extends Activity {
         });
     }
 
+    private void setTextValues(){
+        file file = new file(defValues.timerFile, this);
+        sets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
+        work.setText(utils.sToMinS(file.get(defValues.sWork, defValues.defWorkTime)));
+        rest.setText(utils.sToMinS(file.get(defValues.sRest, defValues.defRestTime)));
+    }
+
     private void getSettings() {
-        file file = new file(defValues.settingsFile, this.mView.getContext());
+        file file = new file(defValues.settingsFile, this);
         this.batterySaving = file.get(defValues.sBatterySaving, defValues.BatterySavingDefault);
         this.hrEnabled = file.get(defValues.sHrSwitch, defValues.HrSwitchDefault);
     }
@@ -239,33 +244,33 @@ public class AmazTimer extends Activity {
 
     private void init() {
         //Buttons
-        plus = this.mView.findViewById(R.id.plus);
-        plus2 = this.mView.findViewById(R.id.plus2);
-        plus3 = this.mView.findViewById(R.id.plus3);
-        minus = this.mView.findViewById(R.id.minus2);
-        minus2 = this.mView.findViewById(R.id.minus);
-        minus3 = this.mView.findViewById(R.id.minus3);
-        start = this.mView.findViewById(R.id.start);
-        cancel = this.mView.findViewById(R.id.cancel);
+        plus = this.findViewById(R.id.plus);
+        plus2 = this.findViewById(R.id.plus2);
+        plus3 = this.findViewById(R.id.plus3);
+        minus = this.findViewById(R.id.minus2);
+        minus2 = this.findViewById(R.id.minus);
+        minus3 = this.findViewById(R.id.minus3);
+        start = this.findViewById(R.id.start);
+        cancel = this.findViewById(R.id.cancel);
         //TextViews
-        sets = this.mView.findViewById(R.id.sets);
-        rest = this.mView.findViewById(R.id.rest);
-        work = this.mView.findViewById(R.id.work);
-        time = this.mView.findViewById(R.id.time);
-        hr = this.mView.findViewById(R.id.heartbeat);
-        rSets = this.mView.findViewById(R.id.remSets);
-        status = this.mView.findViewById(R.id.status);
-        settingstext = this.mView.findViewById(R.id.textView);
-        setsText = this.mView.findViewById(R.id.textView4);
-        workText = this.mView.findViewById(R.id.textView5);
-        restText = this.mView.findViewById(R.id.textView6);
+        sets = this.findViewById(R.id.sets);
+        rest = this.findViewById(R.id.rest);
+        work = this.findViewById(R.id.work);
+        time = this.findViewById(R.id.time);
+        hr = this.findViewById(R.id.heartbeat);
+        rSets = this.findViewById(R.id.remSets);
+        status = this.findViewById(R.id.status);
+        settingstext = this.findViewById(R.id.textView);
+        setsText = this.findViewById(R.id.textView4);
+        workText = this.findViewById(R.id.textView5);
+        restText = this.findViewById(R.id.textView6);
         //Layouts
-        L1 = this.mView.findViewById(R.id.startScreen);
-        L2 = this.mView.findViewById(R.id.timerScreen);
+        L1 = this.findViewById(R.id.startScreen);
+        L2 = this.findViewById(R.id.timerScreen);
     }
 
     private void setTexts() {
-        Resources res = this.mView.getContext().getResources();
+        Resources res = this.getResources();
         this.init();
         start.setText(res.getString(R.string.start));
         cancel.setText(res.getString(R.string.cancel));
@@ -284,10 +289,10 @@ public class AmazTimer extends Activity {
         }
         if (v < 4) {
             if (v == 1) {
-                utils.vibrate(defValues.lVibration, this.mView.getContext());
+                utils.vibrate(defValues.lVibration, this);
             }
             if (v != 1) {
-                utils.vibrate(defValues.sVibration, this.mView.getContext());
+                utils.vibrate(defValues.sVibration, this);
             }
         }
     }
@@ -359,7 +364,7 @@ public class AmazTimer extends Activity {
 
     private void refreshView() {
         //Set language to setting's language
-        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
+        utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         //Set texts
         this.setTexts();
     }
@@ -377,7 +382,7 @@ public class AmazTimer extends Activity {
     public void onResume() {
         super.onResume();
         //Set language to setting's language
-        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
+        utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         //Set texts
         this.setTexts();
         //Check if view already loaded
