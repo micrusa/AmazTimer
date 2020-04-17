@@ -18,6 +18,10 @@
             app:entryValues="@array/langvalues"
             app:defaultValue="en" />
 
+        <Preference
+            app:key="saved"
+            app:title="@string/saved" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
