@@ -12,4 +12,6 @@
     <string name="startsettings">Mantén pulsado iniciar para ajustes</string>
     <string name="hrEnabled">Medir ritmo cardiaco</string>
     <string name="edit">Editar</string>
+    <string name="sets">Sets</string>
+    <string name="saved">Guardados</string>
 </resources>

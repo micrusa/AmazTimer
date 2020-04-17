@@ -2,7 +2,7 @@
     <string name="start">Start</string>
     <string name="work">Work</string>
     <string name="rest">Rest</string>
-    <string name="sets" translatable="false">Sets</string>
+    <string name="sets">Sets</string>
     <string name="prepare">Get prepared!</string>
     <string name="cancel">Cancel</string>
     <string name="canceltoast">Long click!</string>
@@ -11,7 +11,7 @@
     <string name="lang">Language</string>
     <string name="startsettings">Long press start for settings</string>
     <string name="hrEnabled">Heart rate monitoring</string>
-    <string name="saved" translatable="false">Presets</string>
+    <string name="saved">Presets</string>
     <string name="edit">Edit</string>
 
     <!-- Preference Titles -->

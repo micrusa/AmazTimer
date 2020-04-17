@@ -12,4 +12,6 @@
     <string name="startsettings">Premi a lungo per le impostazioni</string>
     <string name="hrEnabled">Monitoraggio battiti</string>
     <string name="edit">Modificare</string>
+    <string name="sets">Sets</string>
+    <string name="saved">Presets</string>
 </resources>
