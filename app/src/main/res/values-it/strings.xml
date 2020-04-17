@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start">Avvia</string>
+    <string name="work">Lavora</string>
+    <string name="rest">Riposa</string>
+    <string name="prepare">Preparati!</string>
+    <string name="cancel">Annulla</string>
+    <string name="canceltoast">Tieni premuto!</string>
+    <string name="settings">Impostazioni</string>
+    <string name="batterysaving">Risparmio batteria</string>
+    <string name="lang">Lingua</string>
+    <string name="startsettings">Premi a lungo per le impostazioni</string>
+    <string name="hrEnabled">Monitoraggio battiti</string>
+</resources>
