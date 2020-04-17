@@ -1,5 +1,6 @@
 package me.micrusa.amaztimer.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.preference.ListPreference;
@@ -7,6 +8,7 @@ import androidx.preference.Preference;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference.OnPreferenceChangeListener;
+import androidx.preference.Preference.OnPreferenceClickListener;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -53,6 +55,19 @@ public class SettingsActivity extends AppCompatActivity {
         }
     };
 
+    private static OnPreferenceClickListener OnPreferenceClickListener = new OnPreferenceClickListener() {
+        @Override
+        public boolean onPreferenceClick(Preference preference) {
+            String prefkey = preference.getKey();
+            if(prefkey.equals("saved")){
+                Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                preference.getContext().startActivity(intent);
+            }
+            return true;
+        }
+    };
+
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -63,6 +78,9 @@ public class SettingsActivity extends AppCompatActivity {
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
             ListPreference lang = findPreference("lang");
             lang.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            Preference presets = findPreference("saved");
+            presets.setVisible(false); //Presets invisible for now
+            //presets.setOnPreferenceClickListener(OnPreferenceClickListener);
         }
     }
 }
