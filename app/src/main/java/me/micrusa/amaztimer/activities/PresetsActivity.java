@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
@@ -28,7 +30,7 @@ public class PresetsActivity extends AppCompatActivity {
     private View.OnClickListener startClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int id;
+            int id = 0;
             if(v.getId()==R.id.start1){
                 id = 1;
             }else if(v.getId()==R.id.start2){
@@ -36,7 +38,10 @@ public class PresetsActivity extends AppCompatActivity {
             }else if(v.getId()==R.id.start3){
                 id = 3;
             }
-
+            file f = new file(defValues.timerFile, v.getContext());
+            int[] array = getValues(id);
+            pushToFile(f, array[0], array[1], array[2]);
+            finishActivity();
         }
     };
 
@@ -112,6 +117,34 @@ public class PresetsActivity extends AppCompatActivity {
                 .replace("%t", utils.sToMinS(this.work3))
                 .replace("%r", utils.sToMinS(this.rest3));
         preset3.setText(text3);
+    }
+
+    private void pushToFile(file f, int sets, int work, int rest){
+        f.set(defValues.sSets, sets);
+        f.set(defValues.sWork, work);
+        f.set(defValues.sRest, rest);
+    }
+
+    private int[] getValues(int i){
+        int[] array = new int[2];
+        if(i == 1){
+            array[0] = this.sets1;
+            array[1] = this.work1;
+            array[2] = this.rest1;
+        } else if(i == 2){
+            array[0] = this.sets2;
+            array[1] = this.work2;
+            array[2] = this.rest2;
+        } else if(i == 3){
+            array[0] = this.sets3;
+            array[1] = this.work3;
+            array[2] = this.rest3;
+        }
+        return array;
+    }
+
+    private void finishActivity(){
+        this.finishAndRemoveTask();
     }
 
 }
