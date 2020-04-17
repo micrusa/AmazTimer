@@ -11,7 +11,7 @@
     <string name="lang">Language</string>
     <string name="startsettings">Long press start for settings</string>
     <string name="hrEnabled">Heart rate monitoring</string>
-    <string name="saved">Saved presets</string>
+    <string name="saved" translatable="false">Presets</string>
 
     <!-- Preference Titles -->
 
