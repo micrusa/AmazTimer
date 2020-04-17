@@ -1,40 +1,34 @@
 package me.micrusa.amaztimer;
 
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import clc.sliteplugin.flowboard.AbstractPlugin;
-import clc.sliteplugin.flowboard.ISpringBoardHostStub;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
 import me.micrusa.app.amazwidgets.R;
 
-public class widget extends AbstractPlugin {
+public class AmazTimer extends Activity {
 
-    private static final String TAG = "AmazTimer";
-    //As AbstractPlugin is not an Activity or Service, we can't just use "this" as a context or getApplicationContext, so Context is global to allow easier access
+    private static final String TAG = "me.micrusa.amaztimer.AmazTimer";
+    // Activity variables
     private Context mContext;
+    private Activity activity;
     //These get set up later
     private View mView;
     private boolean mHasActive = false;
-    private ISpringBoardHostStub mHost = null;
     private int v;
     //Define items
     private Button plus, plus2, plus3, minus, minus2, minus3, start, cancel;
@@ -48,7 +42,7 @@ public class widget extends AbstractPlugin {
     //Classes
     private me.micrusa.amaztimer.utils.utils utils = new utils();
     //Default values
-    private defValues defValues = new defValues();
+    private me.micrusa.amaztimer.defValues defValues = new defValues();
     //Settings
     private boolean batterySaving;
     private boolean hrEnabled;
@@ -56,11 +50,13 @@ public class widget extends AbstractPlugin {
 
     //Much like a fragment, getView returns the content view of the page. You can set up your layout here
     @Override
-    public View getView(final Context paramContext) {
-        //Setup view
-        //Log.d(TAG, "getView()" + paramContext.getPackageName() + " AmazTimer");
-        this.mContext = paramContext;
-        this.mView = LayoutInflater.from(paramContext).inflate(R.layout.amaztimer, null);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Save Activity variables
+        this.mContext = this;
+        activity = this;
+        setContentView(R.layout.amaztimer);
+        this.mView = this.findViewById(android.R.id.content);
         final file file = new file(defValues.timerFile, this.mView.getContext());
         //Setup items
         this.init();
@@ -68,6 +64,11 @@ public class widget extends AbstractPlugin {
         utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
         //Set texts
         this.setTexts();
+        //Check if the view is already inflated (reloading)
+        if ((!this.mHasActive) && (this.mView != null)) {
+            //It is, simply refresh
+            refreshView();
+        }
         //Setup hrSensor class
         final hrSensor hrSensor = new hrSensor(this.mView.getContext(), hr);
         //Text default values
@@ -75,11 +76,11 @@ public class widget extends AbstractPlugin {
         work.setText(utils.sToMinS(file.get(defValues.sWork, defValues.defWorkTime)));
         rest.setText(utils.sToMinS(file.get(defValues.sRest, defValues.defRestTime)));
         //Plus and minus buttons
-        plus.setOnClickListener(new OnClickListener(){
+        plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sSets, defValues.defSets) + 1;
-                if(v>defValues.maxSets){
+                if (v > defValues.maxSets) {
                     v = defValues.maxSets;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -87,11 +88,11 @@ public class widget extends AbstractPlugin {
                 sets.setText(String.valueOf(v));
             }
         });
-        minus.setOnClickListener(new OnClickListener(){
+        minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sSets, defValues.defSets) - 1;
-                if(v<defValues.minSets){
+                if (v < defValues.minSets) {
                     v = defValues.minSets;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -100,11 +101,11 @@ public class widget extends AbstractPlugin {
             }
         });
         //Work
-        plus2.setOnClickListener(new OnClickListener(){
+        plus2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sWork, defValues.defWorkTime) + 1;
-                if(v>defValues.maxTime){
+                if (v > defValues.maxTime) {
                     v = defValues.maxTime;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -112,11 +113,11 @@ public class widget extends AbstractPlugin {
                 work.setText(utils.sToMinS(v));
             }
         });
-        minus2.setOnClickListener(new OnClickListener(){
+        minus2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sWork, defValues.defWorkTime) - 1;
-                if(v<defValues.minTime){
+                if (v < defValues.minTime) {
                     v = defValues.minTime;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -125,11 +126,11 @@ public class widget extends AbstractPlugin {
             }
         });
         //Rest
-        plus3.setOnClickListener(new OnClickListener(){
+        plus3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sRest, defValues.defRestTime) + 1;
-                if(v>defValues.maxTime){
+                if (v > defValues.maxTime) {
                     v = defValues.maxTime;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -137,11 +138,11 @@ public class widget extends AbstractPlugin {
                 rest.setText(utils.sToMinS(v));
             }
         });
-        minus3.setOnClickListener(new OnClickListener(){
+        minus3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sRest, defValues.defRestTime) - 1;
-                if(v<defValues.minTime){
+                if (v < defValues.minTime) {
                     v = defValues.minTime;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -151,7 +152,7 @@ public class widget extends AbstractPlugin {
         });
 
         //Start button
-        start.setOnClickListener(new OnClickListener(){
+        start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 //Set language to setting's language
@@ -174,14 +175,15 @@ public class widget extends AbstractPlugin {
 
                     @Override
                     public void onFinish() {
-                        startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.sWork, defValues.defWorkTime), file.get(defValues.sRest, defValues.defRestTime), hrSensor); }
+                        startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.sWork, defValues.defWorkTime), file.get(defValues.sRest, defValues.defRestTime), hrSensor);
+                    }
                 };
                 PrepareTimer.start();
 
             }
         });
         //Start long press opens settings
-        start.setOnLongClickListener(new OnLongClickListener() {
+        start.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 Intent intent = new Intent(view.getContext(), SettingsActivity.class);
@@ -192,7 +194,7 @@ public class widget extends AbstractPlugin {
         });
         //Cancel button
         //To avoid accidental clicks, just a long click will cancel it
-        cancel.setOnLongClickListener(new OnLongClickListener() {
+        cancel.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 //Display start layout
@@ -205,38 +207,37 @@ public class widget extends AbstractPlugin {
                 return true;
             }
         });
-        cancel.setOnClickListener(new OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Send toast
                 Toast.makeText(view.getContext(), view.getResources().getString(R.string.canceltoast), Toast.LENGTH_SHORT).show();
             }
         });
-        return this.mView;
     }
 
-    private void getSettings(){
+    private void getSettings() {
         file file = new file(defValues.settingsFile, this.mView.getContext());
         this.batterySaving = file.get(defValues.sBatterySaving, defValues.BatterySavingDefault);
         this.hrEnabled = file.get(defValues.sHrSwitch, defValues.HrSwitchDefault);
     }
 
-    private void hrState(boolean state, hrSensor hrSensor, TextView hr){
-        if(state){
-            if(this.hrEnabled){
+    private void hrState(boolean state, hrSensor hrSensor, TextView hr) {
+        if (state) {
+            if (this.hrEnabled) {
                 hrSensor.registerListener();
-                if(hr.getVisibility() == View.INVISIBLE){
+                if (hr.getVisibility() == View.INVISIBLE) {
                     hr.setVisibility(View.VISIBLE);
                 }
-            }else if(hr.getVisibility() == View.VISIBLE){
-                    hr.setVisibility(View.INVISIBLE);
+            } else if (hr.getVisibility() == View.VISIBLE) {
+                hr.setVisibility(View.INVISIBLE);
             }
-        }else if(this.hrEnabled){
-                hrSensor.unregisterListener();
+        } else if (this.hrEnabled) {
+            hrSensor.unregisterListener();
         }
     }
 
-    private void init(){
+    private void init() {
         //Buttons
         plus = this.mView.findViewById(R.id.plus);
         plus2 = this.mView.findViewById(R.id.plus2);
@@ -262,7 +263,8 @@ public class widget extends AbstractPlugin {
         L1 = this.mView.findViewById(R.id.startScreen);
         L2 = this.mView.findViewById(R.id.timerScreen);
     }
-    private void setTexts(){
+
+    private void setTexts() {
         Resources res = this.mView.getContext().getResources();
         this.init();
         start.setText(res.getString(R.string.start));
@@ -273,35 +275,37 @@ public class widget extends AbstractPlugin {
         settingstext.setText(res.getString(R.string.startsettings));
     }
 
-    private void timerUpdate(int v){
+    private void timerUpdate(int v) {
         this.init();
-        if(!this.batterySaving){
+        if (!this.batterySaving) {
             time.setText(utils.sToMinS(v));
-        } else if(!time.getText().toString().equals("--:--")){
+        } else if (!time.getText().toString().equals("--:--")) {
             time.setText("--:--");
         }
-        if(v<4){
-            if(v==1){
-                utils.vibrate(defValues.lVibration, this.mView.getContext());}
-            if(v!=1){
-                utils.vibrate(defValues.sVibration, this.mView.getContext());}
+        if (v < 4) {
+            if (v == 1) {
+                utils.vibrate(defValues.lVibration, this.mView.getContext());
+            }
+            if (v != 1) {
+                utils.vibrate(defValues.sVibration, this.mView.getContext());
+            }
         }
     }
 
-    private void stopTimers(){
-        if(this.workStarted){
+    private void stopTimers() {
+        if (this.workStarted) {
             this.workTimer.cancel();
         }
-        if(this.restStarted){
+        if (this.restStarted) {
             this.restTimer.cancel();
         }
     }
 
-    private void startTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
+    private void startTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor) {
         this.init();
         this.workStarted = true;
         this.restStarted = false;
-        if(!this.mHasActive){
+        if (!this.mHasActive) {
             this.workStarted = false;
             return;
         }
@@ -321,11 +325,11 @@ public class widget extends AbstractPlugin {
         this.workTimer.start();
     }
 
-    private void restTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
+    private void restTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor) {
         this.init();
         this.workStarted = false;
         this.restStarted = true;
-        if(!this.mHasActive){
+        if (!this.mHasActive) {
             this.restStarted = false;
             return;
         }
@@ -339,10 +343,10 @@ public class widget extends AbstractPlugin {
 
             @Override
             public void onFinish() {
-                if(Integer.parseInt(rSets.getText().toString())!=1){
+                if (Integer.parseInt(rSets.getText().toString()) != 1) {
                     rSets.setText(String.valueOf(Integer.parseInt(rSets.getText().toString()) - 1));
                     startTimer(view, sWork, sRest, work, rest, hrSensor);
-                }else{
+                } else {
                     //Unregister hrSensor listener and make visible initial screen again
                     hrState(false, hrSensor, hr);
                     L1.setVisibility(View.VISIBLE);
@@ -353,41 +357,6 @@ public class widget extends AbstractPlugin {
         this.restTimer.start();
     }
 
-    //Return the icon for this page, used when the page is disabled in the app list. In this case, the launcher icon is used
-    @Override
-    public Bitmap getWidgetIcon(Context paramContext) {
-        return ((BitmapDrawable) this.mContext.getResources().getDrawable(R.mipmap.ic_launcher)).getBitmap();
-    }
-
-    //Return the launcher intent for this page. This might be used for the launcher as well when the page is disabled?
-    @Override
-    public Intent getWidgetIntent() {
-        return new Intent();
-    }
-
-    //Return the title for this page, used when the page is disabled in the app list. In this case, the app name is used
-    @Override
-    public String getWidgetTitle(Context paramContext) {
-        return "AmazTimer";
-    }
-
-    //Called when the page is shown
-    @Override
-    public void onActive(Bundle paramBundle) {
-        super.onActive(paramBundle);
-        //Set language to setting's language
-        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
-        //Set texts
-        this.setTexts();
-        //Check if the view is already inflated (reloading)
-        if ((!this.mHasActive) && (this.mView != null)) {
-            //It is, simply refresh
-            refreshView();
-        }
-        //Store active state
-        this.mHasActive = true;
-    }
-
     private void refreshView() {
         //Set language to setting's language
         utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
@@ -395,18 +364,6 @@ public class widget extends AbstractPlugin {
         this.setTexts();
     }
 
-    //Returns the springboard host
-    public ISpringBoardHostStub getHost() {
-        return this.mHost;
-    }
-
-    //Called when the page is loading and being bound to the host
-    @Override
-    public void onBindHost(ISpringBoardHostStub paramISpringBoardHostStub) {
-        Log.d(TAG, "onBindHost");
-        //Store host
-        this.mHost = paramISpringBoardHostStub;
-    }
 
     //Called when the page is destroyed completely (in app mode). Same as the onDestroy method of an activity
     @Override
@@ -414,25 +371,6 @@ public class widget extends AbstractPlugin {
         super.onDestroy();
     }
 
-    //Called when the page becomes inactive (the user has scrolled away)
-    @Override
-    public void onInactive(Bundle paramBundle) {
-        super.onInactive(paramBundle);
-        //Store active state
-        this.mHasActive = false;
-    }
-
-    //Called when the page is paused (in app mode)
-    @Override
-    public void onPause() {
-        super.onPause();
-        this.mHasActive = false;
-    }
-    //Not sure what this does, can't find it being used anywhere. Best leave it alone
-    @Override
-    public void onReceiveDataFromProvider(int paramInt, Bundle paramBundle) {
-        super.onReceiveDataFromProvider(paramInt, paramBundle);
-    }
 
     //Called when the page is shown again (in app mode)
     @Override
