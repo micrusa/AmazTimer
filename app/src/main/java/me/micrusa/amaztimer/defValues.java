@@ -5,36 +5,36 @@ import android.hardware.SensorManager;
 
 import java.util.ArrayList;
 
-class defValues {
+public class defValues {
     //Format for times
-    String timeFormat = "mm:ss";
+    public String timeFormat = "mm:ss";
     //Default sets and times
-    int defSets = 8;
-    int defWorkTime = 20;
-    int defRestTime = 10;
+    public int defSets = 8;
+    public int defWorkTime = 20;
+    public int defRestTime = 10;
     //Vibration times
-    int sVibration = 100; //0.1s
-    int lVibration = 500; //0.5s
+    public int sVibration = 100; //0.1s
+    public int lVibration = 500; //0.5s
     //Sensor value and sensor delay
-    int hrSensorDelay = SensorManager.SENSOR_DELAY_FASTEST;
-    int hrSensor = Sensor.TYPE_HEART_RATE;
+    public int hrSensorDelay = SensorManager.SENSOR_DELAY_FASTEST;
+    public int hrSensor = Sensor.TYPE_HEART_RATE;
     //Max and min values
-    int minSets = 1;
-    int maxSets = 99;
-    int minTime = 1; //1s
-    int maxTime = 900; //15m
+    public int minSets = 1;
+    public int maxSets = 99;
+    public int minTime = 1; //1s
+    public int maxTime = 900; //15m
     //Settings
-    String LangDefault = "en";
-    boolean BatterySavingDefault = false;
-    boolean HrSwitchDefault = true;
+    public String LangDefault = "en";
+    public boolean BatterySavingDefault = false;
+    public boolean HrSwitchDefault = true;
     //Files name
-    String timerFile = "amaztimer";
-    String settingsFile = "settings";
+    public String timerFile = "amaztimer";
+    public String settingsFile = "settings";
     //Training settings name
-    String sSets = "sets";
-    String sWork = "work";
-    String sRest = "rest";
-    String sBatterySaving = "batterySaving";
-    String sHrSwitch = "hrEnabled";
-    String sLang = "lang";
+    public String sSets = "sets";
+    public String sWork = "work";
+    public String sRest = "rest";
+    public String sBatterySaving = "batterySaving";
+    public String sHrSwitch = "hrEnabled";
+    public String sLang = "lang";
 }

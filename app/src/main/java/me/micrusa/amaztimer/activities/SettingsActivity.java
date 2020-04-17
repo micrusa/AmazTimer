@@ -1,7 +1,6 @@
-package me.micrusa.amaztimer;
+package me.micrusa.amaztimer.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -11,12 +10,15 @@ import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
+import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.utils.file;
+import me.micrusa.amaztimer.utils.utils;
 import me.micrusa.app.amazwidgets.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private static defValues defValues = new defValues();
-    private utils utils = new utils();
+    private static me.micrusa.amaztimer.defValues defValues = new defValues();
+    private me.micrusa.amaztimer.utils.utils utils = new utils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

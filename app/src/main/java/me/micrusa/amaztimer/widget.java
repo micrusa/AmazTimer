@@ -20,6 +20,10 @@ import android.widget.Toast;
 
 import clc.sliteplugin.flowboard.AbstractPlugin;
 import clc.sliteplugin.flowboard.ISpringBoardHostStub;
+import me.micrusa.amaztimer.activities.SettingsActivity;
+import me.micrusa.amaztimer.utils.file;
+import me.micrusa.amaztimer.utils.hrSensor;
+import me.micrusa.amaztimer.utils.utils;
 import me.micrusa.app.amazwidgets.R;
 
 public class widget extends AbstractPlugin {
@@ -42,7 +46,7 @@ public class widget extends AbstractPlugin {
     private boolean workStarted = false;
     private boolean restStarted = false;
     //Classes
-    private utils utils = new utils();
+    private me.micrusa.amaztimer.utils.utils utils = new utils();
     //Default values
     private defValues defValues = new defValues();
     //Settings

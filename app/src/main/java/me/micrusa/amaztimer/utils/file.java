@@ -1,4 +1,4 @@
-package me.micrusa.amaztimer;
+package me.micrusa.amaztimer.utils;
 
 
 import android.content.Context;
@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.File;
 
 
-class file {
+public class file {
     // Settings file name
     private File save_directory;
     private String settings_file_name;
@@ -20,7 +20,7 @@ class file {
     private JSONObject data;
 
     // Constructor
-    file(String tag, Context context){
+    public file(String tag, Context context){
         this.data = null;
 
         // Get file info
@@ -73,20 +73,20 @@ class file {
     }
 
     // Data Getter methods
-    String get(String key) {
+    public String get(String key) {
         return this.getString (key, "");
     }
-    String get(String key, String defvalue) {
+    public String get(String key, String defvalue) {
         return this.getString (key, defvalue);
     }
-    int get(String key, int defvalue) {
+    public int get(String key, int defvalue) {
         return this.getInt (key, defvalue);
     }
-    boolean get(String key, boolean defvalue) {
+    public boolean get(String key, boolean defvalue) {
         return this.getBoolean (key, defvalue);
     }
 
-    String getString (String key, String defvalue) {
+    public String getString (String key, String defvalue) {
         String value;
         try {
             value = this.data.getString(key);
@@ -96,7 +96,7 @@ class file {
         }
         return value;
     }
-    int getInt (String key, int defvalue) {
+    public int getInt (String key, int defvalue) {
         int value;
         try {
             value = this.data.getInt(key);
@@ -106,7 +106,7 @@ class file {
         }
         return value;
     }
-    boolean getBoolean (String key, boolean defvalue) {
+    public boolean getBoolean (String key, boolean defvalue) {
         boolean value;
         try {
             value = this.data.getBoolean(key);
@@ -118,16 +118,16 @@ class file {
     }
 
 
-    boolean set(String key, String value) {
+    public boolean set(String key, String value) {
         return this.setString(key, value);
     }
-    boolean set(String key, int value) {
+    public boolean set(String key, int value) {
         return this.setInt(key, value);
     }
-    boolean set(String key, boolean value) {
+    public boolean set(String key, boolean value) {
         return this.setBoolean(key, value);
     }
-    boolean setString(String key, String value) {
+    public boolean setString(String key, String value) {
         // Check if it has the same value
         try {
             if(this.data.getString(key).equals(value)){
@@ -146,7 +146,7 @@ class file {
         }
         return true;
     }
-    boolean setInt(String key, int value) {
+    public boolean setInt(String key, int value) {
         // Check if it has the same value
         try {
             if(this.data.getInt(key) == value){
@@ -165,7 +165,7 @@ class file {
         }
         return true;
     }
-    boolean setBoolean(String key, boolean value) {
+    public boolean setBoolean(String key, boolean value) {
         // Check if it has the same value
         try {
             if (this.data.getBoolean(key) == value){
