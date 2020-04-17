@@ -79,8 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
             ListPreference lang = findPreference("lang");
             lang.setOnPreferenceChangeListener(onPreferenceChangeListener);
             Preference presets = findPreference("saved");
-            presets.setVisible(false); //Presets invisible for now
-            //presets.setOnPreferenceClickListener(OnPreferenceClickListener);
+            presets.setOnPreferenceClickListener(OnPreferenceClickListener);
         }
     }
 }
