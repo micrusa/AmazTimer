@@ -70,10 +70,7 @@ public class widget extends AbstractPlugin {
         this.setTexts();
         //Setup hrSensor class
         final hrSensor hrSensor = new hrSensor(this.mView.getContext(), hr);
-        //Text default values
-        sets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
-        work.setText(utils.sToMinS(file.get(defValues.sWork, defValues.defWorkTime)));
-        rest.setText(utils.sToMinS(file.get(defValues.sRest, defValues.defRestTime)));
+        setTextValues();
         //Plus and minus buttons
         plus.setOnClickListener(new OnClickListener(){
             @Override
@@ -154,6 +151,7 @@ public class widget extends AbstractPlugin {
         start.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(final View view) {
+                final file file = new file(defValues.timerFile, view.getContext());
                 //Set language to setting's language
                 utils.setLang(view.getContext(), new file(defValues.settingsFile, view.getContext()).get(defValues.sLang, defValues.LangDefault));
                 //Move to second layout with timer's stuff and set all texts
@@ -213,6 +211,13 @@ public class widget extends AbstractPlugin {
             }
         });
         return this.mView;
+    }
+
+    private void setTextValues(){
+        file file = new file(defValues.timerFile, this.mView.getContext());
+        sets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
+        work.setText(utils.sToMinS(file.get(defValues.sWork, defValues.defWorkTime)));
+        rest.setText(utils.sToMinS(file.get(defValues.sRest, defValues.defRestTime)));
     }
 
     private void getSettings(){
@@ -379,6 +384,7 @@ public class widget extends AbstractPlugin {
         utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
         //Set texts
         this.setTexts();
+        this.setTextValues();
         //Check if the view is already inflated (reloading)
         if ((!this.mHasActive) && (this.mView != null)) {
             //It is, simply refresh
@@ -393,6 +399,7 @@ public class widget extends AbstractPlugin {
         utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
         //Set texts
         this.setTexts();
+        this.setTextValues();
     }
 
     //Returns the springboard host
@@ -442,6 +449,7 @@ public class widget extends AbstractPlugin {
         utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
         //Set texts
         this.setTexts();
+        this.setTextValues();
         //Check if view already loaded
         if ((!this.mHasActive) && (this.mView != null)) {
             //It is, simply refresh
