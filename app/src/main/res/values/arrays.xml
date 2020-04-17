@@ -8,11 +8,13 @@
         <item>English</item>
         <item>Spanish</item>
         <item>Italian</item>
+        <item>Croatian</item>
     </string-array>
 
     <string-array name="langvalues">
         <item>en</item>
         <item>es</item>
         <item>it</item>
+        <item>hr</item>
     </string-array>
 </resources>
