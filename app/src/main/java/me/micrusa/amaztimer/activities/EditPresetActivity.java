@@ -3,10 +3,16 @@ package me.micrusa.amaztimer.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.utils.file;
+import me.micrusa.amaztimer.utils.utils;
 import me.micrusa.app.amazwidgets.R;
 
 public class EditPresetActivity extends AppCompatActivity {
@@ -14,6 +20,11 @@ public class EditPresetActivity extends AppCompatActivity {
     private Button plus, plus2, plus3, minus, minus2, minus3, edit;
     private TextView sets,rest,work,settingstext,setsText,workText,restText;
     private ConstraintLayout L1, L2;
+    private OnClickListener plusMinusBtn;
+    private OnClickListener editBtn;
+    private file file;
+    private me.micrusa.amaztimer.defValues defValues = new defValues();
+    private me.micrusa.amaztimer.utils.utils utils = new utils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +32,72 @@ public class EditPresetActivity extends AppCompatActivity {
         setContentView(R.layout.amaztimer);
         final int PresetID = getIntent().getIntExtra("ID", 0);
         this.init();
+        this.createOnClickListeners(PresetID);
+        this.setOnClickListeners();
+    }
+
+    private void createOnClickListeners(final int PresetID){
+        file file = null;
+        switch(PresetID){
+            case 1:
+                file = new file("preset1", this);
+                break;
+            case 2:
+                file = new file("preset2", this);
+                break;
+            case 3:
+                file = new file("preset3", this);
+                break;
+        }
+        final me.micrusa.amaztimer.utils.file finalFile = file;
+        plusMinusBtn = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int Btn;
+                int sets = finalFile.get(defValues.sSets, defValues.defSets);
+                int work = finalFile.get(defValues.sWork, defValues.defWorkTime);
+                int rest = finalFile.get(defValues.sRest, defValues.defRestTime);
+                switch(v.getId()){
+                    case R.id.plus:
+                        sets = sets++;
+                        break;
+                    case R.id.plus2:
+                        work = work++;
+                        break;
+                    case R.id.plus3:
+                        rest = rest++;
+                        break;
+                    case R.id.minus:
+                        sets = sets--;
+                        break;
+                    case R.id.minus2:
+                        work = work--;
+                        break;
+                    case R.id.minus3:
+                        rest = rest--;
+                        break;
+                }
+                utils.pushToFile(finalFile, sets, work, rest);
+                setTimeTexts(sets, work, rest);
+            }
+        };
+        editBtn = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SettingsActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        };
+    }
+
+    private void setOnClickListeners(){
+        plus.setOnClickListener(plusMinusBtn);
+        plus2.setOnClickListener(plusMinusBtn);
+        plus3.setOnClickListener(plusMinusBtn);
+        minus.setOnClickListener(plusMinusBtn);
+        minus2.setOnClickListener(plusMinusBtn);
+        minus3.setOnClickListener(plusMinusBtn);
+        edit.setOnClickListener(editBtn);
     }
 
     private void init(){
@@ -43,5 +120,11 @@ public class EditPresetActivity extends AppCompatActivity {
         //Layouts
         L1 = this.findViewById(R.id.startScreen);
         L2 = this.findViewById(R.id.timerScreen);
+    }
+
+    private void setTimeTexts(int intSets, int intWork, int intRest){
+        sets.setText(String.valueOf(intSets));
+        work.setText(utils.sToMinS(intWork));
+        rest.setText(utils.sToMinS(intRest));
     }
 }
