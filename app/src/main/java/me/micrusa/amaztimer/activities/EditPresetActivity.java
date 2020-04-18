@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -124,9 +125,16 @@ public class EditPresetActivity extends AppCompatActivity {
     }
 
     private void startActivity(){
+        //Set lang
+        utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         //Make settings text invisible
         settingstext.setVisibility(View.GONE);
-
+        //Set all texts again
+        Resources res = this.getResources();
+        setsText.setText(res.getString(R.string.sets));
+        workText.setText(res.getString(R.string.work));
+        restText.setText(res.getString(R.string.rest));
+        edit.setText(res.getString(R.string.edit));
     }
 
     private void setTimeTexts(int intSets, int intWork, int intRest){
