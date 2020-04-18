@@ -63,8 +63,8 @@ public class AmazTimer extends Activity {
         //Set language to setting's language
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         //Set texts
-        this.setTexts();
-        this.setTextValues();
+        this.reloadTexts();
+        this.setTimesTexts();
         //Check if the view is already inflated (reloading)
         if ((!this.mHasActive) && (this.mView != null)) {
             //It is, simply refresh
@@ -108,7 +108,7 @@ public class AmazTimer extends Activity {
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
                 file.set(defValues.sWork, v);
-                work.setText(utils.sToMinS(v));
+                work.setText(utils.formatTime(v));
             }
         });
         minus2.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +120,7 @@ public class AmazTimer extends Activity {
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
                 file.set(defValues.sWork, v);
-                work.setText(utils.sToMinS(v));
+                work.setText(utils.formatTime(v));
             }
         });
         //Rest
@@ -133,7 +133,7 @@ public class AmazTimer extends Activity {
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
                 file.set(defValues.sRest, v);
-                rest.setText(utils.sToMinS(v));
+                rest.setText(utils.formatTime(v));
             }
         });
         minus3.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +145,7 @@ public class AmazTimer extends Activity {
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
                 file.set(defValues.sRest, v);
-                rest.setText(utils.sToMinS(v));
+                rest.setText(utils.formatTime(v));
             }
         });
 
@@ -165,7 +165,7 @@ public class AmazTimer extends Activity {
                 //Get battery saving settings
                 getSettings();
                 //hrSensor stuff
-                hrState(true, hrSensor, hr);
+                setHrState(true, hrSensor, hr);
                 final CountDownTimer PrepareTimer = new CountDownTimer(5 * 1000, 1000) {
                     @Override
                     public void onTick(long l) {
@@ -202,7 +202,7 @@ public class AmazTimer extends Activity {
                 //Stop timers
                 stopTimers();
                 //Unregister hr sensor listener to avoid battery drain
-                hrState(false, hrSensor, hr);
+                setHrState(false, hrSensor, hr);
                 return true;
             }
         });
@@ -215,11 +215,11 @@ public class AmazTimer extends Activity {
         });
     }
 
-    private void setTextValues(){
+    private void setTimesTexts(){
         file file = new file(defValues.timerFile, this);
         sets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
-        work.setText(utils.sToMinS(file.get(defValues.sWork, defValues.defWorkTime)));
-        rest.setText(utils.sToMinS(file.get(defValues.sRest, defValues.defRestTime)));
+        work.setText(utils.formatTime(file.get(defValues.sWork, defValues.defWorkTime)));
+        rest.setText(utils.formatTime(file.get(defValues.sRest, defValues.defRestTime)));
     }
 
     private void getSettings() {
@@ -228,7 +228,7 @@ public class AmazTimer extends Activity {
         this.hrEnabled = file.get(defValues.sHrSwitch, defValues.HrSwitchDefault);
     }
 
-    private void hrState(boolean state, hrSensor hrSensor, TextView hr) {
+    private void setHrState(boolean state, hrSensor hrSensor, TextView hr) {
         if (state) {
             if (this.hrEnabled) {
                 hrSensor.registerListener();
@@ -270,7 +270,7 @@ public class AmazTimer extends Activity {
         L2 = this.findViewById(R.id.timerScreen);
     }
 
-    private void setTexts() {
+    private void reloadTexts() {
         Resources res = this.getResources();
         this.init();
         start.setText(res.getString(R.string.start));
@@ -284,7 +284,7 @@ public class AmazTimer extends Activity {
     private void timerUpdate(int v) {
         this.init();
         if (!this.batterySaving) {
-            time.setText(utils.sToMinS(v));
+            time.setText(utils.formatTime(v));
         } else if (!time.getText().toString().equals("--:--")) {
             time.setText("--:--");
         }
@@ -354,7 +354,7 @@ public class AmazTimer extends Activity {
                     startTimer(view, sWork, sRest, work, rest, hrSensor);
                 } else {
                     //Unregister hrSensor listener and make visible initial screen again
-                    hrState(false, hrSensor, hr);
+                    setHrState(false, hrSensor, hr);
                     L1.setVisibility(View.VISIBLE);
                     L2.setVisibility(View.GONE);
                 }
@@ -367,8 +367,8 @@ public class AmazTimer extends Activity {
         //Set language to setting's language
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         //Set texts
-        this.setTexts();
-        this.setTextValues();
+        this.reloadTexts();
+        this.setTimesTexts();
     }
 
 
@@ -386,7 +386,7 @@ public class AmazTimer extends Activity {
         //Set language to setting's language
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         //Set texts
-        this.setTexts();
+        this.reloadTexts();
         //Check if view already loaded
         if ((!this.mHasActive) && (this.mView != null)) {
             //It is, simply refresh

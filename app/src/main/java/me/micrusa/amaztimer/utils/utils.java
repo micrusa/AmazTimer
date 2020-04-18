@@ -19,7 +19,7 @@ public class utils {
         v.vibrate(time);
     }
 
-    public String sToMinS(int seconds) {
+    public String formatTime(int seconds) {
         //Format seconds to mm:ss
         SimpleDateFormat df = new SimpleDateFormat(defValues.timeFormat, Locale.getDefault());
         return df.format(new Date(seconds * 1000));

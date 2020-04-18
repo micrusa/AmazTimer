@@ -139,7 +139,7 @@ public class EditPresetActivity extends AppCompatActivity {
 
     private void setTimeTexts(int intSets, int intWork, int intRest){
         sets.setText(String.valueOf(intSets));
-        work.setText(utils.sToMinS(intWork));
-        rest.setText(utils.sToMinS(intRest));
+        work.setText(utils.formatTime(intWork));
+        rest.setText(utils.formatTime(intRest));
     }
 }

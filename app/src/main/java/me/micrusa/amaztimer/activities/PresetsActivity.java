@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
@@ -108,18 +106,18 @@ public class PresetsActivity extends AppCompatActivity {
         //Set texts
         String text1 = this.textFormat
                 .replace("%s", String.valueOf(this.sets1))
-                .replace("%t", utils.sToMinS(this.work1))
-                .replace("%r", utils.sToMinS(this.rest1));
+                .replace("%t", utils.formatTime(this.work1))
+                .replace("%r", utils.formatTime(this.rest1));
         preset1.setText(text1);
         String text2 = this.textFormat
                 .replace("%s", String.valueOf(this.sets2))
-                .replace("%t", utils.sToMinS(this.work2))
-                .replace("%r", utils.sToMinS(this.rest2));
+                .replace("%t", utils.formatTime(this.work2))
+                .replace("%r", utils.formatTime(this.rest2));
         preset2.setText(text2);
         String text3 = this.textFormat
                 .replace("%s", String.valueOf(this.sets3))
-                .replace("%t", utils.sToMinS(this.work3))
-                .replace("%r", utils.sToMinS(this.rest3));
+                .replace("%t", utils.formatTime(this.work3))
+                .replace("%r", utils.formatTime(this.rest3));
         preset3.setText(text3);
     }
 
