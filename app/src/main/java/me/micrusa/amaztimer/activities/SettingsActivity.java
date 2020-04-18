@@ -61,7 +61,6 @@ public class SettingsActivity extends AppCompatActivity {
             String prefkey = preference.getKey();
             if(prefkey.equals("saved")){
                 Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 preference.getContext().startActivity(intent);
             }
             return true;
