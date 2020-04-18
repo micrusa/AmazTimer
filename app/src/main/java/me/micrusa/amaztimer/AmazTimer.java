@@ -64,6 +64,7 @@ public class AmazTimer extends Activity {
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         //Set texts
         this.setTexts();
+        this.setTextValues();
         //Check if the view is already inflated (reloading)
         if ((!this.mHasActive) && (this.mView != null)) {
             //It is, simply refresh
@@ -367,6 +368,7 @@ public class AmazTimer extends Activity {
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         //Set texts
         this.setTexts();
+        this.setTextValues();
     }
 
 
