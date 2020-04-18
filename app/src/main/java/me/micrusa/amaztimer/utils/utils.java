@@ -34,4 +34,10 @@ public class utils {
                 context.getResources().getDisplayMetrics());
     }
 
+    public void pushToFile(file f, int sets, int work, int rest){
+        f.set(defValues.sSets, sets);
+        f.set(defValues.sWork, work);
+        f.set(defValues.sRest, rest);
+    }
+
 }

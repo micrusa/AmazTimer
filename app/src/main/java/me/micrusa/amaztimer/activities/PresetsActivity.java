@@ -41,7 +41,7 @@ public class PresetsActivity extends AppCompatActivity {
             }
             file f = new file(defValues.timerFile, v.getContext());
             int[] array = getValues(id);
-            pushToFile(f, array[0], array[1], array[2]);
+            utils.pushToFile(f, array[0], array[1], array[2]);
             finishActivity();
         }
     };
@@ -121,12 +121,6 @@ public class PresetsActivity extends AppCompatActivity {
                 .replace("%t", utils.sToMinS(this.work3))
                 .replace("%r", utils.sToMinS(this.rest3));
         preset3.setText(text3);
-    }
-
-    private void pushToFile(file f, int sets, int work, int rest){
-        f.set(defValues.sSets, sets);
-        f.set(defValues.sWork, work);
-        f.set(defValues.sRest, rest);
     }
 
     private int[] getValues(int i){
