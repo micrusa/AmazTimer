@@ -16,24 +16,24 @@
         android:label="AmazTimer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="me.micrusa.amaztimer.activities.EditPresetActivity"></activity>
+
         <meta-data
             android:name="com.huami.watch.launcher.springboard.PASSAGER_TARGET"
             android:resource="@array/spring_depend" />
 
         <activity android:name="me.micrusa.amaztimer.activities.PresetsActivity" />
-
         <activity android:name="me.micrusa.amaztimer.activities.SettingsActivity" />
-
         <activity
-            android:label="AmazTimer"
             android:name="me.micrusa.amaztimer.AmazTimer"
-            android:icon="@mipmap/ic_launcher">
+            android:icon="@mipmap/ic_launcher"
+            android:label="AmazTimer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
