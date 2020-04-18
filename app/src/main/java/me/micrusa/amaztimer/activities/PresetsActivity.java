@@ -2,6 +2,7 @@ package me.micrusa.amaztimer.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +49,7 @@ public class PresetsActivity extends AppCompatActivity {
     private View.OnClickListener editClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int id;
+            int id = 0;
             if(v.getId()==R.id.edit1){
                 id = 1;
             }else if(v.getId()==R.id.edit2){
@@ -56,6 +57,9 @@ public class PresetsActivity extends AppCompatActivity {
             }else if(v.getId()==R.id.edit3){
                 id = 3;
             }
+            Intent intent = new Intent(v.getContext(), PresetsActivity.class);
+            intent.putExtra("ID", id);
+            v.getContext().startActivity(intent);
         }
     };
 
