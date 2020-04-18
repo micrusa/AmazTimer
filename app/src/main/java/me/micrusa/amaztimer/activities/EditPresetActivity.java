@@ -34,6 +34,7 @@ public class EditPresetActivity extends AppCompatActivity {
         this.init();
         this.createOnClickListeners(PresetID);
         this.setOnClickListeners();
+        this.startActivity();
     }
 
     private void createOnClickListeners(final int PresetID){
@@ -120,6 +121,12 @@ public class EditPresetActivity extends AppCompatActivity {
         //Layouts
         L1 = this.findViewById(R.id.startScreen);
         L2 = this.findViewById(R.id.timerScreen);
+    }
+
+    private void startActivity(){
+        //Make settings text invisible
+        settingstext.setVisibility(View.GONE);
+
     }
 
     private void setTimeTexts(int intSets, int intWork, int intRest){
