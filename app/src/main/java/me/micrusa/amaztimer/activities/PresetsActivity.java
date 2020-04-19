@@ -16,7 +16,7 @@ import me.micrusa.app.amazwidgets.R;
 
 public class PresetsActivity extends AppCompatActivity {
 
-    private file file, file1, file2, file3;
+    private file file, file1, file2, file3, settingsFile;
     private me.micrusa.amaztimer.defValues defValues = new defValues();
     private me.micrusa.amaztimer.utils.utils utils = new utils();
 
@@ -73,10 +73,17 @@ public class PresetsActivity extends AppCompatActivity {
         edit1.setOnClickListener(editClickListener);
         edit2.setOnClickListener(editClickListener);
         edit3.setOnClickListener(editClickListener);
+        loadLang();
         setupValues();
     }
 
     private void init(){
+        //Setup files
+        this.file = new file(defValues.timerFile, this);
+        this.file1 = new file("preset1", this);
+        this.file2 = new file("preset2", this);
+        this.file3 = new file("preset3", this);
+        this.settingsFile = new file(defValues.settingsFile, this);
         preset1 = this.findViewById(R.id.preset1);
         preset2 = this.findViewById(R.id.preset2);
         preset3 = this.findViewById(R.id.preset3);
@@ -88,12 +95,18 @@ public class PresetsActivity extends AppCompatActivity {
         edit3 = this.findViewById(R.id.edit3);
     }
 
+    private void loadLang(){
+        utils.setLang(this, this.settingsFile.get(defValues.sLang, defValues.LangDefault));
+        Resources res = this.getResources();
+        start1.setText(res.getString(R.string.start));
+        start2.setText(res.getString(R.string.start));
+        start3.setText(res.getString(R.string.start));
+        edit1.setText(res.getString(R.string.edit));
+        edit2.setText(res.getString(R.string.edit));
+        edit3.setText(res.getString(R.string.edit));
+    }
+
     private void setupValues(){
-        //Setup files
-        this.file = new file(defValues.timerFile, this);
-        this.file1 = new file("preset1", this);
-        this.file2 = new file("preset2", this);
-        this.file3 = new file("preset3", this);
         //Set values
         this.sets1 = file1.get(defValues.sSets, defValues.defSets);
         this.sets2 = file2.get(defValues.sSets, defValues.defSets);
