@@ -3,6 +3,7 @@ package me.micrusa.amaztimer.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +23,9 @@ public class PresetsActivity extends AppCompatActivity {
     private TextView preset1, preset2, preset3;
     private Button start1, start2, start3, edit1, edit2, edit3;
     private int sets1, sets2, sets3, work1, work2, work3, rest1, rest2, rest3;
-    private String textFormat = this.getResources().getString(R.string.sets) + ": %s\\n"
-            + this.getResources().getString(R.string.work) + ": %t "
-            + this.getResources().getString(R.string.rest) + ": %r";
+    private String textFormat = "SETS" + ": %s\\n"
+            + "WORK" + ": %t "
+            + "REST" + ": %r";
 
     private View.OnClickListener startClickListener = new View.OnClickListener() {
         @Override
@@ -104,17 +105,27 @@ public class PresetsActivity extends AppCompatActivity {
         this.rest2 = file2.get(defValues.sRest, defValues.defRestTime);
         this.rest3 = file3.get(defValues.sRest, defValues.defRestTime);
         //Set texts
+        Resources res = this.getResources();
         String text1 = this.textFormat
+                .replace("SETS", res.getString(R.string.sets))
+                .replace("WORK", res.getString(R.string.work))
+                .replace("REST", res.getString(R.string.rest))
                 .replace("%s", String.valueOf(this.sets1))
                 .replace("%t", utils.formatTime(this.work1))
                 .replace("%r", utils.formatTime(this.rest1));
         preset1.setText(text1);
         String text2 = this.textFormat
+                .replace("SETS", res.getString(R.string.sets))
+                .replace("WORK", res.getString(R.string.work))
+                .replace("REST", res.getString(R.string.rest))
                 .replace("%s", String.valueOf(this.sets2))
                 .replace("%t", utils.formatTime(this.work2))
                 .replace("%r", utils.formatTime(this.rest2));
         preset2.setText(text2);
         String text3 = this.textFormat
+                .replace("SETS", res.getString(R.string.sets))
+                .replace("WORK", res.getString(R.string.work))
+                .replace("REST", res.getString(R.string.rest))
                 .replace("%s", String.valueOf(this.sets3))
                 .replace("%t", utils.formatTime(this.work3))
                 .replace("%r", utils.formatTime(this.rest3));
