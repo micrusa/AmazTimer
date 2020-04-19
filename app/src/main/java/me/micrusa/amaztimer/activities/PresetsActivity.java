@@ -133,7 +133,7 @@ public class PresetsActivity extends AppCompatActivity {
     }
 
     private int[] getValues(int i){
-        int[] array = new int[2];
+        int[] array = new int[3];
         if(i == 1){
             array[0] = this.sets1;
             array[1] = this.work1;
