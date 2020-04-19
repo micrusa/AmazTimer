@@ -67,12 +67,6 @@ public class PresetsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_presets);
         this.init();
-        start1.setOnClickListener(startClickListener);
-        start2.setOnClickListener(startClickListener);
-        start3.setOnClickListener(startClickListener);
-        edit1.setOnClickListener(editClickListener);
-        edit2.setOnClickListener(editClickListener);
-        edit3.setOnClickListener(editClickListener);
         loadLang();
         setupValues();
     }
@@ -93,6 +87,12 @@ public class PresetsActivity extends AppCompatActivity {
         edit1 = this.findViewById(R.id.edit1);
         edit2 = this.findViewById(R.id.edit2);
         edit3 = this.findViewById(R.id.edit3);
+        start1.setOnClickListener(startClickListener);
+        start2.setOnClickListener(startClickListener);
+        start3.setOnClickListener(startClickListener);
+        edit1.setOnClickListener(editClickListener);
+        edit2.setOnClickListener(editClickListener);
+        edit3.setOnClickListener(editClickListener);
     }
 
     private void loadLang(){
