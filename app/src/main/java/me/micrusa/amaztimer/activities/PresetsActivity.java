@@ -56,7 +56,7 @@ public class PresetsActivity extends AppCompatActivity {
             }else if(v.getId()==R.id.edit3){
                 id = 3;
             }
-            Intent intent = new Intent(v.getContext(), PresetsActivity.class);
+            Intent intent = new Intent(v.getContext(), EditPresetActivity.class);
             intent.putExtra("ID", id);
             v.getContext().startActivity(intent);
         }
