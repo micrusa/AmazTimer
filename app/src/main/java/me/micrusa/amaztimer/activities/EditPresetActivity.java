@@ -47,9 +47,6 @@ public class EditPresetActivity extends AppCompatActivity {
             case 2:
                 file = new file("preset2", this);
                 break;
-            case 3:
-                file = new file("preset3", this);
-                break;
         }
         final me.micrusa.amaztimer.utils.file finalFile = file;
         plusMinusBtn = new OnClickListener() {
