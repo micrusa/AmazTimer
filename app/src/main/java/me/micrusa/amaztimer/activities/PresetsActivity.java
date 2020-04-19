@@ -67,7 +67,6 @@ public class PresetsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_presets);
         this.init();
-        loadLang();
         setupValues();
     }
 
@@ -93,17 +92,6 @@ public class PresetsActivity extends AppCompatActivity {
         edit1.setOnClickListener(editClickListener);
         edit2.setOnClickListener(editClickListener);
         edit3.setOnClickListener(editClickListener);
-    }
-
-    private void loadLang(){
-        utils.setLang(this, this.settingsFile.get(defValues.sLang, defValues.LangDefault));
-        Resources res = this.getResources();
-        start1.setText(res.getString(R.string.start));
-        start2.setText(res.getString(R.string.start));
-        start3.setText(res.getString(R.string.start));
-        edit1.setText(res.getString(R.string.edit));
-        edit2.setText(res.getString(R.string.edit));
-        edit3.setText(res.getString(R.string.edit));
     }
 
     private void setupValues(){
