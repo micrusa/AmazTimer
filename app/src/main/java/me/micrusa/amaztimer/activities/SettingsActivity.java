@@ -73,11 +73,15 @@ public class SettingsActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             SwitchPreferenceCompat batterySaving = findPreference("batterySaving");
             SwitchPreferenceCompat hrSwitch = findPreference("hrOn");
+            assert batterySaving != null;
             batterySaving.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            assert hrSwitch != null;
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
             ListPreference lang = findPreference("lang");
+            assert lang != null;
             lang.setOnPreferenceChangeListener(onPreferenceChangeListener);
             Preference presets = findPreference("saved");
+            assert presets != null;
             presets.setOnPreferenceClickListener(OnPreferenceClickListener);
         }
     }
