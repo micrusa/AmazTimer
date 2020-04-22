@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,8 @@ import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import clc.sliteplugin.flowboard.AbstractPlugin;
 import clc.sliteplugin.flowboard.ISpringBoardHostStub;
@@ -72,11 +73,11 @@ public class widget extends AbstractPlugin {
         final hrSensor hrSensor = new hrSensor(this.mView.getContext(), hr);
         setTimesTexts();
         //Plus and minus buttons
-        plus.setOnClickListener(new OnClickListener(){
+        plus.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sSets, defValues.defSets) + 1;
-                if(v>defValues.maxSets){
+                if (v > defValues.maxSets) {
                     v = defValues.maxSets;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -84,11 +85,11 @@ public class widget extends AbstractPlugin {
                 sets.setText(String.valueOf(v));
             }
         });
-        minus.setOnClickListener(new OnClickListener(){
+        minus.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sSets, defValues.defSets) - 1;
-                if(v<defValues.minSets){
+                if (v < defValues.minSets) {
                     v = defValues.minSets;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -97,11 +98,11 @@ public class widget extends AbstractPlugin {
             }
         });
         //Work
-        plus2.setOnClickListener(new OnClickListener(){
+        plus2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sWork, defValues.defWorkTime) + 1;
-                if(v>defValues.maxTime){
+                if (v > defValues.maxTime) {
                     v = defValues.maxTime;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -109,11 +110,11 @@ public class widget extends AbstractPlugin {
                 work.setText(utils.formatTime(v));
             }
         });
-        minus2.setOnClickListener(new OnClickListener(){
+        minus2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sWork, defValues.defWorkTime) - 1;
-                if(v<defValues.minTime){
+                if (v < defValues.minTime) {
                     v = defValues.minTime;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -122,11 +123,11 @@ public class widget extends AbstractPlugin {
             }
         });
         //Rest
-        plus3.setOnClickListener(new OnClickListener(){
+        plus3.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sRest, defValues.defRestTime) + 1;
-                if(v>defValues.maxTime){
+                if (v > defValues.maxTime) {
                     v = defValues.maxTime;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -134,11 +135,11 @@ public class widget extends AbstractPlugin {
                 rest.setText(utils.formatTime(v));
             }
         });
-        minus3.setOnClickListener(new OnClickListener(){
+        minus3.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 v = file.get(defValues.sRest, defValues.defRestTime) - 1;
-                if(v<defValues.minTime){
+                if (v < defValues.minTime) {
                     v = defValues.minTime;
                     utils.vibrate(defValues.sVibration, view.getContext());
                 }
@@ -148,7 +149,7 @@ public class widget extends AbstractPlugin {
         });
 
         //Start button
-        start.setOnClickListener(new OnClickListener(){
+        start.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View view) {
                 final file file = new file(defValues.timerFile, view.getContext());
@@ -172,7 +173,8 @@ public class widget extends AbstractPlugin {
 
                     @Override
                     public void onFinish() {
-                        startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.sWork, defValues.defWorkTime), file.get(defValues.sRest, defValues.defRestTime), hrSensor); }
+                        startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.sWork, defValues.defWorkTime), file.get(defValues.sRest, defValues.defRestTime), hrSensor);
+                    }
                 };
                 PrepareTimer.start();
 
@@ -213,35 +215,35 @@ public class widget extends AbstractPlugin {
         return this.mView;
     }
 
-    private void setTimesTexts(){
+    private void setTimesTexts() {
         file file = new file(defValues.timerFile, this.mView.getContext());
         sets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
         work.setText(utils.formatTime(file.get(defValues.sWork, defValues.defWorkTime)));
         rest.setText(utils.formatTime(file.get(defValues.sRest, defValues.defRestTime)));
     }
 
-    private void getSettings(){
+    private void getSettings() {
         file file = new file(defValues.settingsFile, this.mView.getContext());
         this.batterySaving = file.get(defValues.sBatterySaving, defValues.BatterySavingDefault);
         this.hrEnabled = file.get(defValues.sHrSwitch, defValues.HrSwitchDefault);
     }
 
-    private void setHrState(boolean state, hrSensor hrSensor, TextView hr){
-        if(state){
-            if(this.hrEnabled){
+    private void setHrState(boolean state, hrSensor hrSensor, TextView hr) {
+        if (state) {
+            if (this.hrEnabled) {
                 hrSensor.registerListener();
-                if(hr.getVisibility() == View.INVISIBLE){
+                if (hr.getVisibility() == View.INVISIBLE) {
                     hr.setVisibility(View.VISIBLE);
                 }
-            }else if(hr.getVisibility() == View.VISIBLE){
-                    hr.setVisibility(View.INVISIBLE);
+            } else if (hr.getVisibility() == View.VISIBLE) {
+                hr.setVisibility(View.INVISIBLE);
             }
-        }else if(this.hrEnabled){
-                hrSensor.unregisterListener();
+        } else if (this.hrEnabled) {
+            hrSensor.unregisterListener();
         }
     }
 
-    private void init(){
+    private void init() {
         //Buttons
         plus = this.mView.findViewById(R.id.plus);
         plus2 = this.mView.findViewById(R.id.plus2);
@@ -267,7 +269,8 @@ public class widget extends AbstractPlugin {
         L1 = this.mView.findViewById(R.id.startScreen);
         L2 = this.mView.findViewById(R.id.timerScreen);
     }
-    private void reloadTexts(){
+
+    private void reloadTexts() {
         Resources res = this.mView.getContext().getResources();
         this.init();
         start.setText(res.getString(R.string.start));
@@ -278,35 +281,37 @@ public class widget extends AbstractPlugin {
         settingstext.setText(res.getString(R.string.startsettings));
     }
 
-    private void timerUpdate(int v){
+    private void timerUpdate(int v) {
         this.init();
-        if(!this.batterySaving){
+        if (!this.batterySaving) {
             time.setText(utils.formatTime(v));
-        } else if(!time.getText().toString().equals("--:--")){
+        } else if (!time.getText().toString().equals("--:--")) {
             time.setText("--:--");
         }
-        if(v<4){
-            if(v==1){
-                utils.vibrate(defValues.lVibration, this.mView.getContext());}
-            if(v!=1){
-                utils.vibrate(defValues.sVibration, this.mView.getContext());}
+        if (v < 4) {
+            if (v == 1) {
+                utils.vibrate(defValues.lVibration, this.mView.getContext());
+            }
+            if (v != 1) {
+                utils.vibrate(defValues.sVibration, this.mView.getContext());
+            }
         }
     }
 
-    private void stopTimers(){
-        if(this.workStarted){
+    private void stopTimers() {
+        if (this.workStarted) {
             this.workTimer.cancel();
         }
-        if(this.restStarted){
+        if (this.restStarted) {
             this.restTimer.cancel();
         }
     }
 
-    private void startTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
+    private void startTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor) {
         this.init();
         this.workStarted = true;
         this.restStarted = false;
-        if(!this.mHasActive){
+        if (!this.mHasActive) {
             this.workStarted = false;
             return;
         }
@@ -326,11 +331,11 @@ public class widget extends AbstractPlugin {
         this.workTimer.start();
     }
 
-    private void restTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor){
+    private void restTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor) {
         this.init();
         this.workStarted = false;
         this.restStarted = true;
-        if(!this.mHasActive){
+        if (!this.mHasActive) {
             this.restStarted = false;
             return;
         }
@@ -344,10 +349,10 @@ public class widget extends AbstractPlugin {
 
             @Override
             public void onFinish() {
-                if(Integer.parseInt(rSets.getText().toString())!=1){
+                if (Integer.parseInt(rSets.getText().toString()) != 1) {
                     rSets.setText(String.valueOf(Integer.parseInt(rSets.getText().toString()) - 1));
                     startTimer(view, sWork, sRest, work, rest, hrSensor);
-                }else{
+                } else {
                     //Unregister hrSensor listener and make visible initial screen again
                     setHrState(false, hrSensor, hr);
                     L1.setVisibility(View.VISIBLE);
@@ -435,6 +440,7 @@ public class widget extends AbstractPlugin {
         super.onPause();
         this.mHasActive = false;
     }
+
     //Not sure what this does, can't find it being used anywhere. Best leave it alone
     @Override
     public void onReceiveDataFromProvider(int paramInt, Bundle paramBundle) {

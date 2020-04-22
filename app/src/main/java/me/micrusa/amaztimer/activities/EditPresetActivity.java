@@ -1,8 +1,5 @@
 package me.micrusa.amaztimer.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
@@ -19,7 +19,7 @@ import me.micrusa.app.amazwidgets.R;
 public class EditPresetActivity extends AppCompatActivity {
 
     private Button plus, plus2, plus3, minus, minus2, minus3, edit;
-    private TextView sets,rest,work,settingstext,setsText,workText,restText;
+    private TextView sets, rest, work, settingstext, setsText, workText, restText;
     private ConstraintLayout L1, L2;
     private OnClickListener plusMinusBtn;
     private OnClickListener editBtn;
@@ -38,9 +38,9 @@ public class EditPresetActivity extends AppCompatActivity {
         this.startActivity();
     }
 
-    private void createOnClickListeners(final int PresetID){
+    private void createOnClickListeners(final int PresetID) {
         file file = null;
-        switch(PresetID){
+        switch (PresetID) {
             case 1:
                 file = new file("preset1", this);
                 break;
@@ -57,7 +57,7 @@ public class EditPresetActivity extends AppCompatActivity {
                 int sets = finalFile.get(defValues.sSets, defValues.defSets);
                 int work = finalFile.get(defValues.sWork, defValues.defWorkTime);
                 int rest = finalFile.get(defValues.sRest, defValues.defRestTime);
-                switch(v.getId()){
+                switch (v.getId()) {
                     case R.id.plus:
                         sets = sets++;
                         break;
@@ -90,7 +90,7 @@ public class EditPresetActivity extends AppCompatActivity {
         };
     }
 
-    private void setOnClickListeners(){
+    private void setOnClickListeners() {
         plus.setOnClickListener(plusMinusBtn);
         plus2.setOnClickListener(plusMinusBtn);
         plus3.setOnClickListener(plusMinusBtn);
@@ -100,7 +100,7 @@ public class EditPresetActivity extends AppCompatActivity {
         edit.setOnClickListener(editBtn);
     }
 
-    private void init(){
+    private void init() {
         //Buttons
         plus = this.findViewById(R.id.plus);
         plus2 = this.findViewById(R.id.plus2);
@@ -122,7 +122,7 @@ public class EditPresetActivity extends AppCompatActivity {
         L2 = this.findViewById(R.id.timerScreen);
     }
 
-    private void startActivity(){
+    private void startActivity() {
         //Set lang
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         //Make settings text invisible
@@ -135,7 +135,7 @@ public class EditPresetActivity extends AppCompatActivity {
         edit.setText(res.getString(R.string.edit));
     }
 
-    private void setTimeTexts(int intSets, int intWork, int intRest){
+    private void setTimeTexts(int intSets, int intWork, int intRest) {
         sets.setText(String.valueOf(intSets));
         work.setText(utils.formatTime(intWork));
         rest.setText(utils.formatTime(intRest));

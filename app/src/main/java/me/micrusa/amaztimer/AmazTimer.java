@@ -215,7 +215,7 @@ public class AmazTimer extends Activity {
         });
     }
 
-    private void setTimesTexts(){
+    private void setTimesTexts() {
         file file = new file(defValues.timerFile, this);
         sets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
         work.setText(utils.formatTime(file.get(defValues.sWork, defValues.defWorkTime)));

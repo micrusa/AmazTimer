@@ -3,10 +3,10 @@ package me.micrusa.amaztimer.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.Preference.OnPreferenceClickListener;
 import androidx.preference.PreferenceFragmentCompat;
@@ -43,11 +43,11 @@ public class SettingsActivity extends AppCompatActivity {
             file file = new file(defValues.settingsFile, preference.getContext());
             String prefkey = preference.getKey();
             //Log.i("AmazTimer", "Changing '" + prefname + "' preference");
-            if(prefkey.equals("batterySaving")){
+            if (prefkey.equals("batterySaving")) {
                 file.set(defValues.sBatterySaving, (Boolean) newValue);
-            }else if(prefkey.equals("hrOn")){
+            } else if (prefkey.equals("hrOn")) {
                 file.set(defValues.sHrSwitch, (Boolean) newValue);
-            }else if(prefkey.equals("lang")){
+            } else if (prefkey.equals("lang")) {
                 //Log.i("AmazTimer", "New lang is " + newValue.toString());
                 file.set(defValues.sLang, newValue.toString());
             }
@@ -59,7 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public boolean onPreferenceClick(Preference preference) {
             String prefkey = preference.getKey();
-            if(prefkey.equals("saved")){
+            if (prefkey.equals("saved")) {
                 Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
                 preference.getContext().startActivity(intent);
             }

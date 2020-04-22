@@ -16,7 +16,7 @@ public class hrSensor implements SensorEventListener {
     private TextView hrText;
     private me.micrusa.amaztimer.defValues defValues = new defValues();
 
-    public hrSensor(Context c, TextView hr){
+    public hrSensor(Context c, TextView hr) {
         //Setup sensor manager, sensor and textview
         sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
         hrSens = sensorManager.getDefaultSensor(defValues.hrSensor);
@@ -30,7 +30,8 @@ public class hrSensor implements SensorEventListener {
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) { }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
 
     public void registerListener() {
         //Register listener with delay in defValues class

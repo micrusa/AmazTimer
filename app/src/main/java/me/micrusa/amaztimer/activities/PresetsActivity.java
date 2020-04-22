@@ -1,13 +1,13 @@
 package me.micrusa.amaztimer.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
@@ -31,9 +31,9 @@ public class PresetsActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int id = 0;
-            if(v.getId()==R.id.start1){
+            if (v.getId() == R.id.start1) {
                 id = 1;
-            }else if(v.getId()==R.id.start2){
+            } else if (v.getId() == R.id.start2) {
                 id = 2;
             }
             file f = new file(defValues.timerFile, v.getContext());
@@ -47,9 +47,9 @@ public class PresetsActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int id = 0;
-            if(v.getId()==R.id.edit1){
+            if (v.getId() == R.id.edit1) {
                 id = 1;
-            }else if(v.getId()==R.id.edit2){
+            } else if (v.getId() == R.id.edit2) {
                 id = 2;
             }
             Intent intent = new Intent(v.getContext(), EditPresetActivity.class);
@@ -66,7 +66,7 @@ public class PresetsActivity extends AppCompatActivity {
         setupValues();
     }
 
-    private void init(){
+    private void init() {
         //Setup files
         this.file = new file(defValues.timerFile, this);
         this.file1 = new file("preset1", this);
@@ -84,7 +84,7 @@ public class PresetsActivity extends AppCompatActivity {
         edit2.setOnClickListener(editClickListener);
     }
 
-    private void setupValues(){
+    private void setupValues() {
         //Set values
         this.sets1 = file1.get(defValues.sSets, defValues.defSets);
         this.sets2 = file2.get(defValues.sSets, defValues.defSets);
@@ -112,13 +112,13 @@ public class PresetsActivity extends AppCompatActivity {
         preset2.setText(text2);
     }
 
-    private int[] getValues(int i){
+    private int[] getValues(int i) {
         int[] array = new int[3];
-        if(i == 1){
+        if (i == 1) {
             array[0] = this.sets1;
             array[1] = this.work1;
             array[2] = this.rest1;
-        } else if(i == 2){
+        } else if (i == 2) {
             array[0] = this.sets2;
             array[1] = this.work2;
             array[2] = this.rest2;
@@ -126,7 +126,7 @@ public class PresetsActivity extends AppCompatActivity {
         return array;
     }
 
-    private void finishActivity(){
+    private void finishActivity() {
         this.finishAndRemoveTask();
     }
 

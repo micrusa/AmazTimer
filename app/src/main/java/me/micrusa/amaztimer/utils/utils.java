@@ -25,7 +25,7 @@ public class utils {
         return df.format(new Date(seconds * 1000));
     }
 
-    public void setLang(Context context, String lang){
+    public void setLang(Context context, String lang) {
         Locale locale = new Locale(lang);
         Configuration config = new Configuration(context.getResources().getConfiguration());
         Locale.setDefault(locale);
@@ -34,7 +34,7 @@ public class utils {
                 context.getResources().getDisplayMetrics());
     }
 
-    public void pushToFile(file f, int sets, int work, int rest){
+    public void pushToFile(file f, int sets, int work, int rest) {
         f.set(defValues.sSets, sets);
         f.set(defValues.sWork, work);
         f.set(defValues.sRest, rest);
