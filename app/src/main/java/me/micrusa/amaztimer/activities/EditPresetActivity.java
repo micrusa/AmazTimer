@@ -120,6 +120,9 @@ public class EditPresetActivity extends AppCompatActivity {
         //Layouts
         L1 = this.findViewById(R.id.startScreen);
         L2 = this.findViewById(R.id.timerScreen);
+        //Make just start screen visible
+        L1.setVisibility(View.VISIBLE);
+        L2.setVisibility(View.GONE);
     }
 
     private void startActivity() {
