@@ -39,7 +39,7 @@ public class PresetsActivity extends AppCompatActivity {
             file f = new file(defValues.timerFile, v.getContext());
             int[] array = getValues(id);
             utils.pushToFile(f, array[0], array[1], array[2]);
-            finishActivity();
+            finish();
         }
     };
 
