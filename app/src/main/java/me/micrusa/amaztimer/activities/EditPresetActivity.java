@@ -74,8 +74,7 @@ public class EditPresetActivity extends AppCompatActivity {
         editBtn = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PresetsActivity.class);
-                v.getContext().startActivity(intent);
+                finish();
             }
         };
     }
