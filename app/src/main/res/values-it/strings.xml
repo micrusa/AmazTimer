@@ -10,8 +10,8 @@
     <string name="batterysaving">Risparmio batteria</string>
     <string name="lang">Lingua</string>
     <string name="startsettings">Premi a lungo per le impostazioni</string>
-    <string name="hrEnabled">Monitoraggio battiti</string>
-    <string name="edit">Modificare</string>
-    <string name="sets">Sets</string>
-    <string name="saved">Presets</string>
+    <string name="hrEnabled">Rileva battiti</string>
+    <string name="edit">Modifica</string>
+    <string name="sets">Giri</string>
+    <string name="saved">Predefiniti</string>
 </resources>
