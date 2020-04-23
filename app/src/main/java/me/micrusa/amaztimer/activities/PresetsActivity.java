@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import me.micrusa.amaztimer.AmazTimer;
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
@@ -39,8 +40,8 @@ public class PresetsActivity extends AppCompatActivity {
             file f = new file(defValues.timerFile, v.getContext());
             int[] array = getValues(id);
             utils.pushToFile(f, array[0], array[1], array[2]);
-            finishActivity();
-            System.exit(0);
+            Intent intent = new Intent(v.getContext(), AmazTimer.class);
+            v.getContext().startActivity(intent);
         }
     };
 
