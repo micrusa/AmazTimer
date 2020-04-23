@@ -63,22 +63,22 @@ public class EditPresetActivity extends AppCompatActivity {
                 int rest = finalFile.get(defValues.sRest, defValues.defRestTime);
                 switch (v.getId()) {
                     case R.id.plus:
-                        sets = sets++;
+                        sets = sets + 1;
                         break;
                     case R.id.plus2:
-                        work = work++;
+                        work = work + 1;
                         break;
                     case R.id.plus3:
-                        rest = rest++;
+                        rest = rest + 1;
                         break;
                     case R.id.minus:
-                        sets = sets--;
+                        sets = sets - 1;
                         break;
                     case R.id.minus2:
-                        work = work--;
+                        work = work - 1;
                         break;
                     case R.id.minus3:
-                        rest = rest--;
+                        rest = rest - 1;
                         break;
                 }
                 utils.pushToFile(finalFile, sets, work, rest);
