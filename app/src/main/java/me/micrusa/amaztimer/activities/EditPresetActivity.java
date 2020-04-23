@@ -126,7 +126,7 @@ public class EditPresetActivity extends AppCompatActivity {
         restText.setText(res.getString(R.string.rest));
         edit.setText(res.getString(R.string.edit));
         //Set times to values in file
-        file file = new file("preset" + String.valueOf(PresetID), this);
+        file file = new file("preset" + PresetID, this);
         setTimeTexts(file.get(defValues.sSets, defValues.defSets),
                 file.get(defValues.sWork, defValues.defWorkTime),
                 file.get(defValues.sRest, defValues.defRestTime));
