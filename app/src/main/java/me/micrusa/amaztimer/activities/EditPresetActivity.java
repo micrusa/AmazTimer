@@ -43,16 +43,7 @@ public class EditPresetActivity extends AppCompatActivity {
     }
 
     private void createOnClickListeners(final int PresetID) {
-        file file = null;
-        switch (PresetID) {
-            case 1:
-                file = new file("preset1", this);
-                break;
-            case 2:
-                file = new file("preset2", this);
-                break;
-        }
-        final me.micrusa.amaztimer.utils.file finalFile = file;
+        final me.micrusa.amaztimer.utils.file finalFile = new file("preset" + String.valueOf(PresetID), this);
         plusMinusBtn = new OnClickListener() {
             @Override
             public void onClick(View v) {
