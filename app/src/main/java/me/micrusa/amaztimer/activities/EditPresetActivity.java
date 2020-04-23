@@ -39,7 +39,7 @@ public class EditPresetActivity extends AppCompatActivity {
         this.init();
         this.createOnClickListeners(PresetID);
         this.setOnClickListeners();
-        this.startActivity();
+        this.startActivity(PresetID);
     }
 
     private void createOnClickListeners(final int PresetID) {
@@ -129,7 +129,7 @@ public class EditPresetActivity extends AppCompatActivity {
         L2.setVisibility(View.GONE);
     }
 
-    private void startActivity() {
+    private void startActivity(int PresetID) {
         //Set lang
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         //Make settings text invisible
@@ -140,6 +140,11 @@ public class EditPresetActivity extends AppCompatActivity {
         workText.setText(res.getString(R.string.work));
         restText.setText(res.getString(R.string.rest));
         edit.setText(res.getString(R.string.edit));
+        //Set times to values in file
+        file file = new file("preset" + String.valueOf(PresetID), this);
+        setTimeTexts(file.get(defValues.sSets, defValues.defSets),
+                file.get(defValues.sWork, defValues.defWorkTime),
+                file.get(defValues.sRest, defValues.defRestTime));
     }
 
     private void setTimeTexts(int intSets, int intWork, int intRest) {
