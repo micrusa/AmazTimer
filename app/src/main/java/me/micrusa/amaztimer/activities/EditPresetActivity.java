@@ -61,10 +61,10 @@ public class EditPresetActivity extends AppCompatActivity {
                     case R.id.plus3:
                         rest = rest + 1;
                         break;
-                    case R.id.minus:
+                    case R.id.minus2:
                         sets = sets - 1;
                         break;
-                    case R.id.minus2:
+                    case R.id.minus:
                         work = work - 1;
                         break;
                     case R.id.minus3:
