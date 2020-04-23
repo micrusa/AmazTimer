@@ -23,7 +23,7 @@
             <TextView
                 android:id="@+id/preset2"
                 android:layout_width="148dp"
-                android:layout_height="53dp"
+                android:layout_height="33dp"
                 android:text="Sets: -\nTime: 00:00 Rest: 00:00"
                 android:textAlignment="center"
                 android:textDirection="ltr"
@@ -54,7 +54,7 @@
             <TextView
                 android:id="@+id/preset1"
                 android:layout_width="148dp"
-                android:layout_height="53dp"
+                android:layout_height="33dp"
                 android:text="Sets: -\nTime: 00:00 Rest: 00:00"
                 android:textAlignment="center"
                 android:textDirection="ltr"
