@@ -11,6 +11,7 @@ import android.widget.TextView;
 import me.micrusa.amaztimer.defValues;
 
 public class hrSensor implements SensorEventListener {
+    private Context context;
     private SensorManager sensorManager;
     private Sensor hrSens;
     private TextView hrText;
@@ -22,6 +23,7 @@ public class hrSensor implements SensorEventListener {
         sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
         hrSens = sensorManager.getDefaultSensor(defValues.hrSensor);
         this.hrText = hr;
+        this.context = c;
     }
 
     @Override
@@ -36,6 +38,7 @@ public class hrSensor implements SensorEventListener {
     }
 
     public void registerListener() {
+        latestTraining.cleanAllValues(this.context);
         //Register listener with delay in defValues class
         sensorManager.registerListener(this, this.hrSens, defValues.hrSensorDelay);
     }
