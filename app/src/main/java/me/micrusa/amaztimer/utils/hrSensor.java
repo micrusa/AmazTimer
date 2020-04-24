@@ -15,6 +15,7 @@ public class hrSensor implements SensorEventListener {
     private Sensor hrSens;
     private TextView hrText;
     private me.micrusa.amaztimer.defValues defValues = new defValues();
+    private latestTraining latestTraining = new latestTraining();
 
     public hrSensor(Context c, TextView hr) {
         //Setup sensor manager, sensor and textview
@@ -27,6 +28,7 @@ public class hrSensor implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         int v = (int) event.values[0];
         this.hrText.setText(String.valueOf(v));
+        latestTraining.addHrValue(v);
     }
 
     @Override
