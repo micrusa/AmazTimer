@@ -44,6 +44,8 @@ public class latestTraining {
         dataFile.set(defValues.sMaxHr, maxHr);
         dataFile.set(defValues.sAvgHr, avgHr);
         dataFile.set(defValues.sKcal, kcal);
+        //Clean hrArray to avoid merging them when there is another training
+        this.hrArray = null;
     }
 
     public int calculateKcal(int avgHr, int time, int age, int weight, boolean isMale){
