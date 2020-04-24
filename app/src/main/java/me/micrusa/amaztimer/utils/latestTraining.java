@@ -61,6 +61,12 @@ public class latestTraining {
         return (int) kcal;
     }
 
+    public void cleanAllValues(Context context){
+        this.hrArray = null;
+        file dataFile = new file(defValues.latestTrainFile, context);
+        saveToFile(dataFile, defValues.defHrValues, defValues.defHrValues, defValues.defHrValues, defValues.defKcalValues);
+    }
+
     private void saveToFile(file file, int minHr, int maxHr, int avgHr, int kcal){
         file.set(defValues.sMinHr, minHr);
         file.set(defValues.sMaxHr, maxHr);
