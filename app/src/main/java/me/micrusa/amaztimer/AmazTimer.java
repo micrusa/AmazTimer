@@ -196,6 +196,10 @@ public class AmazTimer extends Activity {
         cancel.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                //Return if no timer has started
+                if(!timersStarted()){
+                    return true;
+                }
                 //Display start layout
                 L1.setVisibility(View.VISIBLE);
                 L2.setVisibility(View.GONE);
@@ -241,6 +245,10 @@ public class AmazTimer extends Activity {
         } else if (this.hrEnabled) {
             hrSensor.unregisterListener();
         }
+    }
+
+    private boolean timersStarted(){
+        return this.restStarted || this.workStarted;
     }
 
     private void init() {
