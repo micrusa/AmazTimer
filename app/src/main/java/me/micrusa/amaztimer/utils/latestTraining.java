@@ -40,10 +40,7 @@ public class latestTraining {
         //Calculate kcal count
         int kcal = calculateKcal(avgHr, time, age, weight, isMale);
         //Save everything to file
-        dataFile.set(defValues.sMinHr, minHr);
-        dataFile.set(defValues.sMaxHr, maxHr);
-        dataFile.set(defValues.sAvgHr, avgHr);
-        dataFile.set(defValues.sKcal, kcal);
+        saveToFile(dataFile, minHr, maxHr, avgHr, kcal);
         //Clean hrArray to avoid merging them when there is another training
         this.hrArray = null;
     }
@@ -63,4 +60,12 @@ public class latestTraining {
         kcal = kcal * time;
         return (int) kcal;
     }
+
+    private void saveToFile(file file, int minHr, int maxHr, int avgHr, int kcal){
+        file.set(defValues.sMinHr, minHr);
+        file.set(defValues.sMaxHr, maxHr);
+        file.set(defValues.sAvgHr, avgHr);
+        file.set(defValues.sKcal, kcal);
+    }
+
 }
