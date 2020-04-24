@@ -27,9 +27,16 @@ public class defValues {
     public String LangDefault = "en";
     public boolean BatterySavingDefault = false;
     public boolean HrSwitchDefault = true;
+    public int defWeight = 70;
+    public int defAge = 20;
+    public boolean defMale = true;
+    public int defHrValues = 0;
+    public int defKcalValues = 0;
     //Files name
     public String timerFile = "amaztimer";
     public String settingsFile = "settings";
+    public String latestTrainFile = "latesttrain";
+    public String bodyFile = "bodysettings";
     //Training settings name
     public String sSets = "sets";
     public String sWork = "work";
@@ -37,4 +44,11 @@ public class defValues {
     public String sBatterySaving = "batterySaving";
     public String sHrSwitch = "hrEnabled";
     public String sLang = "lang";
+    public String sWeight = "weight";
+    public String sAge = "age";
+    public String sMale = "gender";
+    public String sAvgHr = "avghr";
+    public String sMinHr = "minhr";
+    public String sMaxHr = "maxhr";
+    public String sKcal = "kcal";
 }
