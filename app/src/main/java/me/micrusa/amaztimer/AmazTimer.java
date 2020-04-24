@@ -228,8 +228,8 @@ public class AmazTimer extends Activity {
 
     private void getSettings() {
         file file = new file(defValues.settingsFile, this);
-        this.batterySaving = file.get(defValues.sBatterySaving, defValues.BatterySavingDefault);
-        this.hrEnabled = file.get(defValues.sHrSwitch, defValues.HrSwitchDefault);
+        this.batterySaving = file.get(defValues.sBatterySaving, defValues.defBatterySaving);
+        this.hrEnabled = file.get(defValues.sHrSwitch, defValues.defHrSwitch);
     }
 
     private void setHrState(boolean state, hrSensor hrSensor, TextView hr) {

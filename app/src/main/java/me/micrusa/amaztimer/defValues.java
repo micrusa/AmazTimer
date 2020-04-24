@@ -25,8 +25,8 @@ public class defValues {
     public int maxTime = 900; //15m
     //Settings
     public String LangDefault = "en";
-    public boolean BatterySavingDefault = false;
-    public boolean HrSwitchDefault = true;
+    public boolean defBatterySaving = false;
+    public boolean defHrSwitch = true;
     public int defWeight = 70;
     public int defAge = 20;
     public boolean defMale = true;
