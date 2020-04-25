@@ -17,6 +17,7 @@ public class hrSensor implements SensorEventListener {
     private TextView hrText;
     private me.micrusa.amaztimer.defValues defValues = new defValues();
     private latestTraining latestTraining = new latestTraining();
+    private long startTime;
 
     public hrSensor(Context c, TextView hr) {
         //Setup sensor manager, sensor and textview
@@ -41,9 +42,13 @@ public class hrSensor implements SensorEventListener {
         latestTraining.cleanAllValues(this.context);
         //Register listener with delay in defValues class
         sensorManager.registerListener(this, this.hrSens, defValues.hrSensorDelay);
+        //Register start time
+        this.startTime = System.currentTimeMillis();
     }
 
     public void unregisterListener() {
         sensorManager.unregisterListener(this, this.hrSens);
+        long endTime = System.currentTimeMillis();
+        int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
     }
 }
