@@ -50,5 +50,6 @@ public class hrSensor implements SensorEventListener {
         sensorManager.unregisterListener(this, this.hrSens);
         long endTime = System.currentTimeMillis();
         int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
+        latestTraining.saveDataToFile(this.context, totalTimeInSeconds);
     }
 }
