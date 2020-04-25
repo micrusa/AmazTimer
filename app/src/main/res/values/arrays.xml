@@ -3,18 +3,27 @@
     <string-array name="spring_depend">
         <item>me.micrusa.amaztimer/me.micrusa.amaztimer.widget</item>
     </string-array>
-    <!-- Reply Preference -->
+    <!-- Languages preference -->
     <string-array name="languages">
         <item>English</item>
         <item>Spanish</item>
         <item>Italian</item>
         <item>Croatian</item>
     </string-array>
-
     <string-array name="langvalues">
         <item>en</item>
         <item>es</item>
         <item>it</item>
         <item>hr</item>
+    </string-array>
+
+    <!-- Gender preference -->
+    <string-array name="gender">
+        <item>@string/male</item>
+        <item>@string/female</item>
+    </string-array>
+    <string-array name="gendervalues">
+        <item>male</item>
+        <item>female</item>
     </string-array>
 </resources>
