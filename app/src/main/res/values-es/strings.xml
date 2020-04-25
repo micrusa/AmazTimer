@@ -21,4 +21,6 @@
     <string name="averagehr">RC medio</string>
     <string name="maxhr">RC max.</string>
     <string name="minhr">RC min.</string>
+    <string name="male">Hombre</string>
+    <string name="female">Mujer</string>
 </resources>

@@ -21,4 +21,6 @@
     <string name="averagehr">Average hr</string>
     <string name="maxhr">Max hr</string>
     <string name="minhr">Min hr</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>
