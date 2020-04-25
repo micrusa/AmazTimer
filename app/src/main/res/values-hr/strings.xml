@@ -14,4 +14,11 @@
     <string name="hrEnabled">Praćenje rada srca</string>
     <string name="saved">Presets</string>
     <string name="edit">Obrada</string>
+    <string name="misc">Misc</string>
+    <string name="weight">Weight</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="averagehr">Average hr</string>
+    <string name="maxhr">Max hr</string>
+    <string name="minhr">Min hr</string>
 </resources>

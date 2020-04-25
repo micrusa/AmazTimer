@@ -14,4 +14,11 @@
     <string name="edit">Editar</string>
     <string name="sets">Sets</string>
     <string name="saved">Guardados</string>
+    <string name="misc">Otros</string>
+    <string name="weight">Peso</string>
+    <string name="age">Edad</string>
+    <string name="gender">Género</string>
+    <string name="averagehr">RC medio</string>
+    <string name="maxhr">RC max.</string>
+    <string name="minhr">RC min.</string>
 </resources>
