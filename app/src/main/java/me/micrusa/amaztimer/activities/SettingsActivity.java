@@ -10,6 +10,7 @@ import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.Preference.OnPreferenceClickListener;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import me.micrusa.amaztimer.defValues;
@@ -41,15 +42,22 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             file file = new file(defValues.settingsFile, preference.getContext());
+            file bodyFile = new file(defValues.bodyFile, preference.getContext());
             String prefkey = preference.getKey();
             //Log.i("AmazTimer", "Changing '" + prefname + "' preference");
-            if (prefkey.equals("batterySaving")) {
+            if(prefkey.equals("batterySaving")) {
                 file.set(defValues.sBatterySaving, (Boolean) newValue);
-            } else if (prefkey.equals("hrOn")) {
+            } else if(prefkey.equals("hrOn")) {
                 file.set(defValues.sHrSwitch, (Boolean) newValue);
-            } else if (prefkey.equals("lang")) {
+            } else if(prefkey.equals("lang")) {
                 //Log.i("AmazTimer", "New lang is " + newValue.toString());
                 file.set(defValues.sLang, newValue.toString());
+            } else if(prefkey.equals("gender")){
+                bodyFile.set(defValues.sMale, (Boolean) newValue);
+            } else if(prefkey.equals("age")){
+                bodyFile.set(defValues.sAge, (int) newValue);
+            } else if(prefkey.equals("weight")){
+                bodyFile.set(defValues.sWeight, (int) newValue);
             }
             return true;
         }
@@ -78,11 +86,20 @@ public class SettingsActivity extends AppCompatActivity {
             assert hrSwitch != null;
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
             ListPreference lang = findPreference("lang");
+            ListPreference gender = findPreference("gender");
             assert lang != null;
             lang.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            assert gender != null;
+            gender.setOnPreferenceChangeListener(onPreferenceChangeListener);
             Preference presets = findPreference("saved");
             assert presets != null;
             presets.setOnPreferenceClickListener(OnPreferenceClickListener);
+            SeekBarPreference ageBar = (SeekBarPreference) findPreference("age");
+            SeekBarPreference weightBar = (SeekBarPreference) findPreference("weight");
+            assert ageBar != null;
+            ageBar.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            assert weightBar != null;
+            weightBar.setOnPreferenceChangeListener(onPreferenceChangeListener);
         }
     }
 }
