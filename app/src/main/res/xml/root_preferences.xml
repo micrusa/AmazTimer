@@ -26,6 +26,27 @@
             app:key="saved"
             app:title="@string/saved" />
 
+        <ListPreference
+            app:key="gender"
+            app:title="@string/gender"
+            app:entries="@array/gender"
+            app:entryValues="@array/gendervalues"
+            app:defaultValue="male" />
+
+        <SeekBarPreference
+            app:key="weight"
+            app:title="@string/weight"
+            app:defaultValue="70"
+            app:max="150"
+            app:min="30" />
+
+        <SeekBarPreference
+            app:key="age"
+            app:title="@string/age"
+            app:defaultValue="20"
+            app:max="100"
+            app:min="10" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
