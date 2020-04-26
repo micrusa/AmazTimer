@@ -39,12 +39,14 @@
             android:defaultValue="70"
             android:key="weight"
             android:max="150"
+            android:summary="70"
             android:title="@string/weight" />
 
         <SeekBarPreference
             android:max="100"
             android:defaultValue="20"
             android:key="age"
+            android:summary="20"
             android:title="@string/age" />
 
     </PreferenceCategory>
