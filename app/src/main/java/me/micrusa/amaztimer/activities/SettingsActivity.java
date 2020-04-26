@@ -44,7 +44,6 @@ public class SettingsActivity extends AppCompatActivity {
             file file = new file(defValues.settingsFile, preference.getContext());
             file bodyFile = new file(defValues.bodyFile, preference.getContext());
             String prefkey = preference.getKey();
-            //Log.i("AmazTimer", "Changing '" + prefname + "' preference");
             switch (prefkey) {
                 case "batterySaving":
                     file.set(defValues.sBatterySaving, (Boolean) newValue);
@@ -53,7 +52,6 @@ public class SettingsActivity extends AppCompatActivity {
                     file.set(defValues.sHrSwitch, (Boolean) newValue);
                     break;
                 case "lang":
-                    //Log.i("AmazTimer", "New lang is " + newValue.toString());
                     file.set(defValues.sLang, newValue.toString());
                     break;
                 case "gender":
