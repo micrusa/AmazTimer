@@ -54,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
                     file.set(defValues.sLang, newValue.toString());
                     break;
                 case "gender":
-                    bodyFile.set(defValues.sMale, (Boolean) newValue);
+                    bodyFile.set(defValues.sMale, Boolean.parseBoolean(newValue.toString()));
                     break;
                 case "age":
                     bodyFile.set(defValues.sAge, (int) newValue);
