@@ -45,19 +45,26 @@ public class SettingsActivity extends AppCompatActivity {
             file bodyFile = new file(defValues.bodyFile, preference.getContext());
             String prefkey = preference.getKey();
             //Log.i("AmazTimer", "Changing '" + prefname + "' preference");
-            if(prefkey.equals("batterySaving")) {
-                file.set(defValues.sBatterySaving, (Boolean) newValue);
-            } else if(prefkey.equals("hrOn")) {
-                file.set(defValues.sHrSwitch, (Boolean) newValue);
-            } else if(prefkey.equals("lang")) {
-                //Log.i("AmazTimer", "New lang is " + newValue.toString());
-                file.set(defValues.sLang, newValue.toString());
-            } else if(prefkey.equals("gender")){
-                bodyFile.set(defValues.sMale, (Boolean) newValue);
-            } else if(prefkey.equals("age")){
-                bodyFile.set(defValues.sAge, (int) newValue);
-            } else if(prefkey.equals("weight")){
-                bodyFile.set(defValues.sWeight, (int) newValue);
+            switch (prefkey) {
+                case "batterySaving":
+                    file.set(defValues.sBatterySaving, (Boolean) newValue);
+                    break;
+                case "hrOn":
+                    file.set(defValues.sHrSwitch, (Boolean) newValue);
+                    break;
+                case "lang":
+                    //Log.i("AmazTimer", "New lang is " + newValue.toString());
+                    file.set(defValues.sLang, newValue.toString());
+                    break;
+                case "gender":
+                    bodyFile.set(defValues.sMale, (Boolean) newValue);
+                    break;
+                case "age":
+                    bodyFile.set(defValues.sAge, (int) newValue);
+                    break;
+                case "weight":
+                    bodyFile.set(defValues.sWeight, (int) newValue);
+                    break;
             }
             return true;
         }
