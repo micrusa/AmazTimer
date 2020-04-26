@@ -87,7 +87,6 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            file bodyFile = new file(defValues.bodyFile, Objects.requireNonNull(this.getContext()));
             SwitchPreferenceCompat batterySaving = findPreference("batterySaving");
             SwitchPreferenceCompat hrSwitch = findPreference("hrOn");
             assert batterySaving != null;
@@ -109,8 +108,6 @@ public class SettingsActivity extends AppCompatActivity {
             ageBar.setOnPreferenceChangeListener(onPreferenceChangeListener);
             assert weightBar != null;
             weightBar.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            ageBar.setSummary(bodyFile.get(defValues.sAge, defValues.defAge));
-            weightBar.setSummary(bodyFile.get(defValues.sWeight, defValues.defWeight));
         }
     }
 }
