@@ -23,4 +23,5 @@
     <string name="minhr">RC min.</string>
     <string name="male">Hombre</string>
     <string name="female">Mujer</string>
+    <string name="latesttrain">Último entrenamiento</string>
 </resources>
