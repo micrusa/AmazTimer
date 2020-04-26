@@ -43,8 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             file file = new file(defValues.settingsFile, preference.getContext());
             file bodyFile = new file(defValues.bodyFile, preference.getContext());
-            String prefkey = preference.getKey();
-            switch (prefkey) {
+            switch (preference.getKey()) {
                 case "batterySaving":
                     file.set(defValues.sBatterySaving, (Boolean) newValue);
                     break;
