@@ -1,8 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="me.micrusa.amaztimer.activities.LatestTrainActivity">
 
+    <TextView
+        android:id="@+id/avghrText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/averagehr"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/latestTrainText" />
+
+    <TextView
+        android:id="@+id/minhrText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/minhr"
+        app:layout_constraintStart_toStartOf="@+id/avghrText"
+        app:layout_constraintTop_toBottomOf="@+id/avghrText" />
+
+    <TextView
+        android:id="@+id/maxhrText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/maxhr"
+        app:layout_constraintStart_toStartOf="@+id/minhrText"
+        app:layout_constraintTop_toBottomOf="@+id/minhrText" />
+
+    <TextView
+        android:id="@+id/kcalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kcal"
+        app:layout_constraintStart_toStartOf="@+id/maxhrText"
+        app:layout_constraintTop_toBottomOf="@+id/maxhrText" />
+
+    <TextView
+        android:id="@+id/latestTrainText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/latesttrain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/avghr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="--"
+        android:textColor="@android:color/holo_green_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/avghrText"
+        app:layout_constraintTop_toTopOf="@+id/avghrText" />
+
+    <TextView
+        android:id="@+id/minhr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="--"
+        android:textColor="@android:color/holo_green_light"
+        app:layout_constraintEnd_toEndOf="@+id/avghr"
+        app:layout_constraintStart_toStartOf="@+id/avghr"
+        app:layout_constraintTop_toBottomOf="@+id/avghr" />
+
+    <TextView
+        android:id="@+id/maxhr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="--"
+        android:textColor="@android:color/holo_green_light"
+        app:layout_constraintEnd_toEndOf="@+id/minhr"
+        app:layout_constraintStart_toStartOf="@+id/minhr"
+        app:layout_constraintTop_toBottomOf="@+id/minhr" />
+
+    <TextView
+        android:id="@+id/kcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="--"
+        android:textColor="@android:color/holo_green_light"
+        app:layout_constraintEnd_toEndOf="@+id/maxhr"
+        app:layout_constraintStart_toStartOf="@+id/maxhr"
+        app:layout_constraintTop_toBottomOf="@+id/maxhr" />
 </androidx.constraintlayout.widget.ConstraintLayout>
