@@ -78,6 +78,9 @@ public class SettingsActivity extends AppCompatActivity {
             if (prefkey.equals("saved")) {
                 Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
                 preference.getContext().startActivity(intent);
+            } else if(prefkey.equals("latesttrain")){
+                Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
+                preference.getContext().startActivity(intent);
             }
             return true;
         }
@@ -100,8 +103,11 @@ public class SettingsActivity extends AppCompatActivity {
             assert gender != null;
             gender.setOnPreferenceChangeListener(onPreferenceChangeListener);
             Preference presets = findPreference("saved");
+            Preference latestTrain = findPreference("latesttrain");
             assert presets != null;
             presets.setOnPreferenceClickListener(OnPreferenceClickListener);
+            assert latestTrain != null;
+            latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
             SeekBarPreference ageBar = (SeekBarPreference) findPreference("age");
             SeekBarPreference weightBar = (SeekBarPreference) findPreference("weight");
             assert ageBar != null;
