@@ -43,7 +43,6 @@ public class EditPresetActivity extends AppCompatActivity {
         plusMinusBtn = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                int Btn;
                 int sets = finalFile.get(defValues.sSets, defValues.defSets);
                 int work = finalFile.get(defValues.sWork, defValues.defWorkTime);
                 int rest = finalFile.get(defValues.sRest, defValues.defRestTime);
