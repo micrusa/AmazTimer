@@ -128,8 +128,4 @@ public class PresetsActivity extends AppCompatActivity {
         return array;
     }
 
-    private void finishActivity() {
-        this.finishAndRemoveTask();
-    }
-
 }
