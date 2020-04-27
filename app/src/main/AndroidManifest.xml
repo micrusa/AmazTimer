@@ -16,7 +16,7 @@
         android:label="AmazTimer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="me.micrusa.amaztimer.activities.LatestTrainActivity"></activity>
+        <activity android:name="me.micrusa.amaztimer.activities.LatestTrainActivity" />
         <activity android:name="me.micrusa.amaztimer.activities.EditPresetActivity" />
 
         <meta-data
