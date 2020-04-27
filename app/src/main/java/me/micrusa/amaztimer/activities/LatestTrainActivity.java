@@ -24,9 +24,11 @@ public class LatestTrainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_latest_train);
         this.init();
         setupLang();
+        setTexts();
     }
 
     private void init(){
+        //Setup all textviews
         avghrText = findViewById(R.id.avghrText);
         maxhrText = findViewById(R.id.maxhrText);
         minhrText = findViewById(R.id.minhrText);
@@ -38,11 +40,21 @@ public class LatestTrainActivity extends AppCompatActivity {
     }
 
     private void setupLang(){
+        //Set language and set all texts again
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         Resources res = this.getResources();
         avghrText.setText(res.getString(R.string.averagehr));
         maxhrText.setText(res.getString(R.string.maxhr));
         minhrText.setText(res.getString(R.string.minhr));
         latestTrainText.setText(res.getString(R.string.latesttrain));
+    }
+
+    private void setTexts(){
+        //Set all values texts
+        file file = new file(defValues.latestTrainFile, this);
+        avghr.setText(file.get(defValues.sAvgHr, defValues.defHrValues));
+        maxhr.setText(file.get(defValues.sMaxHr, defValues.defHrValues));
+        minhr.setText(file.get(defValues.sMinHr, defValues.defHrValues));
+        kcal.setText(file.get(defValues.sKcal, defValues.defHrValues));
     }
 }
