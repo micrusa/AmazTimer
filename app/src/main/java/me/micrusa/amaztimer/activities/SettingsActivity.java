@@ -75,12 +75,17 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public boolean onPreferenceClick(Preference preference) {
             String prefkey = preference.getKey();
-            if (prefkey.equals("saved")) {
-                Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
-                preference.getContext().startActivity(intent);
-            } else if(prefkey.equals("latesttrain")){
-                Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
-                preference.getContext().startActivity(intent);
+            switch (prefkey) {
+                case "saved": {
+                    Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
+                    preference.getContext().startActivity(intent);
+                    break;
+                }
+                case "latesttrain": {
+                    Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
+                    preference.getContext().startActivity(intent);
+                    break;
+                }
             }
             return true;
         }
