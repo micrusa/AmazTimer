@@ -9,9 +9,12 @@ import me.micrusa.amaztimer.defValues;
 public class latestTraining {
     private defValues defValues = new defValues();
 
-    private int[] hrArray = new int[0];
+    private int[] hrArray = null;
 
     public void addHrValue(int value){
+        if(this.hrArray == null){
+            this.hrArray = new int[0];
+        }
         int[] newArray = new int[this.hrArray.length + 1];
         for(int i=0; i<this.hrArray.length; i++){
             newArray[i] = this.hrArray[i];
