@@ -74,8 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
     private static OnPreferenceClickListener OnPreferenceClickListener = new OnPreferenceClickListener() {
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            String prefkey = preference.getKey();
-            switch (prefkey) {
+            switch (preference.getKey()) {
                 case "saved": {
                     Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
                     preference.getContext().startActivity(intent);
