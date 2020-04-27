@@ -33,6 +33,7 @@ public class defValues {
     public int defHrValues = 0;
     public int defKcalValues = 0;
     //Files name
+    //They're in different files bc sometimes they have conflicts if they're all in the same file
     public String timerFile = "amaztimer";
     public String settingsFile = "settings";
     public String latestTrainFile = "latesttrain";
