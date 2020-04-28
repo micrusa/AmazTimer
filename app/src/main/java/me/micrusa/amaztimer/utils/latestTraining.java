@@ -53,8 +53,7 @@ public class latestTraining {
         //Convert time to mins
         time = time / 60;
         double kcal;
-        //Formula from https://muyfitness.com/como-determinar-las-calorias-quemadas-conociendo-el-ritmo-cardiaco_13102596/
-        //It's in spanish
+        //Formula from https://www.calculatorpro.com/calculator/calories-burned-by-heart-rate/
         if(isMale){
             kcal = (-55.0969 + (0.6309 * avgHr) + (0.1988 * weight) + (0.2017 * age)) / 4.184;
         }else{
