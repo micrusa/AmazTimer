@@ -13,6 +13,11 @@
             app:key="hrOn"
             app:title="@string/hrEnabled" />
 
+        <SwitchPreferenceCompat
+            app:key="huamiactivity"
+            app:title="@string/morepreparetime"
+            app:summary="@string/morepreparetimesum"/>
+
         <ListPreference
             app:key="lang"
             app:title="@string/lang"

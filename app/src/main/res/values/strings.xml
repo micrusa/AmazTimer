@@ -23,6 +23,8 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="latesttrain">Latest train</string>
+    <string name="morepreparetime">More time to prepare</string>
+    <string name="morepreparetimesum">If you enable this, prepare timer will last 60 seconds instead of 5, so you\'ll have enough time to start an activity</string>
 
     <!-- Preference Titles -->
 
