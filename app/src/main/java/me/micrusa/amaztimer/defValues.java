@@ -25,6 +25,7 @@ public class defValues {
     public int maxTime = 900; //15m
     //Settings
     public String LangDefault = "en";
+    public Boolean defLongprep = false;
     public boolean defBatterySaving = false;
     public boolean defHrSwitch = true;
     public int defWeight = 70;
@@ -52,4 +53,5 @@ public class defValues {
     public String sMinHr = "minhr";
     public String sMaxHr = "maxhr";
     public String sKcal = "kcal";
+    public String sLongPrepare = "longprep";
 }

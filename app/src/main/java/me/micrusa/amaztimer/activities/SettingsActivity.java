@@ -66,6 +66,9 @@ public class SettingsActivity extends AppCompatActivity {
                     bodyFile.set(defValues.sWeight, (int) newValue);
                     preference.setSummary(newValue.toString() + "Kg");
                     break;
+                case "huamiactivity":
+                    file.set(defValues.sLongPrepare, (Boolean) newValue);
+                    break;
             }
             return true;
         }
@@ -96,10 +99,13 @@ public class SettingsActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             SwitchPreferenceCompat batterySaving = findPreference("batterySaving");
             SwitchPreferenceCompat hrSwitch = findPreference("hrOn");
+            SwitchPreferenceCompat longPrepare = findPreference("huamiactivity");
             assert batterySaving != null;
             batterySaving.setOnPreferenceChangeListener(onPreferenceChangeListener);
             assert hrSwitch != null;
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            assert longPrepare != null;
+            longPrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
             ListPreference lang = findPreference("lang");
             ListPreference gender = findPreference("gender");
             assert lang != null;
