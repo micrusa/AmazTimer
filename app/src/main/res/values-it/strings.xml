@@ -27,6 +27,6 @@
     <string name="morepreparetime">More time to prepare</string>
     <string name="morepreparetimesum">If you enable this, prepare timer will last 60 seconds instead of 5, so you\'ll have enough time to start an activity</string>
     <string name="openbtn">Open with long click</string>
-    <string name="openbtnsum">NEEDS ROOT AND STRATOS: If you click here app will be opened when long pressing button. Resets after rebooting</string>
+    <string name="openbtnsum">NEEDS STRATOS: If you click here app will be opened when long pressing button. Resets after rebooting</string>
     <string name="activitycategory">Register an activity while using timer</string>
 </resources>
