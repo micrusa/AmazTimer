@@ -23,7 +23,6 @@ public class PresetsActivity extends AppCompatActivity {
 
     private TextView preset1, preset2;
     private Button start1, start2, edit1, edit2;
-    private int sets1, sets2, work1, work2, rest1, rest2;
     private String textFormat = "SETS" + ": %s\n"
             + "WORK" + ": %t "
             + "REST" + ": %r";
