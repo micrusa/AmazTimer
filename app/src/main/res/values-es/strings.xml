@@ -26,4 +26,7 @@
     <string name="latesttrain">Último entrenamiento</string>
     <string name="morepreparetime">Más tiempo para prepararse</string>
     <string name="morepreparetimesum">Al activar esto la cuenta atrás de preparación durará más, 60s, de forma que tendrás tiempo para comenzar una actividad</string>
+    <string name="openbtn">Abrir con toque largo</string>
+    <string name="openbtnsum">SOLO ROOT Y STRATOS: Si pulsas aquí, al mantener pulsado el botón se abrirá AmazTimer. Se reinicia al reiniciar</string>
+    <string name="activitycategory">Registrar una actividad mientras se usa la app</string>
 </resources>
