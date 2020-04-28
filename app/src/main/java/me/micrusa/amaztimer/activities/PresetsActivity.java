@@ -33,10 +33,13 @@ public class PresetsActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int id = 0;
-            if (v.getId() == R.id.start1) {
-                id = 1;
-            } else if (v.getId() == R.id.start2) {
-                id = 2;
+            switch (v.getId()) {
+                case R.id.start1:
+                    id = 1;
+                    break;
+                case R.id.start2:
+                    id = 2;
+                    break;
             }
             file f = new file(defValues.timerFile, v.getContext());
             int[] array = getValues(id);
