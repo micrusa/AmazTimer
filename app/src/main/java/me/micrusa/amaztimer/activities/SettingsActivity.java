@@ -64,7 +64,7 @@ public class SettingsActivity extends AppCompatActivity {
                     break;
                 case "weight":
                     bodyFile.set(defValues.sWeight, (int) newValue);
-                    preference.setSummary(newValue.toString());
+                    preference.setSummary(newValue.toString() + "Kg");
                     break;
             }
             return true;
