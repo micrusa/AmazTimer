@@ -2,6 +2,8 @@ package me.micrusa.amaztimer.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -88,6 +90,16 @@ public class SettingsActivity extends AppCompatActivity {
                     preference.getContext().startActivity(intent);
                     break;
                 }
+                case "openwithbtn":
+                    if(me.micrusa.amaztimer.utils.utils.isRooted()){
+                        me.micrusa.amaztimer.utils.utils.getSecureSettingsPerm(preference.getContext());
+                    }
+                    if(!me.micrusa.amaztimer.utils.utils.checkSecureSettingsPerm(preference.getContext())){
+                        Toast.makeText(preference.getContext(), "No permission", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    Settings.Secure.putString(preference.getContext().getContentResolver(), "long_key_settings", "'#Intent;launchFlags=0x10000000;component=me.micrusa.amaztimer/me.micrusa.amaztimer.AmazTimer;end'");
+                    break;
             }
             return true;
         }
@@ -114,10 +126,13 @@ public class SettingsActivity extends AppCompatActivity {
             gender.setOnPreferenceChangeListener(onPreferenceChangeListener);
             Preference presets = findPreference("saved");
             Preference latestTrain = findPreference("latesttrain");
+            Preference openWithBtn = findPreference("openwithbtn");
             assert presets != null;
             presets.setOnPreferenceClickListener(OnPreferenceClickListener);
             assert latestTrain != null;
             latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
+            assert openWithBtn != null;
+            openWithBtn.setOnPreferenceClickListener(OnPreferenceClickListener);
             SeekBarPreference ageBar = (SeekBarPreference) findPreference("age");
             SeekBarPreference weightBar = (SeekBarPreference) findPreference("weight");
             assert ageBar != null;
