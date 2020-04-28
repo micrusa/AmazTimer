@@ -104,17 +104,17 @@ public class PresetsActivity extends AppCompatActivity {
                 .replace("SETS", res.getString(R.string.sets))
                 .replace("WORK", res.getString(R.string.work))
                 .replace("REST", res.getString(R.string.rest))
-                .replace("%s", String.valueOf(this.sets1))
-                .replace("%t", utils.formatTime(this.work1))
-                .replace("%r", utils.formatTime(this.rest1));
+                .replace("%s", String.valueOf(this.firstArray[0]))
+                .replace("%t", utils.formatTime(this.firstArray[1]))
+                .replace("%r", utils.formatTime(this.firstArray[2]));
         preset1.setText(text1);
         String text2 = this.textFormat
                 .replace("SETS", res.getString(R.string.sets))
                 .replace("WORK", res.getString(R.string.work))
                 .replace("REST", res.getString(R.string.rest))
-                .replace("%s", String.valueOf(this.sets2))
-                .replace("%t", utils.formatTime(this.work2))
-                .replace("%r", utils.formatTime(this.rest2));
+                .replace("%s", String.valueOf(this.secondArray[0]))
+                .replace("%t", utils.formatTime(this.secondArray[1]))
+                .replace("%r", utils.formatTime(this.secondArray[2]));
         preset2.setText(text2);
     }
 
