@@ -27,6 +27,8 @@ public class PresetsActivity extends AppCompatActivity {
     private String textFormat = "SETS" + ": %s\n"
             + "WORK" + ": %t "
             + "REST" + ": %r";
+    private int[] firstArray;
+    private int[] secondArray;
 
     private View.OnClickListener startClickListener = new View.OnClickListener() {
         @Override
@@ -64,6 +66,8 @@ public class PresetsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_presets);
+        this.firstArray = new int[3];
+        this.secondArray = new int[3];
         this.init();
         setupValues();
     }
@@ -88,12 +92,12 @@ public class PresetsActivity extends AppCompatActivity {
 
     private void setupValues() {
         //Set values
-        this.sets1 = file1.get(defValues.sSets, defValues.defSets);
-        this.sets2 = file2.get(defValues.sSets, defValues.defSets);
-        this.work1 = file1.get(defValues.sWork, defValues.defWorkTime);
-        this.work2 = file2.get(defValues.sWork, defValues.defWorkTime);
-        this.rest1 = file1.get(defValues.sRest, defValues.defRestTime);
-        this.rest2 = file2.get(defValues.sRest, defValues.defRestTime);
+        this.firstArray[0] = file1.get(defValues.sSets, defValues.defSets);
+        this.secondArray[0] = file2.get(defValues.sSets, defValues.defSets);
+        this.firstArray[1] = file1.get(defValues.sWork, defValues.defWorkTime);
+        this.secondArray[1] = file2.get(defValues.sWork, defValues.defWorkTime);
+        this.firstArray[2] = file1.get(defValues.sRest, defValues.defRestTime);
+        this.secondArray[2] = file2.get(defValues.sRest, defValues.defRestTime);
         //Set texts
         Resources res = this.getResources();
         String text1 = this.textFormat
@@ -115,17 +119,11 @@ public class PresetsActivity extends AppCompatActivity {
     }
 
     private int[] getValues(int i) {
-        int[] array = new int[3];
-        if (i == 1) {
-            array[0] = this.sets1;
-            array[1] = this.work1;
-            array[2] = this.rest1;
-        } else if (i == 2) {
-            array[0] = this.sets2;
-            array[1] = this.work2;
-            array[2] = this.rest2;
+        if(i == 1) {
+            return this.firstArray;
+        } else {
+            return this.secondArray;
         }
-        return array;
     }
 
 }
