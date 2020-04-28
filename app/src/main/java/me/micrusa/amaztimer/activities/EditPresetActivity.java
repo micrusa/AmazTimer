@@ -20,10 +20,8 @@ public class EditPresetActivity extends AppCompatActivity {
 
     private Button plus, plus2, plus3, minus, minus2, minus3, edit;
     private TextView sets, rest, work, settingstext, setsText, workText, restText;
-    private ConstraintLayout L1, L2;
     private OnClickListener plusMinusBtn;
     private OnClickListener editBtn;
-    private file file;
     private me.micrusa.amaztimer.defValues defValues = new defValues();
     private me.micrusa.amaztimer.utils.utils utils = new utils();
 
