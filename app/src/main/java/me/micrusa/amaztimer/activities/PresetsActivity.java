@@ -17,7 +17,7 @@ import me.micrusa.app.amazwidgets.R;
 
 public class PresetsActivity extends AppCompatActivity {
 
-    private file file, file1, file2, settingsFile;
+    private file file1, file2;
     private me.micrusa.amaztimer.defValues defValues = new defValues();
     private me.micrusa.amaztimer.utils.utils utils = new utils();
 
@@ -73,10 +73,8 @@ public class PresetsActivity extends AppCompatActivity {
 
     private void init() {
         //Setup files
-        this.file = new file(defValues.timerFile, this);
         this.file1 = new file("preset1", this);
         this.file2 = new file("preset2", this);
-        this.settingsFile = new file(defValues.settingsFile, this);
         preset1 = this.findViewById(R.id.preset1);
         preset2 = this.findViewById(R.id.preset2);
         start1 = this.findViewById(R.id.start1);
