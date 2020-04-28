@@ -97,7 +97,7 @@ public class PresetsActivity extends AppCompatActivity {
         this.secondArray[2] = file2.get(defValues.sRest, defValues.defRestTime);
         //Set texts
         Resources res = this.getResources();
-        String text1 = this.textFormat
+        String text1 = textFormat
                 .replace("SETS", res.getString(R.string.sets))
                 .replace("WORK", res.getString(R.string.work))
                 .replace("REST", res.getString(R.string.rest))
@@ -105,7 +105,7 @@ public class PresetsActivity extends AppCompatActivity {
                 .replace("%t", utils.formatTime(this.firstArray[1]))
                 .replace("%r", utils.formatTime(this.firstArray[2]));
         preset1.setText(text1);
-        String text2 = this.textFormat
+        String text2 = textFormat
                 .replace("SETS", res.getString(R.string.sets))
                 .replace("WORK", res.getString(R.string.work))
                 .replace("REST", res.getString(R.string.rest))
