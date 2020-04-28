@@ -50,10 +50,13 @@ public class PresetsActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             int id = 0;
-            if (v.getId() == R.id.edit1) {
-                id = 1;
-            } else if (v.getId() == R.id.edit2) {
-                id = 2;
+            switch (v.getId()) {
+                case R.id.edit1:
+                    id = 1;
+                    break;
+                case R.id.edit2:
+                    id = 2;
+                    break;
             }
             Intent intent = new Intent(v.getContext(), EditPresetActivity.class);
             intent.putExtra("ID", id);
