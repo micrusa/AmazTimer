@@ -90,10 +90,10 @@ public class PresetsActivity extends AppCompatActivity {
     private void setupValues() {
         //Set values
         this.firstArray[0] = file1.get(defValues.sSets, defValues.defSets);
-        this.secondArray[0] = file2.get(defValues.sSets, defValues.defSets);
         this.firstArray[1] = file1.get(defValues.sWork, defValues.defWorkTime);
-        this.secondArray[1] = file2.get(defValues.sWork, defValues.defWorkTime);
         this.firstArray[2] = file1.get(defValues.sRest, defValues.defRestTime);
+        this.secondArray[0] = file2.get(defValues.sSets, defValues.defSets);
+        this.secondArray[1] = file2.get(defValues.sWork, defValues.defWorkTime);
         this.secondArray[2] = file2.get(defValues.sRest, defValues.defRestTime);
         //Set texts
         Resources res = this.getResources();
