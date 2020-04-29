@@ -15,6 +15,9 @@ public class defValues {
     //Vibration times
     public int sVibration = 100; //0.1s
     public int lVibration = 500; //0.5s
+    //Preparation times
+    public int sPrepare = 5 * 1000;
+    public int lPrepare = 60 * 1000;
     //Sensor value and sensor delay
     public int hrSensorDelay = SensorManager.SENSOR_DELAY_FASTEST;
     public int hrSensor = Sensor.TYPE_HEART_RATE;

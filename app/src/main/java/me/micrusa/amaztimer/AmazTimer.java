@@ -170,9 +170,9 @@ public class AmazTimer extends Activity {
                 //Check if long prepare time option is enabled or disabled
                 int prepareTime;
                 if(isLongPrepare()){
-                    prepareTime = 60 * 1000;
+                    prepareTime = defValues.lPrepare;
                 }else{
-                    prepareTime = 5 * 1000;
+                    prepareTime = defValues.sPrepare;
                 }
                 final CountDownTimer PrepareTimer = new CountDownTimer(prepareTime, 1000) {
                     @Override
