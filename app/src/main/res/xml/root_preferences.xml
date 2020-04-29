@@ -13,6 +13,11 @@
             app:key="hrOn"
             app:title="@string/hrEnabled" />
 
+        <SwitchPreferenceCompat
+            app:key="huamiactivity"
+            app:title="@string/morepreparetime"
+            app:summary="@string/morepreparetimesum"/>
+
         <ListPreference
             app:key="lang"
             app:title="@string/lang"
@@ -52,24 +57,6 @@
             android:key="age"
             android:summary="20"
             android:title="@string/age" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/activitycategory">
-
-        <SwitchPreferenceCompat
-            app:key="huamiactivity"
-            app:title="@string/morepreparetime"
-            app:summary="@string/morepreparetimesum"/>
-
-        <Preference
-            app:key="openwithbtn"
-            app:title="@string/openbtn"
-            app:summary="@string/openbtnsum"/>
-
-        <!--This is just a placeholder to make space to see other preferences-->
-        <Preference
-            app:key="placeholder"/>
 
     </PreferenceCategory>
 
