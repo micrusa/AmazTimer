@@ -2,6 +2,7 @@ package me.micrusa.amaztimer.utils;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -138,6 +139,7 @@ public class file {
                 return true;
             }
         } catch (JSONException e) {
+            Log.e("File", e.toString());
         }
 
         try {
@@ -157,6 +159,7 @@ public class file {
                 return true;
             }
         } catch (JSONException e) {
+            Log.e("File", e.toString());
         }
 
         try {
@@ -176,6 +179,7 @@ public class file {
                 return true;
             }
         } catch (JSONException e) {
+            Log.e("File", e.toString());
         }
 
         try {
