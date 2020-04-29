@@ -26,4 +26,5 @@
     <string name="latesttrain">Último entrenamiento</string>
     <string name="morepreparetime">Más tiempo para prepararse</string>
     <string name="morepreparetimesum">Al activar esto la cuenta atrás de preparación durará más, 60s, de forma que tendrás tiempo para comenzar una actividad</string>
+    <string name="waitforstart">¡El contador no ha empezado!</string>
 </resources>

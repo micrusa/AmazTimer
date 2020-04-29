@@ -206,6 +206,7 @@ public class AmazTimer extends Activity {
             public boolean onLongClick(View view) {
                 //Return if no timer has started
                 if(!timersStarted()){
+                    Toast.makeText(view.getContext(), view.getResources().getString(R.string.waitforstart), Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 //Display start layout
