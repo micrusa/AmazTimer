@@ -3,6 +3,7 @@
     <string name="start">Iniciar</string>
     <string name="work">Trabajo</string>
     <string name="rest">Descanso</string>
+    <string name="sets">Sets</string>
     <string name="prepare">Preparate!</string>
     <string name="cancel">Cancelar</string>
     <string name="canceltoast">¡Mantén pulsado!</string>
@@ -11,9 +12,8 @@
     <string name="lang">Idioma</string>
     <string name="startsettings">Mantén pulsado iniciar para ajustes</string>
     <string name="hrEnabled">Medir ritmo cardiaco</string>
-    <string name="edit">Editar</string>
-    <string name="sets">Sets</string>
     <string name="saved">Guardados</string>
+    <string name="edit">Editar</string>
     <string name="misc">Otros</string>
     <string name="weight">Peso</string>
     <string name="age">Edad</string>
@@ -26,5 +26,10 @@
     <string name="latesttrain">Último entrenamiento</string>
     <string name="morepreparetime">Más tiempo para prepararse</string>
     <string name="morepreparetimesum">Al activar esto la cuenta atrás de preparación durará más, 60s, de forma que tendrás tiempo para comenzar una actividad</string>
-    <string name="waitforstart">¡El contador no ha empezado!</string>
+    <string name="openbtn">Open with long click</string>
+    <string name="openbtnsum">NEEDS STRATOS: If you click here app will be opened when long pressing button. Resets after rebooting</string>
+    <string name="activitycategory">Register an activity while using timer</string>
+    <!-- Preference Titles -->
+    <!-- Messages Preferences -->
+    <!-- Sync Preferences -->
 </resources>
