@@ -58,11 +58,9 @@ public class SettingsActivity extends AppCompatActivity {
                     break;
                 case "age":
                     bodyFile.set(defValues.sAge, (int) newValue);
-                    preference.setSummary(newValue.toString());
                     break;
                 case "weight":
                     bodyFile.set(defValues.sWeight, (int) newValue);
-                    preference.setSummary(newValue.toString() + "Kg");
                     break;
                 case "huamiactivity":
                     file.set(defValues.sLongPrepare, (Boolean) newValue);
