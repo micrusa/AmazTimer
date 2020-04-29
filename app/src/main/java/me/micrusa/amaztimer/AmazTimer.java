@@ -46,6 +46,7 @@ public class AmazTimer extends Activity {
     //Settings
     private boolean batterySaving;
     private boolean hrEnabled;
+    private boolean longPrepare;
 
 
     //Much like a fragment, getView returns the content view of the page. You can set up your layout here
@@ -166,7 +167,14 @@ public class AmazTimer extends Activity {
                 getSettings();
                 //hrSensor stuff
                 setHrState(true, hrSensor, hr);
-                final CountDownTimer PrepareTimer = new CountDownTimer(5 * 1000, 1000) {
+                //Check if long prepare time option is enabled or disabled
+                int prepareTime;
+                if(isLongPrepare()){
+                    prepareTime = 60 * 1000;
+                }else{
+                    prepareTime = 5 * 1000;
+                }
+                final CountDownTimer PrepareTimer = new CountDownTimer(prepareTime, 1000) {
                     @Override
                     public void onTick(long l) {
                         timerUpdate((int) l / 1000);
@@ -230,6 +238,11 @@ public class AmazTimer extends Activity {
         file file = new file(defValues.settingsFile, this);
         this.batterySaving = file.get(defValues.sBatterySaving, defValues.defBatterySaving);
         this.hrEnabled = file.get(defValues.sHrSwitch, defValues.defHrSwitch);
+        this.longPrepare = file.get(defValues.sLongPrepare, defValues.defLongprep);
+    }
+
+    private boolean isLongPrepare(){
+        return this.longPrepare;
     }
 
     private void setHrState(boolean state, hrSensor hrSensor, TextView hr) {
