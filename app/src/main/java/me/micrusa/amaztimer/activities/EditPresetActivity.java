@@ -1,6 +1,5 @@
 package me.micrusa.amaztimer.activities;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
@@ -62,6 +60,8 @@ public class EditPresetActivity extends AppCompatActivity {
                         break;
                     case R.id.minus3:
                         rest = rest - 1;
+                        break;
+                    default:
                         break;
                 }
                 utils.pushToFile(finalFile, sets, work, rest);

@@ -40,6 +40,8 @@ public class PresetsActivity extends AppCompatActivity {
                 case R.id.start2:
                     id = 2;
                     break;
+                default:
+                    break;
             }
             file f = new file(defValues.timerFile, v.getContext());
             int[] array = getValues(id);
@@ -59,6 +61,8 @@ public class PresetsActivity extends AppCompatActivity {
                     break;
                 case R.id.edit2:
                     id = 2;
+                    break;
+                default:
                     break;
             }
             Intent intent = new Intent(v.getContext(), EditPresetActivity.class);

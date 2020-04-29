@@ -13,8 +13,6 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import java.util.Objects;
-
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
@@ -69,6 +67,8 @@ public class SettingsActivity extends AppCompatActivity {
                 case "huamiactivity":
                     file.set(defValues.sLongPrepare, (Boolean) newValue);
                     break;
+                default:
+                    break;
             }
             return true;
         }
@@ -88,6 +88,8 @@ public class SettingsActivity extends AppCompatActivity {
                     preference.getContext().startActivity(intent);
                     break;
                 }
+                default:
+                    break;
             }
             return true;
         }
