@@ -26,9 +26,7 @@
     <string name="latesttrain">Último entrenamiento</string>
     <string name="morepreparetime">Más tiempo para prepararse</string>
     <string name="morepreparetimesum">Al activar esto la cuenta atrás de preparación durará más, 60s, de forma que tendrás tiempo para comenzar una actividad</string>
-    <string name="openbtn">Open with long click</string>
-    <string name="openbtnsum">NEEDS STRATOS: If you click here app will be opened when long pressing button. Resets after rebooting</string>
-    <string name="activitycategory">Register an activity while using timer</string>
+    <string name="waitforstart">Timer haven\'t started!</string>
     <!-- Preference Titles -->
     <!-- Messages Preferences -->
     <!-- Sync Preferences -->
