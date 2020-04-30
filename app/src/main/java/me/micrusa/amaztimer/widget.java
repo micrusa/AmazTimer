@@ -35,7 +35,6 @@ public class widget extends AbstractPlugin {
     private View mView;
     private boolean mHasActive = false;
     private ISpringBoardHostStub mHost = null;
-    private int v;
     //Define items
     private Button plus, plus2, plus3, minus, minus2, minus3, start, cancel;
     private TextView sets, rest, work, time, hr, rSets, status, settingstext, setsText, workText, restText;
