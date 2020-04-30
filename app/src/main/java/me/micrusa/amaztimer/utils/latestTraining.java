@@ -57,8 +57,6 @@ public class latestTraining {
 
     public int calculateKcal(int avgHr, int time, int age, int weight, boolean isMale){
         if(avgHr==0||time==0||age==0||weight==0){return 0;}
-        //Convert time to mins
-        time = time / 60;
         double kcal;
         //Formula from https://www.calculatorpro.com/calculator/calories-burned-by-heart-rate/
         if(isMale){
@@ -66,8 +64,8 @@ public class latestTraining {
         }else{
             kcal = (-20.4022 + (0.4472 * avgHr) + (0.1263 * weight) + (0.074) * age) / 4.184;
         }
-        kcal = kcal * time;
-        return (int) kcal;
+        //Convert time to mins and then multiply by kcal/min
+        return (int) kcal * (time / 60);
     }
 
     public void cleanAllValues(Context context){
