@@ -10,10 +10,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import me.micrusa.amaztimer.AmazTimer;
+import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
-import me.micrusa.app.amazwidgets.R;
 
 public class PresetsActivity extends AppCompatActivity {
 

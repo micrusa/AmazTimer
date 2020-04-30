@@ -1,15 +1,15 @@
 package me.micrusa.amaztimer.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
-import me.micrusa.app.amazwidgets.R;
 
 public class LatestTrainActivity extends AppCompatActivity {
     private me.micrusa.amaztimer.defValues defValues = new defValues();

@@ -13,10 +13,10 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
-import me.micrusa.app.amazwidgets.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

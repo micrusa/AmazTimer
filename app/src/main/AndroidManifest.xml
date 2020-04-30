@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="me.micrusa.app.amazwidgets">
+    package="me.micrusa.amaztimer">
 
     <uses-sdk tools:overrideLibrary="android.support.wear" />
 
@@ -16,6 +16,7 @@
         android:label="AmazTimer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="me.micrusa.amaztimer.activities.RepsTimerActivity" />
         <activity android:name="me.micrusa.amaztimer.activities.LatestTrainActivity" />
         <activity android:name="me.micrusa.amaztimer.activities.EditPresetActivity" />
 

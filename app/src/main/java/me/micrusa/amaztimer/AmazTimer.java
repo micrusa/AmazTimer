@@ -18,7 +18,6 @@ import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
-import me.micrusa.app.amazwidgets.R;
 
 public class AmazTimer extends Activity {
 
