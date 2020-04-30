@@ -48,6 +48,59 @@ public class AmazTimer extends Activity {
     private boolean hrEnabled;
     private boolean longPrepare;
 
+    private View.OnClickListener plusMinusBtnListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            file file = new file(defValues.timerFile, view.getContext());
+            int sets = file.get(defValues.sSets, defValues.defSets);
+            int workTime = file.get(defValues.sWork, defValues.defWorkTime);
+            int restTime = file.get(defValues.sRest, defValues.defRestTime);
+            switch(view.getId()){
+                case R.id.plus:
+                    sets++;
+                    break;
+                case R.id.plus2:
+                    workTime++;
+                    break;
+                case R.id.plus3:
+                    restTime++;
+                    break;
+                case R.id.minus2:
+                    sets--;
+                    break;
+                case R.id.minus:
+                    workTime--;
+                    break;
+                case R.id.minus3:
+                    restTime--;
+                    break;
+                default:
+                    break;
+            }
+            if(sets > defValues.maxSets) {
+                sets = defValues.maxSets;
+                utils.vibrate(defValues.sVibration, view.getContext());
+            }else if(sets < defValues.minSets){
+                sets = defValues.minSets;
+                utils.vibrate(defValues.sVibration, view.getContext());
+            }else if(workTime > defValues.maxTime){
+                workTime = defValues.maxTime;
+                utils.vibrate(defValues.sVibration, view.getContext());
+            }else if(workTime < defValues.minTime){
+                workTime = defValues.minTime;
+                utils.vibrate(defValues.sVibration, view.getContext());
+            }else if(restTime > defValues.maxTime){
+                restTime = defValues.maxTime;
+                utils.vibrate(defValues.sVibration, view.getContext());
+            }else if(restTime < defValues.minTime){
+                restTime = defValues.minTime;
+                utils.vibrate(defValues.sVibration, view.getContext());
+            }
+            setTexts(sets, workTime, restTime);
+            utils.pushToFile(file, sets, workTime, restTime);
+        }
+    };
+
 
     //Much like a fragment, getView returns the content view of the page. You can set up your layout here
     @Override
@@ -73,83 +126,13 @@ public class AmazTimer extends Activity {
         }
         //Setup hrSensor class
         final hrSensor hrSensor = new hrSensor(this, hr);
-
         //Plus and minus buttons
-        plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                v = file.get(defValues.sSets, defValues.defSets) + 1;
-                if (v > defValues.maxSets) {
-                    v = defValues.maxSets;
-                    utils.vibrate(defValues.sVibration, view.getContext());
-                }
-                file.set(defValues.sSets, v);
-                sets.setText(String.valueOf(v));
-            }
-        });
-        minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                v = file.get(defValues.sSets, defValues.defSets) - 1;
-                if (v < defValues.minSets) {
-                    v = defValues.minSets;
-                    utils.vibrate(defValues.sVibration, view.getContext());
-                }
-                file.set(defValues.sSets, v);
-                sets.setText(String.valueOf(v));
-            }
-        });
-        //Work
-        plus2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                v = file.get(defValues.sWork, defValues.defWorkTime) + 1;
-                if (v > defValues.maxTime) {
-                    v = defValues.maxTime;
-                    utils.vibrate(defValues.sVibration, view.getContext());
-                }
-                file.set(defValues.sWork, v);
-                work.setText(utils.formatTime(v));
-            }
-        });
-        minus2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                v = file.get(defValues.sWork, defValues.defWorkTime) - 1;
-                if (v < defValues.minTime) {
-                    v = defValues.minTime;
-                    utils.vibrate(defValues.sVibration, view.getContext());
-                }
-                file.set(defValues.sWork, v);
-                work.setText(utils.formatTime(v));
-            }
-        });
-        //Rest
-        plus3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                v = file.get(defValues.sRest, defValues.defRestTime) + 1;
-                if (v > defValues.maxTime) {
-                    v = defValues.maxTime;
-                    utils.vibrate(defValues.sVibration, view.getContext());
-                }
-                file.set(defValues.sRest, v);
-                rest.setText(utils.formatTime(v));
-            }
-        });
-        minus3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                v = file.get(defValues.sRest, defValues.defRestTime) - 1;
-                if (v < defValues.minTime) {
-                    v = defValues.minTime;
-                    utils.vibrate(defValues.sVibration, view.getContext());
-                }
-                file.set(defValues.sRest, v);
-                rest.setText(utils.formatTime(v));
-            }
-        });
-
+        plus.setOnClickListener(plusMinusBtnListener);
+        plus2.setOnClickListener(plusMinusBtnListener);
+        plus3.setOnClickListener(plusMinusBtnListener);
+        minus.setOnClickListener(plusMinusBtnListener);
+        minus2.setOnClickListener(plusMinusBtnListener);
+        minus3.setOnClickListener(plusMinusBtnListener);
         //Start button
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,6 +209,12 @@ public class AmazTimer extends Activity {
                 Toast.makeText(view.getContext(), view.getResources().getString(R.string.canceltoast), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setTexts(int iSets, int iWork, int iRest){
+        sets.setText(String.valueOf(iSets));
+        work.setText(utils.formatTime(iWork));
+        rest.setText(utils.formatTime(iRest));
     }
 
     private void setTimesTexts() {
