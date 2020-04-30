@@ -31,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.settings, new SettingsFragment())
                 .commit();
+        //Set language before creating preferences
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

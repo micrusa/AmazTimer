@@ -39,9 +39,11 @@ public class EditPresetActivity extends AppCompatActivity {
         plusMinusBtn = new OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Get values from file
                 int sets = finalFile.get(defValues.sSets, defValues.defSets);
                 int work = finalFile.get(defValues.sWork, defValues.defWorkTime);
                 int rest = finalFile.get(defValues.sRest, defValues.defRestTime);
+                //Increase or decrease values
                 switch (v.getId()) {
                     case R.id.plus:
                         sets = sets + 1;
@@ -64,10 +66,12 @@ public class EditPresetActivity extends AppCompatActivity {
                     default:
                         break;
                 }
+                //Save to file and set texts
                 utils.pushToFile(finalFile, sets, work, rest);
                 setTimeTexts(sets, work, rest);
             }
         };
+        //Edit button finishes activity
         editBtn = new OnClickListener() {
             @Override
             public void onClick(View v) {

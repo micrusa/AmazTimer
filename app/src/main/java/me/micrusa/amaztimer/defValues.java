@@ -3,8 +3,6 @@ package me.micrusa.amaztimer;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
-import java.util.ArrayList;
-
 public class defValues {
     //Format for times
     public String timeFormat = "mm:ss";
@@ -26,7 +24,7 @@ public class defValues {
     public int maxSets = 99;
     public int minTime = 1; //1s
     public int maxTime = 900; //15m
-    //Settings
+    //Default values
     public String LangDefault = "en";
     public Boolean defLongprep = false;
     public boolean defBatterySaving = false;
@@ -42,7 +40,7 @@ public class defValues {
     public String settingsFile = "settings";
     public String latestTrainFile = "latesttrain";
     public String bodyFile = "bodysettings";
-    //Training settings name
+    //Settings names
     public String sSets = "sets";
     public String sWork = "work";
     public String sRest = "rest";

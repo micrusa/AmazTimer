@@ -15,6 +15,7 @@ public class utils {
     private me.micrusa.amaztimer.defValues defValues = new defValues();
 
     public void vibrate(int time, Context Context) {
+        //Get vibrator service and vibrate
         Vibrator v = (Vibrator) Context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         v.vibrate(time);
     }
@@ -35,6 +36,7 @@ public class utils {
     }
 
     public void pushToFile(file f, int sets, int work, int rest) {
+        //Save all values to the given file
         f.set(defValues.sSets, sets);
         f.set(defValues.sWork, work);
         f.set(defValues.sRest, rest);

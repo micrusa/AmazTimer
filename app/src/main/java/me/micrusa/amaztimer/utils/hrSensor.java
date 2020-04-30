@@ -29,8 +29,10 @@ public class hrSensor implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        //Get hr value and save it to text
         int v = (int) event.values[0];
         this.hrText.setText(String.valueOf(v));
+        //Send hr value to latestTraining array
         latestTraining.addHrValue(v);
     }
 
@@ -39,6 +41,7 @@ public class hrSensor implements SensorEventListener {
     }
 
     public void registerListener() {
+        //Clean all values to avoid merging other values
         latestTraining.cleanAllValues(this.context);
         //Register listener with delay in defValues class
         sensorManager.registerListener(this, this.hrSens, defValues.hrSensorDelay);
@@ -47,7 +50,9 @@ public class hrSensor implements SensorEventListener {
     }
 
     public void unregisterListener() {
+        //Unregister listener to avoid battery drain
         sensorManager.unregisterListener(this, this.hrSens);
+        //Save time and send it to latestTraining
         long endTime = System.currentTimeMillis();
         int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
         latestTraining.saveDataToFile(this.context, totalTimeInSeconds);

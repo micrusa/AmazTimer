@@ -12,14 +12,17 @@ public class latestTraining {
     private int[] hrArray = null;
 
     public void addHrValue(int value){
+        //If hrArray is null create it to avoid FC
         if(this.hrArray == null){
             this.hrArray = new int[0];
         }
+        //Copy array to a bigger one
         int[] newArray = new int[this.hrArray.length + 1];
         for(int i=0; i<this.hrArray.length; i++){
             newArray[i] = this.hrArray[i];
         }
         this.hrArray = newArray;
+        //Add new hr value to the array
         this.hrArray[newArray.length - 1] = value;
     }
 
@@ -68,12 +71,14 @@ public class latestTraining {
     }
 
     public void cleanAllValues(Context context){
+        //Clean values and save default values to file, this way it wont conflict with other trainings
         this.hrArray = null;
         file dataFile = new file(defValues.latestTrainFile, context);
         saveToFile(dataFile, defValues.defHrValues, defValues.defHrValues, defValues.defHrValues, defValues.defKcalValues);
     }
 
     private void saveToFile(file file, int minHr, int maxHr, int avgHr, int kcal){
+        //Save data to file
         file.set(defValues.sMinHr, minHr);
         file.set(defValues.sMaxHr, maxHr);
         file.set(defValues.sAvgHr, avgHr);

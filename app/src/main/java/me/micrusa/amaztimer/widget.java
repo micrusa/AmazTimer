@@ -55,13 +55,15 @@ public class widget extends AbstractPlugin {
     private boolean hrEnabled;
     private boolean longPrepare;
 
-    private OnClickListener plusMinusBtnListener = new OnClickListener() {
+    private View.OnClickListener plusMinusBtnListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            //Get values from file
             file file = new file(defValues.timerFile, view.getContext());
             int sets = file.get(defValues.sSets, defValues.defSets);
             int workTime = file.get(defValues.sWork, defValues.defWorkTime);
             int restTime = file.get(defValues.sRest, defValues.defRestTime);
+            //Increase or decrease the value that user clicked
             switch(view.getId()){
                 case R.id.plus:
                     sets++;
@@ -84,6 +86,7 @@ public class widget extends AbstractPlugin {
                 default:
                     break;
             }
+            //If value is over max or under min, set max/min value and vibrate
             if(sets > defValues.maxSets) {
                 sets = defValues.maxSets;
                 utils.vibrate(defValues.sVibration, view.getContext());
@@ -103,6 +106,7 @@ public class widget extends AbstractPlugin {
                 restTime = defValues.minTime;
                 utils.vibrate(defValues.sVibration, view.getContext());
             }
+            //Set texts and save to file
             setTexts(sets, workTime, restTime);
             utils.pushToFile(file, sets, workTime, restTime);
         }

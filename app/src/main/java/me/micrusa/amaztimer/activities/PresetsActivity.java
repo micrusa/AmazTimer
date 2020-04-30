@@ -44,8 +44,11 @@ public class PresetsActivity extends AppCompatActivity {
                     break;
             }
             file f = new file(defValues.timerFile, v.getContext());
+            //Get correct array by the id
             int[] array = getValues(id);
+            //Save values to timer file
             utils.pushToFile(f, array[0], array[1], array[2]);
+            //Open main class
             Intent intent = new Intent(v.getContext(), AmazTimer.class);
             v.getContext().startActivity(intent);
         }
@@ -85,12 +88,14 @@ public class PresetsActivity extends AppCompatActivity {
         //Setup files
         this.file1 = new file("preset1", this);
         this.file2 = new file("preset2", this);
+        //Setup objects
         preset1 = this.findViewById(R.id.preset1);
         preset2 = this.findViewById(R.id.preset2);
         start1 = this.findViewById(R.id.start1);
         start2 = this.findViewById(R.id.start2);
         edit1 = this.findViewById(R.id.edit1);
         edit2 = this.findViewById(R.id.edit2);
+        //Set onClickListeners
         start1.setOnClickListener(startClickListener);
         start2.setOnClickListener(startClickListener);
         edit1.setOnClickListener(editClickListener);
@@ -105,7 +110,7 @@ public class PresetsActivity extends AppCompatActivity {
         this.secondArray[0] = file2.get(defValues.sSets, defValues.defSets);
         this.secondArray[1] = file2.get(defValues.sWork, defValues.defWorkTime);
         this.secondArray[2] = file2.get(defValues.sRest, defValues.defRestTime);
-        //Set texts
+        //Set texts from format
         Resources res = this.getResources();
         String text1 = textFormat
                 .replace("SETS", res.getString(R.string.sets))
