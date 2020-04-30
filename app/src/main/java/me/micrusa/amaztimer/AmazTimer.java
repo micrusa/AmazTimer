@@ -1,7 +1,6 @@
 package me.micrusa.amaztimer;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -22,9 +21,6 @@ import me.micrusa.amaztimer.utils.utils;
 public class AmazTimer extends Activity {
 
     private static final String TAG = "me.micrusa.amaztimer.AmazTimer";
-    // Activity variables
-    private Context mContext;
-    private Activity activity;
     //These get set up later
     private View mView;
     private boolean mHasActive = false;
@@ -110,8 +106,6 @@ public class AmazTimer extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Save Activity variables
-        this.mContext = this;
-        activity = this;
         setContentView(R.layout.amaztimer);
         this.mView = this.findViewById(android.R.id.content);
         final file file = new file(defValues.timerFile, this);
