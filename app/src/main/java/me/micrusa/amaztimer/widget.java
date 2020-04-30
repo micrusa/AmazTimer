@@ -322,10 +322,6 @@ public class widget extends AbstractPlugin {
         this.init();
         this.workStarted = true;
         this.restStarted = false;
-        if (!this.mHasActive) {
-            this.workStarted = false;
-            return;
-        }
         status.setText(sWork);
         L2.setBackgroundColor(view.getResources().getColor(R.color.red));
         this.workTimer = new CountDownTimer(work * 1000, 1000) {
@@ -346,10 +342,6 @@ public class widget extends AbstractPlugin {
         this.init();
         this.workStarted = false;
         this.restStarted = true;
-        if (!this.mHasActive) {
-            this.restStarted = false;
-            return;
-        }
         status.setText(sRest);
         L2.setBackgroundColor(view.getResources().getColor(R.color.green));
         this.restTimer = new CountDownTimer(rest * 1000, 1000) {
