@@ -66,6 +66,9 @@ public class SettingsActivity extends AppCompatActivity {
                 case "huamiactivity":
                     file.set(defValues.sLongPrepare, (Boolean) newValue);
                     break;
+                case "repsmode":
+                    file.set(defValues.sRepsMode, (Boolean) newValue);
+                    break;
                 default:
                     break;
             }

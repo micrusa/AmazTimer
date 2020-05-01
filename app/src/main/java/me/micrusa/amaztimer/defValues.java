@@ -29,6 +29,7 @@ public class defValues {
     public Boolean defLongprep = false;
     public boolean defBatterySaving = false;
     public boolean defHrSwitch = true;
+    public boolean defRepsMode = false;
     public int defWeight = 70;
     public int defAge = 20;
     public boolean defMale = true;
@@ -55,4 +56,5 @@ public class defValues {
     public String sMaxHr = "maxhr";
     public String sKcal = "kcal";
     public String sLongPrepare = "longprep";
+    public String sRepsMode = "repsmode";
 }

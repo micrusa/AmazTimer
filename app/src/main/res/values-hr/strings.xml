@@ -29,4 +29,5 @@
     <string name="waitforstart">Timer haven\'t started!</string>
     <string name="finishset">Finish set</string>
     <string name="reps">Reps</string>
+    <string name="repsmode">Reps mode</string>
 </resources>

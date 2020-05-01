@@ -4,6 +4,10 @@
     <PreferenceCategory app:title="@string/settings">
 
         <SwitchPreferenceCompat
+            app:key="repsmode"
+            app:title="@string/repsmode"/>
+
+        <SwitchPreferenceCompat
             app:key="batterySaving"
             app:title="@string/batterysaving"/>
 
