@@ -334,7 +334,15 @@ public class widget extends AbstractPlugin {
 
             @Override
             public void onFinish() {
-                restTimer(view, sWork, sRest, work, rest, hrSensor);
+                if (Integer.parseInt(rSets.getText().toString()) != 1) {
+                    rSets.setText(String.valueOf(Integer.parseInt(rSets.getText().toString()) - 1));
+                    restTimer(view, sWork, sRest, work, rest, hrSensor);
+                } else {
+                    //Unregister hrSensor listener and make visible initial screen again
+                    setHrState(false, hrSensor, hr);
+                    L1.setVisibility(View.VISIBLE);
+                    L2.setVisibility(View.GONE);
+                }
             }
         };
         this.workTimer.start();
@@ -354,15 +362,7 @@ public class widget extends AbstractPlugin {
 
             @Override
             public void onFinish() {
-                if (Integer.parseInt(rSets.getText().toString()) != 1) {
-                    rSets.setText(String.valueOf(Integer.parseInt(rSets.getText().toString()) - 1));
-                    startTimer(view, sWork, sRest, work, rest, hrSensor);
-                } else {
-                    //Unregister hrSensor listener and make visible initial screen again
-                    setHrState(false, hrSensor, hr);
-                    L1.setVisibility(View.VISIBLE);
-                    L2.setVisibility(View.GONE);
-                }
+                startTimer(view, sWork, sRest, work, rest, hrSensor);
             }
         };
         this.restTimer.start();
