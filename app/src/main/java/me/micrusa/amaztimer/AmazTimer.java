@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import me.micrusa.amaztimer.activities.RepsTimerActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
@@ -135,6 +136,13 @@ public class AmazTimer extends Activity {
             @Override
             public void onClick(final View view) {
                 final file file = new file(defValues.timerFile, view.getContext());
+                final file settingsFile = new file(defValues.settingsFile, view.getContext());
+                if(settingsFile.get(defValues.sRepsMode, defValues.defRepsMode)){
+                    Intent intent = new Intent(view.getContext(), RepsTimerActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    view.getContext().startActivity(intent);
+                    return;
+                }
                 //Set language to setting's language
                 utils.setLang(view.getContext(), new file(defValues.settingsFile, view.getContext()).get(defValues.sLang, defValues.LangDefault));
                 //Move to second layout with timer's stuff and set all texts
