@@ -2,22 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RepsLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.RepsTimerActivity">
 
     <Button
-        android:id="@+id/cancel3"
+        android:id="@+id/RepsEndSet"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:background="@drawable/circle_button"
         android:text="@string/finishset"
-        app:layout_constraintEnd_toEndOf="@+id/status2"
-        app:layout_constraintStart_toStartOf="@+id/status2"
-        app:layout_constraintTop_toBottomOf="@+id/status2" />
+        app:layout_constraintEnd_toEndOf="@+id/RepsStatus"
+        app:layout_constraintStart_toStartOf="@+id/RepsStatus"
+        app:layout_constraintTop_toBottomOf="@+id/RepsStatus" />
 
     <TextView
-        android:id="@+id/time2"
+        android:id="@+id/RepsTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="--:--"
@@ -25,10 +26,10 @@
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heartbeat2" />
+        app:layout_constraintTop_toBottomOf="@+id/RepsHR" />
 
     <TextView
-        android:id="@+id/heartbeat2"
+        android:id="@+id/RepsHR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
@@ -40,10 +41,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/remSets2"
+        android:id="@+id/RepsSets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
+        android:layout_marginStart="80dp"
         android:text="-"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -51,23 +52,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/status2"
+        android:id="@+id/RepsStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="--------------"
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/time2"
-        app:layout_constraintStart_toStartOf="@+id/time2"
-        app:layout_constraintTop_toBottomOf="@+id/time2" />
+        app:layout_constraintEnd_toEndOf="@+id/RepsTimer"
+        app:layout_constraintStart_toStartOf="@+id/RepsTimer"
+        app:layout_constraintTop_toBottomOf="@+id/RepsTimer" />
 
     <Button
-        android:id="@+id/cancel2"
+        android:id="@+id/RepsCancel"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:background="@drawable/circle_button"
         android:text="@android:string/cancel"
-        app:layout_constraintEnd_toEndOf="@+id/cancel3"
-        app:layout_constraintStart_toStartOf="@+id/cancel3"
-        app:layout_constraintTop_toBottomOf="@+id/cancel3" />
+        app:layout_constraintEnd_toEndOf="@+id/RepsEndSet"
+        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintStart_toStartOf="@+id/RepsEndSet"
+        app:layout_constraintTop_toBottomOf="@+id/RepsEndSet" />
 </androidx.constraintlayout.widget.ConstraintLayout>
