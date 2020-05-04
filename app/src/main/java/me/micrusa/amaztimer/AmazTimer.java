@@ -139,7 +139,6 @@ public class AmazTimer extends Activity {
                 final file settingsFile = new file(defValues.settingsFile, view.getContext());
                 if(settingsFile.get(defValues.sRepsMode, defValues.defRepsMode)){
                     Intent intent = new Intent(view.getContext(), RepsTimerActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     view.getContext().startActivity(intent);
                     return;
                 }
