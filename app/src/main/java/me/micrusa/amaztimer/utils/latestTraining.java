@@ -29,8 +29,8 @@ public class latestTraining {
     public void saveDataToFile(Context context, int time){
         file dataFile = new file(defValues.latestTrainFile, context);
         file bodyFile = new file(defValues.bodyFile, context);
-        //Return if hrArray is empty
-        if(this.hrArray.length == 0){
+        //Return if hrArray is null
+        if(this.hrArray == null){
             return;
         }
         //Get min and max heart rate
