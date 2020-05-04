@@ -104,12 +104,15 @@ public class SettingsActivity extends AppCompatActivity {
             SwitchPreferenceCompat batterySaving = findPreference("batterySaving");
             SwitchPreferenceCompat hrSwitch = findPreference("hrOn");
             SwitchPreferenceCompat longPrepare = findPreference("huamiactivity");
+            SwitchPreferenceCompat repsMode = findPreference("repsmode");
             assert batterySaving != null;
             batterySaving.setOnPreferenceChangeListener(onPreferenceChangeListener);
             assert hrSwitch != null;
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
             assert longPrepare != null;
             longPrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            assert repsMode != null;
+            repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             ListPreference lang = findPreference("lang");
             ListPreference gender = findPreference("gender");
             assert lang != null;
