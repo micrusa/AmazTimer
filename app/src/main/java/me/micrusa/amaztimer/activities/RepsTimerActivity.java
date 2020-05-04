@@ -29,14 +29,18 @@ public class RepsTimerActivity extends AppCompatActivity {
     private CountDownTimer restTimer;
 
     private void setTime(long millis){
-        if(millis < 4000){
-            if(millis <1999){
+        //If time < 4s vibrate
+        if(millis <= 3999){
+            //Longer vibration if time < 2s
+            if(millis <= 1999){
                 utils.vibrate(defValues.lVibration, this);
             }else{
                 utils.vibrate(defValues.sVibration, this);
             }
         }
-        if(!file.get(defValues.sBatterySaving, defValues.defBatterySaving)){
+        //If battery saving disabled set time text
+        if(!new file(defValues.settingsFile, this)
+                .get(defValues.sBatterySaving, defValues.defBatterySaving)){
             timer.setText(utils.formatTime((int) millis / 1000));
         }
     }
@@ -47,8 +51,6 @@ public class RepsTimerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reps_timer);
         this.init();
         file = new file(defValues.timerFile, this);
-        //Set language
-        utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
         restTimer = new CountDownTimer((long) file.get(defValues.sRest, defValues.defRestTime) * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -69,12 +71,16 @@ public class RepsTimerActivity extends AppCompatActivity {
     }
 
     private void init(){
+        //Setup objects
+        //Buttons
         endSet = findViewById(R.id.RepsEndSet);
         cancel = findViewById(R.id.RepsCancel);
+        //TextViews
         timer = findViewById(R.id.RepsTimer);
         hr = findViewById(R.id.RepsHR);
         sets = findViewById(R.id.RepsSets);
         status = findViewById(R.id.RepsStatus);
+        //Layout
         layout = findViewById(R.id.RepsLayout);
         //Define hrSensor
         hrSensor = new hrSensor(this, hr);
@@ -106,27 +112,39 @@ public class RepsTimerActivity extends AppCompatActivity {
                 rest();
             }
         });
+        //Set language and set again button texts
+        utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
+        cancel.setText(getResources().getString(R.string.cancel));
+        endSet.setText(getResources().getString(R.string.finishset));
     }
 
     private void work(){
+        //Timer ended so set timerStarted to false
         timerStarted = false;
+        //Set BG color to red
         layout.setBackgroundColor(getResources().getColor(R.color.red));
+        //Change visibilities and status
         endSet.setVisibility(View.VISIBLE);
         status.setText(getResources().getString(R.string.work));
         timer.setVisibility(View.INVISIBLE);
     }
 
     private void rest(){
+        //If 1 set left finish activity and unregister hr listener
         if(Integer.parseInt(sets.getText().toString()) == 1){
             setHrState(false, hrSensor, hr);
             finish();
+            return;
         }
+        //Set BG color to green
         layout.setBackgroundColor(getResources().getColor(R.color.green));
+        //Change visibilities and status
         endSet.setVisibility(View.INVISIBLE);
         timer.setVisibility(View.VISIBLE);
+        status.setText(getResources().getString(R.string.rest));
+        //Timer is gonna start so set timerStarted to true and start timer
         timerStarted = true;
         restTimer.start();
-        status.setText(getResources().getString(R.string.rest));
     }
 
     private void setHrState(boolean state, hrSensor hrSensor, TextView hr) {
