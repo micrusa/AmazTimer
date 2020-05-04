@@ -24,19 +24,9 @@ public class RepsTimerActivity extends AppCompatActivity {
     private boolean timerStarted;
     private me.micrusa.amaztimer.defValues defValues = new defValues();
     private me.micrusa.amaztimer.utils.utils utils = new utils();
-    private me.micrusa.amaztimer.utils.file file = new file(defValues.timerFile, this);
+    private me.micrusa.amaztimer.utils.file file;
     private hrSensor hrSensor;
-    private CountDownTimer restTimer = new CountDownTimer((long) file.get(defValues.sRest, defValues.defRestTime) * 1000, 1000) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-            setTime(millisUntilFinished);
-        }
-
-        @Override
-        public void onFinish() {
-            work();
-        }
-    };
+    private CountDownTimer restTimer;
 
     private void setTime(long millis){
         if(millis < 4000){
@@ -56,8 +46,20 @@ public class RepsTimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reps_timer);
         this.init();
+        file = new file(defValues.timerFile, this);
         //Set language
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
+        restTimer = new CountDownTimer((long) file.get(defValues.sRest, defValues.defRestTime) * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                setTime(millisUntilFinished);
+            }
+
+            @Override
+            public void onFinish() {
+                work();
+            }
+        };
         //Start hr sensor
         setHrState(true, hrSensor, hr);
         work();
