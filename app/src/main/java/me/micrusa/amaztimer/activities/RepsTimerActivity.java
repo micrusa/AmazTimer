@@ -100,6 +100,7 @@ public class RepsTimerActivity extends AppCompatActivity {
         endSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sets.setText(String.valueOf(Integer.parseInt(sets.getText().toString()) - 1));
                 rest();
             }
         });
@@ -109,13 +110,20 @@ public class RepsTimerActivity extends AppCompatActivity {
         timerStarted = false;
         layout.setBackgroundColor(getResources().getColor(R.color.red));
         endSet.setVisibility(View.VISIBLE);
+        status.setText(getResources().getString(R.string.work));
+        timer.setVisibility(View.INVISIBLE);
     }
 
     private void rest(){
+        if(Integer.parseInt(sets.getText().toString()) == 1){
+            finish();
+        }
         layout.setBackgroundColor(getResources().getColor(R.color.green));
         endSet.setVisibility(View.INVISIBLE);
+        timer.setVisibility(View.VISIBLE);
         timerStarted = true;
         restTimer.start();
+        status.setText(getResources().getString(R.string.rest));
     }
 
     private void setHrState(boolean state, hrSensor hrSensor, TextView hr) {
