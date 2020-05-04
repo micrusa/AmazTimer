@@ -148,8 +148,9 @@ public class RepsTimerActivity extends AppCompatActivity {
     }
 
     private void setHrState(boolean state, hrSensor hrSensor, TextView hr) {
+        file settingsFile = new file(defValues.settingsFile, this);
         if (state) {
-            if (file.get(defValues.sHrSwitch, defValues.defHrSwitch)) {
+            if (settingsFile.get(defValues.sHrSwitch, defValues.defHrSwitch)) {
                 hrSensor.registerListener();
                 if (hr.getVisibility() == View.INVISIBLE) {
                     hr.setVisibility(View.VISIBLE);
@@ -157,7 +158,7 @@ public class RepsTimerActivity extends AppCompatActivity {
             } else if (hr.getVisibility() == View.VISIBLE) {
                 hr.setVisibility(View.INVISIBLE);
             }
-        } else if (file.get(defValues.sHrSwitch, defValues.defHrSwitch)) {
+        } else if (settingsFile.get(defValues.sHrSwitch, defValues.defHrSwitch)) {
             hrSensor.unregisterListener();
         }
     }
