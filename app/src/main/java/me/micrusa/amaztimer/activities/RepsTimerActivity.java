@@ -57,9 +57,12 @@ public class RepsTimerActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                sets.setText(String.valueOf(Integer.parseInt(sets.getText().toString()) - 1));
                 work();
             }
         };
+        //Set sets text
+        sets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
         //Start hr sensor
         setHrState(true, hrSensor, hr);
         work();
@@ -67,7 +70,7 @@ public class RepsTimerActivity extends AppCompatActivity {
 
     private void init(){
         endSet = findViewById(R.id.RepsEndSet);
-        cancel = findViewById(R.id.cancel);
+        cancel = findViewById(R.id.RepsCancel);
         timer = findViewById(R.id.RepsTimer);
         hr = findViewById(R.id.RepsHR);
         sets = findViewById(R.id.RepsSets);
@@ -80,11 +83,9 @@ public class RepsTimerActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View view) {
                 //Return if no timer has started
-                if(!timerStarted){
-                    finish();
-                    return true;
+                if(timerStarted){
+                    restTimer.cancel();
                 }
-                restTimer.cancel();
                 //Unregister hr sensor listener to avoid battery drain
                 setHrState(false, hrSensor, hr);
                 //Finish activity
@@ -102,7 +103,6 @@ public class RepsTimerActivity extends AppCompatActivity {
         endSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sets.setText(String.valueOf(Integer.parseInt(sets.getText().toString()) - 1));
                 rest();
             }
         });
@@ -118,6 +118,7 @@ public class RepsTimerActivity extends AppCompatActivity {
 
     private void rest(){
         if(Integer.parseInt(sets.getText().toString()) == 1){
+            setHrState(false, hrSensor, hr);
             finish();
         }
         layout.setBackgroundColor(getResources().getColor(R.color.green));
