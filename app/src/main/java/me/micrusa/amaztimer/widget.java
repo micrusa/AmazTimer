@@ -225,13 +225,21 @@ public class widget extends AbstractPlugin {
         sets.setText(String.valueOf(iSets));
         work.setText(utils.formatTime(iWork));
         rest.setText(utils.formatTime(iRest));
+        //If reps mode is enabled dont show work time
+        if(new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sRepsMode, defValues.defRepsMode)){
+            work.setText(this.mView.getResources().getString(R.string.repsmode));
+        }
     }
 
     private void setTimesTexts() {
         file file = new file(defValues.timerFile, this.mView.getContext());
-        sets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
-        work.setText(utils.formatTime(file.get(defValues.sWork, defValues.defWorkTime)));
-        rest.setText(utils.formatTime(file.get(defValues.sRest, defValues.defRestTime)));
+        setTexts(file.get(defValues.sSets, defValues.defSets),
+                file.get(defValues.sWork, defValues.defWorkTime),
+                file.get(defValues.sRest, defValues.defRestTime));
+        //If reps mode is enabled dont show work time
+        if(new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sRepsMode, defValues.defRepsMode)){
+            work.setText(this.mView.getResources().getString(R.string.repsmode));
+        }
     }
 
     private void getSettings() {
