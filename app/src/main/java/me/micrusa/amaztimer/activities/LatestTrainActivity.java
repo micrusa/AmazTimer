@@ -62,6 +62,9 @@ public class LatestTrainActivity extends AppCompatActivity {
 
     private String hrZonePercentage(int avgHr){
         file bodyFile = new file(defValues.bodyFile, this);
+        if(avgHr == 0 | bodyFile.get(defValues.sAge, defValues.defAge) == 0){
+            return "--";
+        }
         return String.valueOf(avgHr * 100 /
                 (220 - bodyFile.get(defValues.sAge, defValues.defAge)))
                 + "%";
