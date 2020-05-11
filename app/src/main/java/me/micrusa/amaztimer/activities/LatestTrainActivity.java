@@ -15,7 +15,7 @@ public class LatestTrainActivity extends AppCompatActivity {
     private me.micrusa.amaztimer.defValues defValues = new defValues();
     private me.micrusa.amaztimer.utils.utils utils = new utils();
 
-    private TextView avghrText, maxhrText, minhrText, latestTrainText, avghr, minhr, maxhr, kcal;
+    private TextView avghrText, maxhrText, minhrText, latestTrainText, hrzoneText, avghr, minhr, maxhr, kcal, hrzone;
 
 
     @Override
@@ -33,10 +33,12 @@ public class LatestTrainActivity extends AppCompatActivity {
         maxhrText = findViewById(R.id.maxhrText);
         minhrText = findViewById(R.id.minhrText);
         latestTrainText = findViewById(R.id.latestTrainText);
+        hrzoneText = findViewById(R.id.hrzoneText);
         avghr = findViewById(R.id.avghr);
         minhr = findViewById(R.id.minhr);
         maxhr = findViewById(R.id.maxhr);
         kcal = findViewById(R.id.kcal);
+        hrzone = findViewById(R.id.hrzone);
     }
 
     private void setupLang(){
@@ -47,6 +49,7 @@ public class LatestTrainActivity extends AppCompatActivity {
         maxhrText.setText(res.getString(R.string.maxhr));
         minhrText.setText(res.getString(R.string.minhr));
         latestTrainText.setText(res.getString(R.string.latesttrain));
+        hrzoneText.setText(res.getString(R.string.hrzone));
     }
 
     private void setTexts(){
@@ -56,5 +59,13 @@ public class LatestTrainActivity extends AppCompatActivity {
         maxhr.setText(String.valueOf(file.get(defValues.sMaxHr, defValues.defHrValues)));
         minhr.setText(String.valueOf(file.get(defValues.sMinHr, defValues.defHrValues)));
         kcal.setText(String.valueOf(file.get(defValues.sKcal, defValues.defHrValues)));
+        hrzone.setText(hrZonePercentage(file.get(defValues.sAvgHr, defValues.defHrValues)));
+    }
+
+    private String hrZonePercentage(int avgHr){
+        file bodyFile = new file(defValues.bodyFile, this);
+        return String.valueOf(avgHr * 100 /
+                (220 - bodyFile.get(defValues.sAge, defValues.defAge)))
+                + "%";
     }
 }

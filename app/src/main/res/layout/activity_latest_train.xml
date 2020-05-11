@@ -7,6 +7,16 @@
     tools:context="me.micrusa.amaztimer.activities.LatestTrainActivity">
 
     <TextView
+        android:id="@+id/hrzone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="--"
+        android:textColor="@android:color/holo_green_light"
+        app:layout_constraintEnd_toEndOf="@+id/kcal"
+        app:layout_constraintStart_toStartOf="@+id/kcal"
+        app:layout_constraintTop_toBottomOf="@+id/kcal" />
+
+    <TextView
         android:id="@+id/avghrText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,6 +67,7 @@
         android:text="--"
         android:textColor="@android:color/holo_green_light"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.68"
         app:layout_constraintStart_toEndOf="@+id/avghrText"
         app:layout_constraintTop_toTopOf="@+id/avghrText" />
 
@@ -90,4 +101,12 @@
         app:layout_constraintEnd_toEndOf="@+id/maxhr"
         app:layout_constraintStart_toStartOf="@+id/maxhr"
         app:layout_constraintTop_toBottomOf="@+id/maxhr" />
+
+    <TextView
+        android:id="@+id/hrzoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hrzone"
+        app:layout_constraintStart_toStartOf="@+id/kcalText"
+        app:layout_constraintTop_toBottomOf="@+id/kcalText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

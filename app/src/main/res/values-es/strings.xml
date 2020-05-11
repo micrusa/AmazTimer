@@ -30,4 +30,5 @@
     <string name="finishset">Terminar serie</string>
     <string name="reps">Repeticiones</string>
     <string name="repsmode">Modo de repeticiones</string>
+    <string name="hrzone">Zona de RC</string>
 </resources>
