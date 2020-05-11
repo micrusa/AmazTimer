@@ -1,6 +1,5 @@
 package me.micrusa.amaztimer.activities;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -44,12 +43,11 @@ public class LatestTrainActivity extends AppCompatActivity {
     private void setupLang(){
         //Set language and set all texts again
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
-        Resources res = this.getResources();
-        avghrText.setText(res.getString(R.string.averagehr));
-        maxhrText.setText(res.getString(R.string.maxhr));
-        minhrText.setText(res.getString(R.string.minhr));
-        latestTrainText.setText(res.getString(R.string.latesttrain));
-        hrzoneText.setText(res.getString(R.string.hrzone));
+        avghrText.setText(getResources().getString(R.string.averagehr));
+        maxhrText.setText(getResources().getString(R.string.maxhr));
+        minhrText.setText(getResources().getString(R.string.minhr));
+        latestTrainText.setText(getResources().getString(R.string.latesttrain));
+        hrzoneText.setText(getResources().getString(R.string.hrzone));
     }
 
     private void setTexts(){
