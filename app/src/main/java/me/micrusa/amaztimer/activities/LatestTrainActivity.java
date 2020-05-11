@@ -53,6 +53,13 @@ public class LatestTrainActivity extends AppCompatActivity {
     private void setTexts(){
         //Set all values texts
         file file = new file(defValues.latestTrainFile, this);
+        if(file.get(defValues.sAvgHr, defValues.defHrValues) == 0){
+            avghr.setText("--");
+            maxhr.setText("--");
+            minhr.setText("--");
+            kcal.setText("--");
+            hrzone.setText("--");
+        }
         avghr.setText(String.valueOf(file.get(defValues.sAvgHr, defValues.defHrValues)));
         maxhr.setText(String.valueOf(file.get(defValues.sMaxHr, defValues.defHrValues)));
         minhr.setText(String.valueOf(file.get(defValues.sMinHr, defValues.defHrValues)));
