@@ -232,7 +232,7 @@ public class AmazTimer extends Activity {
                 file.get(defValues.sRest, defValues.defRestTime));
         //If reps mode is enabled dont show work time
         if(new file(defValues.settingsFile, this).get(defValues.sRepsMode, defValues.defRepsMode)){
-            work.setText(getResources().getString(R.string.repsmode));
+            work.setText("--");
         }
     }
 

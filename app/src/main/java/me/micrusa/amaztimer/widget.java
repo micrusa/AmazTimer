@@ -227,7 +227,7 @@ public class widget extends AbstractPlugin {
         rest.setText(utils.formatTime(iRest));
         //If reps mode is enabled dont show work time
         if(new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sRepsMode, defValues.defRepsMode)){
-            work.setText(this.mView.getResources().getString(R.string.repsmode));
+            work.setText("--");
         }
     }
 
