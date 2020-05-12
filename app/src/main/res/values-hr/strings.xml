@@ -31,4 +31,9 @@
     <string name="reps">Reps</string>
     <string name="repsmode">Reps mode</string>
     <string name="hrzone">HR zone</string>
+    <string name="appinfo">App info</string>
+    <string name="appcredit">App by @micrusa</string>
+    <string name="translationcredit">Translation by @MASVA</string>
+    <string name="thanksto">Thanks to:</string>
+    <string name="thanksfor">for</string>
 </resources>

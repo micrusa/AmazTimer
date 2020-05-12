@@ -63,6 +63,10 @@
             app:showSeekBarValue="true"
             android:title="@string/age" />
 
+        <Preference
+            android:key="appinfo"
+            android:title="@string/appinfo" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

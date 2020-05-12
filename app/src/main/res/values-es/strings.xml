@@ -31,4 +31,9 @@
     <string name="reps">Repeticiones</string>
     <string name="repsmode">Modo de repeticiones</string>
     <string name="hrzone">Zona de RC</string>
+    <string name="appinfo">Información</string>
+    <string name="translationcredit">Traducción por @micrusa</string>
+    <string name="appcredit">Creado por @micrusa</string>
+    <string name="thanksto">Gracias a:</string>
+    <string name="thanksfor">por</string>
 </resources>

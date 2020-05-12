@@ -90,6 +90,10 @@ public class SettingsActivity extends AppCompatActivity {
                     preference.getContext().startActivity(intent);
                     break;
                 }
+                case "appinfo":
+                    Intent intent = new Intent(preference.getContext(), AppInfo.class);
+                    preference.getContext().startActivity(intent);
+                    break;
                 default:
                     break;
             }
@@ -121,10 +125,13 @@ public class SettingsActivity extends AppCompatActivity {
             gender.setOnPreferenceChangeListener(onPreferenceChangeListener);
             Preference presets = findPreference("saved");
             Preference latestTrain = findPreference("latesttrain");
+            Preference appInfo = findPreference("appinfo");
             assert presets != null;
             presets.setOnPreferenceClickListener(OnPreferenceClickListener);
             assert latestTrain != null;
             latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
+            assert appInfo != null;
+            appInfo.setOnPreferenceClickListener(OnPreferenceClickListener);
             SeekBarPreference ageBar = (SeekBarPreference) findPreference("age");
             SeekBarPreference weightBar = (SeekBarPreference) findPreference("weight");
             assert ageBar != null;

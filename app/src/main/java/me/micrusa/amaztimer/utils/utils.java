@@ -1,6 +1,7 @@
 package me.micrusa.amaztimer.utils;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Vibrator;
 
@@ -40,6 +41,24 @@ public class utils {
         f.set(defValues.sSets, sets);
         f.set(defValues.sWork, work);
         f.set(defValues.sRest, rest);
+    }
+
+    public String getVersionName(Context context) {
+        try {
+            return "v" + context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int getVersionCode(Context context) {
+        try {
+            return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
 }
