@@ -32,7 +32,7 @@ public class PresetsActivity extends AppCompatActivity {
     private View.OnClickListener startClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int[] array;
+            int[] array = null;
             //Get correct array by the id
             switch (v.getId()) {
                 case R.id.start1:
@@ -42,11 +42,11 @@ public class PresetsActivity extends AppCompatActivity {
                     array = getValues(2);
                     break;
                 default:
-                    array = getValues(0);
                     break;
             }
             file f = new file(defValues.timerFile, v.getContext());
             //Save values to timer file
+            assert array != null;
             utils.pushToFile(f, array[0], array[1], array[2]);
             //Open main class
             Intent intent = new Intent(v.getContext(), AmazTimer.class);
