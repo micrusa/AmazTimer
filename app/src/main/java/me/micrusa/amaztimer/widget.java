@@ -118,7 +118,6 @@ public class widget extends AbstractPlugin {
         //Log.d(TAG, "getView()" + paramContext.getPackageName() + " AmazTimer");
         this.mContext = paramContext;
         this.mView = LayoutInflater.from(paramContext).inflate(R.layout.amaztimer, null);
-        final file file = new file(defValues.timerFile, this.mView.getContext());
         //Setup items
         this.init();
         //Set language to setting's language

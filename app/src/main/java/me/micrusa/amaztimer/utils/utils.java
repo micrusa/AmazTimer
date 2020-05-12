@@ -52,13 +52,4 @@ public class utils {
         }
     }
 
-    public int getVersionCode(Context context) {
-        try {
-            return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
 }

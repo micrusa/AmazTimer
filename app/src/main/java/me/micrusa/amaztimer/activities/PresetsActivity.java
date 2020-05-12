@@ -32,20 +32,20 @@ public class PresetsActivity extends AppCompatActivity {
     private View.OnClickListener startClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int id = 0;
+            int[] array;
+            //Get correct array by the id
             switch (v.getId()) {
                 case R.id.start1:
-                    id = 1;
+                    array = getValues(1);
                     break;
                 case R.id.start2:
-                    id = 2;
+                    array = getValues(2);
                     break;
                 default:
+                    array = getValues(0);
                     break;
             }
             file f = new file(defValues.timerFile, v.getContext());
-            //Get correct array by the id
-            int[] array = getValues(id);
             //Save values to timer file
             utils.pushToFile(f, array[0], array[1], array[2]);
             //Open main class
@@ -57,19 +57,17 @@ public class PresetsActivity extends AppCompatActivity {
     private View.OnClickListener editClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int id = 0;
+            Intent intent = new Intent(v.getContext(), EditPresetActivity.class);
             switch (v.getId()) {
                 case R.id.edit1:
-                    id = 1;
+                    intent.putExtra("ID", 1);
                     break;
                 case R.id.edit2:
-                    id = 2;
+                    intent.putExtra("ID", 2);
                     break;
                 default:
                     break;
             }
-            Intent intent = new Intent(v.getContext(), EditPresetActivity.class);
-            intent.putExtra("ID", id);
             v.getContext().startActivity(intent);
         }
     };

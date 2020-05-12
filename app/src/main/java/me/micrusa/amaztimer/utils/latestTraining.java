@@ -6,12 +6,12 @@ import java.util.Arrays;
 
 import me.micrusa.amaztimer.defValues;
 
-public class latestTraining {
+class latestTraining {
     private defValues defValues = new defValues();
 
     private int[] hrArray = null;
 
-    public void addHrValue(int value){
+    void addHrValue(int value){
         //If hrArray is null create it to avoid FC
         if(this.hrArray == null){
             this.hrArray = new int[0];
@@ -26,7 +26,7 @@ public class latestTraining {
         this.hrArray[newArray.length - 1] = value;
     }
 
-    public void saveDataToFile(Context context, int time){
+    void saveDataToFile(Context context, int time){
         file dataFile = new file(defValues.latestTrainFile, context);
         file bodyFile = new file(defValues.bodyFile, context);
         //Return if hrArray is null
@@ -55,7 +55,7 @@ public class latestTraining {
         this.hrArray = null;
     }
 
-    public int calculateKcal(int avgHr, int time, int age, int weight, boolean isMale){
+    private int calculateKcal(int avgHr, int time, int age, int weight, boolean isMale){
         if(avgHr==0||time==0||age==0||weight==0){return 0;}
         double kcal;
         //Formula from https://www.calculatorpro.com/calculator/calories-burned-by-heart-rate/
@@ -68,7 +68,7 @@ public class latestTraining {
         return (int) kcal * (time / 60);
     }
 
-    public void cleanAllValues(Context context){
+    void cleanAllValues(Context context){
         //Clean values and save default values to file, this way it wont conflict with other trainings
         this.hrArray = null;
         file dataFile = new file(defValues.latestTrainFile, context);

@@ -3,7 +3,6 @@ package me.micrusa.amaztimer.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -33,10 +32,6 @@ public class SettingsActivity extends AppCompatActivity {
                 .commit();
         //Set language before creating preferences
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
     }
 
     private static OnPreferenceChangeListener onPreferenceChangeListener = new OnPreferenceChangeListener() {
@@ -102,6 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
     };
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
+        @SuppressWarnings("ConstantConditions")
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
@@ -109,34 +105,23 @@ public class SettingsActivity extends AppCompatActivity {
             SwitchPreferenceCompat hrSwitch = findPreference("hrOn");
             SwitchPreferenceCompat longPrepare = findPreference("huamiactivity");
             SwitchPreferenceCompat repsMode = findPreference("repsmode");
-            assert batterySaving != null;
             batterySaving.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            assert hrSwitch != null;
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            assert longPrepare != null;
             longPrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            assert repsMode != null;
             repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             ListPreference lang = findPreference("lang");
             ListPreference gender = findPreference("gender");
-            assert lang != null;
             lang.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            assert gender != null;
             gender.setOnPreferenceChangeListener(onPreferenceChangeListener);
             Preference presets = findPreference("saved");
             Preference latestTrain = findPreference("latesttrain");
             Preference appInfo = findPreference("appinfo");
-            assert presets != null;
             presets.setOnPreferenceClickListener(OnPreferenceClickListener);
-            assert latestTrain != null;
             latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
-            assert appInfo != null;
             appInfo.setOnPreferenceClickListener(OnPreferenceClickListener);
-            SeekBarPreference ageBar = (SeekBarPreference) findPreference("age");
-            SeekBarPreference weightBar = (SeekBarPreference) findPreference("weight");
-            assert ageBar != null;
+            SeekBarPreference ageBar = findPreference("age");
+            SeekBarPreference weightBar = findPreference("weight");
             ageBar.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            assert weightBar != null;
             weightBar.setOnPreferenceChangeListener(onPreferenceChangeListener);
         }
     }

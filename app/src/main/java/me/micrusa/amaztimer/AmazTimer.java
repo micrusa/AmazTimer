@@ -21,7 +21,6 @@ import me.micrusa.amaztimer.utils.utils;
 
 public class AmazTimer extends Activity {
 
-    private static final String TAG = "me.micrusa.amaztimer.AmazTimer";
     //These get set up later
     private View mView;
     private boolean mHasActive = false;
