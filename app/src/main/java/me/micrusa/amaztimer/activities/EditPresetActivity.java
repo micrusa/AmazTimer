@@ -28,6 +28,10 @@ public class EditPresetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.amaztimer);
         final int PresetID = getIntent().getIntExtra("ID", 0);
+        //Finish activity if received wrong ID (<=0 or >=3)
+        if(PresetID <= 0 | PresetID >= 3){
+            finish();
+        }
         this.init();
         this.createOnClickListeners(PresetID);
         this.setOnClickListeners();
