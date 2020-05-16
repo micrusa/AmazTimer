@@ -18,6 +18,7 @@ public class utils {
     public void vibrate(int time, Context Context) {
         //Get vibrator service and vibrate
         Vibrator v = (Vibrator) Context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
+        assert v != null;
         v.vibrate(time);
     }
 

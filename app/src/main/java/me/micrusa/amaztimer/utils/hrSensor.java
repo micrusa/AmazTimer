@@ -23,6 +23,7 @@ public class hrSensor implements SensorEventListener {
     public hrSensor(Context c, TextView hr) {
         //Setup sensor manager, sensor and textview
         this.sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
+        assert sensorManager != null;
         this.hrSens = sensorManager.getDefaultSensor(defValues.hrSensor);
         this.hrText = hr;
         this.context = c;
