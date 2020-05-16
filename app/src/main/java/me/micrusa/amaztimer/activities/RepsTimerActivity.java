@@ -16,14 +16,15 @@ import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class RepsTimerActivity extends AppCompatActivity {
 
     private Button endSet, cancel;
     private TextView timer, hr, sets, status;
     private ConstraintLayout layout;
     private boolean timerStarted;
-    private me.micrusa.amaztimer.defValues defValues = new defValues();
-    private me.micrusa.amaztimer.utils.utils utils = new utils();
+    private final me.micrusa.amaztimer.defValues defValues = new defValues();
+    private final me.micrusa.amaztimer.utils.utils utils = new utils();
     private me.micrusa.amaztimer.utils.file file;
     private hrSensor hrSensor;
     private CountDownTimer restTimer;

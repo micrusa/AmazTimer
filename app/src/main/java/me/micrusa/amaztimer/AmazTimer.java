@@ -24,7 +24,6 @@ public class AmazTimer extends Activity {
     //These get set up later
     private View mView;
     private boolean mHasActive = false;
-    private int v;
     //Define items
     private Button plus, plus2, plus3, minus, minus2, minus3, start, cancel;
     private TextView sets, rest, work, time, hr, rSets, status, settingstext, setsText, workText, restText;
@@ -35,15 +34,15 @@ public class AmazTimer extends Activity {
     private boolean workStarted = false;
     private boolean restStarted = false;
     //Classes
-    private me.micrusa.amaztimer.utils.utils utils = new utils();
+    private final me.micrusa.amaztimer.utils.utils utils = new utils();
     //Default values
-    private me.micrusa.amaztimer.defValues defValues = new defValues();
+    private final me.micrusa.amaztimer.defValues defValues = new defValues();
     //Settings
     private boolean batterySaving;
     private boolean hrEnabled;
     private boolean longPrepare;
 
-    private View.OnClickListener plusMinusBtnListener = new View.OnClickListener() {
+    private final View.OnClickListener plusMinusBtnListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             //Get values from file
@@ -108,7 +107,6 @@ public class AmazTimer extends Activity {
         // Save Activity variables
         setContentView(R.layout.amaztimer);
         this.mView = this.findViewById(android.R.id.content);
-        final file file = new file(defValues.timerFile, this);
         //Setup items
         this.init();
         //Set language to setting's language

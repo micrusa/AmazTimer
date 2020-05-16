@@ -19,8 +19,8 @@ import me.micrusa.amaztimer.utils.utils;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private static me.micrusa.amaztimer.defValues defValues = new defValues();
-    private me.micrusa.amaztimer.utils.utils utils = new utils();
+    private static final me.micrusa.amaztimer.defValues defValues = new defValues();
+    private final me.micrusa.amaztimer.utils.utils utils = new utils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
         utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
     }
 
-    private static OnPreferenceChangeListener onPreferenceChangeListener = new OnPreferenceChangeListener() {
+    private static final OnPreferenceChangeListener onPreferenceChangeListener = new OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             file file = new file(defValues.settingsFile, preference.getContext());
@@ -71,7 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     };
 
-    private static OnPreferenceClickListener OnPreferenceClickListener = new OnPreferenceClickListener() {
+    private static final OnPreferenceClickListener OnPreferenceClickListener = new OnPreferenceClickListener() {
         @Override
         public boolean onPreferenceClick(Preference preference) {
             switch (preference.getKey()) {
@@ -96,6 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     };
 
+    @SuppressWarnings("WeakerAccess")
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @SuppressWarnings("ConstantConditions")
         @Override

@@ -13,7 +13,7 @@ import me.micrusa.amaztimer.defValues;
 
 public class utils {
 
-    private me.micrusa.amaztimer.defValues defValues = new defValues();
+    private final me.micrusa.amaztimer.defValues defValues = new defValues();
 
     public void vibrate(int time, Context Context) {
         //Get vibrator service and vibrate

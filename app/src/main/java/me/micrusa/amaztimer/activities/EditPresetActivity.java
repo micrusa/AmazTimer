@@ -20,8 +20,8 @@ public class EditPresetActivity extends AppCompatActivity {
     private TextView sets, rest, work, settingstext, setsText, workText, restText;
     private OnClickListener plusMinusBtn;
     private OnClickListener editBtn;
-    private me.micrusa.amaztimer.defValues defValues = new defValues();
-    private me.micrusa.amaztimer.utils.utils utils = new utils();
+    private final me.micrusa.amaztimer.defValues defValues = new defValues();
+    private final me.micrusa.amaztimer.utils.utils utils = new utils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,13 +13,8 @@ import me.micrusa.amaztimer.utils.utils;
 
 public class AppInfo extends AppCompatActivity {
 
-    private me.micrusa.amaztimer.utils.utils utils = new utils();
-    private me.micrusa.amaztimer.defValues defValues = new defValues();
-
-    private TextView appText, appCredits, translationCredits, thanksto;
-
-    private String NEWLINE = "\n";
-    private String SPACE = " ";
+    private final me.micrusa.amaztimer.utils.utils utils = new utils();
+    private final me.micrusa.amaztimer.defValues defValues = new defValues();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +27,13 @@ public class AppInfo extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void init(){
         //TextViews
-        appText = findViewById(R.id.amaztimer);
-        appCredits = findViewById(R.id.appcredit);
-        translationCredits = findViewById(R.id.translationcredit);
-        thanksto = findViewById(R.id.thanksto);
+        TextView appText = findViewById(R.id.amaztimer);
+        TextView appCredits = findViewById(R.id.appcredit);
+        TextView translationCredits = findViewById(R.id.translationcredit);
+        TextView thanksto = findViewById(R.id.thanksto);
+        //Define SPACE and NEWLINE
+        String SPACE = " ";
+        String NEWLINE = "\n";
         //Set texts
         appText.setText(appText.getText()
                 + SPACE + utils.getVersionName(this));

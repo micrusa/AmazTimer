@@ -7,7 +7,7 @@ import java.util.Arrays;
 import me.micrusa.amaztimer.defValues;
 
 class latestTraining {
-    private defValues defValues = new defValues();
+    private final defValues defValues = new defValues();
 
     private int[] hrArray = null;
 
@@ -18,9 +18,7 @@ class latestTraining {
         }
         //Copy array to a bigger one
         int[] newArray = new int[this.hrArray.length + 1];
-        for(int i=0; i<this.hrArray.length; i++){
-            newArray[i] = this.hrArray[i];
-        }
+        System.arraycopy(this.hrArray, 0, newArray, 0, this.hrArray.length);
         this.hrArray = newArray;
         //Add new hr value to the array
         this.hrArray[newArray.length - 1] = value;

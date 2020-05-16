@@ -1,6 +1,7 @@
 package me.micrusa.amaztimer;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -27,6 +28,7 @@ import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
 
+@SuppressWarnings("WeakerAccess")
 public class widget extends AbstractPlugin {
 
     private static final String TAG = "AmazTimer";
@@ -46,15 +48,15 @@ public class widget extends AbstractPlugin {
     private boolean workStarted = false;
     private boolean restStarted = false;
     //Classes
-    private me.micrusa.amaztimer.utils.utils utils = new utils();
+    private final me.micrusa.amaztimer.utils.utils utils = new utils();
     //Default values
-    private defValues defValues = new defValues();
+    private final defValues defValues = new defValues();
     //Settings
     private boolean batterySaving;
     private boolean hrEnabled;
     private boolean longPrepare;
 
-    private View.OnClickListener plusMinusBtnListener = new View.OnClickListener() {
+    private final View.OnClickListener plusMinusBtnListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             //Get values from file
@@ -112,6 +114,7 @@ public class widget extends AbstractPlugin {
     };
 
     //Much like a fragment, getView returns the content view of the page. You can set up your layout here
+    @SuppressLint("InflateParams")
     @Override
     public View getView(final Context paramContext) {
         //Setup view
@@ -428,6 +431,7 @@ public class widget extends AbstractPlugin {
     }
 
     //Returns the springboard host
+    @SuppressWarnings("unused")
     public ISpringBoardHostStub getHost() {
         return this.mHost;
     }
@@ -438,12 +442,6 @@ public class widget extends AbstractPlugin {
         Log.d(TAG, "onBindHost");
         //Store host
         this.mHost = paramISpringBoardHostStub;
-    }
-
-    //Called when the page is destroyed completely (in app mode). Same as the onDestroy method of an activity
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     //Called when the page becomes inactive (the user has scrolled away)

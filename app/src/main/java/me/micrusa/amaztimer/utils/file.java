@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "UnusedReturnValue", "unused"})
 public class file {
     // Settings file name
     private File save_directory;

@@ -10,13 +10,14 @@ import android.widget.TextView;
 
 import me.micrusa.amaztimer.defValues;
 
+@SuppressWarnings("CanBeFinal")
 public class hrSensor implements SensorEventListener {
     private Context context;
     private SensorManager sensorManager;
     private Sensor hrSens;
     private TextView hrText;
-    private me.micrusa.amaztimer.defValues defValues = new defValues();
-    private latestTraining latestTraining = new latestTraining();
+    private final me.micrusa.amaztimer.defValues defValues = new defValues();
+    private final latestTraining latestTraining = new latestTraining();
     private long startTime;
 
     public hrSensor(Context c, TextView hr) {

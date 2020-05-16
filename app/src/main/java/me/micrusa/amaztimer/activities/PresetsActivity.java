@@ -15,21 +15,22 @@ import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class PresetsActivity extends AppCompatActivity {
 
     private file file1, file2;
-    private me.micrusa.amaztimer.defValues defValues = new defValues();
-    private me.micrusa.amaztimer.utils.utils utils = new utils();
+    private final me.micrusa.amaztimer.defValues defValues = new defValues();
+    private final me.micrusa.amaztimer.utils.utils utils = new utils();
 
     private TextView preset1, preset2;
     private Button start1, start2, edit1, edit2;
-    private String textFormat = "SETS" + ": %s\n"
+    private final String textFormat = "SETS" + ": %s\n"
             + "WORK" + ": %t "
             + "REST" + ": %r";
     private int[] firstArray;
     private int[] secondArray;
 
-    private View.OnClickListener startClickListener = new View.OnClickListener() {
+    private final View.OnClickListener startClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             int[] array = null;
@@ -54,7 +55,7 @@ public class PresetsActivity extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener editClickListener = new View.OnClickListener() {
+    private final View.OnClickListener editClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(v.getContext(), EditPresetActivity.class);
