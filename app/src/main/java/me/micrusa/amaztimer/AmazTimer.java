@@ -214,11 +214,12 @@ public class AmazTimer extends Activity {
 
     private void setTexts(int iSets, int iWork, int iRest){
         sets.setText(String.valueOf(iSets));
-        work.setText(utils.formatTime(iWork));
         rest.setText(utils.formatTime(iRest));
-        //If reps mode is enabled dont show work time
+        //If reps mode is enabled dont show work time, else set work text
         if(new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sRepsMode, defValues.defRepsMode)){
             work.setText(this.mView.getResources().getString(R.string.nullinfo));
+        } else {
+            work.setText(utils.formatTime(iWork));
         }
     }
 
