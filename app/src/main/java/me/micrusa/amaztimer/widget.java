@@ -229,7 +229,7 @@ public class widget extends AbstractPlugin {
         rest.setText(utils.formatTime(iRest));
         //If reps mode is enabled dont show work time
         if(new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sRepsMode, defValues.defRepsMode)){
-            work.setText("--");
+            work.setText(this.mView.getResources().getString(R.string.nullinfo));
         }
     }
 
@@ -240,7 +240,7 @@ public class widget extends AbstractPlugin {
                 file.get(defValues.sRest, defValues.defRestTime));
         //If reps mode is enabled dont show work time
         if(new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sRepsMode, defValues.defRepsMode)){
-            work.setText(this.mView.getResources().getString(R.string.repsmode));
+            work.setText(this.mView.getResources().getString(R.string.nullinfo));
         }
     }
 
