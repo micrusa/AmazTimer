@@ -45,9 +45,10 @@ public class PresetsActivity extends AppCompatActivity {
                 default:
                     break;
             }
+            //If array is null return
+            if(array == null) return;
             file f = new file(defValues.timerFile, v.getContext());
             //Save values to timer file
-            assert array != null;
             utils.pushToFile(f, array[0], array[1], array[2]);
             //Open main class
             Intent intent = new Intent(v.getContext(), AmazTimer.class);
