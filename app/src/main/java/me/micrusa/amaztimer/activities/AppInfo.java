@@ -41,6 +41,7 @@ public class AppInfo extends AppCompatActivity {
         translationCredits.setText(getResources().getString(R.string.translationcredit));
         thanksto.setText(getResources().getString(R.string.thanksto)
                 + NEWLINE + "@Quinny899" + SPACE + getResources().getString(R.string.thanksfor) + SPACE + "Springboard Plugin Example"
-                + NEWLINE + "@GreatApo" + SPACE + getResources().getString(R.string.thanksfor) + SPACE + "Widget Calendar");
+                + NEWLINE + "@GreatApo" + SPACE + getResources().getString(R.string.thanksfor) + SPACE + "Widget Calendar"
+                + NEWLINE + "All contributors");
     }
 }
