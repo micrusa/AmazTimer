@@ -48,19 +48,13 @@
             app:entryValues="@array/gendervalues"
             app:defaultValue="male" />
 
-        <SeekBarPreference
-            android:defaultValue="70"
+        <ListPreference
             android:key="weight"
-            android:max="150"
             android:summary="Kg"
-            android:title="@string/weight"
-            app:showSeekBarValue="true"/>
+            android:title="@string/weight" />
 
-        <SeekBarPreference
-            android:max="100"
-            android:defaultValue="20"
+        <ListPreference
             android:key="age"
-            app:showSeekBarValue="true"
             android:title="@string/age" />
 
         <Preference

@@ -9,7 +9,6 @@ import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.Preference.OnPreferenceClickListener;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import me.micrusa.amaztimer.R;
@@ -53,10 +52,10 @@ public class SettingsActivity extends AppCompatActivity {
                     bodyFile.set(defValues.sMale, Boolean.parseBoolean(newValue.toString()));
                     break;
                 case "age":
-                    bodyFile.set(defValues.sAge, (int) newValue);
+                    bodyFile.set(defValues.sAge, Integer.parseInt((String) newValue));
                     break;
                 case "weight":
-                    bodyFile.set(defValues.sWeight, (int) newValue);
+                    bodyFile.set(defValues.sWeight, Integer.parseInt((String) newValue));
                     break;
                 case "huamiactivity":
                     file.set(defValues.sLongPrepare, (Boolean) newValue);
@@ -120,10 +119,24 @@ public class SettingsActivity extends AppCompatActivity {
             presets.setOnPreferenceClickListener(OnPreferenceClickListener);
             latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
             appInfo.setOnPreferenceClickListener(OnPreferenceClickListener);
-            SeekBarPreference ageBar = findPreference("age");
-            SeekBarPreference weightBar = findPreference("weight");
-            ageBar.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            weightBar.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            ListPreference age = findPreference("age");
+            ListPreference weight = findPreference("weight");
+            String[] ages = new String[100];
+            for(int i=0; i<100; i++){
+                ages[i] = String.valueOf(i + 1);
+            }
+            age.setEntries(ages);
+            age.setEntryValues(ages);
+            String[] weightsEntry = new String[120];
+            String[] weightsValue = new String[120];
+            for(int i=30; i<150; i++){
+                weightsEntry[i - 30] = String.valueOf(i + 1) + "Kg";
+                weightsValue[i - 30] = String.valueOf(i + 1);
+            }
+            weight.setEntries(weightsEntry);
+            weight.setEntryValues(weightsValue);
+            age.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            weight.setOnPreferenceChangeListener(onPreferenceChangeListener);
         }
     }
 }
