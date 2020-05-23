@@ -12,7 +12,7 @@ public final class defValues {
     public final int defRestTime = 10;
     //Vibration times
     public final int sVibration = 100; //0.1s
-    public final int lVibration = 500; //0.5s
+    public final int lVibration = 700; //0.5s
     //Preparation times
     public final int sPrepare = 5 * 1000;
     public final int lPrepare = 60 * 1000;
