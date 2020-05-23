@@ -3,7 +3,7 @@ package me.micrusa.amaztimer;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
-public class defValues {
+public final class defValues {
     //Format for times
     public final String timeFormat = "mm:ss";
     //Default sets and times
@@ -57,4 +57,16 @@ public class defValues {
     public final String sKcal = "kcal";
     public final String sLongPrepare = "longprep";
     public final String sRepsMode = "repsmode";
+    //Settings keys
+    public final String KEY_BATTERYSAVING = "batterySaving";
+    public final String KEY_HRTOGGLE = "hrOn";
+    public final String KEY_LANG = "lang";
+    public final String KEY_GENDER = "gender";
+    public final String KEY_AGE = "age";
+    public final String KEY_WEIGHT = "weight";
+    public final String KEY_LONGPREPARE = "huamiactivity";
+    public final String KEY_REPSMODE = "repsmode";
+    public final String KEY_SAVED = "saved";
+    public final String KEY_LATESTTRAIN = "latesttrain";
+    public final String KEY_APPINFO = "appinfo";
 }

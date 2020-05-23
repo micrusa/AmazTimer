@@ -38,33 +38,23 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             file file = new file(defValues.settingsFile, preference.getContext());
             file bodyFile = new file(defValues.bodyFile, preference.getContext());
-            switch (preference.getKey()) {
-                case "batterySaving":
-                    file.set(defValues.sBatterySaving, (Boolean) newValue);
-                    break;
-                case "hrOn":
-                    file.set(defValues.sHrSwitch, (Boolean) newValue);
-                    break;
-                case "lang":
-                    file.set(defValues.sLang, newValue.toString());
-                    break;
-                case "gender":
-                    bodyFile.set(defValues.sMale, Boolean.parseBoolean(newValue.toString()));
-                    break;
-                case "age":
-                    bodyFile.set(defValues.sAge, Integer.parseInt((String) newValue));
-                    break;
-                case "weight":
-                    bodyFile.set(defValues.sWeight, Integer.parseInt((String) newValue));
-                    break;
-                case "huamiactivity":
-                    file.set(defValues.sLongPrepare, (Boolean) newValue);
-                    break;
-                case "repsmode":
-                    file.set(defValues.sRepsMode, (Boolean) newValue);
-                    break;
-                default:
-                    break;
+            String key = preference.getKey();
+            if (defValues.KEY_BATTERYSAVING.equals(key)) {
+                file.set(defValues.sBatterySaving, (Boolean) newValue);
+            } else if (defValues.KEY_HRTOGGLE.equals(key)) {
+                file.set(defValues.sHrSwitch, (Boolean) newValue);
+            } else if (defValues.KEY_LANG.equals(key)) {
+                file.set(defValues.sLang, newValue.toString());
+            } else if (defValues.KEY_GENDER.equals(key)) {
+                bodyFile.set(defValues.sMale, Boolean.parseBoolean(newValue.toString()));
+            } else if (defValues.KEY_AGE.equals(key)) {
+                bodyFile.set(defValues.sAge, Integer.parseInt((String) newValue));
+            } else if (defValues.KEY_WEIGHT.equals(key)) {
+                bodyFile.set(defValues.sWeight, Integer.parseInt((String) newValue));
+            } else if (defValues.KEY_LONGPREPARE.equals(key)) {
+                file.set(defValues.sLongPrepare, (Boolean) newValue);
+            } else if (defValues.KEY_REPSMODE.equals(key)) {
+                file.set(defValues.sRepsMode, (Boolean) newValue);
             }
             return true;
         }
@@ -73,23 +63,16 @@ public class SettingsActivity extends AppCompatActivity {
     private static final OnPreferenceClickListener OnPreferenceClickListener = new OnPreferenceClickListener() {
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            switch (preference.getKey()) {
-                case "saved": {
-                    Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
-                    preference.getContext().startActivity(intent);
-                    break;
-                }
-                case "latesttrain": {
-                    Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
-                    preference.getContext().startActivity(intent);
-                    break;
-                }
-                case "appinfo":
-                    Intent intent = new Intent(preference.getContext(), AppInfo.class);
-                    preference.getContext().startActivity(intent);
-                    break;
-                default:
-                    break;
+            String key = preference.getKey();
+            if (defValues.KEY_SAVED.equals(key)) {
+                Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
+                preference.getContext().startActivity(intent);
+            } else if (defValues.KEY_LATESTTRAIN.equals(key)) {
+                Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
+                preference.getContext().startActivity(intent);
+            } else if (defValues.KEY_APPINFO.equals(key)) {
+                Intent intent = new Intent(preference.getContext(), AppInfo.class);
+                preference.getContext().startActivity(intent);
             }
             return true;
         }
@@ -101,26 +84,26 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            SwitchPreferenceCompat batterySaving = findPreference("batterySaving");
-            SwitchPreferenceCompat hrSwitch = findPreference("hrOn");
-            SwitchPreferenceCompat longPrepare = findPreference("huamiactivity");
-            SwitchPreferenceCompat repsMode = findPreference("repsmode");
+            SwitchPreferenceCompat batterySaving = findPreference(defValues.KEY_BATTERYSAVING);
+            SwitchPreferenceCompat hrSwitch = findPreference(defValues.KEY_HRTOGGLE);
+            SwitchPreferenceCompat longPrepare = findPreference(defValues.KEY_LONGPREPARE);
+            SwitchPreferenceCompat repsMode = findPreference(defValues.KEY_REPSMODE);
             batterySaving.setOnPreferenceChangeListener(onPreferenceChangeListener);
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
             longPrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
             repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            ListPreference lang = findPreference("lang");
-            ListPreference gender = findPreference("gender");
+            ListPreference lang = findPreference(defValues.KEY_LANG);
+            ListPreference gender = findPreference(defValues.KEY_GENDER);
             lang.setOnPreferenceChangeListener(onPreferenceChangeListener);
             gender.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            Preference presets = findPreference("saved");
-            Preference latestTrain = findPreference("latesttrain");
-            Preference appInfo = findPreference("appinfo");
+            Preference presets = findPreference(defValues.KEY_SAVED);
+            Preference latestTrain = findPreference(defValues.KEY_LATESTTRAIN);
+            Preference appInfo = findPreference(defValues.KEY_APPINFO);
             presets.setOnPreferenceClickListener(OnPreferenceClickListener);
             latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
             appInfo.setOnPreferenceClickListener(OnPreferenceClickListener);
-            ListPreference age = findPreference("age");
-            ListPreference weight = findPreference("weight");
+            ListPreference age = findPreference(defValues.KEY_AGE);
+            ListPreference weight = findPreference(defValues.KEY_WEIGHT);
             String[] ages = new String[100];
             for(int i=0; i<100; i++){
                 ages[i] = String.valueOf(i + 1);
