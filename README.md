@@ -11,7 +11,10 @@ If you have any suggestions open an issue and explain it
 Any amazfit device running android (Pace, stratos 1/2/3, verge)
 
 ## Installation
+Install using
 `adb install AmazTimer-X.X.apk && adb shell am force-stop com.huami.watch.launcher`
+Update using
+`adb install -r AmazTimer-X.X.apk && adb shell am force-stop com.huami.watch.launcher`
 
 ## Uninstallation
 `adb uninstall me.micrusa.amaztimer`
