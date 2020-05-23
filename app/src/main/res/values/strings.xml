@@ -38,6 +38,7 @@
     <string name="amaztimer" translatable="false">AmazTimer</string>
     <string name="kcal" translatable="false">Kcal</string>
     <string name="nullinfo" translatable="false">--</string>
+    <string name="allcontributors">All contributors</string>
 
     <!-- Preference Titles -->
 
