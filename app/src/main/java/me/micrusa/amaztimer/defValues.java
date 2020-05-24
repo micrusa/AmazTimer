@@ -69,4 +69,8 @@ public final class defValues {
     public final String KEY_SAVED = "saved";
     public final String KEY_LATESTTRAIN = "latesttrain";
     public final String KEY_APPINFO = "appinfo";
+    //Some useful stuff
+    public final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;
+    public final int VERSION_CODE = BuildConfig.VERSION_CODE;
+
 }

@@ -45,13 +45,4 @@ public class utils {
         f.set(defValues.sRest, rest);
     }
 
-    public String getVersionName(Context context) {
-        try {
-            return "v" + context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 }

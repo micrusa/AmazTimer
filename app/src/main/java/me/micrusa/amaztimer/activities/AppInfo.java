@@ -36,7 +36,7 @@ public class AppInfo extends AppCompatActivity {
         String NEWLINE = "\n";
         //Set texts
         appText.setText(appText.getText()
-                + SPACE + utils.getVersionName(this));
+                + SPACE + defValues.VERSION_NAME + SPACE + "(" + defValues.VERSION_CODE + ")");
         appCredits.setText(getResources().getString(R.string.appcredit));
         translationCredits.setText(getResources().getString(R.string.translationcredit));
         thanksto.setText(getResources().getString(R.string.thanksto)
