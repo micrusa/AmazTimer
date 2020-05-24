@@ -42,7 +42,7 @@ public class LatestTrainActivity extends AppCompatActivity {
 
     private void setupLang(){
         //Set language and set all texts again
-        utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
+        utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         avghrText.setText(getResources().getString(R.string.averagehr));
         maxhrText.setText(getResources().getString(R.string.maxhr));
         minhrText.setText(getResources().getString(R.string.minhr));
@@ -52,21 +52,21 @@ public class LatestTrainActivity extends AppCompatActivity {
 
     private void setTexts(){
         //Set all values texts
-        file file = new file(defValues.latestTrainFile, this);
-        avghr.setText(String.valueOf(file.get(defValues.sAvgHr, defValues.defHrValues)));
-        maxhr.setText(String.valueOf(file.get(defValues.sMaxHr, defValues.defHrValues)));
-        minhr.setText(String.valueOf(file.get(defValues.sMinHr, defValues.defHrValues)));
-        kcal.setText(String.valueOf(file.get(defValues.sKcal, defValues.defHrValues)));
-        hrzone.setText(hrZonePercentage(file.get(defValues.sAvgHr, defValues.defHrValues)));
+        file file = new file(defValues.LATEST_TRAIN_FILE, this);
+        avghr.setText(String.valueOf(file.get(defValues.SETTINGS_AVGHR, defValues.DEFAULT_HR_VALUES)));
+        maxhr.setText(String.valueOf(file.get(defValues.SETTINGS_MAXHR, defValues.DEFAULT_HR_VALUES)));
+        minhr.setText(String.valueOf(file.get(defValues.SETTINGS_MINHR, defValues.DEFAULT_HR_VALUES)));
+        kcal.setText(String.valueOf(file.get(defValues.SETTINGS_KCAL, defValues.DEFAULT_HR_VALUES)));
+        hrzone.setText(hrZonePercentage(file.get(defValues.SETTINGS_AVGHR, defValues.DEFAULT_HR_VALUES)));
     }
 
     private String hrZonePercentage(int avgHr){
-        file bodyFile = new file(defValues.bodyFile, this);
-        if(avgHr == 0 | bodyFile.get(defValues.sAge, defValues.defAge) == 0){
+        file bodyFile = new file(defValues.BODY_FILE, this);
+        if(avgHr == 0 | bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE) == 0){
             return "--";
         }
         return String.valueOf(avgHr * 100 /
-                (220 - bodyFile.get(defValues.sAge, defValues.defAge)))
+                (220 - bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE)))
                 + "%";
     }
 }

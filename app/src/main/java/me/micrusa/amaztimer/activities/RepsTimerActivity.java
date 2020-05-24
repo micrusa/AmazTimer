@@ -34,14 +34,14 @@ public class RepsTimerActivity extends AppCompatActivity {
         if(millis <= 3999){
             //Longer vibration if time < 2s
             if(millis <= 1999){
-                utils.vibrate(defValues.lVibration, this);
+                utils.vibrate(defValues.LONG_VIBRATION, this);
             }else{
-                utils.vibrate(defValues.sVibration, this);
+                utils.vibrate(defValues.SHORT_VIBRATION, this);
             }
         }
         //If battery saving disabled set time text
-        if(!new file(defValues.settingsFile, this)
-                .get(defValues.sBatterySaving, defValues.defBatterySaving)){
+        if(!new file(defValues.SETTINGS_FILE, this)
+                .get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING)){
             timer.setText(utils.formatTime((int) millis / 1000));
         }
     }
@@ -51,8 +51,8 @@ public class RepsTimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reps_timer);
         this.init();
-        file = new file(defValues.timerFile, this);
-        restTimer = new CountDownTimer((long) file.get(defValues.sRest, defValues.defRestTime) * 1000, 1000) {
+        file = new file(defValues.TIMER_FILE, this);
+        restTimer = new CountDownTimer((long) file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME) * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 setTime(millisUntilFinished);
@@ -65,7 +65,7 @@ public class RepsTimerActivity extends AppCompatActivity {
             }
         };
         //Set sets text
-        sets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
+        sets.setText(String.valueOf(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS)));
         //Start hr sensor
         setHrState(true, hrSensor, hr);
         work();
@@ -114,7 +114,7 @@ public class RepsTimerActivity extends AppCompatActivity {
             }
         });
         //Set language and set again button texts
-        utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
+        utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         cancel.setText(getResources().getString(R.string.cancel));
         endSet.setText(getResources().getString(R.string.finishset));
     }
@@ -149,9 +149,9 @@ public class RepsTimerActivity extends AppCompatActivity {
     }
 
     private void setHrState(boolean state, hrSensor hrSensor, TextView hr) {
-        file settingsFile = new file(defValues.settingsFile, this);
+        file settingsFile = new file(defValues.SETTINGS_FILE, this);
         if (state) {
-            if (settingsFile.get(defValues.sHrSwitch, defValues.defHrSwitch)) {
+            if (settingsFile.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)) {
                 hrSensor.registerListener();
                 if (hr.getVisibility() == View.INVISIBLE) {
                     hr.setVisibility(View.VISIBLE);
@@ -159,7 +159,7 @@ public class RepsTimerActivity extends AppCompatActivity {
             } else if (hr.getVisibility() == View.VISIBLE) {
                 hr.setVisibility(View.INVISIBLE);
             }
-        } else if (settingsFile.get(defValues.sHrSwitch, defValues.defHrSwitch)) {
+        } else if (settingsFile.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)) {
             hrSensor.unregisterListener();
         }
     }

@@ -47,7 +47,7 @@ public class PresetsActivity extends AppCompatActivity {
             }
             //If array is null return
             if(array == null) return;
-            file f = new file(defValues.timerFile, v.getContext());
+            file f = new file(defValues.TIMER_FILE, v.getContext());
             //Save values to timer file
             utils.pushToFile(f, array[0], array[1], array[2]);
             //Open main class
@@ -104,12 +104,12 @@ public class PresetsActivity extends AppCompatActivity {
 
     private void setupValues() {
         //Set values
-        this.firstArray[0] = file1.get(defValues.sSets, defValues.defSets);
-        this.firstArray[1] = file1.get(defValues.sWork, defValues.defWorkTime);
-        this.firstArray[2] = file1.get(defValues.sRest, defValues.defRestTime);
-        this.secondArray[0] = file2.get(defValues.sSets, defValues.defSets);
-        this.secondArray[1] = file2.get(defValues.sWork, defValues.defWorkTime);
-        this.secondArray[2] = file2.get(defValues.sRest, defValues.defRestTime);
+        this.firstArray[0] = file1.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+        this.firstArray[1] = file1.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+        this.firstArray[2] = file1.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+        this.secondArray[0] = file2.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+        this.secondArray[1] = file2.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+        this.secondArray[2] = file2.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
         //Set texts from format
         Resources res = this.getResources();
         String text1 = textFormat

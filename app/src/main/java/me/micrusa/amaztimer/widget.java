@@ -60,10 +60,10 @@ public class widget extends AbstractPlugin {
         @Override
         public void onClick(View view) {
             //Get values from file
-            file file = new file(defValues.timerFile, view.getContext());
-            int sets = file.get(defValues.sSets, defValues.defSets);
-            int workTime = file.get(defValues.sWork, defValues.defWorkTime);
-            int restTime = file.get(defValues.sRest, defValues.defRestTime);
+            file file = new file(defValues.TIMER_FILE, view.getContext());
+            int sets = file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+            int workTime = file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+            int restTime = file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
             //Increase or decrease the value that user clicked
             switch(view.getId()){
                 case R.id.plus:
@@ -88,24 +88,24 @@ public class widget extends AbstractPlugin {
                     break;
             }
             //If value is over max or under min, set max/min value and vibrate
-            if(sets > defValues.maxSets) {
-                sets = defValues.maxSets;
-                utils.vibrate(defValues.sVibration, view.getContext());
-            }else if(sets < defValues.minSets){
-                sets = defValues.minSets;
-                utils.vibrate(defValues.sVibration, view.getContext());
-            }else if(workTime > defValues.maxTime){
-                workTime = defValues.maxTime;
-                utils.vibrate(defValues.sVibration, view.getContext());
-            }else if(workTime < defValues.minTime){
-                workTime = defValues.minTime;
-                utils.vibrate(defValues.sVibration, view.getContext());
-            }else if(restTime > defValues.maxTime){
-                restTime = defValues.maxTime;
-                utils.vibrate(defValues.sVibration, view.getContext());
-            }else if(restTime < defValues.minTime){
-                restTime = defValues.minTime;
-                utils.vibrate(defValues.sVibration, view.getContext());
+            if(sets > defValues.MAX_SETS) {
+                sets = defValues.MAX_SETS;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+            }else if(sets < defValues.MIN_SETS){
+                sets = defValues.MIN_SETS;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+            }else if(workTime > defValues.MAX_TIME){
+                workTime = defValues.MAX_TIME;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+            }else if(workTime < defValues.MIN_TIME){
+                workTime = defValues.MIN_TIME;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+            }else if(restTime > defValues.MAX_TIME){
+                restTime = defValues.MAX_TIME;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+            }else if(restTime < defValues.MIN_TIME){
+                restTime = defValues.MIN_TIME;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
             }
             //Set texts and save to file
             setTexts(sets, workTime, restTime);
@@ -124,7 +124,7 @@ public class widget extends AbstractPlugin {
         //Setup items
         this.init();
         //Set language to setting's language
-        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
+        utils.setLang(this.mView.getContext(), new file(defValues.SETTINGS_FILE, this.mView.getContext()).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         //Set texts
         this.reloadTexts();
         //Setup hrSensor class
@@ -141,21 +141,21 @@ public class widget extends AbstractPlugin {
         start.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View view) {
-                final file file = new file(defValues.timerFile, view.getContext());
-                final file settingsFile = new file(defValues.settingsFile, view.getContext());
-                if(settingsFile.get(defValues.sRepsMode, defValues.defRepsMode)){
+                final file file = new file(defValues.TIMER_FILE, view.getContext());
+                final file settingsFile = new file(defValues.SETTINGS_FILE, view.getContext());
+                if(settingsFile.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
                     Intent intent = new Intent(view.getContext(), RepsTimerActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     view.getContext().startActivity(intent);
                     return;
                 }
                 //Set language to setting's language
-                utils.setLang(view.getContext(), new file(defValues.settingsFile, view.getContext()).get(defValues.sLang, defValues.LangDefault));
+                utils.setLang(view.getContext(), new file(defValues.SETTINGS_FILE, view.getContext()).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
                 //Move to second layout with timer's stuff and set all texts
                 L1.setVisibility(View.GONE);
                 L2.setVisibility(View.VISIBLE);
                 L2.setBackgroundColor(view.getResources().getColor(R.color.yellow));
-                rSets.setText(String.valueOf(file.get(defValues.sSets, defValues.defSets)));
+                rSets.setText(String.valueOf(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS)));
                 status.setText(view.getResources().getString(R.string.prepare));
                 //Get battery saving settings
                 getSettings();
@@ -164,9 +164,9 @@ public class widget extends AbstractPlugin {
                 //Check if long prepare time option is enabled or disabled
                 int prepareTime;
                 if(isLongPrepare()){
-                    prepareTime = defValues.lPrepare;
+                    prepareTime = defValues.LONG_PREPARETIME;
                 }else{
-                    prepareTime = defValues.sPrepare;
+                    prepareTime = defValues.SHORT_PREPARETIME;
                 }
                 final CountDownTimer PrepareTimer = new CountDownTimer(prepareTime, 1000) {
                     @Override
@@ -176,7 +176,7 @@ public class widget extends AbstractPlugin {
 
                     @Override
                     public void onFinish() {
-                        startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.sWork, defValues.defWorkTime), file.get(defValues.sRest, defValues.defRestTime), hrSensor);
+                        startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME), hrSensor);
                     }
                 };
                 PrepareTimer.start();
@@ -227,7 +227,7 @@ public class widget extends AbstractPlugin {
         sets.setText(String.valueOf(iSets));
         rest.setText(utils.formatTime(iRest));
         //If reps mode is enabled dont show work time, else set work text
-        if(new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sRepsMode, defValues.defRepsMode)){
+        if(new file(defValues.SETTINGS_FILE, this.mView.getContext()).get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
             work.setText(this.mView.getResources().getString(R.string.nullinfo));
         } else {
             work.setText(utils.formatTime(iWork));
@@ -235,21 +235,21 @@ public class widget extends AbstractPlugin {
     }
 
     private void setTimesTexts() {
-        file file = new file(defValues.timerFile, this.mView.getContext());
-        setTexts(file.get(defValues.sSets, defValues.defSets),
-                file.get(defValues.sWork, defValues.defWorkTime),
-                file.get(defValues.sRest, defValues.defRestTime));
+        file file = new file(defValues.TIMER_FILE, this.mView.getContext());
+        setTexts(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS),
+                file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME),
+                file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
         //If reps mode is enabled dont show work time
-        if(new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sRepsMode, defValues.defRepsMode)){
+        if(new file(defValues.SETTINGS_FILE, this.mView.getContext()).get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
             work.setText(this.mView.getResources().getString(R.string.nullinfo));
         }
     }
 
     private void getSettings() {
-        file file = new file(defValues.settingsFile, this.mView.getContext());
-        this.batterySaving = file.get(defValues.sBatterySaving, defValues.defBatterySaving);
-        this.hrEnabled = file.get(defValues.sHrSwitch, defValues.defHrSwitch);
-        this.longPrepare = file.get(defValues.sLongPrepare, defValues.defLongprep);
+        file file = new file(defValues.SETTINGS_FILE, this.mView.getContext());
+        this.batterySaving = file.get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING);
+        this.hrEnabled = file.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH);
+        this.longPrepare = file.get(defValues.SETTINGS_LONGPREPARE, defValues.DEFAULT_LONGPREPARE);
     }
 
     private boolean isLongPrepare(){
@@ -322,10 +322,10 @@ public class widget extends AbstractPlugin {
         }
         if (v < 4) {
             if (v == 1) {
-                utils.vibrate(defValues.lVibration, this.mView.getContext());
+                utils.vibrate(defValues.LONG_VIBRATION, this.mView.getContext());
             }
             if (v != 1) {
-                utils.vibrate(defValues.sVibration, this.mView.getContext());
+                utils.vibrate(defValues.SHORT_VIBRATION, this.mView.getContext());
             }
         }
     }
@@ -410,7 +410,7 @@ public class widget extends AbstractPlugin {
     public void onActive(Bundle paramBundle) {
         super.onActive(paramBundle);
         //Set language to setting's language
-        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
+        utils.setLang(this.mView.getContext(), new file(defValues.SETTINGS_FILE, this.mView.getContext()).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         //Set texts
         this.reloadTexts();
         this.setTimesTexts();
@@ -425,7 +425,7 @@ public class widget extends AbstractPlugin {
 
     private void refreshView() {
         //Set language to setting's language
-        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
+        utils.setLang(this.mView.getContext(), new file(defValues.SETTINGS_FILE, this.mView.getContext()).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         //Set texts
         this.reloadTexts();
         this.setTimesTexts();
@@ -471,7 +471,7 @@ public class widget extends AbstractPlugin {
     public void onResume() {
         super.onResume();
         //Set language to setting's language
-        utils.setLang(this.mView.getContext(), new file(defValues.settingsFile, this.mView.getContext()).get(defValues.sLang, defValues.LangDefault));
+        utils.setLang(this.mView.getContext(), new file(defValues.SETTINGS_FILE, this.mView.getContext()).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         //Set texts
         this.reloadTexts();
         this.setTimesTexts();

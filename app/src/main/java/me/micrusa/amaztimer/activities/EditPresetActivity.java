@@ -44,9 +44,9 @@ public class EditPresetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Get values from file
-                int sets = finalFile.get(defValues.sSets, defValues.defSets);
-                int work = finalFile.get(defValues.sWork, defValues.defWorkTime);
-                int rest = finalFile.get(defValues.sRest, defValues.defRestTime);
+                int sets = finalFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+                int work = finalFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+                int rest = finalFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
                 //Increase or decrease values
                 switch (v.getId()) {
                     case R.id.plus:
@@ -115,7 +115,7 @@ public class EditPresetActivity extends AppCompatActivity {
 
     private void startActivity(int PresetID) {
         //Set lang
-        utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
+        utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         //Make settings text invisible
         settingstext.setVisibility(View.GONE);
         //Set all texts again
@@ -126,9 +126,9 @@ public class EditPresetActivity extends AppCompatActivity {
         edit.setText(res.getString(R.string.edit));
         //Set times to values in file
         file file = new file("preset" + PresetID, this);
-        setTimeTexts(file.get(defValues.sSets, defValues.defSets),
-                file.get(defValues.sWork, defValues.defWorkTime),
-                file.get(defValues.sRest, defValues.defRestTime));
+        setTimeTexts(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS),
+                file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME),
+                file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
     }
 
     private void setTimeTexts(int intSets, int intWork, int intRest) {

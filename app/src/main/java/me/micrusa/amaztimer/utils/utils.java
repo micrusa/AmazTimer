@@ -1,7 +1,6 @@
 package me.micrusa.amaztimer.utils;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Vibrator;
 
@@ -40,9 +39,9 @@ public class utils {
 
     public void pushToFile(file f, int sets, int work, int rest) {
         //Save all values to the given file
-        f.set(defValues.sSets, sets);
-        f.set(defValues.sWork, work);
-        f.set(defValues.sRest, rest);
+        f.set(defValues.SETTINGS_SETS, sets);
+        f.set(defValues.SETTINGS_WORK, work);
+        f.set(defValues.SETTINGS_REST, rest);
     }
 
 }

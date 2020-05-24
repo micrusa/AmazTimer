@@ -25,8 +25,8 @@ class latestTraining {
     }
 
     void saveDataToFile(Context context, int time){
-        file dataFile = new file(defValues.latestTrainFile, context);
-        file bodyFile = new file(defValues.bodyFile, context);
+        file dataFile = new file(defValues.LATEST_TRAIN_FILE, context);
+        file bodyFile = new file(defValues.BODY_FILE, context);
         //Return if hrArray is null
         if(this.hrArray == null){
             return;
@@ -42,9 +42,9 @@ class latestTraining {
         }
         int avgHr = totalHr / this.hrArray.length;
         //Get body data from file
-        int age = bodyFile.get(defValues.sAge, defValues.defAge);
-        int weight = bodyFile.get(defValues.sWeight, defValues.defWeight);
-        boolean isMale = bodyFile.get(defValues.sMale, defValues.defMale);
+        int age = bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE);
+        int weight = bodyFile.get(defValues.SETTINGS_WEIGHT, defValues.DEFAULT_WEIGHT);
+        boolean isMale = bodyFile.get(defValues.SETTINGS_MALE, defValues.DEFAULT_MALE);
         //Calculate kcal count
         int kcal = calculateKcal(avgHr, time, age, weight, isMale);
         //Save everything to file
@@ -69,16 +69,16 @@ class latestTraining {
     void cleanAllValues(Context context){
         //Clean values and save default values to file, this way it wont conflict with other trainings
         this.hrArray = null;
-        file dataFile = new file(defValues.latestTrainFile, context);
-        saveToFile(dataFile, defValues.defHrValues, defValues.defHrValues, defValues.defHrValues, defValues.defKcalValues);
+        file dataFile = new file(defValues.LATEST_TRAIN_FILE, context);
+        saveToFile(dataFile, defValues.DEFAULT_HR_VALUES, defValues.DEFAULT_HR_VALUES, defValues.DEFAULT_HR_VALUES, defValues.DEFAULT_KCAL_VALUES);
     }
 
     private void saveToFile(file file, int minHr, int maxHr, int avgHr, int kcal){
         //Save data to file
-        file.set(defValues.sMinHr, minHr);
-        file.set(defValues.sMaxHr, maxHr);
-        file.set(defValues.sAvgHr, avgHr);
-        file.set(defValues.sKcal, kcal);
+        file.set(defValues.SETTINGS_MINHR, minHr);
+        file.set(defValues.SETTINGS_MAXHR, maxHr);
+        file.set(defValues.SETTINGS_AVGHR, avgHr);
+        file.set(defValues.SETTINGS_KCAL, kcal);
     }
 
 }

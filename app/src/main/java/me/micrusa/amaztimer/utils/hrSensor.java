@@ -24,7 +24,7 @@ public class hrSensor implements SensorEventListener {
         //Setup sensor manager, sensor and textview
         this.sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
-            this.hrSens = sensorManager.getDefaultSensor(defValues.hrSensor);
+            this.hrSens = sensorManager.getDefaultSensor(defValues.HRSENSOR);
         }
         this.hrText = hr;
         this.context = c;
@@ -47,7 +47,7 @@ public class hrSensor implements SensorEventListener {
         //Clean all values to avoid merging other values
         latestTraining.cleanAllValues(this.context);
         //Register listener with delay in defValues class
-        this.sensorManager.registerListener(this, this.hrSens, defValues.hrSensorDelay);
+        this.sensorManager.registerListener(this, this.hrSens, defValues.HRSENSOR_DELAY);
         //Register start time
         this.startTime = System.currentTimeMillis();
     }

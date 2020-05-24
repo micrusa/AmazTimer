@@ -30,31 +30,31 @@ public class SettingsActivity extends AppCompatActivity {
                 .replace(R.id.settings, new SettingsFragment())
                 .commit();
         //Set language before creating preferences
-        utils.setLang(this, new file(defValues.settingsFile, this).get(defValues.sLang, defValues.LangDefault));
+        utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
     }
 
     private static final OnPreferenceChangeListener onPreferenceChangeListener = new OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
-            file file = new file(defValues.settingsFile, preference.getContext());
-            file bodyFile = new file(defValues.bodyFile, preference.getContext());
+            file file = new file(defValues.SETTINGS_FILE, preference.getContext());
+            file bodyFile = new file(defValues.BODY_FILE, preference.getContext());
             String key = preference.getKey();
             if (defValues.KEY_BATTERYSAVING.equals(key)) {
-                file.set(defValues.sBatterySaving, (Boolean) newValue);
+                file.set(defValues.SETTINGS_BATTERYSAVING, (Boolean) newValue);
             } else if (defValues.KEY_HRTOGGLE.equals(key)) {
-                file.set(defValues.sHrSwitch, (Boolean) newValue);
+                file.set(defValues.SETTINGS_HRSWITCH, (Boolean) newValue);
             } else if (defValues.KEY_LANG.equals(key)) {
-                file.set(defValues.sLang, newValue.toString());
+                file.set(defValues.SETTINGS_LANG, newValue.toString());
             } else if (defValues.KEY_GENDER.equals(key)) {
-                bodyFile.set(defValues.sMale, Boolean.parseBoolean(newValue.toString()));
+                bodyFile.set(defValues.SETTINGS_MALE, Boolean.parseBoolean(newValue.toString()));
             } else if (defValues.KEY_AGE.equals(key)) {
-                bodyFile.set(defValues.sAge, Integer.parseInt((String) newValue));
+                bodyFile.set(defValues.SETTINGS_AGE, Integer.parseInt((String) newValue));
             } else if (defValues.KEY_WEIGHT.equals(key)) {
-                bodyFile.set(defValues.sWeight, Integer.parseInt((String) newValue));
+                bodyFile.set(defValues.SETTINGS_WEIGHT, Integer.parseInt((String) newValue));
             } else if (defValues.KEY_LONGPREPARE.equals(key)) {
-                file.set(defValues.sLongPrepare, (Boolean) newValue);
+                file.set(defValues.SETTINGS_LONGPREPARE, (Boolean) newValue);
             } else if (defValues.KEY_REPSMODE.equals(key)) {
-                file.set(defValues.sRepsMode, (Boolean) newValue);
+                file.set(defValues.SETTINGS_REPSMODE, (Boolean) newValue);
             }
             return true;
         }
