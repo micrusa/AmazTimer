@@ -3,6 +3,9 @@ package me.micrusa.amaztimer;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public final class defValues {
     //Format for times
     public final String timeFormat = "mm:ss";
@@ -72,5 +75,5 @@ public final class defValues {
     //Some useful stuff
     public final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;
     public final int VERSION_CODE = BuildConfig.VERSION_CODE;
-
+    public final int CURRENT_YEAR = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
 }
