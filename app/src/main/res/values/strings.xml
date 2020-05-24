@@ -15,7 +15,7 @@
     <string name="edit">Edit</string>
     <string name="misc">Misc</string>
     <string name="weight">Weight</string>
-    <string name="age">Age</string>
+    <string name="age">Year of birth</string>
     <string name="gender">Gender</string>
     <string name="averagehr">Average hr</string>
     <string name="maxhr">Max hr</string>
@@ -39,6 +39,7 @@
     <string name="kcal" translatable="false">Kcal</string>
     <string name="nullinfo" translatable="false">--</string>
     <string name="allcontributors">All contributors</string>
+    <string name="ageyo">years old</string>
 
     <!-- Preference Titles -->
 

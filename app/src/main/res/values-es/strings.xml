@@ -16,7 +16,7 @@
     <string name="saved">Guardados</string>
     <string name="misc">Otros</string>
     <string name="weight">Peso</string>
-    <string name="age">Edad</string>
+    <string name="age">Año de nacimiento</string>
     <string name="gender">Género</string>
     <string name="averagehr">RC medio</string>
     <string name="maxhr">RC max.</string>
@@ -37,4 +37,5 @@
     <string name="thanksto">Gracias a:</string>
     <string name="thanksfor">por</string>
     <string name="allcontributors">Todos los contribuyentes</string>
+    <string name="ageyo">años</string>
 </resources>

@@ -16,7 +16,7 @@
     <string name="edit">Obrada</string>
     <string name="misc">Misc</string>
     <string name="weight">Weight</string>
-    <string name="age">Age</string>
+    <string name="age">Year of birth</string>
     <string name="gender">Gender</string>
     <string name="averagehr">Average hr</string>
     <string name="maxhr">Max hr</string>
@@ -37,4 +37,5 @@
     <string name="thanksto">Thanks to:</string>
     <string name="thanksfor">for</string>
     <string name="allcontributors">All contributors</string>
+    <string name="ageyo">years old</string>
 </resources>

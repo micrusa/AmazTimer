@@ -48,7 +48,9 @@ public class SettingsActivity extends AppCompatActivity {
             } else if (defValues.KEY_GENDER.equals(key)) {
                 bodyFile.set(defValues.SETTINGS_MALE, Boolean.parseBoolean(newValue.toString()));
             } else if (defValues.KEY_AGE.equals(key)) {
-                bodyFile.set(defValues.SETTINGS_AGE, Integer.parseInt((String) newValue));
+                int age = defValues.CURRENT_YEAR - Integer.parseInt((String) newValue);
+                bodyFile.set(defValues.SETTINGS_AGE, age);
+                preference.setSummary(String.valueOf(age) + " " + preference.getContext().getResources().getString(R.string.ageyo));
             } else if (defValues.KEY_WEIGHT.equals(key)) {
                 bodyFile.set(defValues.SETTINGS_WEIGHT, Integer.parseInt((String) newValue));
             } else if (defValues.KEY_LONGPREPARE.equals(key)) {
@@ -105,11 +107,14 @@ public class SettingsActivity extends AppCompatActivity {
             ListPreference age = findPreference(defValues.KEY_AGE);
             ListPreference weight = findPreference(defValues.KEY_WEIGHT);
             String[] ages = new String[100];
-            for(int i=0; i<100; i++){
-                ages[i] = String.valueOf(i + 1);
+            int startYear = defValues.CURRENT_YEAR - 100;
+            int endYear = defValues.CURRENT_YEAR;
+            for(int i=startYear; i<endYear; i++){
+                ages[i - startYear] = String.valueOf(i);
             }
             age.setEntries(ages);
             age.setEntryValues(ages);
+            age.setSummary(String.valueOf(endYear - Integer.parseInt(age.getValue()) + " " + getResources().getString(R.string.ageyo)));
             String[] weightsEntry = new String[120];
             String[] weightsValue = new String[120];
             for(int i=30; i<150; i++){

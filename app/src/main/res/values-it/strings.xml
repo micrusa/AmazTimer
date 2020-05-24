@@ -16,7 +16,7 @@
     <string name="saved">Predefiniti</string>
     <string name="misc">Varie</string>
     <string name="weight">Peso</string>
-    <string name="age">Età</string>
+    <string name="age">Year of birth</string>
     <string name="gender">Sesso</string>
     <string name="maxhr">HR massimi</string>
     <string name="minhr">HR minimi</string>
@@ -37,4 +37,5 @@
     <string name="thanksto">Thanks to:</string>
     <string name="thanksfor">for</string>
     <string name="allcontributors">All contributors</string>
+    <string name="ageyo">years old</string>
 </resources>
