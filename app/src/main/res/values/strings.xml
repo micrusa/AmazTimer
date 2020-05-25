@@ -1,4 +1,9 @@
 <resources>
+    <!--Don't translate this!-->
+    <string name="amaztimer" translatable="false">AmazTimer</string>
+    <string name="kcal" translatable="false">Kcal</string>
+    <string name="nullinfo" translatable="false">--</string>
+    <!--Start translating here-->
     <string name="start">Start</string>
     <string name="work">Work</string>
     <string name="rest">Rest</string>
@@ -35,15 +40,6 @@
     <string name="translationcredit">Translation by @micrusa</string>
     <string name="thanksto">Thanks to:</string>
     <string name="thanksfor">for</string>
-    <string name="amaztimer" translatable="false">AmazTimer</string>
-    <string name="kcal" translatable="false">Kcal</string>
-    <string name="nullinfo" translatable="false">--</string>
     <string name="allcontributors">All contributors</string>
     <string name="ageyo">years old</string>
-
-    <!-- Preference Titles -->
-
-    <!-- Messages Preferences -->
-
-    <!-- Sync Preferences -->
 </resources>
