@@ -70,6 +70,11 @@ public class widget extends AbstractPlugin {
                     sets++;
                     break;
                 case R.id.plus2:
+                    if(new file(defValues.SETTINGS_FILE, view.getContext())
+                            .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
+                        utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+                        break;
+                    }
                     workTime++;
                     break;
                 case R.id.plus3:
@@ -79,6 +84,11 @@ public class widget extends AbstractPlugin {
                     sets--;
                     break;
                 case R.id.minus:
+                    if(new file(defValues.SETTINGS_FILE, view.getContext())
+                            .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
+                        utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+                        break;
+                    }
                     workTime--;
                     break;
                 case R.id.minus3:
