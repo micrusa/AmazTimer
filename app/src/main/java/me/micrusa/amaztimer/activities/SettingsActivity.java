@@ -34,6 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private static final OnPreferenceChangeListener onPreferenceChangeListener = new OnPreferenceChangeListener() {
+        @SuppressWarnings("UnnecessaryCallToStringValueOf")
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             file file = new file(defValues.SETTINGS_FILE, preference.getContext());
@@ -80,9 +81,9 @@ public class SettingsActivity extends AppCompatActivity {
         }
     };
 
-    @SuppressWarnings("WeakerAccess")
+    @SuppressWarnings({"UnnecessaryCallToStringValueOf"})
     public static class SettingsFragment extends PreferenceFragmentCompat {
-        @SuppressWarnings("ConstantConditions")
+        @SuppressWarnings({"ConstantConditions", "UnnecessaryCallToStringValueOf"})
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);

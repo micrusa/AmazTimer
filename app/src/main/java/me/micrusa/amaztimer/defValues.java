@@ -1,5 +1,6 @@
 package me.micrusa.amaztimer;
 
+import android.annotation.SuppressLint;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
@@ -75,5 +76,6 @@ public final class defValues {
     //Some useful stuff
     public final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;
     public final int VERSION_CODE = BuildConfig.VERSION_CODE;
+    @SuppressLint("SimpleDateFormat")
     public final int CURRENT_YEAR = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
 }

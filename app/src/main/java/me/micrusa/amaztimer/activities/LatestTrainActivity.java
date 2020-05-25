@@ -65,6 +65,7 @@ public class LatestTrainActivity extends AppCompatActivity {
         if(avgHr == 0 | bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE) == 0){
             return "--";
         }
+        //noinspection UnnecessaryCallToStringValueOf
         return String.valueOf(avgHr * 100 /
                 (220 - bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE)))
                 + "%";
