@@ -6,6 +6,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 import android.widget.TextView;
 
 import me.micrusa.amaztimer.defValues;
@@ -19,6 +20,7 @@ public class hrSensor implements SensorEventListener {
     private final me.micrusa.amaztimer.defValues defValues = new defValues();
     private final latestTraining latestTraining = new latestTraining();
     private long startTime;
+    private int accuracy;
 
     public hrSensor(Context c, TextView hr) {
         //Setup sensor manager, sensor and textview
@@ -32,15 +34,20 @@ public class hrSensor implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        //Get hr value and save it to text
         int v = (int) event.values[0];
-        this.hrText.setText(String.valueOf(v));
-        //Send hr value to latestTraining array
-        latestTraining.addHrValue(v);
+        if (isAccuracyValid()) {
+            //Get hr value and save it to text
+            this.hrText.setText(String.valueOf(v));
+            //Send hr value to latestTraining array
+            latestTraining.addHrValue(v);
+        } else {
+            Log.i("AmazTimer", "hrSensor: unvalid heart rate: " + String.valueOf(v) + " with " + String.valueOf(this.accuracy) + " accuracy");
+        }
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    public void onAccuracyChanged(Sensor param1Sensor, int param1Int) {
+        this.accuracy = param1Int;
     }
 
     public void registerListener() {
@@ -50,6 +57,10 @@ public class hrSensor implements SensorEventListener {
         this.sensorManager.registerListener(this, this.hrSens, defValues.HRSENSOR_DELAY);
         //Register start time
         this.startTime = System.currentTimeMillis();
+    }
+
+    private boolean isAccuracyValid(){
+        return this.accuracy >= defValues.ACCURACY_RANGE[0] && this.accuracy <= defValues.ACCURACY_RANGE[1];
     }
 
     public void unregisterListener() {
