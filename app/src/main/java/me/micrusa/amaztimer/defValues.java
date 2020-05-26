@@ -23,6 +23,7 @@ public final class defValues {
     //Sensor value and sensor delay
     public final int HRSENSOR_DELAY = SensorManager.SENSOR_DELAY_FASTEST;
     public final int HRSENSOR = Sensor.TYPE_HEART_RATE;
+    public final int[] ACCURACY_RANGE = {1, 3};
     //Max and min values
     public final int MIN_SETS = 1;
     public final int MAX_SETS = 99;
