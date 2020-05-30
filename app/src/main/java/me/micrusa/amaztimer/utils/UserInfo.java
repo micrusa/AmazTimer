@@ -25,6 +25,7 @@ public class UserInfo {
         ContentResolver contentResolver = paramContext.getContentResolver();
         Cursor cursor = null;
         try {
+            // TODO: Fix permissions that this Uri requests
             cursor = contentResolver.query(Uri.parse("content://com.huami.watch.setup.usersettings"), null, null, null, null);
         } catch (Exception exception) {
             Log.e("AmazTimer: UserInfo", "Exception while getting UserInfo: " + exception.getMessage());
