@@ -49,6 +49,7 @@ public class widget extends AbstractPlugin {
     private boolean restStarted = false;
     //Classes
     private final me.micrusa.amaztimer.utils.utils utils = new utils();
+    private hrSensor hrSensor;
     //Default values
     private final defValues defValues = new defValues();
     //Settings
@@ -138,7 +139,7 @@ public class widget extends AbstractPlugin {
         //Set texts
         this.reloadTexts();
         //Setup hrSensor class
-        final hrSensor hrSensor = new hrSensor(this.mView.getContext(), hr);
+        hrSensor = new hrSensor(this.mView.getContext(), hr);
         setTimesTexts();
         //Plus and minus buttons
         plus.setOnClickListener(plusMinusBtnListener);
@@ -327,8 +328,15 @@ public class widget extends AbstractPlugin {
         this.init();
         if (!this.batterySaving) {
             time.setText(utils.formatTime(v));
-        } else if (!time.getText().toString().equals("--:--")) {
-            time.setText("--:--");
+        } else {
+            if (!time.getText().toString().equals("--:--")) {
+                time.setText("--:--");
+            }
+            int latestHr = hrSensor.getLatestValue();
+            if(latestHr == 0)
+                hr.setText(this.mView.getContext().getResources().getString(R.string.nullinfo));
+            else
+                hr.setText(hrSensor.getLatestValue());
         }
         if (v < 4) {
             if (v == 1) {

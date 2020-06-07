@@ -21,6 +21,7 @@ public class hrSensor implements SensorEventListener {
     private final latestTraining latestTraining = new latestTraining();
     private long startTime;
     private int accuracy;
+    private int latestHr = 0;
 
     public hrSensor(Context c, TextView hr) {
         //Setup sensor manager, sensor and textview
@@ -36,10 +37,13 @@ public class hrSensor implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         int v = (int) event.values[0];
         if (isAccuracyValid()) {
-            //Get hr value and save it to text
-            this.hrText.setText(String.valueOf(v));
+            //Get hr value and set the text if battery saving mode is disabled
+            if (!new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING))
+                this.hrText.setText(String.valueOf(v));
             //Send hr value to latestTraining array
             latestTraining.addHrValue(v);
+            //Set latest hr value
+            this.latestHr = v;
         } else {
             Log.i("AmazTimer", "hrSensor: unvalid heart rate: " + String.valueOf(v) + " with " + String.valueOf(this.accuracy) + " accuracy");
         }
@@ -57,6 +61,10 @@ public class hrSensor implements SensorEventListener {
         this.sensorManager.registerListener(this, this.hrSens, defValues.HRSENSOR_DELAY);
         //Register start time
         this.startTime = System.currentTimeMillis();
+    }
+
+    public int getLatestValue(){
+        return this.latestHr;
     }
 
     private boolean isAccuracyValid(){

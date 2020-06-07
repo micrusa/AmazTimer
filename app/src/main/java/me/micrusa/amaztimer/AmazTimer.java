@@ -35,6 +35,7 @@ public class AmazTimer extends Activity {
     private boolean restStarted = false;
     //Classes
     private final me.micrusa.amaztimer.utils.utils utils = new utils();
+    private hrSensor hrSensor;
     //Default values
     private final me.micrusa.amaztimer.defValues defValues = new defValues();
     //Settings
@@ -130,7 +131,7 @@ public class AmazTimer extends Activity {
             refreshView();
         }
         //Setup hrSensor class
-        final hrSensor hrSensor = new hrSensor(this, hr);
+        hrSensor = new hrSensor(this, hr);
         //Plus and minus buttons
         plus.setOnClickListener(plusMinusBtnListener);
         plus2.setOnClickListener(plusMinusBtnListener);
@@ -316,8 +317,15 @@ public class AmazTimer extends Activity {
         this.init();
         if (!this.batterySaving) {
             time.setText(utils.formatTime(v));
-        } else if (!time.getText().toString().equals("--:--")) {
-            time.setText("--:--");
+        } else {
+            if (!time.getText().toString().equals("--:--")) {
+                time.setText("--:--");
+            }
+            int latestHr = hrSensor.getLatestValue();
+            if(latestHr == 0)
+                hr.setText(getResources().getString(R.string.nullinfo));
+            else
+                hr.setText(hrSensor.getLatestValue());
         }
         if (v < 4) {
             if (v == 1) {
