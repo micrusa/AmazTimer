@@ -328,12 +328,10 @@ public class AmazTimer extends Activity {
                 hr.setText(hrSensor.getLatestValue());
         }
         if (v < 4) {
-            if (v == 1) {
-                utils.vibrate(defValues.LONG_VIBRATION, this);
-            }
-            if (v != 1) {
-                utils.vibrate(defValues.SHORT_VIBRATION, this);
-            }
+            if (v == 1)
+                utils.vibrate(defValues.LONG_VIBRATION, this.mView.getContext());
+            else
+                utils.vibrate(defValues.SHORT_VIBRATION, this.mView.getContext());
         }
     }
 

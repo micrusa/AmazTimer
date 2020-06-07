@@ -38,7 +38,8 @@ public class hrSensor implements SensorEventListener {
         int v = (int) event.values[0];
         if (isAccuracyValid()) {
             //Get hr value and set the text if battery saving mode is disabled
-            if (!new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING))
+            if (!new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING)
+                    && !new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE))
                 this.hrText.setText(String.valueOf(v));
             //Send hr value to latestTraining array
             latestTraining.addHrValue(v);

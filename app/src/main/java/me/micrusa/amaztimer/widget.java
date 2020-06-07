@@ -339,12 +339,10 @@ public class widget extends AbstractPlugin {
                 hr.setText(hrSensor.getLatestValue());
         }
         if (v < 4) {
-            if (v == 1) {
+            if (v == 1)
                 utils.vibrate(defValues.LONG_VIBRATION, this.mView.getContext());
-            }
-            if (v != 1) {
+            else
                 utils.vibrate(defValues.SHORT_VIBRATION, this.mView.getContext());
-            }
         }
     }
 
