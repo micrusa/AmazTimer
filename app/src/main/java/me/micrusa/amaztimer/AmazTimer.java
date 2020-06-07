@@ -321,11 +321,13 @@ public class AmazTimer extends Activity {
             if (!time.getText().toString().equals("--:--")) {
                 time.setText("--:--");
             }
-            int latestHr = hrSensor.getLatestValue();
-            if(latestHr == 0)
-                hr.setText(getResources().getString(R.string.nullinfo));
-            else
-                hr.setText(hrSensor.getLatestValue());
+            if (new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)){
+                int latestHr = hrSensor.getLatestValue();
+                if(latestHr == 0)
+                    hr.setText(getResources().getString(R.string.nullinfo));
+                else
+                    hr.setText(hrSensor.getLatestValue());
+            }
         }
         if (v < 4) {
             if (v == 1)
