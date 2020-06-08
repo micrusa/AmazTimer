@@ -21,7 +21,7 @@ public class SaveTCX {
         this.data = data + addData;
     }
 
-    private void saveToFile(Context paramContext, TCXData TCXData){
+    public void saveToFile(Context paramContext, TCXData TCXData){
         ArrayList<Lap> laps = TCXData.getLaps();
         this.data = "";
         addToFile("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>"

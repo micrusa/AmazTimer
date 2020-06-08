@@ -9,6 +9,12 @@ import android.hardware.SensorManager;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.util.Date;
+
+import me.micrusa.amaztimer.TCX.SaveTCX;
+import me.micrusa.amaztimer.TCX.data.Lap;
+import me.micrusa.amaztimer.TCX.data.TCXData;
+import me.micrusa.amaztimer.TCX.data.Trackpoint;
 import me.micrusa.amaztimer.defValues;
 
 @SuppressWarnings("CanBeFinal")
@@ -23,6 +29,11 @@ public class hrSensor implements SensorEventListener {
     private int accuracy;
     private int latestHr = 0;
 
+    //All tcx needed stuff
+    private String currentLapStatus = "Active";
+    private Lap currentLap;
+    private TCXData TCXData;
+
     public hrSensor(Context c, TextView hr) {
         //Setup sensor manager, sensor and textview
         this.sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
@@ -31,6 +42,7 @@ public class hrSensor implements SensorEventListener {
         }
         this.hrText = hr;
         this.context = c;
+        this.TCXData = new TCXData();
     }
 
     @Override
@@ -45,6 +57,8 @@ public class hrSensor implements SensorEventListener {
             latestTraining.addHrValue(v);
             //Set latest hr value
             this.latestHr = v;
+            //Create Trackpoint and add it to current Lap
+            currentLap.addTrackpoint(new Trackpoint(v, new Date()));
         } else {
             Log.i("AmazTimer", "hrSensor: unvalid heart rate: " + String.valueOf(v) + " with " + String.valueOf(this.accuracy) + " accuracy");
         }
@@ -62,6 +76,8 @@ public class hrSensor implements SensorEventListener {
         this.sensorManager.registerListener(this, this.hrSens, defValues.HRSENSOR_DELAY);
         //Register start time
         this.startTime = System.currentTimeMillis();
+        //Create Lap
+        this.currentLap = new Lap();
     }
 
     public int getLatestValue(){
@@ -79,5 +95,20 @@ public class hrSensor implements SensorEventListener {
         long endTime = System.currentTimeMillis();
         int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
         latestTraining.saveDataToFile(this.context, totalTimeInSeconds);
+        new SaveTCX().saveToFile(this.context, this.TCXData);
+    }
+
+    public void newLap(String lapStatus){
+        if (this.currentLap != null) {
+            this.currentLap.setIntensity(this.currentLapStatus);
+            this.currentLap.endLap(System.currentTimeMillis());
+            file bodyFile = new file(defValues.BODY_FILE, this.context);
+            this.currentLap.calcCalories(bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE),
+                    bodyFile.get(defValues.SETTINGS_WEIGHT, defValues.DEFAULT_WEIGHT),
+                    bodyFile.get(defValues.SETTINGS_MALE, defValues.DEFAULT_MALE));
+            this.TCXData.addLap(this.currentLap);
+        }
+        this.currentLapStatus = lapStatus;
+        this.currentLap = new Lap();
     }
 }
