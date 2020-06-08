@@ -175,7 +175,7 @@ public class SaveTCX {
 
         Element MaxHeartRateBpm = tcx.createElement("MaximumHeartRateBpm");
         MaxHeartRateBpm.setAttribute("xsi:type", "HeartRateInBeatsPerMinute_t");
-        Lap.appendChild(AverageHeartRateBpm);
+        Lap.appendChild(MaxHeartRateBpm);
         Element MaxHrValue = tcx.createElement("Value");
         MaxHrValue.appendChild(tcx.createTextNode(String.valueOf(lap.getMaxHr())));
         MaxHeartRateBpm.appendChild(MaxHrValue);
