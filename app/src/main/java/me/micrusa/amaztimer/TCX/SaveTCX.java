@@ -40,6 +40,7 @@ public class SaveTCX {
             DocumentBuilderFactory tcxFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder tcxBuilder = tcxFactory.newDocumentBuilder();
             tcx = tcxBuilder.newDocument();
+            tcx.setXmlStandalone(false);
 
             Element root = tcx.createElement("TrainingCenterDatabase");
             tcx.appendChild(root);
