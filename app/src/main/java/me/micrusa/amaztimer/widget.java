@@ -125,6 +125,74 @@ public class widget extends AbstractPlugin {
         }
     };
 
+    private final View.OnLongClickListener plusMinusBtnLongListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View view) {
+            //Get values from file
+            file file = new file(defValues.TIMER_FILE, view.getContext());
+            int sets = file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+            int workTime = file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+            int restTime = file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+            //Increase or decrease the value that user clicked
+            switch(view.getId()){
+                case R.id.plus:
+                    sets = sets + 60;
+                    break;
+                case R.id.plus2:
+                    if(new file(defValues.SETTINGS_FILE, view.getContext())
+                            .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
+                        utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+                        break;
+                    }
+                    workTime = workTime + 60;
+                    break;
+                case R.id.plus3:
+                    restTime = restTime + 60;
+                    break;
+                case R.id.minus2:
+                    sets = sets - 60;
+                    break;
+                case R.id.minus:
+                    if(new file(defValues.SETTINGS_FILE, view.getContext())
+                            .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
+                        utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+                        break;
+                    }
+                    workTime = workTime - 60;
+                    break;
+                case R.id.minus3:
+                    restTime = restTime - 60;
+                    break;
+                default:
+                    break;
+            }
+            //If value is over max or under min, set max/min value and vibrate
+            if(sets > defValues.MAX_SETS) {
+                sets = defValues.MAX_SETS;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+            }else if(sets < defValues.MIN_SETS){
+                sets = defValues.MIN_SETS;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+            }else if(workTime > defValues.MAX_TIME){
+                workTime = defValues.MAX_TIME;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+            }else if(workTime < defValues.MIN_TIME){
+                workTime = defValues.MIN_TIME;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+            }else if(restTime > defValues.MAX_TIME){
+                restTime = defValues.MAX_TIME;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+            }else if(restTime < defValues.MIN_TIME){
+                restTime = defValues.MIN_TIME;
+                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
+            }
+            //Set texts and save to file
+            setTexts(sets, workTime, restTime);
+            utils.pushToFile(file, sets, workTime, restTime);
+            return true;
+        }
+    };
+
     //Much like a fragment, getView returns the content view of the page. You can set up your layout here
     @SuppressLint("InflateParams")
     @Override
@@ -149,6 +217,12 @@ public class widget extends AbstractPlugin {
         minus.setOnClickListener(plusMinusBtnListener);
         minus2.setOnClickListener(plusMinusBtnListener);
         minus3.setOnClickListener(plusMinusBtnListener);
+        plus.setOnLongClickListener(plusMinusBtnLongListener);
+        plus2.setOnLongClickListener(plusMinusBtnLongListener);
+        plus3.setOnLongClickListener(plusMinusBtnLongListener);
+        minus.setOnLongClickListener(plusMinusBtnLongListener);
+        minus2.setOnLongClickListener(plusMinusBtnLongListener);
+        minus3.setOnLongClickListener(plusMinusBtnLongListener);
         //Start button
         start.setOnClickListener(new OnClickListener() {
             @Override

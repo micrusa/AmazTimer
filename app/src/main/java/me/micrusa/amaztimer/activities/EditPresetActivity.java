@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ public class EditPresetActivity extends AppCompatActivity {
     private Button plus, plus2, plus3, minus, minus2, minus3, edit;
     private TextView sets, rest, work, settingstext, setsText, workText, restText;
     private OnClickListener plusMinusBtn;
+    private OnLongClickListener longPlusMinusBtn;
     private OnClickListener editBtn;
     private final me.micrusa.amaztimer.defValues defValues = new defValues();
     private final me.micrusa.amaztimer.utils.utils utils = new utils();
@@ -75,6 +77,43 @@ public class EditPresetActivity extends AppCompatActivity {
                 setTimeTexts(sets, work, rest);
             }
         };
+
+        longPlusMinusBtn = new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //Get values from file
+                int sets = finalFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+                int work = finalFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+                int rest = finalFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+                //Increase or decrease values
+                switch (v.getId()) {
+                    case R.id.plus:
+                        sets = sets + 60;
+                        break;
+                    case R.id.plus2:
+                        work = work + 60;
+                        break;
+                    case R.id.plus3:
+                        rest = rest + 60;
+                        break;
+                    case R.id.minus2:
+                        sets = sets - 60;
+                        break;
+                    case R.id.minus:
+                        work = work - 60;
+                        break;
+                    case R.id.minus3:
+                        rest = rest - 60;
+                        break;
+                    default:
+                        break;
+                }
+                //Save to file and set texts
+                utils.pushToFile(finalFile, sets, work, rest);
+                setTimeTexts(sets, work, rest);
+                return true;
+            }
+        };
         //Edit button finishes activity
         editBtn = new OnClickListener() {
             @Override
@@ -91,6 +130,12 @@ public class EditPresetActivity extends AppCompatActivity {
         minus.setOnClickListener(plusMinusBtn);
         minus2.setOnClickListener(plusMinusBtn);
         minus3.setOnClickListener(plusMinusBtn);
+        plus.setOnLongClickListener(longPlusMinusBtn);
+        plus2.setOnLongClickListener(longPlusMinusBtn);
+        plus3.setOnLongClickListener(longPlusMinusBtn);
+        minus.setOnLongClickListener(longPlusMinusBtn);
+        minus2.setOnLongClickListener(longPlusMinusBtn);
+        minus3.setOnLongClickListener(longPlusMinusBtn);
         edit.setOnClickListener(editBtn);
     }
 
