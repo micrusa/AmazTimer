@@ -29,7 +29,7 @@ public class SaveTCX {
                 + "<TrainingCenterDatabase xmlns=\"http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.garmin.com/xmlschemas/ActivityExtension/v2 http://www.garmin.com/xmlschemas/ActivityExtensionv2.xsd http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2 http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd\">");
         addToFile("<Activities>"
                 + "<Activity Sport=\"" + TCXData.getSportName() + "\">"
-                + "<id>" + TCXData.getTime() + "<id>");
+                + "<id>" + TCXData.getTime() + "</id>");
         for (Lap lap : laps){
             if(!lap.isLapEmpty())
                 fillLap(lap);
@@ -40,7 +40,9 @@ public class SaveTCX {
                 + "</TrainingCenterDatabase>");
 
         //Save TCX to file
-        File file = new File(FILE_PATH, TCXData.getTime() + ".tcx");
+        if(!new File(FILE_PATH).exists())
+            new File(FILE_PATH).mkdirs();
+        File file = new File(FILE_PATH + TCXData.getTime() + ".tcx");
         if (!file.exists()) {
             try {
                 file.createNewFile();
