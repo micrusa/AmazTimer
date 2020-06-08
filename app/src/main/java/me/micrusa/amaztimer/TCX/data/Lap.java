@@ -44,7 +44,11 @@ public class Lap {
         for (Trackpoint trackpoint : this.tps){
             totalhr = totalhr + trackpoint.getHr();
         }
-        return totalhr / tps.size();
+        if(this.tps.size() != 0)
+            return totalhr / this.tps.size();
+        else
+            return 0;
+
     }
 
     public void calcCalories(int age, int weight, boolean isMale){
