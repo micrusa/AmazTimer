@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import me.micrusa.amaztimer.R;
+import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
@@ -120,6 +121,7 @@ public class RepsTimerActivity extends AppCompatActivity {
     }
 
     private void work(){
+        hrSensor.newLap(Constants.STATUS_ACTIVE);
         //Timer ended so set timerStarted to false
         timerStarted = false;
         //Set BG color to red
@@ -131,6 +133,7 @@ public class RepsTimerActivity extends AppCompatActivity {
     }
 
     private void rest(){
+        hrSensor.newLap(Constants.STATUS_RESTING);
         //If 1 set left finish activity and unregister hr listener
         if(Integer.parseInt(sets.getText().toString()) == 1){
             setHrState(false, hrSensor, hr);

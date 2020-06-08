@@ -22,6 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import clc.sliteplugin.flowboard.AbstractPlugin;
 import clc.sliteplugin.flowboard.ISpringBoardHostStub;
+import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.activities.RepsTimerActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.utils.file;
@@ -187,7 +188,7 @@ public class widget extends AbstractPlugin {
 
                     @Override
                     public void onFinish() {
-                        startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME), hrSensor);
+                        startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
                     }
                 };
                 PrepareTimer.start();
@@ -357,7 +358,8 @@ public class widget extends AbstractPlugin {
         }
     }
 
-    private void startTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor) {
+    private void startTimer(final View view, final String sWork, final String sRest, final int work, final int rest) {
+        hrSensor.newLap(Constants.STATUS_ACTIVE);
         this.init();
         this.workStarted = true;
         this.restStarted = false;
@@ -373,7 +375,7 @@ public class widget extends AbstractPlugin {
             public void onFinish() {
                 if (Integer.parseInt(rSets.getText().toString()) != 1) {
                     rSets.setText(String.valueOf(Integer.parseInt(rSets.getText().toString()) - 1));
-                    restTimer(view, sWork, sRest, work, rest, hrSensor);
+                    restTimer(view, sWork, sRest, work, rest);
                 } else {
                     //Unregister hrSensor listener and make visible initial screen again
                     setHrState(false, hrSensor, hr);
@@ -385,7 +387,8 @@ public class widget extends AbstractPlugin {
         this.workTimer.start();
     }
 
-    private void restTimer(final View view, final String sWork, final String sRest, final int work, final int rest, final hrSensor hrSensor) {
+    private void restTimer(final View view, final String sWork, final String sRest, final int work, final int rest) {
+        hrSensor.newLap(Constants.STATUS_RESTING);
         this.init();
         this.workStarted = false;
         this.restStarted = true;
@@ -399,7 +402,7 @@ public class widget extends AbstractPlugin {
 
             @Override
             public void onFinish() {
-                startTimer(view, sWork, sRest, work, rest, hrSensor);
+                startTimer(view, sWork, sRest, work, rest);
             }
         };
         this.restTimer.start();
