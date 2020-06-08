@@ -13,7 +13,7 @@ import me.micrusa.amaztimer.TCX.data.Trackpoint;
 
 public class SaveTCX {
 
-    private String FILE_PATH = Environment.getExternalStorageDirectory().getPath() + "AmazTimer/";
+    private String FILE_PATH = Environment.getExternalStorageDirectory().getPath() + "/AmazTimer/";
 
     private String data;
 
