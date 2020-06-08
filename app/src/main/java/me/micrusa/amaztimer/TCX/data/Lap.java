@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
 
 public class Lap {
@@ -20,7 +21,7 @@ public class Lap {
     public Lap(){
         this.longStartTime = System.currentTimeMillis();
         Date d = new Date();
-        this.StartTime = new SimpleDateFormat("yyyy-MM-dd").format(d) + "T"+ new SimpleDateFormat("HH-mm-ss").format(d) + "Z";
+        this.StartTime = new SimpleDateFormat(Constants.DATE_FORMAT).format(d) + Constants.CHAR_DATETIME + new SimpleDateFormat(Constants.TIME_FORMAT).format(d) + Constants.CHAR_AFTERTIME;
     }
 
     public void endLap(long currentTimeMillis){
