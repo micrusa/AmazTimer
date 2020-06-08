@@ -5,6 +5,7 @@ import android.os.Environment;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import me.micrusa.amaztimer.TCX.data.Lap;
@@ -40,6 +41,13 @@ public class SaveTCX {
 
         //Save TCX to file
         File file = new File(FILE_PATH, TCXData.getTime() + ".tcx");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try {
             FileWriter writer = new FileWriter(file);
             writer.write(this.data);
