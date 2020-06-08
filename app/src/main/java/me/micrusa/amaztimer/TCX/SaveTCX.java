@@ -145,7 +145,7 @@ public class SaveTCX {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(tcx);
-            StreamResult streamResult = new StreamResult(new File(FILE_PATH + "AmazTimer" + TCXData.getTime().replaceAll(":", "-")));
+            StreamResult streamResult = new StreamResult(new File(FILE_PATH + "AmazTimer" + TCXData.getTime().replaceAll(":", "-").replace("T", "_").replace("Z", "") + ".tcx"));
 
             transformer.transform(domSource, streamResult);
 
