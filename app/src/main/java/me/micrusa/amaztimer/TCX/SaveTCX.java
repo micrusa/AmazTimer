@@ -69,6 +69,7 @@ public class SaveTCX {
             Element ActivityRef = tcx.createElement("ActivityRef");
             Other.appendChild(ActivityRef);
             Element IdActivityRef = tcx.createElement("Id");
+            IdActivityRef.appendChild(tcx.createTextNode(TCXData.getTime()));
             ActivityRef.appendChild(IdActivityRef);
 
             Element MultiSport = tcx.createElement("MultiSport");
@@ -81,7 +82,7 @@ public class SaveTCX {
             Activity.setAttribute("Sport", "Other");
             Activities.appendChild(Activity);
 
-            Element Id = tcx.createElement("id");
+            Element Id = tcx.createElement("Id");
             Id.appendChild(tcx.createTextNode(TCXData.getTime()));
             Activity.appendChild(Id);
 
