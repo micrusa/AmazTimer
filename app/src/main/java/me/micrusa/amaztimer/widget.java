@@ -137,7 +137,7 @@ public class widget extends AbstractPlugin {
             //Increase or decrease the value that user clicked
             switch(view.getId()){
                 case R.id.plus:
-                    sets = sets + 60;
+                    sets = sets + 5;
                     break;
                 case R.id.plus2:
                     if(new file(defValues.SETTINGS_FILE, view.getContext())
@@ -151,7 +151,7 @@ public class widget extends AbstractPlugin {
                     restTime = restTime + 60;
                     break;
                 case R.id.minus2:
-                    sets = sets - 60;
+                    sets = sets - 5;
                     break;
                 case R.id.minus:
                     if(new file(defValues.SETTINGS_FILE, view.getContext())

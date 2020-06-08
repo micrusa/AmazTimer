@@ -88,7 +88,7 @@ public class EditPresetActivity extends AppCompatActivity {
                 //Increase or decrease values
                 switch (v.getId()) {
                     case R.id.plus:
-                        sets = sets + 60;
+                        sets = sets + 5;
                         break;
                     case R.id.plus2:
                         work = work + 60;
@@ -97,7 +97,7 @@ public class EditPresetActivity extends AppCompatActivity {
                         rest = rest + 60;
                         break;
                     case R.id.minus2:
-                        sets = sets - 60;
+                        sets = sets - 5;
                         break;
                     case R.id.minus:
                         work = work - 60;
