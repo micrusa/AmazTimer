@@ -6,7 +6,7 @@ import me.micrusa.amaztimer.TCX.data.Lap;
 
 public class TCXData {
 
-    private ArrayList<Lap> laps;
+    private ArrayList<Lap> laps = new ArrayList<Lap>();
 
     public void addLap(Lap lap){
         laps.add(lap);

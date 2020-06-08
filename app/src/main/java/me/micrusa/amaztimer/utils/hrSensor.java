@@ -76,8 +76,6 @@ public class hrSensor implements SensorEventListener {
         this.sensorManager.registerListener(this, this.hrSens, defValues.HRSENSOR_DELAY);
         //Register start time
         this.startTime = System.currentTimeMillis();
-        //Create Lap
-        this.currentLap = new Lap();
     }
 
     public int getLatestValue(){
