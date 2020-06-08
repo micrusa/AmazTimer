@@ -9,8 +9,10 @@ import android.hardware.SensorManager;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.TCX.SaveTCX;
 import me.micrusa.amaztimer.TCX.data.Lap;
 import me.micrusa.amaztimer.TCX.data.TCXData;
@@ -28,6 +30,7 @@ public class hrSensor implements SensorEventListener {
     private long startTime;
     private int accuracy;
     private int latestHr = 0;
+    private String latestHrTime;
 
     //All tcx needed stuff
     private String currentLapStatus = "Active";
@@ -57,8 +60,11 @@ public class hrSensor implements SensorEventListener {
             latestTraining.addHrValue(v);
             //Set latest hr value
             this.latestHr = v;
+            String currentDate = new SimpleDateFormat(Constants.DATE_FORMAT).format(new Date()) + Constants.CHAR_DATETIME + new SimpleDateFormat(Constants.TIME_FORMAT).format(new Date()) + Constants.CHAR_AFTERTIME;
             //Create Trackpoint and add it to current Lap
-            currentLap.addTrackpoint(new Trackpoint(v, new Date()));
+            if (!currentDate.equals(this.latestHrTime))
+                currentLap.addTrackpoint(new Trackpoint(v, new Date()));
+            this.latestHrTime = currentDate;
         } else {
             Log.i("AmazTimer", "hrSensor: unvalid heart rate: " + String.valueOf(v) + " with " + String.valueOf(this.accuracy) + " accuracy");
         }
