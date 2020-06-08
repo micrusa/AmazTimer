@@ -40,6 +40,7 @@ public final class defValues {
     public final boolean DEFAULT_MALE = true;
     public final int DEFAULT_HR_VALUES = 0;
     public final int DEFAULT_KCAL_VALUES = 0;
+    public final boolean DEFAULT_WORKOUTMODE = false;
     //Files name
     //They're in different files bc sometimes they have conflicts if they're all in the same file
     public final String TIMER_FILE = "amaztimer";
@@ -62,6 +63,7 @@ public final class defValues {
     public final String SETTINGS_KCAL = "kcal";
     public final String SETTINGS_LONGPREPARE = "longprep";
     public final String SETTINGS_REPSMODE = "repsmode";
+    public final String SETTINGS_WORKOUTMODE = "workout";
     //Settings keys
     public final String KEY_BATTERYSAVING = "batterySaving";
     public final String KEY_HRTOGGLE = "hrOn";
@@ -74,6 +76,7 @@ public final class defValues {
     public final String KEY_SAVED = "saved";
     public final String KEY_LATESTTRAIN = "latesttrain";
     public final String KEY_APPINFO = "appinfo";
+    public final String KEY_WORKOUT = "workoutmode";
     //Some useful stuff
     public final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;
     public final int VERSION_CODE = BuildConfig.VERSION_CODE;

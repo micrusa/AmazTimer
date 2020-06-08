@@ -5,7 +5,7 @@
 
     <uses-sdk tools:overrideLibrary="android.support.wear" />
 
-    <uses-feature android:name="android.hardware.type.watch"/>
+    <uses-feature android:name="android.hardware.type.watch" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -13,8 +13,8 @@
     <uses-permission android:name="android.permission.BODY_SENSORS" />
     <uses-permission android:name="com.huami.watch.permission.READ_USER_SETTINGS" />
     <uses-permission android:name="com.huami.watch.permission.WRITE_USER_SETTINGS" />
-    <uses-permission android:name="com.huami.watch.companion.permission.READ_SETTINGS"/>
-    <uses-permission android:name="com.huami.watch.companion.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.huami.watch.companion.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huami.watch.companion.permission.WRITE_SETTINGS" />
 
     <application
         android:allowBackup="false"
@@ -22,6 +22,7 @@
         android:label="AmazTimer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.WorkoutActivity"></activity>
         <activity android:name=".activities.AppInfo" />
         <activity android:name=".activities.RepsTimerActivity" />
         <activity android:name=".activities.LatestTrainActivity" />

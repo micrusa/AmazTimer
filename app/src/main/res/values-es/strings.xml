@@ -38,4 +38,6 @@
     <string name="thanksfor">por</string>
     <string name="allcontributors">Todos los contribuyentes</string>
     <string name="ageyo">años</string>
+    <string name="workout">Modo de entrenamiento</string>
+    <string name="workoutsum">Sin cuentas atrás, finaliza las series manualmente. Muy útil para entrenamientos de pesas</string>
 </resources>

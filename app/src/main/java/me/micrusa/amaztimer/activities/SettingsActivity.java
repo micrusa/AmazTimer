@@ -58,6 +58,16 @@ public class SettingsActivity extends AppCompatActivity {
                 file.set(defValues.SETTINGS_LONGPREPARE, (Boolean) newValue);
             } else if (defValues.KEY_REPSMODE.equals(key)) {
                 file.set(defValues.SETTINGS_REPSMODE, (Boolean) newValue);
+                if((Boolean) newValue)
+                    preference.getPreferenceManager().findPreference(defValues.KEY_WORKOUT).setEnabled(false);
+                else
+                    preference.getPreferenceManager().findPreference(defValues.KEY_WORKOUT).setEnabled(true);
+            } else if (defValues.KEY_WORKOUT.equals(key)) {
+                file.set(defValues.SETTINGS_WORKOUTMODE, (Boolean) newValue);
+                if((Boolean) newValue)
+                    preference.getPreferenceManager().findPreference(defValues.KEY_REPSMODE).setEnabled(false);
+                else
+                    preference.getPreferenceManager().findPreference(defValues.KEY_REPSMODE).setEnabled(true);
             }
             return true;
         }
@@ -91,10 +101,12 @@ public class SettingsActivity extends AppCompatActivity {
             SwitchPreferenceCompat hrSwitch = findPreference(defValues.KEY_HRTOGGLE);
             SwitchPreferenceCompat longPrepare = findPreference(defValues.KEY_LONGPREPARE);
             SwitchPreferenceCompat repsMode = findPreference(defValues.KEY_REPSMODE);
+            SwitchPreferenceCompat workoutMode = findPreference(defValues.KEY_WORKOUT);
             batterySaving.setOnPreferenceChangeListener(onPreferenceChangeListener);
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
             longPrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
             repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            workoutMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             ListPreference lang = findPreference(defValues.KEY_LANG);
             ListPreference gender = findPreference(defValues.KEY_GENDER);
             lang.setOnPreferenceChangeListener(onPreferenceChangeListener);
@@ -126,6 +138,11 @@ public class SettingsActivity extends AppCompatActivity {
             weight.setEntryValues(weightsValue);
             age.setOnPreferenceChangeListener(onPreferenceChangeListener);
             weight.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            file settingsFile = new file(defValues.SETTINGS_FILE, getContext());
+            if (settingsFile.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE))
+                workoutMode.setEnabled(false);
+            else if (settingsFile.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE))
+                repsMode.setEnabled(false);
         }
     }
 }

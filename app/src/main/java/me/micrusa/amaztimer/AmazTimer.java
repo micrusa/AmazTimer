@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.activities.RepsTimerActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
+import me.micrusa.amaztimer.activities.WorkoutActivity;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
@@ -222,6 +223,11 @@ public class AmazTimer extends Activity {
                 final file settingsFile = new file(defValues.SETTINGS_FILE, view.getContext());
                 if(settingsFile.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
                     Intent intent = new Intent(view.getContext(), RepsTimerActivity.class);
+                    view.getContext().startActivity(intent);
+                    return;
+                } else if(settingsFile.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE)){
+                    Intent intent = new Intent(view.getContext(), WorkoutActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     view.getContext().startActivity(intent);
                     return;
                 }

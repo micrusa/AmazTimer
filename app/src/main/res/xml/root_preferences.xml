@@ -5,7 +5,12 @@
 
         <SwitchPreferenceCompat
             app:key="repsmode"
-            app:title="@string/repsmode"/>
+            app:title="@string/repsmode" />
+
+        <SwitchPreferenceCompat
+            app:key="workoutmode"
+            app:title="@string/workout"
+            app:summary="@string/workoutsum"/>
 
         <SwitchPreferenceCompat
             app:key="batterySaving"

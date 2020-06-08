@@ -42,4 +42,6 @@
     <string name="thanksfor">for</string>
     <string name="allcontributors">All contributors</string>
     <string name="ageyo">years old</string>
+    <string name="workout">Workout mode</string>
+    <string name="workoutsum">No timers, end sets manually. Useful for weight trainings</string>
 </resources>
