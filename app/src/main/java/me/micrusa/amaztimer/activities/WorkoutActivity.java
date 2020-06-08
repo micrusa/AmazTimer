@@ -20,7 +20,7 @@ import me.micrusa.amaztimer.utils.utils;
 public class WorkoutActivity extends AppCompatActivity {
 
     private Button endSet, cancel;
-    private TextView hr, sets, status;
+    private TextView hr, status;
     private ConstraintLayout layout;
     private final me.micrusa.amaztimer.defValues defValues = new defValues();
     private final me.micrusa.amaztimer.utils.utils utils = new utils();
@@ -34,8 +34,6 @@ public class WorkoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workout);
         this.init();
         file = new file(defValues.TIMER_FILE, this);
-        //Set sets text
-        sets.setText(String.valueOf(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS)));
         //Start hr sensor
         setHrState(true, hrSensor, hr);
         work();
@@ -48,7 +46,6 @@ public class WorkoutActivity extends AppCompatActivity {
         cancel = findViewById(R.id.RepsCancel);
         //TextViews
         hr = findViewById(R.id.RepsHR);
-        sets = findViewById(R.id.RepsSets);
         status = findViewById(R.id.RepsStatus);
         //Layout
         layout = findViewById(R.id.RepsLayout);
