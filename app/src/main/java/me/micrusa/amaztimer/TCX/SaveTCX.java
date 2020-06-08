@@ -106,13 +106,13 @@ public class SaveTCX {
             Element Version = tcx.createElement("Version");
             Creator.appendChild(Version);
             Element VersionMajor = tcx.createElement("VersionMajor");
-            VersionMajor.appendChild(tcx.createTextNode("3"));
+            VersionMajor.appendChild(tcx.createTextNode("2"));
             Version.appendChild(VersionMajor);
             Element VersionMinor = tcx.createElement("VersionMinor");
-            VersionMinor.appendChild(tcx.createTextNode("2"));
+            VersionMinor.appendChild(tcx.createTextNode("90"));
             Version.appendChild(VersionMinor);
             Element BuildMajor = tcx.createElement("BuildMajor");
-            BuildMajor.appendChild(tcx.createTextNode("3"));
+            BuildMajor.appendChild(tcx.createTextNode("0"));
             Version.appendChild(BuildMajor);
             Element BuildMinor = tcx.createElement("BuildMinor");
             BuildMinor.appendChild(tcx.createTextNode("0"));
