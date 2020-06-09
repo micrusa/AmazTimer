@@ -39,6 +39,11 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             file file = new file(defValues.SETTINGS_FILE, preference.getContext());
             file bodyFile = new file(defValues.BODY_FILE, preference.getContext());
+
+            SwitchPreferenceCompat repsMode = preference.getPreferenceManager().findPreference(defValues.KEY_REPSMODE);
+            SwitchPreferenceCompat workoutMode = preference.getPreferenceManager().findPreference(defValues.KEY_WORKOUT);
+            SwitchPreferenceCompat chronoMode = preference.getPreferenceManager().findPreference(defValues.KEY_CHRONO);
+
             String key = preference.getKey();
             if (defValues.KEY_BATTERYSAVING.equals(key)) {
                 file.set(defValues.SETTINGS_BATTERYSAVING, (Boolean) newValue);
@@ -58,8 +63,22 @@ public class SettingsActivity extends AppCompatActivity {
                 file.set(defValues.SETTINGS_LONGPREPARE, (Boolean) newValue);
             } else if (defValues.KEY_REPSMODE.equals(key)) {
                 file.set(defValues.SETTINGS_REPSMODE, (Boolean) newValue);
+                if ((Boolean) newValue){
+                    chronoMode.setEnabled(false);
+                    workoutMode.setEnabled(false);
+                } else {
+                    chronoMode.setEnabled(true);
+                    workoutMode.setEnabled(true);
+                }
             } else if (defValues.KEY_WORKOUT.equals(key)) {
                 file.set(defValues.SETTINGS_WORKOUTMODE, (Boolean) newValue);
+                if ((Boolean) newValue){
+                    chronoMode.setEnabled(false);
+                    repsMode.setEnabled(false);
+                } else {
+                    chronoMode.setEnabled(true);
+                    repsMode.setEnabled(true);
+                }
             } else if (defValues.KEY_ENABLEPREPARE.equals(key)){
                 file.set(defValues.SETTINGS_ENABLEPREPARE, (Boolean) newValue);
                 if((Boolean) newValue)
@@ -68,6 +87,13 @@ public class SettingsActivity extends AppCompatActivity {
                     preference.getPreferenceManager().findPreference(defValues.KEY_LONGPREPARE).setEnabled(false);
             } else if (defValues.KEY_CHRONO.equals(key)){
                 file.set(defValues.SETTINGS_CHRONOMODE, (Boolean) newValue);
+                if ((Boolean) newValue){
+                    workoutMode.setEnabled(false);
+                    repsMode.setEnabled(false);
+                } else {
+                    workoutMode.setEnabled(true);
+                    repsMode.setEnabled(true);
+                }
             }
             return true;
         }
@@ -148,6 +174,17 @@ public class SettingsActivity extends AppCompatActivity {
                 longPrepare.setEnabled(true);
             else
                 longPrepare.setEnabled(false);
+
+            if (settingsFile.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE)){
+                chronoMode.setEnabled(false);
+                repsMode.setEnabled(false);
+            } else if (settingsFile.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
+                chronoMode.setEnabled(false);
+                workoutMode.setEnabled(false);
+            } else if (settingsFile.get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)){
+                workoutMode.setEnabled(false);
+                repsMode.setEnabled(false);
+            }
         }
     }
 }
