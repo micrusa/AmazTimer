@@ -42,4 +42,7 @@
     <string name="workoutsum">Sin cuentas atrás, finaliza las series manualmente. Muy útil para entrenamientos de pesas</string>
     <string name="modes">Modos</string>
     <string name="enableprep">Activar preparación</string>
+    <string name="chrono">Modo de cronómetro</string>
+    <string name="chronosum">Vibrará en los intervalos configurados, pero en lugar de mostrar la cuenta atrás, se iniciará un cronómetro</string>
+    <string name="modes_sum">Selecciona solo uno</string>
 </resources>

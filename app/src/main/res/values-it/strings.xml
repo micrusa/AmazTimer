@@ -42,4 +42,7 @@
     <string name="workoutsum">No timers, end sets manually. Useful for weight trainings</string>
     <string name="modes">Modes</string>
     <string name="enableprep">Enable prepare timer</string>
+    <string name="chrono">Chrono mode</string>
+    <string name="chronosum">It will vibrate with the selected intervals but instead of showing the countdown on the screen, a chronometer will start</string>
+    <string name="modes_sum">Select only one</string>
 </resources>

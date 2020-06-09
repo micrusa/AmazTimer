@@ -10,12 +10,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,7 @@ public class widget extends AbstractPlugin {
     private Button plus, plus2, plus3, minus, minus2, minus3, start, cancel;
     private TextView sets, rest, work, time, hr, rSets, status, settingstext, setsText, workText, restText;
     private ConstraintLayout L1, L2;
+    private Chronometer chrono;
     //Define timers and timer booleans
     private CountDownTimer workTimer;
     private CountDownTimer restTimer;
@@ -254,10 +257,19 @@ public class widget extends AbstractPlugin {
                 getSettings();
                 //hrSensor stuff
                 setHrState(true, hrSensor, hr);
+                //Chrono stuff
+                time.setVisibility(View.VISIBLE);
+                chrono.setVisibility(View.GONE);
+                if (settingsFile.get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)){
+                    time.setVisibility(View.INVISIBLE);
+                    chrono.setVisibility(View.VISIBLE);
+                }
                 //Check if long prepare time option is enabled or disabled
                 int prepareTime;
-                if(!settingsFile.get(defValues.SETTINGS_ENABLEPREPARE, defValues.DEFAULT_ENABLEPREPARE)){
+                if(!settingsFile.get(defValues.SETTINGS_ENABLEPREPARE, defValues.DEFAULT_ENABLEPREPARE) || settingsFile.get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)){
                     startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
+                    chrono.setBase(SystemClock.elapsedRealtime());
+                    chrono.start();
                     return;
                 } else if(isLongPrepare()){
                     prepareTime = defValues.LONG_PREPARETIME;
@@ -304,6 +316,9 @@ public class widget extends AbstractPlugin {
                 L2.setVisibility(View.GONE);
                 //Stop timers
                 stopTimers();
+                //Stop chrono
+                if (new file(defValues.SETTINGS_FILE, getContext()).get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE))
+                    chrono.stop();
                 //Unregister hr sensor listener to avoid battery drain
                 setHrState(false, hrSensor, hr);
                 return true;
@@ -396,6 +411,8 @@ public class widget extends AbstractPlugin {
         //Layouts
         L1 = this.mView.findViewById(R.id.startScreen);
         L2 = this.mView.findViewById(R.id.timerScreen);
+        //Chrono
+        chrono = this.mView.findViewById(R.id.chrono);
     }
 
     private void reloadTexts() {
@@ -411,37 +428,38 @@ public class widget extends AbstractPlugin {
 
     private void timerUpdate(int v) {
         this.init();
-        if (!this.batterySaving) {
+        if (!this.batterySaving || !new file(defValues.SETTINGS_FILE, getContext()).get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)) {
             time.setText(utils.formatTime(v));
             if (v == 1){
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         time.setText(utils.formatTime(0));
+                    }
+                }, 950);
+            }
+        } else if (this.batterySaving){
+            if (!time.getText().toString().equals("--:--")) {
+                time.setText("--:--");
+            }
+            if (new file(defValues.SETTINGS_FILE, getContext()).get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)){
+                int latestHr = hrSensor.getLatestValue();
+                if(latestHr == 0)
+                    hr.setText(getContext().getResources().getString(R.string.nullinfo));
+                else
+                    hr.setText(hrSensor.getLatestValue());
+            }
+        }
+        if (v < 4) {
+            utils.vibrate(defValues.SHORT_VIBRATION, getContext());
+            if (v == 1){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
                         utils.vibrate(defValues.LONG_VIBRATION, getContext());
                     }
                 }, 950);
             }
-        } else {
-            if (!time.getText().toString().equals("--:--")) {
-                time.setText("--:--");
-            }
-            if (new file(defValues.SETTINGS_FILE, this.mView.getContext()).get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)) {
-                int latestHr = hrSensor.getLatestValue();
-                if (latestHr == 0)
-                    hr.setText(this.mView.getContext().getResources().getString(R.string.nullinfo));
-                else
-                    hr.setText(hrSensor.getLatestValue());
-            }
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    utils.vibrate(defValues.LONG_VIBRATION, getContext());
-                }
-            }, 950);
-        }
-        if (v < 4) {
-            utils.vibrate(defValues.SHORT_VIBRATION, this.mView.getContext());
         }
     }
 

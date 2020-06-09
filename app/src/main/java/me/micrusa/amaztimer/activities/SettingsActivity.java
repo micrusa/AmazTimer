@@ -58,23 +58,16 @@ public class SettingsActivity extends AppCompatActivity {
                 file.set(defValues.SETTINGS_LONGPREPARE, (Boolean) newValue);
             } else if (defValues.KEY_REPSMODE.equals(key)) {
                 file.set(defValues.SETTINGS_REPSMODE, (Boolean) newValue);
-                if((Boolean) newValue)
-                    preference.getPreferenceManager().findPreference(defValues.KEY_WORKOUT).setEnabled(false);
-                else
-                    preference.getPreferenceManager().findPreference(defValues.KEY_WORKOUT).setEnabled(true);
             } else if (defValues.KEY_WORKOUT.equals(key)) {
                 file.set(defValues.SETTINGS_WORKOUTMODE, (Boolean) newValue);
-                if((Boolean) newValue)
-                    preference.getPreferenceManager().findPreference(defValues.KEY_REPSMODE).setEnabled(false);
-                else
-                    preference.getPreferenceManager().findPreference(defValues.KEY_REPSMODE).setEnabled(true);
             } else if (defValues.KEY_ENABLEPREPARE.equals(key)){
                 file.set(defValues.SETTINGS_ENABLEPREPARE, (Boolean) newValue);
-                if((Boolean) newValue){
+                if((Boolean) newValue)
                     preference.getPreferenceManager().findPreference(defValues.KEY_LONGPREPARE).setEnabled(true);
-                } else {
+                else
                     preference.getPreferenceManager().findPreference(defValues.KEY_LONGPREPARE).setEnabled(false);
-                }
+            } else if (defValues.KEY_CHRONO.equals(key)){
+                file.set(defValues.SETTINGS_CHRONOMODE, (Boolean) newValue);
             }
             return true;
         }
@@ -109,12 +102,14 @@ public class SettingsActivity extends AppCompatActivity {
             SwitchPreferenceCompat longPrepare = findPreference(defValues.KEY_LONGPREPARE);
             SwitchPreferenceCompat repsMode = findPreference(defValues.KEY_REPSMODE);
             SwitchPreferenceCompat workoutMode = findPreference(defValues.KEY_WORKOUT);
+            SwitchPreferenceCompat chronoMode = findPreference(defValues.KEY_CHRONO);
             SwitchPreferenceCompat enablePrepare = findPreference(defValues.KEY_ENABLEPREPARE);
             batterySaving.setOnPreferenceChangeListener(onPreferenceChangeListener);
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
             longPrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
             repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             workoutMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            chronoMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             enablePrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
             ListPreference lang = findPreference(defValues.KEY_LANG);
             ListPreference gender = findPreference(defValues.KEY_GENDER);
@@ -148,11 +143,6 @@ public class SettingsActivity extends AppCompatActivity {
             age.setOnPreferenceChangeListener(onPreferenceChangeListener);
             weight.setOnPreferenceChangeListener(onPreferenceChangeListener);
             file settingsFile = new file(defValues.SETTINGS_FILE, getContext());
-            //Just 1 mode can be enabled
-            if (settingsFile.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE))
-                workoutMode.setEnabled(false);
-            else if (settingsFile.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE))
-                repsMode.setEnabled(false);
             //Disable longPrepare if prepare timer is off
             if (settingsFile.get(defValues.SETTINGS_ENABLEPREPARE, defValues.DEFAULT_ENABLEPREPARE))
                 longPrepare.setEnabled(true);
