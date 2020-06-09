@@ -2,6 +2,7 @@ package me.micrusa.amaztimer.TCX;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -34,6 +35,10 @@ public class SaveTCX {
 
 
     public void saveToFile(Context paramContext, TCXData TCXData){
+        if (TCXData.isEmpty()){
+            Log.i("AmazTimer: TCX: ", "TCXData is empty, returning!");
+            return;
+        }
         ArrayList<Lap> laps = TCXData.getLaps();
         try {
 

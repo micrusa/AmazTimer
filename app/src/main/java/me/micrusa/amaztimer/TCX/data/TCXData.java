@@ -8,6 +8,10 @@ public class TCXData {
 
     private ArrayList<Lap> laps = new ArrayList<Lap>();
 
+    public boolean isEmpty(){
+        return laps.size() == 0;
+    }
+
     public void addLap(Lap lap){
         laps.add(lap);
     }
