@@ -1,7 +1,9 @@
 package me.micrusa.amaztimer.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,21 +32,40 @@ public class RepsTimerActivity extends AppCompatActivity {
     private hrSensor hrSensor;
     private CountDownTimer restTimer;
 
-    private void setTime(long millis){
-        //If time < 4s vibrate
-        if(millis <= 3999){
-            //Longer vibration if time < 2s
-            if(millis <= 1999){
-                utils.vibrate(defValues.LONG_VIBRATION, this);
-            }else{
-                utils.vibrate(defValues.SHORT_VIBRATION, this);
+    private void setTime(long millis) {
+        int v = (int) millis / 1000;
+        this.init();
+        if(!new file(defValues.SETTINGS_FILE, this)
+                .get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING)) {
+            timer.setText(utils.formatTime(v));
+            if (v == 1){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        timer.setText(utils.formatTime(0));
+                        utils.vibrate(defValues.LONG_VIBRATION, getContext());
+                    }
+                }, 950);
+            }
+        } else {
+            if (!timer.getText().toString().equals("--:--")) {
+                timer.setText("--:--");
+            }
+            if (new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)){
+                int latestHr = hrSensor.getLatestValue();
+                if(latestHr == 0)
+                    hr.setText(getResources().getString(R.string.nullinfo));
+                else
+                    hr.setText(hrSensor.getLatestValue());
             }
         }
-        //If battery saving disabled set time text
-        if(!new file(defValues.SETTINGS_FILE, this)
-                .get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING)){
-            timer.setText(utils.formatTime((int) millis / 1000));
+        if (v < 4) {
+            utils.vibrate(defValues.SHORT_VIBRATION, this);
         }
+    }
+
+    public Context getContext(){
+        return this;
     }
 
     @Override
