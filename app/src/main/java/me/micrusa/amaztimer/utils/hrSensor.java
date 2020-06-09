@@ -30,7 +30,7 @@ public class hrSensor implements SensorEventListener {
     private final me.micrusa.amaztimer.defValues defValues = new defValues();
     private final latestTraining latestTraining = new latestTraining();
     private long startTime;
-    private int accuracy;
+    private int accuracy = 2;
     private int latestHr = 0;
     private String latestHrTime;
 
