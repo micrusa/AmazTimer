@@ -33,7 +33,7 @@ public class hrSensor implements SensorEventListener {
     private String latestHrTime;
 
     //All tcx needed stuff
-    private String currentLapStatus = "Active";
+    private String currentLapStatus = Constants.STATUS_RESTING;
     private Lap currentLap;
     private TCXData TCXData;
 
