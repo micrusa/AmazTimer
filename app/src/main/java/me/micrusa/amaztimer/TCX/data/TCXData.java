@@ -9,6 +9,10 @@ public class TCXData {
     private ArrayList<Lap> laps = new ArrayList<Lap>();
 
     public boolean isEmpty(){
+        for (Lap lap : laps){
+            if(!lap.isLapEmpty())
+                return false;
+        }
         return laps.size() == 0;
     }
 
