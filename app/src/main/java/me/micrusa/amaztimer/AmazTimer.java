@@ -1,10 +1,12 @@
 package me.micrusa.amaztimer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -401,6 +403,15 @@ public class AmazTimer extends Activity {
         this.init();
         if (!this.batterySaving) {
             time.setText(utils.formatTime(v));
+            if (v == 1){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        time.setText(utils.formatTime(0));
+                        utils.vibrate(defValues.LONG_VIBRATION, getContext());
+                    }
+                }, 950);
+            }
         } else {
             if (!time.getText().toString().equals("--:--")) {
                 time.setText("--:--");
@@ -414,11 +425,12 @@ public class AmazTimer extends Activity {
             }
         }
         if (v < 4) {
-            if (v == 1)
-                utils.vibrate(defValues.LONG_VIBRATION, this.mView.getContext());
-            else
-                utils.vibrate(defValues.SHORT_VIBRATION, this.mView.getContext());
+            utils.vibrate(defValues.SHORT_VIBRATION, this);
         }
+    }
+
+    private Context getContext(){
+        return this;
     }
 
     private void stopTimers() {

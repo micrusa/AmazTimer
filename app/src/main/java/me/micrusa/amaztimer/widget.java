@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -412,6 +413,15 @@ public class widget extends AbstractPlugin {
         this.init();
         if (!this.batterySaving) {
             time.setText(utils.formatTime(v));
+            if (v == 1){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        time.setText(utils.formatTime(0));
+                        utils.vibrate(defValues.LONG_VIBRATION, getContext());
+                    }
+                }, 950);
+            }
         } else {
             if (!time.getText().toString().equals("--:--")) {
                 time.setText("--:--");
@@ -425,11 +435,12 @@ public class widget extends AbstractPlugin {
             }
         }
         if (v < 4) {
-            if (v == 1)
-                utils.vibrate(defValues.LONG_VIBRATION, this.mView.getContext());
-            else
-                utils.vibrate(defValues.SHORT_VIBRATION, this.mView.getContext());
+            utils.vibrate(defValues.SHORT_VIBRATION, this.mView.getContext());
         }
+    }
+
+    private Context getContext(){
+        return this.mView.getContext();
     }
 
     private void stopTimers() {
