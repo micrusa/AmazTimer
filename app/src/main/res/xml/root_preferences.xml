@@ -36,9 +36,11 @@
     <PreferenceCategory app:title="@string/settings">
 
         <SwitchPreferenceCompat
-            app:key="huamiactivity"
-            app:title="@string/morepreparetime"
-            app:summary="@string/morepreparetimesum"/>
+            android:defaultValue="true"
+            app:defaultValue="true"
+            app:key="tcx"
+            app:title="@string/tcxexport"
+            app:summary="@string/tcxsum"/>
 
         <SwitchPreferenceCompat
             android:defaultValue="true"
@@ -46,6 +48,11 @@
             app:key="prepon"
             app:title="@string/enableprep"
             app:summary="@string/enableprep"/>
+
+        <SwitchPreferenceCompat
+            app:key="huamiactivity"
+            app:title="@string/morepreparetime"
+            app:summary="@string/morepreparetimesum"/>
 
         <ListPreference
             app:key="lang"

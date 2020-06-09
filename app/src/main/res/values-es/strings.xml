@@ -44,4 +44,7 @@
     <string name="enableprep">Activar preparación</string>
     <string name="chrono">Modo de cronómetro</string>
     <string name="chronosum">Vibrará en los intervalos configurados, pero en lugar de mostrar la cuenta atrás, se iniciará un cronómetro</string>
+    <string name="tcxexport">Exportar a TCX</string>
+    <string name="tcxsum">Puede subirse a strava. Se exportará en Almacenamiento Interno/AmazTimer/</string>
+    <string name="tcxexporting">Exportando a un archivo TCX...</string>
 </resources>

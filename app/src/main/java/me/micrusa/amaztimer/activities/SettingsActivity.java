@@ -94,6 +94,8 @@ public class SettingsActivity extends AppCompatActivity {
                     workoutMode.setEnabled(true);
                     repsMode.setEnabled(true);
                 }
+            } else if (defValues.KEY_TCX.equals(key)){
+                file.set(defValues.SETTINGS_TCX, (Boolean) newValue);
             }
             return true;
         }

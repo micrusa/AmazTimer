@@ -8,10 +8,12 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.TCX.SaveTCX;
 import me.micrusa.amaztimer.TCX.data.Lap;
@@ -99,7 +101,13 @@ public class hrSensor implements SensorEventListener {
         long endTime = System.currentTimeMillis();
         int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
         latestTraining.saveDataToFile(this.context, totalTimeInSeconds);
-        new SaveTCX().saveToFile(this.context, this.TCXData);
+        if (new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_TCX, defValues.DEFAULT_TCX)) {
+            new SaveTCX().saveToFile(this.context, this.TCXData);
+            Toast.makeText(this.context, R.string.tcxexporting, Toast.LENGTH_SHORT).show();
+        } else {
+            this.currentLap = null;
+            this.TCXData = new TCXData();
+        }
     }
 
     public void newLap(String lapStatus){

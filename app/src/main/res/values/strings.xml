@@ -48,4 +48,7 @@
     <string name="enableprep">Enable prepare timer</string>
     <string name="chrono">Chrono mode</string>
     <string name="chronosum">It will vibrate with the selected intervals but instead of showing the countdown on the screen, a chronometer will start</string>
+    <string name="tcxexport">TCX Export</string>
+    <string name="tcxsum">Can be uploaded to strava. Will be exported to Internal Storage/AmazTimer/</string>
+    <string name="tcxexporting">Exporting to TCX file...</string>
 </resources>
