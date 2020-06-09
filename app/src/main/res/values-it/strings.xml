@@ -40,4 +40,6 @@
     <string name="ageyo">years old</string>
     <string name="workout">Workout mode</string>
     <string name="workoutsum">No timers, end sets manually. Useful for weight trainings</string>
+    <string name="modes">Modes</string>
+    <string name="enableprep">Enable prepare timer</string>
 </resources>

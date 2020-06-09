@@ -40,4 +40,6 @@
     <string name="ageyo">años</string>
     <string name="workout">Modo de entrenamiento</string>
     <string name="workoutsum">Sin cuentas atrás, finaliza las series manualmente. Muy útil para entrenamientos de pesas</string>
+    <string name="modes">Modos</string>
+    <string name="enableprep">Activar preparación</string>
 </resources>

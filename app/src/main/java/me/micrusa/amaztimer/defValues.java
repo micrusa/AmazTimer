@@ -32,6 +32,7 @@ public final class defValues {
     //Default values
     public final String DEFAULT_LANG = "en";
     public final Boolean DEFAULT_LONGPREPARE = false;
+    public final Boolean DEFAULT_ENABLEPREPARE = true;
     public final boolean DEFAULT_BATTERYSAVING = false;
     public final boolean DEFAULT_HRSWITCH = true;
     public final boolean DEFAULT_REPSMODE = false;
@@ -62,6 +63,7 @@ public final class defValues {
     public final String SETTINGS_MAXHR = "maxhr";
     public final String SETTINGS_KCAL = "kcal";
     public final String SETTINGS_LONGPREPARE = "longprep";
+    public final String SETTINGS_ENABLEPREPARE = "prepon";
     public final String SETTINGS_REPSMODE = "repsmode";
     public final String SETTINGS_WORKOUTMODE = "workout";
     //Settings keys
@@ -72,6 +74,7 @@ public final class defValues {
     public final String KEY_AGE = "age";
     public final String KEY_WEIGHT = "weight";
     public final String KEY_LONGPREPARE = "huamiactivity";
+    public final String KEY_ENABLEPREPARE = "prepon";
     public final String KEY_REPSMODE = "repsmode";
     public final String KEY_SAVED = "saved";
     public final String KEY_LATESTTRAIN = "latesttrain";

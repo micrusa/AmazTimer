@@ -245,7 +245,10 @@ public class AmazTimer extends Activity {
                 setHrState(true, hrSensor, hr);
                 //Check if long prepare time option is enabled or disabled
                 int prepareTime;
-                if(isLongPrepare()){
+                if(!settingsFile.get(defValues.SETTINGS_ENABLEPREPARE, defValues.DEFAULT_ENABLEPREPARE)){
+                    startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
+                    return;
+                } else if(isLongPrepare()){
                     prepareTime = defValues.LONG_PREPARETIME;
                 }else{
                     prepareTime = defValues.SHORT_PREPARETIME;
