@@ -159,7 +159,10 @@ public class SettingsActivity extends AppCompatActivity {
             }
             age.setEntries(ages);
             age.setEntryValues(ages);
-            age.setSummary(String.valueOf(endYear - Integer.parseInt(age.getValue()) + " " + getResources().getString(R.string.ageyo)));
+            if (age.getValue() != null)
+                age.setSummary(String.valueOf(endYear - Integer.parseInt(age.getValue()) + " " + getResources().getString(R.string.ageyo)));
+            else
+                age.setSummary(String.valueOf(endYear - defValues.DEFAULT_AGE + " " + getResources().getString(R.string.ageyo)));
             String[] weightsEntry = new String[120];
             String[] weightsValue = new String[120];
             for(int i=30; i<150; i++){
