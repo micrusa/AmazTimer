@@ -25,6 +25,7 @@ import javax.xml.transform.stream.StreamResult;
 import me.micrusa.amaztimer.TCX.data.Lap;
 import me.micrusa.amaztimer.TCX.data.TCXData;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
+import me.micrusa.amaztimer.utils.file;
 
 public class SaveTCX {
 
@@ -39,6 +40,9 @@ public class SaveTCX {
             Log.i("AmazTimer: TCX: ", "TCXData is empty, returning!");
             return;
         }
+        if (!new File(FILE_PATH).exists())
+            new File(FILE_PATH).mkdirs();
+        
         ArrayList<Lap> laps = TCXData.getLaps();
         try {
 
