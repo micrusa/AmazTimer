@@ -132,6 +132,7 @@ public class SettingsActivity extends AppCompatActivity {
             SwitchPreferenceCompat workoutMode = findPreference(defValues.KEY_WORKOUT);
             SwitchPreferenceCompat chronoMode = findPreference(defValues.KEY_CHRONO);
             SwitchPreferenceCompat enablePrepare = findPreference(defValues.KEY_ENABLEPREPARE);
+            SwitchPreferenceCompat enableTcx = findPreference(defValues.KEY_TCX);
             batterySaving.setOnPreferenceChangeListener(onPreferenceChangeListener);
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
             longPrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
@@ -139,6 +140,7 @@ public class SettingsActivity extends AppCompatActivity {
             workoutMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             chronoMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             enablePrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            enableTcx.setOnPreferenceChangeListener(onPreferenceChangeListener);
             ListPreference lang = findPreference(defValues.KEY_LANG);
             ListPreference gender = findPreference(defValues.KEY_GENDER);
             lang.setOnPreferenceChangeListener(onPreferenceChangeListener);
