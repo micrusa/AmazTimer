@@ -10,10 +10,12 @@
     <Button
         android:id="@+id/RepsEndSet"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/circle_button"
         android:text="@string/finishset"
         app:layout_constraintEnd_toEndOf="@+id/RepsStatus"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="@+id/RepsStatus"
         app:layout_constraintTop_toBottomOf="@+id/RepsStatus" />
 
@@ -34,22 +36,23 @@
         android:id="@+id/RepsStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="@string/nullinfo"
         android:textColor="@color/black"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RepsHR" />
 
     <Button
         android:id="@+id/RepsCancel"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/circle_button"
         android:text="@android:string/cancel"
         app:layout_constraintEnd_toEndOf="@+id/RepsEndSet"
-        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="@+id/RepsEndSet"
         app:layout_constraintTop_toBottomOf="@+id/RepsEndSet" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
