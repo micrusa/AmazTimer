@@ -42,7 +42,7 @@ public class SaveTCX {
         }
         if (!new File(FILE_PATH).exists())
             new File(FILE_PATH).mkdirs();
-        
+
         ArrayList<Lap> laps = TCXData.getLaps();
         try {
 
