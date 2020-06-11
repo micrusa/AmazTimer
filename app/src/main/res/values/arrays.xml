@@ -9,12 +9,14 @@
         <item>Spanish</item>
         <item>Italian</item>
         <item>Croatian</item>
+        <item>Hebrew</item>
     </string-array>
     <string-array name="langvalues">
         <item>en</item>
         <item>es</item>
         <item>it</item>
         <item>hr</item>
+        <item>iw</item>
     </string-array>
 
     <!-- Gender preference -->
