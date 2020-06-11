@@ -28,9 +28,9 @@
     <string name="male">זכר</string>
     <string name="female">נקבה</string>
     <string name="latesttrain">אימון אחרון</string>
-    <string name="morepreparetime">יותר זמן להתכונן</string>
-    <string name="morepreparetimesum">If you enable this, prepare timer will last 60 seconds instead of 5, so you\'ll have enough time to start an activity</string>
-    <string name="waitforstart">Timer haven\'t started!</string>
+    <string name="morepreparetime">זמן הכנה מורחב</string>
+    <string name="morepreparetimesum">בהפעלת אפשרות זו, זמן ההכנה לפעילות ימשך 60 שניות במקום 5, כך שיהיה לכם מספיק זמן להתחיל את האימון.</string>
+    <string name="waitforstart">ספירת הזמן לא התחילה!</string>
     <string name="finishset">סיום אימון</string>
     <string name="reps">חזרות</string>
     <string name="repsmode">מצב חזרות</string>
@@ -40,15 +40,15 @@
     <string name="translationcredit">תורגם על ידי @1immortal</string>
     <string name="thanksto">תודה ל:</string>
     <string name="thanksfor">עבור</string>
-    <string name="allcontributors">כל ה</string>
+    <string name="allcontributors">כל התומכים/תורמים</string>
     <string name="ageyo">גיל</string>
     <string name="workout">מצב אימון</string>
-    <string name="workoutsum">No timers, end sets manually. Useful for weight trainings</string>
+    <string name="workoutsum">אימון ללא זמנים, הכנסת סטים ידנית. שימושי לאימוני משקולות</string>
     <string name="modes">מצבים</string>
     <string name="enableprep">אפשור טיימר הכנה לאימון</string>
     <string name="chrono">מצב כְרוֹנוֹמֶטֶר</string>
-    <string name="chronosum">It will vibrate with the selected intervals but instead of showing the countdown on the screen, a chronometer will start</string>
+    <string name="chronosum">השעון ירטוט באינטרוולים נבחרים, אך במקום ספירה לאחור, השעון יציג זמן רץ</string>
     <string name="tcxexport">ייצוא לTCX</string>
-    <string name="tcxsum">Can be uploaded to strava. Will be exported to Internal Storage/AmazTimer/</string>
+    <string name="tcxsum">ניתן להעלות אימונים לשירותי צד שלישי, כמו סטראבה. הקבצים נשמרים תחת Internal Storage/AmazTimer/</string>
     <string name="tcxexporting">מייצא לקובץ TCX</string>
 </resources>
