@@ -164,7 +164,7 @@ public class SettingsActivity extends AppCompatActivity {
             if (age.getValue() != null)
                 age.setSummary(String.valueOf(endYear - Integer.parseInt(age.getValue()) + " " + getResources().getString(R.string.ageyo)));
             else
-                age.setSummary(String.valueOf(endYear - defValues.DEFAULT_AGE + " " + getResources().getString(R.string.ageyo)));
+                age.setSummary(String.valueOf(defValues.DEFAULT_AGE + " " + getResources().getString(R.string.ageyo)));
             String[] weightsEntry = new String[120];
             String[] weightsValue = new String[120];
             for(int i=30; i<150; i++){
@@ -173,6 +173,10 @@ public class SettingsActivity extends AppCompatActivity {
             }
             weight.setEntries(weightsEntry);
             weight.setEntryValues(weightsValue);
+            if (weight.getValue() != null)
+                weight.setSummary(weight.getValue() + weight.getSummary().toString());
+            else
+                weight.setSummary(defValues.DEFAULT_WEIGHT + weight.getSummary().toString());
             age.setOnPreferenceChangeListener(onPreferenceChangeListener);
             weight.setOnPreferenceChangeListener(onPreferenceChangeListener);
             file settingsFile = new file(defValues.SETTINGS_FILE, getContext());
