@@ -59,6 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
                 preference.setSummary(String.valueOf(age) + " " + preference.getContext().getResources().getString(R.string.ageyo));
             } else if (defValues.KEY_WEIGHT.equals(key)) {
                 bodyFile.set(defValues.SETTINGS_WEIGHT, Integer.parseInt((String) newValue));
+                preference.setSummary(newValue + "Kg");
             } else if (defValues.KEY_LONGPREPARE.equals(key)) {
                 file.set(defValues.SETTINGS_LONGPREPARE, (Boolean) newValue);
             } else if (defValues.KEY_REPSMODE.equals(key)) {
