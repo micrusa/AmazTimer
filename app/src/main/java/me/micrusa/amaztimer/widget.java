@@ -29,6 +29,7 @@ import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.activities.RepsTimerActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.activities.WorkoutActivity;
+import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
@@ -205,7 +206,10 @@ public class widget extends AbstractPlugin {
         //Setup view
         //Log.d(TAG, "getView()" + paramContext.getPackageName() + " AmazTimer");
         this.mContext = paramContext;
-        this.mView = LayoutInflater.from(paramContext).inflate(R.layout.amaztimer, null);
+        if(SystemProperties.isStratos3())
+            this.mView = LayoutInflater.from(paramContext).inflate(R.layout.round_amaztimer, null);
+        else
+            this.mView = LayoutInflater.from(paramContext).inflate(R.layout.amaztimer, null);
         //Setup items
         this.init();
         //Set language to setting's language

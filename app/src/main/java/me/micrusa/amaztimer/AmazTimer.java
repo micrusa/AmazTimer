@@ -21,6 +21,7 @@ import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.activities.RepsTimerActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.activities.WorkoutActivity;
+import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
@@ -28,7 +29,6 @@ import me.micrusa.amaztimer.utils.utils;
 public class AmazTimer extends Activity {
 
     //These get set up later
-    private View mView;
     private boolean mHasActive = false;
     //Define items
     private Button plus, plus2, plus3, minus, minus2, minus3, start, cancel;
@@ -191,8 +191,10 @@ public class AmazTimer extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Save Activity variables
-        setContentView(R.layout.amaztimer);
-        this.mView = this.findViewById(android.R.id.content);
+        if (SystemProperties.isStratos3())
+            setContentView(R.layout.round_amaztimer);
+        else
+            setContentView(R.layout.amaztimer);
         //Setup items
         this.init();
         //Set language to setting's language
@@ -200,11 +202,6 @@ public class AmazTimer extends Activity {
         //Set texts
         this.reloadTexts();
         this.setTimesTexts();
-        //Check if the view is already inflated (reloading)
-        if ((!this.mHasActive) && (this.mView != null)) {
-            //It is, simply refresh
-            refreshView();
-        }
         //Setup hrSensor class
         hrSensor = new hrSensor(this, hr);
         //Plus and minus buttons
@@ -328,8 +325,8 @@ public class AmazTimer extends Activity {
         sets.setText(String.valueOf(iSets));
         rest.setText(utils.formatTime(iRest));
         //If reps mode is enabled dont show work time, else set work text
-        if(new file(defValues.SETTINGS_FILE, this.mView.getContext()).get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
-            work.setText(this.mView.getResources().getString(R.string.nullinfo));
+        if(new file(defValues.SETTINGS_FILE, getContext()).get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
+            work.setText(getResources().getString(R.string.nullinfo));
         } else {
             work.setText(utils.formatTime(iWork));
         }
@@ -541,7 +538,7 @@ public class AmazTimer extends Activity {
         //Set texts
         this.reloadTexts();
         //Check if view already loaded
-        if ((!this.mHasActive) && (this.mView != null)) {
+        if ((!this.mHasActive) && (this != null)) {
             //It is, simply refresh
             this.mHasActive = true;
             refreshView();
