@@ -1,0 +1,54 @@
+<resources>
+    <!--Don't translate this!-->
+    <string name="amaztimer" translatable="false">AmazTimer</string>
+    <string name="kcal" translatable="false">Kcal</string>
+    <string name="nullinfo" translatable="false">--</string>
+    <!--Start translating here-->
+    <string name="start">התחל</string>
+    <string name="work">אימון</string>
+    <string name="rest">מנוחה</string>
+    <string name="sets">חזרות</string>
+    <string name="prepare">התכוננו!</string>
+    <string name="cancel">ביטול</string>
+    <string name="canceltoast">לחיצה ארוכה</string>
+    <string name="settings">הגדרות</string>
+    <string name="batterysaving">חיסכון בסוללה</string>
+    <string name="lang">שפה</string>
+    <string name="startsettings">לחיצה ארוכה לכניסה להגדרות</string>
+    <string name="hrEnabled">ניטור דופק</string>
+    <string name="saved">סטים קבועים</string>
+    <string name="edit">עריכה</string>
+    <string name="misc">כללי</string>
+    <string name="weight">משקל</string>
+    <string name="age">שנת לידה</string>
+    <string name="gender">מגדר</string>
+    <string name="averagehr">דופק ממוצע</string>
+    <string name="maxhr">דופק מקסימלי</string>
+    <string name="minhr">דופק מינימלי</string>
+    <string name="male">זכר</string>
+    <string name="female">נקבה</string>
+    <string name="latesttrain">אימון אחרון</string>
+    <string name="morepreparetime">זמן הכנה מורחב</string>
+    <string name="morepreparetimesum">בהפעלת אפשרות זו, זמן ההכנה לפעילות ימשך 60 שניות במקום 5, כך שיהיה לכם מספיק זמן להתחיל את האימון.</string>
+    <string name="waitforstart">ספירת הזמן לא התחילה!</string>
+    <string name="finishset">סיום אימון</string>
+    <string name="reps">חזרות</string>
+    <string name="repsmode">מצב חזרות</string>
+    <string name="hrzone">איזור דופק</string>
+    <string name="appinfo">מידע</string>
+    <string name="appcredit">אפליקציה נכתבה על ידי @micrusa</string>
+    <string name="translationcredit">תורגם על ידי @1immortal</string>
+    <string name="thanksto">תודה ל:</string>
+    <string name="thanksfor">עבור</string>
+    <string name="allcontributors">כל התומכים/תורמים</string>
+    <string name="ageyo">גיל</string>
+    <string name="workout">מצב אימון</string>
+    <string name="workoutsum">אימון ללא זמנים, הכנסת סטים ידנית. שימושי לאימוני משקולות</string>
+    <string name="modes">מצבים</string>
+    <string name="enableprep">אפשור טיימר הכנה לאימון</string>
+    <string name="chrono">מצב כְרוֹנוֹמֶטֶר</string>
+    <string name="chronosum">השעון ירטוט באינטרוולים נבחרים, אך במקום ספירה לאחור, השעון יציג זמן רץ</string>
+    <string name="tcxexport">ייצוא לTCX</string>
+    <string name="tcxsum">ניתן להעלות אימונים לשירותי צד שלישי, כמו סטראבה. הקבצים נשמרים תחת Internal Storage/AmazTimer/</string>
+    <string name="tcxexporting">מייצא לקובץ TCX</string>
+</resources>
