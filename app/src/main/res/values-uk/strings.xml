@@ -44,7 +44,7 @@
     <string name="modes"> Режими </string>
     <string name="enableprep"> Увімкнути таймер підготовки </string>
     <string name="chrono"> Режим хронографа </string>
-    <string name="chronosum"> Часи будуть вібрувати з вибраними інтервалами, але замість відображення зворотного відліку на екрані буде запущений секундомір </string>
+    <string name="chronosum"> Годинник будуть вібрувати з вибраними інтервалами, але замість відображення зворотного відліку на екрані буде запущений секундомір </string>
     <string name="tcxexport"> TCX експорт </string>
     <string name="tcxsum"> Може бути завантажений в strava. Експортується в Internal Storage / AmazTimer / </string>
     <string name="tcxexporting"> Експорт в TCX-файл ... </string>
