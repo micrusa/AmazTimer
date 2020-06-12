@@ -9,10 +9,6 @@ public class TCXData {
     private ArrayList<Lap> laps = new ArrayList<Lap>();
 
     public boolean isEmpty(){
-        for (Lap lap : laps){
-            if(!lap.isLapEmpty())
-                return false;
-        }
         return laps.size() == 0;
     }
 
@@ -25,7 +21,10 @@ public class TCXData {
     }
 
     public String getTime(){
-        return this.laps.get(0).getStartTime();
+        if (!this.isEmpty())
+            return this.laps.get(0).getStartTime();
+        else
+            return null;
     }
 
     public String getSportName(){

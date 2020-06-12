@@ -25,6 +25,7 @@ import javax.xml.transform.stream.StreamResult;
 import me.micrusa.amaztimer.TCX.data.Lap;
 import me.micrusa.amaztimer.TCX.data.TCXData;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
+import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.file;
 
 public class SaveTCX {
@@ -107,7 +108,7 @@ public class SaveTCX {
             Creator.setAttribute("xsi:type", "Device_t");
             Activity.appendChild(Creator);
             Element Name = tcx.createElement("Name");
-            Name.appendChild(tcx.createTextNode("Huami Amazfit Pace"));
+            Name.appendChild(tcx.createTextNode(SystemProperties.getDeviceName()));
             Creator.appendChild(Name);
             Element UnitId = tcx.createElement("UnitId");
             UnitId.appendChild(tcx.createTextNode("1111111111"));

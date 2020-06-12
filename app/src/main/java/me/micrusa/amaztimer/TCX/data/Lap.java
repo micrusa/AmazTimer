@@ -7,16 +7,16 @@ import java.util.List;
 
 import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
+import me.micrusa.amaztimer.utils.latestTraining;
 
 public class Lap {
 
     private List<Trackpoint> tps = new ArrayList<Trackpoint>();
-
     private String StartTime;
+    private String intensity;
     private long longStartTime;
     private long timeInSecs;
     private int kcal = 0;
-    private String intensity;
 
     public Lap(){
         this.longStartTime = System.currentTimeMillis();
@@ -53,19 +53,7 @@ public class Lap {
     }
 
     public void calcCalories(int age, int weight, boolean isMale){
-        if(getAvgHr()==0||getTimeInSeconds()==0||age==0||weight==0){
-            this.kcal = 0;
-            return;
-        }
-        double kcal;
-        //Formula from https://www.calculatorpro.com/calculator/calories-burned-by-heart-rate/
-        if(isMale){
-            kcal = (-55.0969 + (0.6309 * getAvgHr()) + (0.1988 * weight) + (0.2017 * age)) / 4.184;
-        }else{
-            kcal = (-20.4022 + (0.4472 * getAvgHr()) + (0.1263 * weight) + (0.074) * age) / 4.184;
-        }
-        //Convert time to mins and then multiply by kcal/min
-        this.kcal = (int) kcal * ((int) getTimeInSeconds() / 60);
+        this.kcal = latestTraining.calculateKcal(getAvgHr(), (int) getTimeInSeconds(), age, weight, isMale);
     }
 
     public int getKcal(){

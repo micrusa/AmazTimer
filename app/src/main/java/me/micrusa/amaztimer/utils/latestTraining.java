@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import me.micrusa.amaztimer.defValues;
 
-class latestTraining {
+public class latestTraining {
     private final defValues defValues = new defValues();
 
     private int[] hrArray = null;
@@ -53,7 +53,7 @@ class latestTraining {
         this.hrArray = null;
     }
 
-    private int calculateKcal(int avgHr, int time, int age, int weight, boolean isMale){
+    public static int calculateKcal(int avgHr, int time, int age, int weight, boolean isMale){
         if(avgHr==0||time==0||age==0||weight==0){return 0;}
         double kcal;
         //Formula from https://www.calculatorpro.com/calculator/calories-burned-by-heart-rate/

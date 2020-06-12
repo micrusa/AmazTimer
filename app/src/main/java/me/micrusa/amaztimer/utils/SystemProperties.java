@@ -50,4 +50,17 @@ public class SystemProperties {
         return check;
     }
 
+    public static String getDeviceName(){
+        if(isPace())
+            return "Huami Amazfit Pace";
+        else if(isStratos())
+            return "Huami Amazfit Stratos";
+        else if(isVerge())
+            return "Huami Amazfit Verge";
+        else if(isStratos3())
+            return "Huami Amazfit Stratos 3";
+        else
+            return "Unknown device";
+    }
+
 }
