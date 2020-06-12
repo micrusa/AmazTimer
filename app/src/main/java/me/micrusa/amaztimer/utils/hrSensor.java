@@ -102,9 +102,12 @@ public class hrSensor implements SensorEventListener {
         int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
         latestTraining.saveDataToFile(this.context, totalTimeInSeconds);
         if (new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_TCX, defValues.DEFAULT_TCX)) {
-            new SaveTCX().saveToFile(this.context, this.TCXData);
+            boolean result = new SaveTCX().saveToFile(this.context, this.TCXData);
             new utils().setLang(this.context, new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
-            Toast.makeText(this.context, R.string.tcxexporting, Toast.LENGTH_SHORT).show();
+            if (result)
+                Toast.makeText(this.context, R.string.tcxexporting, Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this.context, R.string.tcxerror, Toast.LENGTH_SHORT).show();
         } else {
             this.currentLap = null;
             this.TCXData = new TCXData();

@@ -47,4 +47,5 @@
     <string name="tcxexport">Exportar a TCX</string>
     <string name="tcxsum">Puede subirse a strava. Se exportará en Almacenamiento Interno/AmazTimer/</string>
     <string name="tcxexporting">Exportando a un archivo TCX...</string>
+    <string name="tcxerror">Error al guardar archivo TCX</string>
 </resources>

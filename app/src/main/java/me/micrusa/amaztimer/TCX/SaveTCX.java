@@ -35,13 +35,15 @@ public class SaveTCX {
     private Document tcx;
 
 
-    public void saveToFile(Context paramContext, TCXData TCXData){
+    public boolean saveToFile(Context paramContext, TCXData TCXData){
         if (TCXData.isEmpty()){
             Log.i("AmazTimer: TCX: ", "TCXData is empty, returning!");
-            return;
+            return false;
         }
         if (!new File(FILE_PATH).exists())
             new File(FILE_PATH).mkdirs();
+
+        File tcxFile = new File(FILE_PATH + "AmazTimer" + TCXData.getTime().replaceAll(":", "-").replace("T", "_").replace("Z", "") + ".tcx");
 
         ArrayList<Lap> laps = TCXData.getLaps();
         try {
@@ -169,13 +171,15 @@ public class SaveTCX {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(tcx);
-            StreamResult streamResult = new StreamResult(new File(FILE_PATH + "AmazTimer" + TCXData.getTime().replaceAll(":", "-").replace("T", "_").replace("Z", "") + ".tcx"));
+            StreamResult streamResult = new StreamResult(tcxFile);
 
             transformer.transform(domSource, streamResult);
 
         } catch (ParserConfigurationException | TransformerException pce) {
             pce.printStackTrace();
+            return false;
         }
+        return tcxFile.exists();
     }
 
     private void fillLap(Lap lap){
