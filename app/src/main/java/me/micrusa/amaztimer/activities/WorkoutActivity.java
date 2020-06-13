@@ -5,8 +5,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ public class WorkoutActivity extends AppCompatActivity {
     private Button endSet, cancel;
     private TextView hr, status;
     private ConstraintLayout layout;
+    private Chronometer chrono;
     private final me.micrusa.amaztimer.defValues defValues = new defValues();
     private final me.micrusa.amaztimer.utils.utils utils = new utils();
     private me.micrusa.amaztimer.utils.file file;
@@ -49,6 +52,8 @@ public class WorkoutActivity extends AppCompatActivity {
         status = findViewById(R.id.RepsStatus);
         //Layout
         layout = findViewById(R.id.RepsLayout);
+        //Chrono
+        chrono = findViewById(R.id.workoutChrono);
         //Define hrSensor
         hrSensor = new hrSensor(this, hr);
         //Set OnClickListeners
@@ -86,6 +91,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
     private void work(){
         hrSensor.newLap(Constants.STATUS_ACTIVE);
+        resetChrono();
         isWorking = true;
         layout.setBackgroundColor(getResources().getColor(R.color.red));
         status.setText(getResources().getString(R.string.work));
@@ -93,6 +99,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
     private void rest(){
         hrSensor.newLap(Constants.STATUS_RESTING);
+        resetChrono();
         isWorking = false;
         layout.setBackgroundColor(getResources().getColor(R.color.green));
         status.setText(getResources().getString(R.string.rest));
@@ -112,5 +119,11 @@ public class WorkoutActivity extends AppCompatActivity {
         } else if (settingsFile.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)) {
             hrSensor.unregisterListener();
         }
+    }
+
+    private void resetChrono(){
+        chrono.stop();
+        chrono.setBase(SystemClock.elapsedRealtime());
+        chrono.start();
     }
 }
