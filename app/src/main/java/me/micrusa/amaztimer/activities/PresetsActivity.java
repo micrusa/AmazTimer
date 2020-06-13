@@ -19,8 +19,6 @@ import me.micrusa.amaztimer.utils.utils;
 public class PresetsActivity extends AppCompatActivity {
 
     private file file1, file2;
-    private final me.micrusa.amaztimer.defValues defValues = new defValues();
-    private final me.micrusa.amaztimer.utils.utils utils = new utils();
 
     private TextView preset1, preset2;
     private Button start1, start2, edit1, edit2;

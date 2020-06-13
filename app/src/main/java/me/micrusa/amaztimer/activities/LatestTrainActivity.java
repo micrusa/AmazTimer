@@ -11,8 +11,6 @@ import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
 
 public class LatestTrainActivity extends AppCompatActivity {
-    private final me.micrusa.amaztimer.defValues defValues = new defValues();
-    private final me.micrusa.amaztimer.utils.utils utils = new utils();
 
     private TextView avghrText, maxhrText, minhrText, latestTrainText, hrzoneText, avghr, minhr, maxhr, kcal, hrzone;
 

@@ -12,9 +12,8 @@ import me.micrusa.amaztimer.defValues;
 
 public class utils {
 
-    private final me.micrusa.amaztimer.defValues defValues = new defValues();
 
-    public void vibrate(int time, Context Context) {
+    public static void vibrate(int time, Context Context) {
         //Get vibrator service and vibrate
         Vibrator v = (Vibrator) Context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         if (v != null) {
@@ -22,13 +21,13 @@ public class utils {
         }
     }
 
-    public String formatTime(int seconds) {
+    public static String formatTime(int seconds) {
         //Format seconds to mm:ss
         SimpleDateFormat df = new SimpleDateFormat(defValues.timeFormat, Locale.getDefault());
         return df.format(new Date(seconds * 1000));
     }
 
-    public void setLang(Context context, String lang) {
+    public static void setLang(Context context, String lang) {
         Locale locale = new Locale(lang);
         Configuration config = new Configuration(context.getResources().getConfiguration());
         Locale.setDefault(locale);
@@ -37,7 +36,7 @@ public class utils {
                 context.getResources().getDisplayMetrics());
     }
 
-    public void pushToFile(file f, int sets, int work, int rest) {
+    public static void pushToFile(file f, int sets, int work, int rest) {
         //Save all values to the given file
         f.set(defValues.SETTINGS_SETS, sets);
         f.set(defValues.SETTINGS_WORK, work);

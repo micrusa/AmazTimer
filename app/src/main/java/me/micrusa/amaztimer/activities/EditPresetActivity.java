@@ -22,8 +22,6 @@ public class EditPresetActivity extends AppCompatActivity {
     private OnClickListener plusMinusBtn;
     private OnLongClickListener longPlusMinusBtn;
     private OnClickListener editBtn;
-    private final me.micrusa.amaztimer.defValues defValues = new defValues();
-    private final me.micrusa.amaztimer.utils.utils utils = new utils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

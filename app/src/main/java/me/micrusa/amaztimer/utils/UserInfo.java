@@ -11,7 +11,6 @@ import me.micrusa.amaztimer.defValues;
 
 public class UserInfo {
 
-    private me.micrusa.amaztimer.defValues defValues = new defValues();
     private Context context;
 
     int mGender;

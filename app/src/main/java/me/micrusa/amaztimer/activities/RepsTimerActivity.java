@@ -26,8 +26,6 @@ public class RepsTimerActivity extends AppCompatActivity {
     private TextView timer, hr, sets, status;
     private ConstraintLayout layout;
     private boolean timerStarted;
-    private final me.micrusa.amaztimer.defValues defValues = new defValues();
-    private final me.micrusa.amaztimer.utils.utils utils = new utils();
     private me.micrusa.amaztimer.utils.file file;
     private hrSensor hrSensor;
     private CountDownTimer restTimer;

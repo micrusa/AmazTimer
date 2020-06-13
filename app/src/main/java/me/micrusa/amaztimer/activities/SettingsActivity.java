@@ -18,8 +18,6 @@ import me.micrusa.amaztimer.utils.utils;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private static final me.micrusa.amaztimer.defValues defValues = new defValues();
-    private final me.micrusa.amaztimer.utils.utils utils = new utils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

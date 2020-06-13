@@ -41,10 +41,7 @@ public class AmazTimer extends Activity {
     private boolean workStarted = false;
     private boolean restStarted = false;
     //Classes
-    private final me.micrusa.amaztimer.utils.utils utils = new utils();
     private hrSensor hrSensor;
-    //Default values
-    private final me.micrusa.amaztimer.defValues defValues = new defValues();
     //Settings
     private boolean batterySaving;
     private boolean hrEnabled;

@@ -55,10 +55,7 @@ public class widget extends AbstractPlugin {
     private boolean workStarted = false;
     private boolean restStarted = false;
     //Classes
-    private final me.micrusa.amaztimer.utils.utils utils = new utils();
     private hrSensor hrSensor;
-    //Default values
-    private final defValues defValues = new defValues();
     //Settings
     private boolean batterySaving;
     private boolean hrEnabled;

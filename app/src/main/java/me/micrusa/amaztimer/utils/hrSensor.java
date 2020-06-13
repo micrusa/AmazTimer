@@ -27,7 +27,6 @@ public class hrSensor implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor hrSens;
     private TextView hrText;
-    private final me.micrusa.amaztimer.defValues defValues = new defValues();
     private final latestTraining latestTraining = new latestTraining();
     private long startTime;
     private int accuracy = 2;
@@ -103,7 +102,7 @@ public class hrSensor implements SensorEventListener {
         latestTraining.saveDataToFile(this.context, totalTimeInSeconds);
         if (new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_TCX, defValues.DEFAULT_TCX)) {
             boolean result = new SaveTCX().saveToFile(this.context, this.TCXData);
-            new utils().setLang(this.context, new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+            utils.setLang(this.context, new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
             if (result)
                 Toast.makeText(this.context, R.string.tcxexporting, Toast.LENGTH_SHORT).show();
             else

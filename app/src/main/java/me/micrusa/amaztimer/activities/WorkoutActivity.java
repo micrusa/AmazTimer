@@ -25,8 +25,6 @@ public class WorkoutActivity extends AppCompatActivity {
     private TextView hr, status;
     private ConstraintLayout layout;
     private Chronometer chrono;
-    private final me.micrusa.amaztimer.defValues defValues = new defValues();
-    private final me.micrusa.amaztimer.utils.utils utils = new utils();
     private me.micrusa.amaztimer.utils.file file;
     private me.micrusa.amaztimer.utils.hrSensor hrSensor;
     private boolean isWorking;

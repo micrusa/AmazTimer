@@ -7,7 +7,6 @@ import java.util.Arrays;
 import me.micrusa.amaztimer.defValues;
 
 public class latestTraining {
-    private final defValues defValues = new defValues();
 
     private int[] hrArray = null;
 
