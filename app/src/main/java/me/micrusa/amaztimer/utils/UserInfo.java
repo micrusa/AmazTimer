@@ -35,6 +35,7 @@ public class UserInfo {
             this.mMonth = cursor.getInt(cursor.getColumnIndex("month"));
             this.mWeight = cursor.getFloat(cursor.getColumnIndex("weight"));
             this.mHeight = cursor.getInt(cursor.getColumnIndex("height"));
+            cursor.close();
         }
     }
 
