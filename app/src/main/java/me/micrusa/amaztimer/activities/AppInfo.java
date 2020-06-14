@@ -31,15 +31,18 @@ public class AppInfo extends AppCompatActivity {
         TextView thanksto = findViewById(R.id.thanksto);
         //Define SPACE and NEWLINE
         String SPACE = " ";
-        String NEWLINE = "\n";
+        String NEWLINE = "\n- ";
+        String FOR = getResources().getString(R.string.thanksfor);
         //Set texts
         appText.setText(appText.getText()
                 + SPACE + defValues.VERSION_NAME + SPACE + "(" + defValues.VERSION_CODE + ")");
         appCredits.setText(getResources().getString(R.string.appcredit));
         translationCredits.setText(getResources().getString(R.string.translationcredit));
         thanksto.setText(getResources().getString(R.string.thanksto)
-                + NEWLINE + "@Quinny899" + SPACE + getResources().getString(R.string.thanksfor) + SPACE + "Springboard Plugin Example"
-                + NEWLINE + "@GreatApo" + SPACE + getResources().getString(R.string.thanksfor) + SPACE + "Widget Calendar"
+                + NEWLINE + "@Quinny899" + SPACE + FOR + SPACE + "Springboard Plugin Example"
+                + NEWLINE + "@GreatApo" + SPACE + FOR + SPACE + "Widget Calendar"
+                + NEWLINE + "@1immortal" + SPACE + FOR + SPACE + "AmazTimer installer"
+                + NEWLINE + "AmazMod team"
                 + NEWLINE + getResources().getString(R.string.allcontributors));
     }
 }
