@@ -11,10 +11,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.BODY_SENSORS" />
-    <uses-permission android:name="com.huami.watch.permission.READ_USER_SETTINGS" />
-    <uses-permission android:name="com.huami.watch.permission.WRITE_USER_SETTINGS" />
-    <uses-permission android:name="com.huami.watch.companion.permission.READ_SETTINGS" />
-    <uses-permission android:name="com.huami.watch.companion.permission.WRITE_SETTINGS" />
 
     <application
         android:allowBackup="false"
@@ -22,7 +18,7 @@
         android:label="AmazTimer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.WorkoutActivity"></activity>
+        <activity android:name=".activities.WorkoutActivity" />
         <activity android:name=".activities.AppInfo" />
         <activity android:name=".activities.RepsTimerActivity" />
         <activity android:name=".activities.LatestTrainActivity" />
@@ -31,6 +27,9 @@
         <meta-data
             android:name="com.huami.watch.launcher.springboard.PASSAGER_TARGET"
             android:resource="@array/spring_depend" />
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
 
         <activity android:name=".activities.PresetsActivity" />
         <activity android:name=".activities.SettingsActivity" />
