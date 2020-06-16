@@ -54,15 +54,15 @@ public class latestTraining {
 
     public static int calculateKcal(int avgHr, int time, int age, int weight, boolean isMale){
         if(avgHr==0||time==0||age==0||weight==0){return 0;}
-        double kcal;
+        double kcalPerMin;
         //Formula from https://www.calculatorpro.com/calculator/calories-burned-by-heart-rate/
         if(isMale){
-            kcal = (-55.0969 + (0.6309 * avgHr) + (0.1988 * weight) + (0.2017 * age)) / 4.184;
+            kcalPerMin = (-55.0969 + (0.6309 * avgHr) + (0.1988 * weight) + (0.2017 * age)) / 4.184;
         }else{
-            kcal = (-20.4022 + (0.4472 * avgHr) + (0.1263 * weight) + (0.074) * age) / 4.184;
+            kcalPerMin = (-20.4022 + (0.4472 * avgHr) + (0.1263 * weight) + (0.074) * age) / 4.184;
         }
-        //Convert time to mins and then multiply by kcal/min
-        return (int) kcal * (time / 60);
+        //Calculate kcal from kcal/min
+        return (int) (kcalPerMin * time) / 60;
     }
 
     void cleanAllValues(Context context){
