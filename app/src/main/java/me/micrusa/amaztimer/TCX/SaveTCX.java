@@ -4,14 +4,10 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -26,7 +22,6 @@ import me.micrusa.amaztimer.TCX.data.Lap;
 import me.micrusa.amaztimer.TCX.data.TCXData;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
 import me.micrusa.amaztimer.utils.SystemProperties;
-import me.micrusa.amaztimer.utils.file;
 
 public class SaveTCX {
 
@@ -35,10 +30,12 @@ public class SaveTCX {
     private Element Activity;
     private Document tcx;
 
+    private String TAG = "AmazTimer TCX";
+
 
     public boolean saveToFile(Context paramContext, TCXData TCXData){
         if (TCXData.isEmpty()){
-            Log.i("AmazTimer: TCX: ", "TCXData is empty, returning!");
+            Log.d(TAG, "TCXData is empty, returning!");
             return false;
         }
         if (!new File(FILE_PATH).exists())
@@ -46,7 +43,6 @@ public class SaveTCX {
 
         File tcxFile = new File(FILE_PATH + "AmazTimer" + TCXData.getTime().replaceAll(":", "-").replace("T", "_").replace("Z", "") + ".tcx");
 
-        ArrayList<Lap> laps = TCXData.getLaps();
         try {
 
             DocumentBuilderFactory tcxFactory = DocumentBuilderFactory.newInstance();
@@ -99,9 +95,11 @@ public class SaveTCX {
             Activity.appendChild(Id);
 
             //Fill all laps
-            for (Lap lap : laps) {
+            for (Lap lap : TCXData.getLaps()) {
                 if (!lap.isLapEmpty())
                     fillLap(lap);
+                else
+                    Log.d(TAG, "Skipped lap " + lap.getStartTime() + " because it is empty");
             }
 
             Element Creator = tcx.createElement("Creator");
@@ -176,8 +174,8 @@ public class SaveTCX {
 
             transformer.transform(domSource, streamResult);
 
-        } catch (ParserConfigurationException | TransformerException pce) {
-            pce.printStackTrace();
+        } catch (ParserConfigurationException | TransformerException ex) {
+            Log.e(TAG, "Exception while saving tcx file: " + ex.toString());
             return false;
         }
         return tcxFile.exists();
