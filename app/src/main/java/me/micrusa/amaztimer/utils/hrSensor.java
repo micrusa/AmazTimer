@@ -101,6 +101,7 @@ public class hrSensor implements SensorEventListener {
         int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
         latestTraining.saveDataToFile(this.context, totalTimeInSeconds);
         if (new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_TCX, defValues.DEFAULT_TCX)) {
+            addCurrentLap();
             boolean result = new SaveTCX().saveToFile(this.context, this.TCXData);
             utils.setLang(this.context, new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
             if (result)
@@ -113,7 +114,7 @@ public class hrSensor implements SensorEventListener {
         }
     }
 
-    public void newLap(String lapStatus){
+    private void addCurrentLap(){
         if (this.currentLap != null) {
             this.currentLap.setIntensity(this.currentLapStatus);
             this.currentLap.endLap(System.currentTimeMillis());
@@ -123,6 +124,10 @@ public class hrSensor implements SensorEventListener {
                     bodyFile.get(defValues.SETTINGS_MALE, defValues.DEFAULT_MALE));
             this.TCXData.addLap(this.currentLap);
         }
+    }
+
+    public void newLap(String lapStatus){
+        this.addCurrentLap();
         this.currentLapStatus = lapStatus;
         this.currentLap = new Lap();
     }
