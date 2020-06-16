@@ -103,15 +103,20 @@ public class hrSensor implements SensorEventListener {
         if (new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_TCX, defValues.DEFAULT_TCX)) {
             addCurrentLap();
             boolean result = new SaveTCX().saveToFile(this.context, this.TCXData);
+            resetTcxData();
             utils.setLang(this.context, new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
             if (result)
                 Toast.makeText(this.context, R.string.tcxexporting, Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(this.context, R.string.tcxerror, Toast.LENGTH_SHORT).show();
         } else {
-            this.currentLap = null;
-            this.TCXData = new TCXData();
+            resetTcxData();
         }
+    }
+
+    private void resetTcxData(){
+        this.currentLap = null;
+        this.TCXData = new TCXData();
     }
 
     private void addCurrentLap(){
