@@ -25,9 +25,6 @@
         <activity android:name=".activities.EditPresetActivity" />
 
         <meta-data
-            android:name="com.huami.watch.launcher.springboard.PASSAGER_TARGET"
-            android:resource="@array/spring_depend" />
-        <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
