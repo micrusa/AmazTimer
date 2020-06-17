@@ -43,58 +43,71 @@ public class SettingsActivity extends AppCompatActivity {
             SwitchPreferenceCompat chronoMode = preference.getPreferenceManager().findPreference(defValues.KEY_CHRONO);
 
             String key = preference.getKey();
-            if (defValues.KEY_BATTERYSAVING.equals(key)) {
-                file.set(defValues.SETTINGS_BATTERYSAVING, (Boolean) newValue);
-            } else if (defValues.KEY_HRTOGGLE.equals(key)) {
-                file.set(defValues.SETTINGS_HRSWITCH, (Boolean) newValue);
-            } else if (defValues.KEY_LANG.equals(key)) {
-                file.set(defValues.SETTINGS_LANG, newValue.toString());
-            } else if (defValues.KEY_GENDER.equals(key)) {
-                bodyFile.set(defValues.SETTINGS_MALE, Boolean.parseBoolean(newValue.toString()));
-            } else if (defValues.KEY_AGE.equals(key)) {
-                int age = defValues.CURRENT_YEAR - Integer.parseInt((String) newValue);
-                bodyFile.set(defValues.SETTINGS_AGE, age);
-                preference.setSummary(String.valueOf(age) + " " + preference.getContext().getResources().getString(R.string.ageyo));
-            } else if (defValues.KEY_WEIGHT.equals(key)) {
-                bodyFile.set(defValues.SETTINGS_WEIGHT, Integer.parseInt((String) newValue));
-                preference.setSummary(newValue + "Kg");
-            } else if (defValues.KEY_LONGPREPARE.equals(key)) {
-                file.set(defValues.SETTINGS_LONGPREPARE, (Boolean) newValue);
-            } else if (defValues.KEY_REPSMODE.equals(key)) {
-                file.set(defValues.SETTINGS_REPSMODE, (Boolean) newValue);
-                if ((Boolean) newValue){
-                    chronoMode.setEnabled(false);
-                    workoutMode.setEnabled(false);
-                } else {
-                    chronoMode.setEnabled(true);
-                    workoutMode.setEnabled(true);
-                }
-            } else if (defValues.KEY_WORKOUT.equals(key)) {
-                file.set(defValues.SETTINGS_WORKOUTMODE, (Boolean) newValue);
-                if ((Boolean) newValue){
-                    chronoMode.setEnabled(false);
-                    repsMode.setEnabled(false);
-                } else {
-                    chronoMode.setEnabled(true);
-                    repsMode.setEnabled(true);
-                }
-            } else if (defValues.KEY_ENABLEPREPARE.equals(key)){
-                file.set(defValues.SETTINGS_ENABLEPREPARE, (Boolean) newValue);
-                if((Boolean) newValue)
-                    preference.getPreferenceManager().findPreference(defValues.KEY_LONGPREPARE).setEnabled(true);
-                else
-                    preference.getPreferenceManager().findPreference(defValues.KEY_LONGPREPARE).setEnabled(false);
-            } else if (defValues.KEY_CHRONO.equals(key)){
-                file.set(defValues.SETTINGS_CHRONOMODE, (Boolean) newValue);
-                if ((Boolean) newValue){
-                    workoutMode.setEnabled(false);
-                    repsMode.setEnabled(false);
-                } else {
-                    workoutMode.setEnabled(true);
-                    repsMode.setEnabled(true);
-                }
-            } else if (defValues.KEY_TCX.equals(key)){
-                file.set(defValues.SETTINGS_TCX, (Boolean) newValue);
+            switch (key) {
+                case defValues.KEY_BATTERYSAVING:
+                    file.set(defValues.SETTINGS_BATTERYSAVING, (Boolean) newValue);
+                    break;
+                case defValues.KEY_HRTOGGLE:
+                    file.set(defValues.SETTINGS_HRSWITCH, (Boolean) newValue);
+                    break;
+                case defValues.KEY_LANG:
+                    file.set(defValues.SETTINGS_LANG, newValue.toString());
+                    break;
+                case defValues.KEY_GENDER:
+                    bodyFile.set(defValues.SETTINGS_MALE, Boolean.parseBoolean(newValue.toString()));
+                    break;
+                case defValues.KEY_AGE:
+                    int age = defValues.CURRENT_YEAR - Integer.parseInt((String) newValue);
+                    bodyFile.set(defValues.SETTINGS_AGE, age);
+                    preference.setSummary(String.valueOf(age) + " " + preference.getContext().getResources().getString(R.string.ageyo));
+                    break;
+                case defValues.KEY_WEIGHT:
+                    bodyFile.set(defValues.SETTINGS_WEIGHT, Integer.parseInt((String) newValue));
+                    preference.setSummary(newValue + "Kg");
+                    break;
+                case defValues.KEY_LONGPREPARE:
+                    file.set(defValues.SETTINGS_LONGPREPARE, (Boolean) newValue);
+                    break;
+                case defValues.KEY_REPSMODE:
+                    file.set(defValues.SETTINGS_REPSMODE, (Boolean) newValue);
+                    if ((Boolean) newValue) {
+                        chronoMode.setEnabled(false);
+                        workoutMode.setEnabled(false);
+                    } else {
+                        chronoMode.setEnabled(true);
+                        workoutMode.setEnabled(true);
+                    }
+                    break;
+                case defValues.KEY_WORKOUT:
+                    file.set(defValues.SETTINGS_WORKOUTMODE, (Boolean) newValue);
+                    if ((Boolean) newValue) {
+                        chronoMode.setEnabled(false);
+                        repsMode.setEnabled(false);
+                    } else {
+                        chronoMode.setEnabled(true);
+                        repsMode.setEnabled(true);
+                    }
+                    break;
+                case defValues.KEY_ENABLEPREPARE:
+                    file.set(defValues.SETTINGS_ENABLEPREPARE, (Boolean) newValue);
+                    if ((Boolean) newValue)
+                        preference.getPreferenceManager().findPreference(defValues.KEY_LONGPREPARE).setEnabled(true);
+                    else
+                        preference.getPreferenceManager().findPreference(defValues.KEY_LONGPREPARE).setEnabled(false);
+                    break;
+                case defValues.KEY_CHRONO:
+                    file.set(defValues.SETTINGS_CHRONOMODE, (Boolean) newValue);
+                    if ((Boolean) newValue) {
+                        workoutMode.setEnabled(false);
+                        repsMode.setEnabled(false);
+                    } else {
+                        workoutMode.setEnabled(true);
+                        repsMode.setEnabled(true);
+                    }
+                    break;
+                case defValues.KEY_TCX:
+                    file.set(defValues.SETTINGS_TCX, (Boolean) newValue);
+                    break;
             }
             return true;
         }
@@ -104,15 +117,22 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public boolean onPreferenceClick(Preference preference) {
             String key = preference.getKey();
-            if (defValues.KEY_SAVED.equals(key)) {
-                Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
-                preference.getContext().startActivity(intent);
-            } else if (defValues.KEY_LATESTTRAIN.equals(key)) {
-                Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
-                preference.getContext().startActivity(intent);
-            } else if (defValues.KEY_APPINFO.equals(key)) {
-                Intent intent = new Intent(preference.getContext(), AppInfo.class);
-                preference.getContext().startActivity(intent);
+            switch (key) {
+                case defValues.KEY_SAVED: {
+                    Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
+                    preference.getContext().startActivity(intent);
+                    break;
+                }
+                case defValues.KEY_LATESTTRAIN: {
+                    Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
+                    preference.getContext().startActivity(intent);
+                    break;
+                }
+                case defValues.KEY_APPINFO: {
+                    Intent intent = new Intent(preference.getContext(), AppInfo.class);
+                    preference.getContext().startActivity(intent);
+                    break;
+                }
             }
             return true;
         }

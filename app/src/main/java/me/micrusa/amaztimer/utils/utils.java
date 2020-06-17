@@ -43,4 +43,28 @@ public class utils {
         f.set(defValues.SETTINGS_REST, rest);
     }
 
+    public static int getUpdatedTime(int currentTime, int update, Context paramContext){
+        int result = currentTime + update;
+        if(result < defValues.MIN_TIME){
+            result = defValues.MIN_TIME;
+            vibrate(defValues.SHORT_VIBRATION, paramContext);
+        } else if(result > defValues.MAX_TIME){
+            result = defValues.MAX_TIME;
+            vibrate(defValues.SHORT_VIBRATION, paramContext);
+        }
+        return result;
+    }
+
+    public static int getUpdatedSets(int currentSets, int update, Context paramContext){
+        int result = currentSets + update;
+        if(result < defValues.MIN_SETS){
+            result = defValues.MIN_SETS;
+            vibrate(defValues.SHORT_VIBRATION, paramContext);
+        } else if(result > defValues.MAX_SETS){
+            result = defValues.MAX_SETS;
+            vibrate(defValues.SHORT_VIBRATION, paramContext);
+        }
+        return result;
+    }
+
 }

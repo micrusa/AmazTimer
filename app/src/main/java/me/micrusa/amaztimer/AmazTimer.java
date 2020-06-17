@@ -31,9 +31,6 @@ import me.micrusa.amaztimer.utils.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
 
 public class AmazTimer extends Activity {
-
-    //These get set up later
-    private boolean mHasActive = false;
     //Define items
     private Button plus, plus2, plus3, minus, minus2, minus3, start, cancel;
     private TextView sets, rest, work, time, hr, rSets, status, settingstext, setsText, workText, restText;
@@ -44,13 +41,10 @@ public class AmazTimer extends Activity {
     private CountDownTimer restTimer;
     private boolean workStarted = false;
     private boolean restStarted = false;
-    //Classes
+    //Other classes
     private hrSensor hrSensor;
     private buttonListener buttonListener = new buttonListener();
     //Settings
-    private boolean batterySaving;
-    private boolean hrEnabled;
-    private boolean longPrepare;
     private boolean isTimerActive;
     private boolean hasLaunchedActivity = false;
 
@@ -65,7 +59,7 @@ public class AmazTimer extends Activity {
             //Increase or decrease the value that user clicked
             switch(view.getId()){
                 case R.id.plus:
-                    sets++;
+                    sets = utils.getUpdatedSets(sets, 1, view.getContext());
                     break;
                 case R.id.plus2:
                     if(new file(defValues.SETTINGS_FILE, view.getContext())
@@ -73,13 +67,13 @@ public class AmazTimer extends Activity {
                         utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
                         break;
                     }
-                    workTime++;
+                    workTime = utils.getUpdatedTime(workTime, 1, view.getContext());
                     break;
                 case R.id.plus3:
-                    restTime++;
+                    restTime = utils.getUpdatedTime(restTime, 1, view.getContext());
                     break;
                 case R.id.minus2:
-                    sets--;
+                    sets = utils.getUpdatedSets(sets, -1, view.getContext());
                     break;
                 case R.id.minus:
                     if(new file(defValues.SETTINGS_FILE, view.getContext())
@@ -87,33 +81,13 @@ public class AmazTimer extends Activity {
                         utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
                         break;
                     }
-                    workTime--;
+                    workTime = utils.getUpdatedTime(workTime, -1, view.getContext());
                     break;
                 case R.id.minus3:
-                    restTime--;
+                    restTime = utils.getUpdatedTime(restTime, -1, view.getContext());
                     break;
                 default:
                     break;
-            }
-            //If value is over max or under min, set max/min value and vibrate
-            if(sets > defValues.MAX_SETS) {
-                sets = defValues.MAX_SETS;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-            }else if(sets < defValues.MIN_SETS){
-                sets = defValues.MIN_SETS;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-            }else if(workTime > defValues.MAX_TIME){
-                workTime = defValues.MAX_TIME;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-            }else if(workTime < defValues.MIN_TIME){
-                workTime = defValues.MIN_TIME;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-            }else if(restTime > defValues.MAX_TIME){
-                restTime = defValues.MAX_TIME;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-            }else if(restTime < defValues.MIN_TIME){
-                restTime = defValues.MIN_TIME;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
             }
             //Set texts and save to file
             setTexts(sets, workTime, restTime);
@@ -132,7 +106,7 @@ public class AmazTimer extends Activity {
             //Increase or decrease the value that user clicked
             switch(view.getId()){
                 case R.id.plus:
-                    sets = sets + 5;
+                    sets = utils.getUpdatedSets(sets, 5, view.getContext());
                     break;
                 case R.id.plus2:
                     if(new file(defValues.SETTINGS_FILE, view.getContext())
@@ -140,13 +114,13 @@ public class AmazTimer extends Activity {
                         utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
                         break;
                     }
-                    workTime = workTime + 60;
+                    workTime = utils.getUpdatedTime(workTime, 60, view.getContext());
                     break;
                 case R.id.plus3:
-                    restTime = restTime + 60;
+                    restTime = utils.getUpdatedTime(restTime, 60, view.getContext());
                     break;
                 case R.id.minus2:
-                    sets = sets - 5;
+                    sets = utils.getUpdatedSets(sets, -5, view.getContext());
                     break;
                 case R.id.minus:
                     if(new file(defValues.SETTINGS_FILE, view.getContext())
@@ -154,33 +128,13 @@ public class AmazTimer extends Activity {
                         utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
                         break;
                     }
-                    workTime = workTime - 60;
+                    workTime = utils.getUpdatedTime(workTime, -60, view.getContext());
                     break;
                 case R.id.minus3:
-                    restTime = restTime - 60;
+                    restTime = utils.getUpdatedTime(restTime, -60, view.getContext());
                     break;
                 default:
                     break;
-            }
-            //If value is over max or under min, set max/min value and vibrate
-            if(sets > defValues.MAX_SETS) {
-                sets = defValues.MAX_SETS;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-            }else if(sets < defValues.MIN_SETS){
-                sets = defValues.MIN_SETS;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-            }else if(workTime > defValues.MAX_TIME){
-                workTime = defValues.MAX_TIME;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-            }else if(workTime < defValues.MIN_TIME){
-                workTime = defValues.MIN_TIME;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-            }else if(restTime > defValues.MAX_TIME){
-                restTime = defValues.MAX_TIME;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-            }else if(restTime < defValues.MIN_TIME){
-                restTime = defValues.MIN_TIME;
-                utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
             }
             //Set texts and save to file
             setTexts(sets, workTime, restTime);
@@ -203,25 +157,7 @@ public class AmazTimer extends Activity {
         //Setup items
         this.init();
         //Register buttonListener
-        final Handler btnListenerHandler = new Handler();
-        final Runnable btnPressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                btnPress();
-            }
-        };
-        if(!buttonListener.isListening())
-            buttonListener.start(this, new buttonInterface() {
-                @Override
-                public void onKeyEvent(buttonEvent ButtonEvent) {
-                    if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
-                        btnListenerHandler.post(btnPressRunnable);
-                    else if(SystemProperties.isStratos() && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                        btnListenerHandler.post(btnPressRunnable);
-                    //else if(SystemProperties.isStratos3())
-                    Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
-                }
-            });
+        setupBtnListener();
         //Set language to setting's language
         utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         //Set texts
@@ -266,8 +202,6 @@ public class AmazTimer extends Activity {
                 L2.setBackgroundColor(view.getResources().getColor(R.color.yellow));
                 rSets.setText(String.valueOf(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS)));
                 status.setText(view.getResources().getString(R.string.prepare));
-                //Get battery saving settings
-                getSettings();
                 //hrSensor stuff
                 setHrState(true, hrSensor, hr);
                 //Chrono stuff
@@ -284,7 +218,7 @@ public class AmazTimer extends Activity {
                     chrono.setBase(SystemClock.elapsedRealtime());
                     chrono.start();
                     return;
-                } else if(isLongPrepare()){
+                } else if(new file(defValues.SETTINGS_FILE, view.getContext()).get(defValues.SETTINGS_LONGPREPARE, defValues.DEFAULT_LONGPREPARE)){
                     prepareTime = defValues.LONG_PREPARETIME;
                 }else{
                     prepareTime = defValues.SHORT_PREPARETIME;
@@ -368,20 +302,9 @@ public class AmazTimer extends Activity {
         }
     }
 
-    private void getSettings() {
-        file file = new file(defValues.SETTINGS_FILE, this);
-        this.batterySaving = file.get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING);
-        this.hrEnabled = file.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH);
-        this.longPrepare = file.get(defValues.SETTINGS_LONGPREPARE, defValues.DEFAULT_LONGPREPARE);
-    }
-
-    private boolean isLongPrepare(){
-        return this.longPrepare;
-    }
-
     private void setHrState(boolean state, hrSensor hrSensor, TextView hr) {
         if (state) {
-            if (this.hrEnabled) {
+            if (new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)) {
                 hrSensor.registerListener();
                 if (hr.getVisibility() == View.INVISIBLE) {
                     hr.setVisibility(View.VISIBLE);
@@ -389,7 +312,7 @@ public class AmazTimer extends Activity {
             } else if (hr.getVisibility() == View.VISIBLE) {
                 hr.setVisibility(View.INVISIBLE);
             }
-        } else if (this.hrEnabled) {
+        } else if (new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)) {
             hrSensor.unregisterListener();
         }
         if(!state)
@@ -442,7 +365,8 @@ public class AmazTimer extends Activity {
 
     private void timerUpdate(int v) {
         this.init();
-        if (!this.batterySaving || !new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)) {
+        if (!new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING)
+                || !new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)) {
             time.setText(utils.formatTime(v));
             if (v == 1){
                 new Handler().postDelayed(new Runnable() {
@@ -452,7 +376,7 @@ public class AmazTimer extends Activity {
                     }
                 }, 950);
             }
-        } else if (this.batterySaving){
+        } else if (new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING)){
             if (!time.getText().toString().equals("--:--")) {
                 time.setText("--:--");
             }
@@ -493,7 +417,6 @@ public class AmazTimer extends Activity {
     private void startTimer(final View view, final String sWork, final String sRest, final int work, final int rest) {
         this.isTimerActive = true;
         hrSensor.newLap(Constants.STATUS_ACTIVE);
-        this.init();
         this.workStarted = true;
         this.restStarted = false;
         status.setText(sWork);
@@ -523,7 +446,6 @@ public class AmazTimer extends Activity {
     private void restTimer(final View view, final String sWork, final String sRest, final int work, final int rest) {
         this.isTimerActive = true;
         hrSensor.newLap(Constants.STATUS_RESTING);
-        this.init();
         this.workStarted = false;
         this.restStarted = true;
         status.setText(sRest);
@@ -542,15 +464,6 @@ public class AmazTimer extends Activity {
         this.restTimer.start();
     }
 
-    private void refreshView() {
-        //Set language to setting's language
-        utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
-        //Set texts
-        this.reloadTexts();
-        this.setTimesTexts();
-    }
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -563,6 +476,29 @@ public class AmazTimer extends Activity {
     }
 
     public void onResume() {
+        setupBtnListener();
+        super.onResume();
+        utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+        this.reloadTexts();
+        this.hasLaunchedActivity = false;
+    }
+
+    private void btnPress(){
+        if(!this.isTimerActive)
+            start.performClick();
+        else
+            cancel.performLongClick();
+    }
+
+    private void launchIntent(Intent intent){
+        buttonListener.stop();
+        if(!this.hasLaunchedActivity){
+            this.hasLaunchedActivity = true;
+            this.startActivity(intent);
+        }
+    }
+
+    private void setupBtnListener(){
         final Handler btnListenerHandler = new Handler();
         final Runnable btnPressRunnable = new Runnable() {
             @Override
@@ -582,31 +518,5 @@ public class AmazTimer extends Activity {
                     Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
                 }
             });
-        super.onResume();
-        utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
-        this.reloadTexts();
-        this.hasLaunchedActivity = false;
-        if ((!this.mHasActive) && (this != null)) {
-            //It is, simply refresh
-            this.mHasActive = true;
-            refreshView();
-        }
-        //Store active state
-        this.mHasActive = true;
-    }
-
-    private void btnPress(){
-        if(!this.isTimerActive)
-            start.performClick();
-        else
-            cancel.performLongClick();
-    }
-
-    private void launchIntent(Intent intent){
-        buttonListener.stop();
-        if(!this.hasLaunchedActivity){
-            this.hasLaunchedActivity = true;
-            this.startActivity(intent);
-        }
     }
 }

@@ -83,37 +83,7 @@ public class RepsTimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reps_timer);
         this.init();
-        final Handler btnListenerHandler = new Handler();
-        final Runnable upBtnPressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                upBtnPress();
-            }
-        };
-        final Runnable downBtnPressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                downBtnPress();
-            }
-        };
-        if(!buttonListener.isListening())
-            buttonListener.start(this, new buttonInterface() {
-                @Override
-                public void onKeyEvent(buttonEvent ButtonEvent) {
-                    if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
-                        if(ButtonEvent.isLongPress())
-                            btnListenerHandler.post(downBtnPressRunnable);
-                        else
-                            btnListenerHandler.post(upBtnPressRunnable);
-                    else if(SystemProperties.isStratos())
-                        if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                            btnListenerHandler.post(downBtnPressRunnable);
-                        else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
-                            btnListenerHandler.post(upBtnPressRunnable);
-                    //else if(SystemProperties.isStratos3())
-                    Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
-                }
-            });
+        setupBtnListener();
         file = new file(defValues.TIMER_FILE, this);
         restTimer = new CountDownTimer((long) file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME) * 1000, 1000) {
             @Override
@@ -147,37 +117,7 @@ public class RepsTimerActivity extends AppCompatActivity {
     }
 
     public void onResume() {
-        final Handler btnListenerHandler = new Handler();
-        final Runnable upBtnPressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                upBtnPress();
-            }
-        };
-        final Runnable downBtnPressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                downBtnPress();
-            }
-        };
-        if(!buttonListener.isListening())
-            buttonListener.start(this, new buttonInterface() {
-                @Override
-                public void onKeyEvent(buttonEvent ButtonEvent) {
-                    if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
-                        if(ButtonEvent.isLongPress())
-                            btnListenerHandler.post(downBtnPressRunnable);
-                        else
-                            btnListenerHandler.post(upBtnPressRunnable);
-                    else if(SystemProperties.isStratos())
-                        if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                            btnListenerHandler.post(downBtnPressRunnable);
-                        else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
-                            btnListenerHandler.post(upBtnPressRunnable);
-                    //else if(SystemProperties.isStratos3())
-                    Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
-                }
-            });
+        setupBtnListener();
         super.onResume();
     }
 
@@ -278,6 +218,40 @@ public class RepsTimerActivity extends AppCompatActivity {
         } else if (settingsFile.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)) {
             hrSensor.unregisterListener();
         }
+    }
+
+    private void setupBtnListener(){
+        final Handler btnListenerHandler = new Handler();
+        final Runnable upBtnPressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                upBtnPress();
+            }
+        };
+        final Runnable downBtnPressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                downBtnPress();
+            }
+        };
+        if(!buttonListener.isListening())
+            buttonListener.start(this, new buttonInterface() {
+                @Override
+                public void onKeyEvent(buttonEvent ButtonEvent) {
+                    if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
+                        if(ButtonEvent.isLongPress())
+                            btnListenerHandler.post(downBtnPressRunnable);
+                        else
+                            btnListenerHandler.post(upBtnPressRunnable);
+                    else if(SystemProperties.isStratos())
+                        if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                            btnListenerHandler.post(downBtnPressRunnable);
+                        else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
+                            btnListenerHandler.post(upBtnPressRunnable);
+                    //else if(SystemProperties.isStratos3())
+                    Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
+                }
+            });
     }
 
     private void upBtnPress(){
