@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -21,6 +22,9 @@ import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.activities.RepsTimerActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.activities.WorkoutActivity;
+import me.micrusa.amaztimer.button.buttonEvent;
+import me.micrusa.amaztimer.button.buttonInterface;
+import me.micrusa.amaztimer.button.buttonListener;
 import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
@@ -42,6 +46,7 @@ public class AmazTimer extends Activity {
     private boolean restStarted = false;
     //Classes
     private hrSensor hrSensor;
+    private buttonListener buttonListener = new buttonListener();
     //Settings
     private boolean batterySaving;
     private boolean hrEnabled;
@@ -194,6 +199,24 @@ public class AmazTimer extends Activity {
             setContentView(R.layout.amaztimer);
         //Setup items
         this.init();
+        //Register buttonListener
+        buttonListener.start(new buttonInterface() {
+            @Override
+            public void onKeyEvent(buttonEvent ButtonEvent) {
+                switch(ButtonEvent.getKey()){
+                    case buttonEvent.KEY_UP:
+                        //
+                        break;
+                    case buttonEvent.KEY_CENTER:
+                        //
+                        break;
+                    case buttonEvent.KEY_DOWN:
+                        //
+                        break;
+                }
+                Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed");
+            }
+        });
         //Set language to setting's language
         utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         //Set texts
@@ -519,10 +542,10 @@ public class AmazTimer extends Activity {
     }
 
 
-    //Called when the page is destroyed completely (in app mode). Same as the onDestroy method of an activity
     @Override
     public void onDestroy() {
         super.onDestroy();
+        buttonListener.stop();
     }
 
 
@@ -544,10 +567,10 @@ public class AmazTimer extends Activity {
         this.mHasActive = true;
     }
 
-    //Called when the page is stopped (in app mode)
     @Override
     public void onStop() {
         super.onStop();
+        buttonListener.stop();
         this.mHasActive = false;
     }
 }
