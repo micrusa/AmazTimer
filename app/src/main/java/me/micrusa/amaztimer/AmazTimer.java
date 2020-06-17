@@ -200,13 +200,20 @@ public class AmazTimer extends Activity {
         //Setup items
         this.init();
         //Register buttonListener
+        final Handler btnListenerHandler = new Handler();
+        final Runnable btnPressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                btnPress();
+            }
+        };
         buttonListener.start(this, new buttonInterface() {
             @Override
             public void onKeyEvent(buttonEvent ButtonEvent) {
                 if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
-                    btnPress();
+                    btnListenerHandler.post(btnPressRunnable);
                 else if(SystemProperties.isStratos() && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                    btnPress();
+                    btnListenerHandler.post(btnPressRunnable);
                 //else if(SystemProperties.isStratos3())
                 Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
             }

@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -40,19 +41,32 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
         this.init();
+        final Handler btnListenerHandler = new Handler();
+        final Runnable upBtnPressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                upBtnPress();
+            }
+        };
+        final Runnable downBtnPressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                downBtnPress();
+            }
+        };
         buttonListener.start(this, new buttonInterface() {
             @Override
             public void onKeyEvent(buttonEvent ButtonEvent) {
                 if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
                     if(ButtonEvent.isLongPress())
-                        downBtnPress();
+                        btnListenerHandler.post(downBtnPressRunnable);
                     else
-                        upBtnPress();
+                        btnListenerHandler.post(upBtnPressRunnable);
                 else if(SystemProperties.isStratos())
                     if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                        downBtnPress();
+                        btnListenerHandler.post(downBtnPressRunnable);
                     else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
-                        upBtnPress();
+                        btnListenerHandler.post(upBtnPressRunnable);
                 //else if(SystemProperties.isStratos3())
                 Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
             }
