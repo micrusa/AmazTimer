@@ -34,13 +34,22 @@ public class buttonListener {
     private final int LONG_TRIGGER = TRIGGER * 4;
     private final int LONG_TRIGGER_MAX = TRIGGER * 10;
 
+    private PowerManager powerManager;
+    PowerManager.WakeLock wakeLock;
+
 
 
     private boolean listening;
 
     ExecutorService executor;
 
-    public void start(final buttonInterface buttonInterface) {
+    public void start(Context context, final buttonInterface buttonInterface) {
+
+        powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "AmazTimer:buttonListener");
+        wakeLock.acquire(60*60*1000L /*1 hour (Not too much because it will get released in stop())*/);
+
         FutureTask<Void> futureTask = new FutureTask<>(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
@@ -125,7 +134,7 @@ public class buttonListener {
                         }
                     }
                 } catch (FileNotFoundException e) {
-                    Log.e("AmazTimer", "/dev/input/event2 not found");
+                    Log.e("AmazTimer", FILE_PATH + " not found");
                 }
 
                 return null;
@@ -142,6 +151,8 @@ public class buttonListener {
             executor = null;
             listening = false;
         }
+        if (wakeLock.isHeld())
+            wakeLock.release();
     }
 
     public boolean isListening() {
