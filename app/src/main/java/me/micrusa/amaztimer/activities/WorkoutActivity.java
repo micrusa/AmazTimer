@@ -54,23 +54,24 @@ public class WorkoutActivity extends AppCompatActivity {
                 downBtnPress();
             }
         };
-        buttonListener.start(this, new buttonInterface() {
-            @Override
-            public void onKeyEvent(buttonEvent ButtonEvent) {
-                if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
-                    if(ButtonEvent.isLongPress())
-                        btnListenerHandler.post(downBtnPressRunnable);
-                    else
-                        btnListenerHandler.post(upBtnPressRunnable);
-                else if(SystemProperties.isStratos())
-                    if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                        btnListenerHandler.post(downBtnPressRunnable);
-                    else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
-                        btnListenerHandler.post(upBtnPressRunnable);
-                //else if(SystemProperties.isStratos3())
-                Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
-            }
-        });
+        if(!buttonListener.isListening())
+            buttonListener.start(this, new buttonInterface() {
+                @Override
+                public void onKeyEvent(buttonEvent ButtonEvent) {
+                    if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
+                        if(ButtonEvent.isLongPress())
+                            btnListenerHandler.post(downBtnPressRunnable);
+                        else
+                            btnListenerHandler.post(upBtnPressRunnable);
+                    else if(SystemProperties.isStratos())
+                        if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                            btnListenerHandler.post(downBtnPressRunnable);
+                        else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
+                            btnListenerHandler.post(upBtnPressRunnable);
+                    //else if(SystemProperties.isStratos3())
+                    Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
+                }
+            });
         file = new file(defValues.TIMER_FILE, this);
         //Start hr sensor
         setHrState(true, hrSensor, hr);
@@ -81,6 +82,47 @@ public class WorkoutActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         buttonListener.stop();
+    }
+
+    @Override
+    public void onStop() {
+        buttonListener.stop();
+        super.onStop();
+    }
+
+    public void onResume() {
+        final Handler btnListenerHandler = new Handler();
+        final Runnable upBtnPressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                upBtnPress();
+            }
+        };
+        final Runnable downBtnPressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                downBtnPress();
+            }
+        };
+        if(!buttonListener.isListening())
+            buttonListener.start(this, new buttonInterface() {
+                @Override
+                public void onKeyEvent(buttonEvent ButtonEvent) {
+                    if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
+                        if(ButtonEvent.isLongPress())
+                            btnListenerHandler.post(downBtnPressRunnable);
+                        else
+                            btnListenerHandler.post(upBtnPressRunnable);
+                    else if(SystemProperties.isStratos())
+                        if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                            btnListenerHandler.post(downBtnPressRunnable);
+                        else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
+                            btnListenerHandler.post(upBtnPressRunnable);
+                    //else if(SystemProperties.isStratos3())
+                    Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
+                }
+            });
+        super.onResume();
     }
 
     private void init(){
@@ -173,7 +215,7 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     private void downBtnPress(){
-        cancel.performClick();
+        cancel.performLongClick();
     }
 
 }

@@ -51,6 +51,8 @@ public class AmazTimer extends Activity {
     private boolean batterySaving;
     private boolean hrEnabled;
     private boolean longPrepare;
+    private boolean isTimerActive;
+    private boolean hasLaunchedActivity = false;
 
     private final View.OnClickListener plusMinusBtnListener = new View.OnClickListener() {
         @Override
@@ -192,6 +194,7 @@ public class AmazTimer extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.isTimerActive = false;
         // Save Activity variables
         if (SystemProperties.isStratos3())
             setContentView(R.layout.round_amaztimer);
@@ -207,17 +210,18 @@ public class AmazTimer extends Activity {
                 btnPress();
             }
         };
-        buttonListener.start(this, new buttonInterface() {
-            @Override
-            public void onKeyEvent(buttonEvent ButtonEvent) {
-                if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
-                    btnListenerHandler.post(btnPressRunnable);
-                else if(SystemProperties.isStratos() && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                    btnListenerHandler.post(btnPressRunnable);
-                //else if(SystemProperties.isStratos3())
-                Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
-            }
-        });
+        if(!buttonListener.isListening())
+            buttonListener.start(this, new buttonInterface() {
+                @Override
+                public void onKeyEvent(buttonEvent ButtonEvent) {
+                    if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
+                        btnListenerHandler.post(btnPressRunnable);
+                    else if(SystemProperties.isStratos() && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                        btnListenerHandler.post(btnPressRunnable);
+                    //else if(SystemProperties.isStratos3())
+                    Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
+                }
+            });
         //Set language to setting's language
         utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         //Set texts
@@ -246,12 +250,12 @@ public class AmazTimer extends Activity {
                 final file settingsFile = new file(defValues.SETTINGS_FILE, view.getContext());
                 if(settingsFile.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
                     Intent intent = new Intent(view.getContext(), RepsTimerActivity.class);
-                    view.getContext().startActivity(intent);
+                    launchIntent(intent);
                     return;
                 } else if(settingsFile.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE)){
                     Intent intent = new Intent(view.getContext(), WorkoutActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    view.getContext().startActivity(intent);
+                    launchIntent(intent);
                     return;
                 }
                 //Set language to setting's language
@@ -306,7 +310,7 @@ public class AmazTimer extends Activity {
             public boolean onLongClick(View view) {
                 Intent intent = new Intent(view.getContext(), SettingsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                view.getContext().startActivity(intent);
+                launchIntent(intent);
                 return true;
             }
         });
@@ -388,6 +392,8 @@ public class AmazTimer extends Activity {
         } else if (this.hrEnabled) {
             hrSensor.unregisterListener();
         }
+        if(!state)
+            this.isTimerActive = false;
     }
 
     private boolean timersStarted(){
@@ -485,6 +491,7 @@ public class AmazTimer extends Activity {
     }
 
     private void startTimer(final View view, final String sWork, final String sRest, final int work, final int rest) {
+        this.isTimerActive = true;
         hrSensor.newLap(Constants.STATUS_ACTIVE);
         this.init();
         this.workStarted = true;
@@ -514,6 +521,7 @@ public class AmazTimer extends Activity {
     }
 
     private void restTimer(final View view, final String sWork, final String sRest, final int work, final int rest) {
+        this.isTimerActive = true;
         hrSensor.newLap(Constants.STATUS_RESTING);
         this.init();
         this.workStarted = false;
@@ -546,20 +554,38 @@ public class AmazTimer extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(buttonListener.isListening())
-            buttonListener.stop();
+        buttonListener.stop();
+    }
+    @Override
+    public void onStop() {
+        buttonListener.stop();
+        super.onStop();
     }
 
-
-    //Called when the page is shown again (in app mode)
-    @Override
     public void onResume() {
+        final Handler btnListenerHandler = new Handler();
+        final Runnable btnPressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                btnPress();
+            }
+        };
+        if(!buttonListener.isListening())
+            buttonListener.start(this, new buttonInterface() {
+                @Override
+                public void onKeyEvent(buttonEvent ButtonEvent) {
+                    if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
+                        btnListenerHandler.post(btnPressRunnable);
+                    else if(SystemProperties.isStratos() && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                        btnListenerHandler.post(btnPressRunnable);
+                    //else if(SystemProperties.isStratos3())
+                    Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
+                }
+            });
         super.onResume();
-        //Set language to setting's language
         utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
-        //Set texts
         this.reloadTexts();
-        //Check if view already loaded
+        this.hasLaunchedActivity = false;
         if ((!this.mHasActive) && (this != null)) {
             //It is, simply refresh
             this.mHasActive = true;
@@ -569,16 +595,18 @@ public class AmazTimer extends Activity {
         this.mHasActive = true;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        this.mHasActive = false;
-    }
-
     private void btnPress(){
-        if(start.getVisibility() == View.VISIBLE)
+        if(!this.isTimerActive)
             start.performClick();
         else
-            cancel.performClick();
+            cancel.performLongClick();
+    }
+
+    private void launchIntent(Intent intent){
+        buttonListener.stop();
+        if(!this.hasLaunchedActivity){
+            this.hasLaunchedActivity = true;
+            this.startActivity(intent);
+        }
     }
 }

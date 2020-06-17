@@ -16,7 +16,7 @@ import java.util.concurrent.FutureTask;
 
 import static android.content.Context.POWER_SERVICE;
 
-//Big thanks to AmazMod team for this class
+//Big thanks to AmazMod team for this way of getting button presses
 
 public class buttonListener {
     private final String FILE_PATH = "/dev/input/event2";
@@ -33,6 +33,8 @@ public class buttonListener {
     private final int TRIGGER = 500;
     private final int LONG_TRIGGER = TRIGGER * 4;
     private final int LONG_TRIGGER_MAX = TRIGGER * 10;
+
+    private long latestTimeInMillis;
 
     private PowerManager powerManager;
     PowerManager.WakeLock wakeLock;
@@ -65,7 +67,7 @@ public class buttonListener {
                 try {
                     FileInputStream fileInputStream = new FileInputStream(file);
 
-                    while (true) {
+                    while (!Thread.currentThread().isInterrupted()) {
                         byte[] buffer = new byte[24];
                         fileInputStream.read(buffer, 0, 24);
 
@@ -85,53 +87,62 @@ public class buttonListener {
 
                         long now = System.currentTimeMillis();
 
-                        switch (code) {
-                            case KEY_DOWN: {
-                                if (value == KEY_EVENT_UP) {
-                                    long delta = now - lastKeyDownKeyDown;
-                                    if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                        buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_DOWN));
-                                    } else {
-                                        if (delta < TRIGGER) {
-                                            buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_DOWN));
+                        //If 100ms haven't passed don't send onKeyEvent to avoid multiple clicks
+                        if(now - latestTimeInMillis >= 100)
+                            switch (code) {
+                                case KEY_DOWN: {
+                                    if (value == KEY_EVENT_UP) {
+                                        long delta = now - lastKeyDownKeyDown;
+                                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
+                                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_DOWN));
+                                        } else {
+                                            if (delta < TRIGGER) {
+                                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_DOWN));
+                                            }
                                         }
+                                    } else if (value == KEY_EVENT_PRESS) {
+                                        lastKeyDownKeyDown = now;
+                                        latestTimeInMillis = now;
                                     }
-                                } else if (value == KEY_EVENT_PRESS) {
-                                    lastKeyDownKeyDown = now;
+                                    break;
                                 }
-                                break;
-                            }
-                            case KEY_CENTER: {
-                                if (value == KEY_EVENT_UP) {
-                                    long delta = now - lastKeyCenterKeyUp;
-                                    if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                        buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_CENTER));
-                                    } else {
-                                        if (delta < TRIGGER) {
-                                            buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_CENTER));
+                                case KEY_CENTER: {
+                                    if (value == KEY_EVENT_UP) {
+                                        long delta = now - lastKeyCenterKeyUp;
+                                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
+                                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_CENTER));
+                                        } else {
+                                            if (delta < TRIGGER) {
+                                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_CENTER));
+                                            }
                                         }
+                                    } else if (value == KEY_EVENT_PRESS) {
+                                        lastKeyCenterKeyUp = now;
+                                        latestTimeInMillis = now;
                                     }
-                                } else if (value == KEY_EVENT_PRESS) {
-                                    lastKeyCenterKeyUp = now;
+                                    break;
                                 }
-                                break;
-                            }
-                            case KEY_UP: {
-                                if (value == KEY_EVENT_UP) {
-                                    long delta = now - lastKeyUpKeyUp;
-                                    if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                        buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_UP));
-                                    } else {
-                                        if (delta < TRIGGER) {
-                                            buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_UP));
+                                case KEY_UP: {
+                                    if (value == KEY_EVENT_UP) {
+                                        long delta = now - lastKeyUpKeyUp;
+                                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
+                                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_UP));
+                                        } else {
+                                            if (delta < TRIGGER) {
+                                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_UP));
+                                            }
                                         }
+                                    } else if (value == KEY_EVENT_PRESS) {
+                                        lastKeyUpKeyUp = now;
+                                        latestTimeInMillis = now;
                                     }
-                                } else if (value == KEY_EVENT_PRESS) {
-                                    lastKeyUpKeyUp = now;
+                                    break;
                                 }
-                                break;
+                                default: {
+                                    Log.d("AmazTimer", "Unsupported key: " + code);
+                                    break;
+                                }
                             }
-                        }
                     }
                 } catch (FileNotFoundException e) {
                     Log.e("AmazTimer", FILE_PATH + " not found");
@@ -147,7 +158,7 @@ public class buttonListener {
 
     public void stop() {
         if (executor != null) {
-            executor.shutdown();
+            executor.shutdownNow();
             executor = null;
             listening = false;
         }
