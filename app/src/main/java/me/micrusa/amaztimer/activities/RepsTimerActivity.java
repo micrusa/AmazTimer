@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,7 +15,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.TCX.Constants;
+import me.micrusa.amaztimer.button.buttonEvent;
+import me.micrusa.amaztimer.button.buttonInterface;
+import me.micrusa.amaztimer.button.buttonListener;
 import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
@@ -27,6 +32,7 @@ public class RepsTimerActivity extends AppCompatActivity {
     private ConstraintLayout layout;
     private boolean timerStarted;
     private me.micrusa.amaztimer.utils.file file;
+    private me.micrusa.amaztimer.button.buttonListener buttonListener = new buttonListener();
     private hrSensor hrSensor;
     private CountDownTimer restTimer;
 
@@ -77,6 +83,23 @@ public class RepsTimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reps_timer);
         this.init();
+        buttonListener.start(this, new buttonInterface() {
+            @Override
+            public void onKeyEvent(buttonEvent ButtonEvent) {
+                if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
+                    if(ButtonEvent.isLongPress())
+                        downBtnPress();
+                    else
+                        upBtnPress();
+                else if(SystemProperties.isStratos())
+                    if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                        downBtnPress();
+                    else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
+                        upBtnPress();
+                //else if(SystemProperties.isStratos3())
+                Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
+            }
+        });
         file = new file(defValues.TIMER_FILE, this);
         restTimer = new CountDownTimer((long) file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME) * 1000, 1000) {
             @Override
@@ -190,6 +213,15 @@ public class RepsTimerActivity extends AppCompatActivity {
         } else if (settingsFile.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)) {
             hrSensor.unregisterListener();
         }
+    }
+
+    private void upBtnPress(){
+        if(endSet.getVisibility() == View.VISIBLE)
+            endSet.performClick();
+    }
+
+    private void downBtnPress(){
+        cancel.performClick();
     }
 
 

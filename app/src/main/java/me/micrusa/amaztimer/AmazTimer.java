@@ -200,21 +200,15 @@ public class AmazTimer extends Activity {
         //Setup items
         this.init();
         //Register buttonListener
-        buttonListener.start(new buttonInterface() {
+        buttonListener.start(this, new buttonInterface() {
             @Override
             public void onKeyEvent(buttonEvent ButtonEvent) {
-                switch(ButtonEvent.getKey()){
-                    case buttonEvent.KEY_UP:
-                        //
-                        break;
-                    case buttonEvent.KEY_CENTER:
-                        //
-                        break;
-                    case buttonEvent.KEY_DOWN:
-                        //
-                        break;
-                }
-                Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed");
+                if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
+                    btnPress();
+                else if(SystemProperties.isStratos() && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                    btnPress();
+                //else if(SystemProperties.isStratos3())
+                Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
             }
         });
         //Set language to setting's language
@@ -545,7 +539,8 @@ public class AmazTimer extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        buttonListener.stop();
+        if(buttonListener.isListening())
+            buttonListener.stop();
     }
 
 
@@ -570,7 +565,13 @@ public class AmazTimer extends Activity {
     @Override
     public void onStop() {
         super.onStop();
-        buttonListener.stop();
         this.mHasActive = false;
+    }
+
+    private void btnPress(){
+        if(start.getVisibility() == View.VISIBLE)
+            start.performClick();
+        else
+            cancel.performClick();
     }
 }

@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -14,7 +15,11 @@ import android.widget.Toast;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.TCX.Constants;
+import me.micrusa.amaztimer.button.buttonEvent;
+import me.micrusa.amaztimer.button.buttonInterface;
+import me.micrusa.amaztimer.button.buttonListener;
 import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
@@ -27,6 +32,7 @@ public class WorkoutActivity extends AppCompatActivity {
     private Chronometer chrono;
     private me.micrusa.amaztimer.utils.file file;
     private me.micrusa.amaztimer.utils.hrSensor hrSensor;
+    private me.micrusa.amaztimer.button.buttonListener buttonListener = new buttonListener();
     private boolean isWorking;
 
     @Override
@@ -34,10 +40,33 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
         this.init();
+        buttonListener.start(this, new buttonInterface() {
+            @Override
+            public void onKeyEvent(buttonEvent ButtonEvent) {
+                if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
+                    if(ButtonEvent.isLongPress())
+                        downBtnPress();
+                    else
+                        upBtnPress();
+                else if(SystemProperties.isStratos())
+                    if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                        downBtnPress();
+                    else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
+                        upBtnPress();
+                //else if(SystemProperties.isStratos3())
+                Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
+            }
+        });
         file = new file(defValues.TIMER_FILE, this);
         //Start hr sensor
         setHrState(true, hrSensor, hr);
         work();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        buttonListener.stop();
     }
 
     private void init(){
@@ -124,4 +153,13 @@ public class WorkoutActivity extends AppCompatActivity {
         chrono.setBase(SystemClock.elapsedRealtime());
         chrono.start();
     }
+
+    private void upBtnPress(){
+        endSet.performClick();
+    }
+
+    private void downBtnPress(){
+        cancel.performClick();
+    }
+
 }
