@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import me.micrusa.amaztimer.TCX.Constants;
+import me.micrusa.amaztimer.TCX.TCXUtils;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
 import me.micrusa.amaztimer.utils.latestTraining;
 
@@ -20,8 +21,7 @@ public class Lap {
 
     public Lap(){
         this.longStartTime = System.currentTimeMillis();
-        Date d = new Date();
-        this.StartTime = new SimpleDateFormat(Constants.DATE_FORMAT).format(d) + Constants.CHAR_DATETIME + new SimpleDateFormat(Constants.TIME_FORMAT).format(d) + Constants.CHAR_AFTERTIME;
+        this.StartTime = TCXUtils.formatDate(new Date());
     }
 
     public void endLap(long currentTimeMillis){
@@ -77,8 +77,8 @@ public class Lap {
         return this.tps.size() == 0;
     }
 
-    public void setIntensity(String INTENSITY){
-        this.intensity = INTENSITY;
+    public void setIntensity(String Intensity){
+        this.intensity = Intensity;
     }
 
     public String getIntensity(){
