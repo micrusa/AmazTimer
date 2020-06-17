@@ -148,6 +148,15 @@ public class AmazTimer extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(!SystemProperties.isDeviceSupported()){
+            Toast.makeText(this, "Device not supported! Killing app...", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, 1000);
+        }
         this.isTimerActive = false;
         // Save Activity variables
         if (SystemProperties.isStratos3())
