@@ -34,8 +34,6 @@ public class buttonListener {
     private final int LONG_TRIGGER = TRIGGER * 4;
     private final int LONG_TRIGGER_MAX = TRIGGER * 10;
 
-    private long latestTimeInMillis;
-
     private PowerManager powerManager;
     PowerManager.WakeLock wakeLock;
 
@@ -87,62 +85,57 @@ public class buttonListener {
 
                         long now = System.currentTimeMillis();
 
-                        //If 100ms haven't passed don't send onKeyEvent to avoid multiple clicks
-                        if(now - latestTimeInMillis >= 100)
-                            switch (code) {
-                                case KEY_DOWN: {
-                                    if (value == KEY_EVENT_UP) {
-                                        long delta = now - lastKeyDownKeyDown;
-                                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_DOWN));
-                                        } else {
-                                            if (delta < TRIGGER) {
-                                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_DOWN));
-                                            }
+                        switch (code) {
+                            case KEY_DOWN: {
+                                if (value == KEY_EVENT_UP) {
+                                    long delta = now - lastKeyDownKeyDown;
+                                    if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
+                                        buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_DOWN));
+                                    } else {
+                                        if (delta < TRIGGER) {
+                                            buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_DOWN));
                                         }
-                                    } else if (value == KEY_EVENT_PRESS) {
-                                        lastKeyDownKeyDown = now;
-                                        latestTimeInMillis = now;
                                     }
-                                    break;
+                                } else if (value == KEY_EVENT_PRESS) {
+                                    lastKeyDownKeyDown = now;
                                 }
-                                case KEY_CENTER: {
-                                    if (value == KEY_EVENT_UP) {
-                                        long delta = now - lastKeyCenterKeyUp;
-                                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_CENTER));
-                                        } else {
-                                            if (delta < TRIGGER) {
-                                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_CENTER));
-                                            }
-                                        }
-                                    } else if (value == KEY_EVENT_PRESS) {
-                                        lastKeyCenterKeyUp = now;
-                                        latestTimeInMillis = now;
-                                    }
-                                    break;
-                                }
-                                case KEY_UP: {
-                                    if (value == KEY_EVENT_UP) {
-                                        long delta = now - lastKeyUpKeyUp;
-                                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_UP));
-                                        } else {
-                                            if (delta < TRIGGER) {
-                                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_UP));
-                                            }
-                                        }
-                                    } else if (value == KEY_EVENT_PRESS) {
-                                        lastKeyUpKeyUp = now;
-                                        latestTimeInMillis = now;
-                                    }
-                                    break;
-                                }
-                                default: {
-                                    Log.d("AmazTimer", "Unsupported key: " + code);
-                                    break;
-                                }
+                                break;
                             }
+                            case KEY_CENTER: {
+                                if (value == KEY_EVENT_UP) {
+                                    long delta = now - lastKeyCenterKeyUp;
+                                    if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
+                                        buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_CENTER));
+                                    } else {
+                                        if (delta < TRIGGER) {
+                                            buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_CENTER));
+                                        }
+                                    }
+                                } else if (value == KEY_EVENT_PRESS) {
+                                    lastKeyCenterKeyUp = now;
+                                }
+                                break;
+                            }
+                            case KEY_UP: {
+                                if (value == KEY_EVENT_UP) {
+                                    long delta = now - lastKeyUpKeyUp;
+                                    if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
+                                        buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_UP));
+                                    } else {
+                                        if (delta < TRIGGER) {
+                                            buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_UP));
+                                        }
+                                    }
+                                } else if (value == KEY_EVENT_PRESS) {
+                                    lastKeyUpKeyUp = now;
+                                }
+                                break;
+                            }
+                            default: {
+                                Log.d("AmazTimer", "Unsupported key: " + code);
+                                break;
+                            }
+                        }
                     }
                 } catch (FileNotFoundException e) {
                     Log.e("AmazTimer", FILE_PATH + " not found");
