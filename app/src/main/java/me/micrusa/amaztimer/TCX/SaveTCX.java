@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -174,7 +175,10 @@ public class SaveTCX {
 
             transformer.transform(domSource, streamResult);
 
-        } catch (ParserConfigurationException | TransformerException ex) {
+            if(streamResult.getOutputStream() != null)
+                streamResult.getOutputStream().close();
+
+        } catch (ParserConfigurationException | TransformerException | IOException ex) {
             Log.e(TAG, "Exception while saving tcx file: " + ex.toString());
             return false;
         }
