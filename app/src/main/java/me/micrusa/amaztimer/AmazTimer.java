@@ -492,11 +492,22 @@ public class AmazTimer extends Activity {
         this.hasLaunchedActivity = false;
     }
 
-    private void btnPress(){
-        if(!this.isTimerActive)
-            start.performClick();
-        else
-            cancel.performLongClick();
+    private void btnPress(int i){
+        switch(i){
+            case 1:
+                if(!this.isTimerActive)
+                    start.performClick();
+                else
+                    cancel.performLongClick();
+                break;
+            case 2:
+                if(!this.isTimerActive)
+                    start.performLongClick();
+                break;
+            default:
+                Log.d("AmazTimer", "Received unknown btnPress i: " + i);
+                break;
+        }
     }
 
     private void launchIntent(Intent intent){
@@ -512,7 +523,13 @@ public class AmazTimer extends Activity {
         final Runnable btnPressRunnable = new Runnable() {
             @Override
             public void run() {
-                btnPress();
+                btnPress(1);
+            }
+        };
+        final Runnable settingsRunnable = new Runnable() {
+            @Override
+            public void run() {
+                btnPress(2);
             }
         };
         if(!buttonListener.isListening())
@@ -523,6 +540,8 @@ public class AmazTimer extends Activity {
                         btnListenerHandler.post(btnPressRunnable);
                     else if(SystemProperties.isStratos() && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
                         btnListenerHandler.post(btnPressRunnable);
+                    else if(SystemProperties.isStratos() && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
+                        btnListenerHandler.post(settingsRunnable);
                     //else if(SystemProperties.isStratos3())
                     Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
                 }
