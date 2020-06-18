@@ -50,14 +50,20 @@ public class WorkoutActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         buttonListener.stop();
+        super.onDestroy();
     }
 
     @Override
     public void onStop() {
         buttonListener.stop();
         super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        buttonListener.stop();
+        super.onPause();
     }
 
     public void onResume() {

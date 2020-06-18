@@ -106,13 +106,17 @@ public class RepsTimerActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        if(this.timerStarted)
+            restTimer.cancel();
         buttonListener.stop();
+        super.onDestroy();
     }
 
     @Override
     public void onStop() {
         buttonListener.stop();
+        if(this.timerStarted)
+            restTimer.cancel();
         super.onStop();
     }
 

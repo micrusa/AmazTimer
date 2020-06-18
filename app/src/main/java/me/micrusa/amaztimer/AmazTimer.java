@@ -477,11 +477,20 @@ public class AmazTimer extends Activity {
     public void onDestroy() {
         super.onDestroy();
         buttonListener.stop();
+        stopTimers();
     }
     @Override
     public void onStop() {
         buttonListener.stop();
+        stopTimers();
         super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        buttonListener.stop();
+        stopTimers();
+        super.onPause();
     }
 
     public void onResume() {
