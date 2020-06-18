@@ -65,7 +65,11 @@ public class buttonListener {
                 try {
                     FileInputStream fileInputStream = new FileInputStream(file);
 
-                    while (!Thread.currentThread().isInterrupted()) {
+                    while (true) {
+                        if(Thread.currentThread().isInterrupted()){
+                            fileInputStream.close();
+                            break;
+                        }
                         byte[] buffer = new byte[24];
                         fileInputStream.read(buffer, 0, 24);
 
