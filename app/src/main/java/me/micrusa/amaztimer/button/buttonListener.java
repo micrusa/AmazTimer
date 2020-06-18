@@ -14,6 +14,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
+import me.micrusa.amaztimer.utils.SystemProperties;
+
 import static android.content.Context.POWER_SERVICE;
 
 //Big thanks to AmazMod team for this way of getting button presses
@@ -44,6 +46,11 @@ public class buttonListener {
     ExecutorService executor;
 
     public void start(Context context, final buttonInterface buttonInterface) {
+
+        if(SystemProperties.isStratos3()){
+            Log.d("AmazTimer", "S3 detected, Button controls won't be enabled.");
+            return;
+        }
 
         powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
