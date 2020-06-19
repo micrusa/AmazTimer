@@ -47,7 +47,6 @@ public class RepsTimerActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         timer.setText(utils.formatTime(0));
-                        utils.vibrate(defValues.LONG_VIBRATION, getContext());
                     }
                 }, 950);
             }
@@ -62,15 +61,17 @@ public class RepsTimerActivity extends AppCompatActivity {
                 else
                     hr.setText(hrSensor.getLatestValue());
             }
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    utils.vibrate(defValues.LONG_VIBRATION, getContext());
-                }
-            }, 950);
         }
         if (v < 4) {
-            utils.vibrate(defValues.SHORT_VIBRATION, this);
+            utils.vibrate(defValues.SHORT_VIBRATION, this, true);
+            if(v == 1){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        utils.vibrate(defValues.LONG_VIBRATION, getContext(), true);
+                    }
+                }, 950);
+            }
         }
     }
 

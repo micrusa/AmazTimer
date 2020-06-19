@@ -2,20 +2,28 @@ package me.micrusa.amaztimer.utils;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.media.MediaPlayer;
 import android.os.Vibrator;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
 
 public class utils {
 
 
-    public static void vibrate(int time, Context Context) {
-        //Get vibrator service and vibrate
-        Vibrator v = (Vibrator) Context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
+    public static void vibrate(int time, Context context) {
+        vibrate(time, context, false);
+    }
+
+    public static void vibrate(int time, Context context, boolean sound){
+        if(sound && (SystemProperties.isVerge())){
+            MediaPlayer.create(context, R.raw.beep).start();
+        }
+        Vibrator v = (Vibrator) context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         if (v != null) {
             v.vibrate(time);
         }
