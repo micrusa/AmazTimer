@@ -35,6 +35,7 @@ public class RepsTimerActivity extends AppCompatActivity {
     private me.micrusa.amaztimer.button.buttonListener buttonListener = new buttonListener();
     private hrSensor hrSensor;
     private CountDownTimer restTimer;
+    private boolean hasResumed;
 
     private void setTime(long millis) {
         int v = (int) millis / 1000;
@@ -121,7 +122,27 @@ public class RepsTimerActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    public void onPause() {
+        this.hasResumed = false;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(hasResumed())
+                    return;
+                buttonListener.stop();
+                restTimer.cancel();
+            }
+        }, 15 * 1000);
+        super.onPause();
+    }
+
+    private boolean hasResumed(){
+        return this.hasResumed;
+    }
+
     public void onResume() {
+        this.hasResumed = true;
         setupBtnListener();
         super.onResume();
     }

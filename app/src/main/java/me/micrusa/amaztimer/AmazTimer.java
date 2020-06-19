@@ -47,6 +47,7 @@ public class AmazTimer extends Activity {
     //Settings
     private boolean isTimerActive;
     private boolean hasLaunchedActivity = false;
+    private boolean hasResumed = false;
 
     private final View.OnClickListener plusMinusBtnListener = new View.OnClickListener() {
         @Override
@@ -488,12 +489,23 @@ public class AmazTimer extends Activity {
 
     @Override
     public void onPause() {
-        buttonListener.stop();
-        stopTimers();
+        this.hasResumed = false;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(hasResumed())
+                    return;
+                buttonListener.stop();
+                stopTimers();
+            }
+        }, 15 * 1000);
         super.onPause();
     }
 
+    private boolean hasResumed(){return this.hasResumed;}
+
     public void onResume() {
+        this.hasResumed = true;
         setupBtnListener();
         super.onResume();
         utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));

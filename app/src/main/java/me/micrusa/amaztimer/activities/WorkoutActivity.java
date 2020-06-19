@@ -35,6 +35,7 @@ public class WorkoutActivity extends AppCompatActivity {
     private me.micrusa.amaztimer.utils.hrSensor hrSensor;
     private me.micrusa.amaztimer.button.buttonListener buttonListener = new buttonListener();
     private boolean isWorking;
+    private boolean hasResumed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +63,24 @@ public class WorkoutActivity extends AppCompatActivity {
 
     @Override
     public void onPause() {
-        buttonListener.stop();
+        this.hasResumed = false;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(hasResumed())
+                    return;
+                buttonListener.stop();
+            }
+        }, 15 * 1000);
         super.onPause();
     }
 
+    private boolean hasResumed(){
+        return hasResumed;
+    }
+
     public void onResume() {
+        this.hasResumed = true;
         setupBtnListener();
         super.onResume();
     }
