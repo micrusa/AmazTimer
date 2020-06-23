@@ -39,6 +39,7 @@ public class AmazTimer extends Activity {
     //Define timers and timer booleans
     private CountDownTimer workTimer;
     private CountDownTimer restTimer;
+    private CountDownTimer prepareTimer;
     private boolean workStarted = false;
     private boolean restStarted = false;
     //Other classes
@@ -233,7 +234,7 @@ public class AmazTimer extends Activity {
                 }else{
                     prepareTime = defValues.SHORT_PREPARETIME;
                 }
-                final CountDownTimer PrepareTimer = new CountDownTimer(prepareTime, 1000) {
+                prepareTimer = new CountDownTimer(prepareTime, 1000) {
                     @Override
                     public void onTick(long l) {
                         timerUpdate((int) l / 1000);
@@ -244,7 +245,7 @@ public class AmazTimer extends Activity {
                         startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
                     }
                 };
-                PrepareTimer.start();
+                prepareTimer.start();
 
             }
         });
@@ -264,10 +265,6 @@ public class AmazTimer extends Activity {
             @Override
             public boolean onLongClick(View view) {
                 //Return if no timer has started
-                if(!timersStarted()){
-                    Toast.makeText(view.getContext(), view.getResources().getString(R.string.waitforstart), Toast.LENGTH_SHORT).show();
-                    return true;
-                }
                 //Display start layout
                 L1.setVisibility(View.VISIBLE);
                 L2.setVisibility(View.GONE);
@@ -416,12 +413,12 @@ public class AmazTimer extends Activity {
     }
 
     private void stopTimers() {
-        if (this.workStarted) {
+        if (this.workStarted)
             this.workTimer.cancel();
-        }
-        if (this.restStarted) {
+        else if (this.restStarted)
             this.restTimer.cancel();
-        }
+        else
+            prepareTimer.cancel();
     }
 
     private void startTimer(final View view, final String sWork, final String sRest, final int work, final int rest) {
