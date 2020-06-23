@@ -411,7 +411,7 @@ public class AmazTimer extends Activity {
             this.workTimer.cancel();
         else if (this.restStarted)
             this.restTimer.cancel();
-        else
+        else if(prepareTimer != null)
             prepareTimer.cancel();
     }
 
