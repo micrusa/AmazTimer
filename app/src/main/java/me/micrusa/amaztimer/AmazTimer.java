@@ -225,7 +225,7 @@ public class AmazTimer extends Activity {
                 //Check if long prepare time option is enabled or disabled
                 int prepareTime;
                 if(!settingsFile.get(defValues.SETTINGS_ENABLEPREPARE, defValues.DEFAULT_ENABLEPREPARE) || settingsFile.get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)){
-                    startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
+                    startTimer(view, file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
                     chrono.setBase(SystemClock.elapsedRealtime());
                     chrono.start();
                     return;
@@ -242,7 +242,7 @@ public class AmazTimer extends Activity {
 
                     @Override
                     public void onFinish() {
-                        startTimer(view, view.getResources().getString(R.string.work), view.getResources().getString(R.string.rest), file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
+                        startTimer(view, file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
                     }
                 };
                 prepareTimer.start();
@@ -326,10 +326,6 @@ public class AmazTimer extends Activity {
             this.isTimerActive = false;
     }
 
-    private boolean timersStarted(){
-        return this.restStarted || this.workStarted;
-    }
-
     private void init() {
         //Buttons
         plus = this.findViewById(R.id.plus);
@@ -361,7 +357,6 @@ public class AmazTimer extends Activity {
 
     private void reloadTexts() {
         Resources res = this.getResources();
-        this.init();
         start.setText(res.getString(R.string.start));
         cancel.setText(res.getString(R.string.cancel));
         setsText.setText(res.getString(R.string.sets));
@@ -371,7 +366,6 @@ public class AmazTimer extends Activity {
     }
 
     private void timerUpdate(int v) {
-        this.init();
         if (!new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING)
                 || !new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)) {
             time.setText(utils.formatTime(v));
@@ -421,12 +415,12 @@ public class AmazTimer extends Activity {
             prepareTimer.cancel();
     }
 
-    private void startTimer(final View view, final String sWork, final String sRest, final int work, final int rest) {
+    private void startTimer(final View view, final int work, final int rest) {
         this.isTimerActive = true;
         hrSensor.newLap(Constants.STATUS_ACTIVE);
         this.workStarted = true;
         this.restStarted = false;
-        status.setText(sWork);
+        status.setText(getResources().getString(R.string.work));
         L2.setBackgroundColor(view.getResources().getColor(R.color.red));
         this.workTimer = new CountDownTimer(work * 1000, 1000) {
             @Override
@@ -438,7 +432,7 @@ public class AmazTimer extends Activity {
             public void onFinish() {
                 if (Integer.parseInt(rSets.getText().toString()) != 1) {
                     rSets.setText(String.valueOf(Integer.parseInt(rSets.getText().toString()) - 1));
-                    restTimer(view, sWork, sRest, work, rest);
+                    restTimer(view, work, rest);
                 } else {
                     //Unregister hrSensor listener and make visible initial screen again
                     setHrState(false, hrSensor, hr);
@@ -450,12 +444,12 @@ public class AmazTimer extends Activity {
         this.workTimer.start();
     }
 
-    private void restTimer(final View view, final String sWork, final String sRest, final int work, final int rest) {
+    private void restTimer(final View view, final int work, final int rest) {
         this.isTimerActive = true;
         hrSensor.newLap(Constants.STATUS_RESTING);
         this.workStarted = false;
         this.restStarted = true;
-        status.setText(sRest);
+        status.setText(getResources().getString(R.string.rest));
         L2.setBackgroundColor(view.getResources().getColor(R.color.green));
         this.restTimer = new CountDownTimer(rest * 1000, 1000) {
             @Override
@@ -465,7 +459,7 @@ public class AmazTimer extends Activity {
 
             @Override
             public void onFinish() {
-                startTimer(view, sWork, sRest, work, rest);
+                startTimer(view, work, rest);
             }
         };
         this.restTimer.start();
