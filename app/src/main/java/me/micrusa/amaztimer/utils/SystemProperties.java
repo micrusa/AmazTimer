@@ -43,6 +43,10 @@ public class SystemProperties {
         return checkIfModel(new String[]{"A1928", "A1929"}, "Stratos 3");
     }
 
+    public static boolean isStratosNewKeys(){
+        return Boolean.parseBoolean(getSystemProperty("prop.keyfeature.five"));
+    }
+
     public static boolean checkIfModel(String[] targetModels, String Name){
         String model = getSystemProperty("ro.build.huami.model");
         boolean check = Arrays.asList(targetModels).contains(model);

@@ -548,7 +548,7 @@ public class AmazTimer extends Activity {
             buttonListener.start(this, new buttonInterface() {
                 @Override
                 public void onKeyEvent(buttonEvent ButtonEvent) {
-                    if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
+                    if((SystemProperties.isPace() || SystemProperties.isVerge() || (SystemProperties.isStratos() && SystemProperties.isStratosNewKeys())) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
                         btnListenerHandler.post(btnPressRunnable);
                     else if(SystemProperties.isStratos() && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
                         btnListenerHandler.post(btnPressRunnable);
