@@ -486,7 +486,6 @@ public class AmazTimer extends Activity {
                     start.performLongClick();
                 break;
             default:
-                Log.d("AmazTimer", "Received unknown btnPress i: " + i);
                 break;
         }
     }
