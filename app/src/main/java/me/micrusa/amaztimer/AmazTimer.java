@@ -50,99 +50,93 @@ public class AmazTimer extends Activity {
     private boolean hasLaunchedActivity = false;
     private boolean hasResumed = false;
 
-    private final View.OnClickListener plusMinusBtnListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            //Get values from file
-            file file = new file(defValues.TIMER_FILE, view.getContext());
-            int sets = file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
-            int workTime = file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
-            int restTime = file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
-            //Increase or decrease the value that user clicked
-            switch(view.getId()){
-                case R.id.plus:
-                    sets = utils.getUpdatedSets(sets, 1, view.getContext());
+    private final View.OnClickListener plusMinusBtnListener = view -> {
+        //Get values from file
+        file file = new file(defValues.TIMER_FILE, view.getContext());
+        int sets = file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+        int workTime = file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+        int restTime = file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+        //Increase or decrease the value that user clicked
+        switch(view.getId()){
+            case R.id.plus:
+                sets = utils.getUpdatedSets(sets, 1, view.getContext());
+                break;
+            case R.id.plus2:
+                if(new file(defValues.SETTINGS_FILE, view.getContext())
+                        .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
+                    utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
                     break;
-                case R.id.plus2:
-                    if(new file(defValues.SETTINGS_FILE, view.getContext())
-                            .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
-                        utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-                        break;
-                    }
-                    workTime = utils.getUpdatedTime(workTime, 1, view.getContext());
+                }
+                workTime = utils.getUpdatedTime(workTime, 1, view.getContext());
+                break;
+            case R.id.plus3:
+                restTime = utils.getUpdatedTime(restTime, 1, view.getContext());
+                break;
+            case R.id.minus2:
+                sets = utils.getUpdatedSets(sets, -1, view.getContext());
+                break;
+            case R.id.minus:
+                if(new file(defValues.SETTINGS_FILE, view.getContext())
+                        .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
+                    utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
                     break;
-                case R.id.plus3:
-                    restTime = utils.getUpdatedTime(restTime, 1, view.getContext());
-                    break;
-                case R.id.minus2:
-                    sets = utils.getUpdatedSets(sets, -1, view.getContext());
-                    break;
-                case R.id.minus:
-                    if(new file(defValues.SETTINGS_FILE, view.getContext())
-                            .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
-                        utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-                        break;
-                    }
-                    workTime = utils.getUpdatedTime(workTime, -1, view.getContext());
-                    break;
-                case R.id.minus3:
-                    restTime = utils.getUpdatedTime(restTime, -1, view.getContext());
-                    break;
-                default:
-                    break;
-            }
-            //Set texts and save to file
-            setTexts(sets, workTime, restTime);
-            utils.pushToFile(file, sets, workTime, restTime);
+                }
+                workTime = utils.getUpdatedTime(workTime, -1, view.getContext());
+                break;
+            case R.id.minus3:
+                restTime = utils.getUpdatedTime(restTime, -1, view.getContext());
+                break;
+            default:
+                break;
         }
+        //Set texts and save to file
+        setTexts(sets, workTime, restTime);
+        utils.pushToFile(file, sets, workTime, restTime);
     };
 
-    private final View.OnLongClickListener plusMinusBtnLongListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View view) {
-            //Get values from file
-            file file = new file(defValues.TIMER_FILE, view.getContext());
-            int sets = file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
-            int workTime = file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
-            int restTime = file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
-            //Increase or decrease the value that user clicked
-            switch(view.getId()){
-                case R.id.plus:
-                    sets = utils.getUpdatedSets(sets, 5, view.getContext());
+    private final View.OnLongClickListener plusMinusBtnLongListener = view -> {
+        //Get values from file
+        file file = new file(defValues.TIMER_FILE, view.getContext());
+        int sets = file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+        int workTime = file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+        int restTime = file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+        //Increase or decrease the value that user clicked
+        switch(view.getId()){
+            case R.id.plus:
+                sets = utils.getUpdatedSets(sets, 5, view.getContext());
+                break;
+            case R.id.plus2:
+                if(new file(defValues.SETTINGS_FILE, view.getContext())
+                        .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
+                    utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
                     break;
-                case R.id.plus2:
-                    if(new file(defValues.SETTINGS_FILE, view.getContext())
-                            .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
-                        utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-                        break;
-                    }
-                    workTime = utils.getUpdatedTime(workTime, 60, view.getContext());
+                }
+                workTime = utils.getUpdatedTime(workTime, 60, view.getContext());
+                break;
+            case R.id.plus3:
+                restTime = utils.getUpdatedTime(restTime, 60, view.getContext());
+                break;
+            case R.id.minus2:
+                sets = utils.getUpdatedSets(sets, -5, view.getContext());
+                break;
+            case R.id.minus:
+                if(new file(defValues.SETTINGS_FILE, view.getContext())
+                        .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
+                    utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
                     break;
-                case R.id.plus3:
-                    restTime = utils.getUpdatedTime(restTime, 60, view.getContext());
-                    break;
-                case R.id.minus2:
-                    sets = utils.getUpdatedSets(sets, -5, view.getContext());
-                    break;
-                case R.id.minus:
-                    if(new file(defValues.SETTINGS_FILE, view.getContext())
-                            .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
-                        utils.vibrate(defValues.SHORT_VIBRATION, view.getContext());
-                        break;
-                    }
-                    workTime = utils.getUpdatedTime(workTime, -60, view.getContext());
-                    break;
-                case R.id.minus3:
-                    restTime = utils.getUpdatedTime(restTime, -60, view.getContext());
-                    break;
-                default:
-                    break;
-            }
-            //Set texts and save to file
-            setTexts(sets, workTime, restTime);
-            utils.pushToFile(file, sets, workTime, restTime);
-            return true;
+                }
+                workTime = utils.getUpdatedTime(workTime, -60, view.getContext());
+                break;
+            case R.id.minus3:
+                restTime = utils.getUpdatedTime(restTime, -60, view.getContext());
+                break;
+            default:
+                break;
         }
+        //Set texts and save to file
+        setTexts(sets, workTime, restTime);
+        utils.pushToFile(file, sets, workTime, restTime);
+        return true;
     };
 
 
@@ -152,12 +146,7 @@ public class AmazTimer extends Activity {
         super.onCreate(savedInstanceState);
         if(!SystemProperties.isDeviceSupported()){
             Toast.makeText(this, "Device not supported! Killing app...", Toast.LENGTH_SHORT).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    finish();
-                }
-            }, 1000);
+            new Handler().postDelayed(this::finish, 1000);
         }
         this.isTimerActive = false;
         // Save Activity variables
@@ -190,100 +179,88 @@ public class AmazTimer extends Activity {
         minus2.setOnLongClickListener(plusMinusBtnLongListener);
         minus3.setOnLongClickListener(plusMinusBtnLongListener);
         //Start button
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                final file file = new file(defValues.TIMER_FILE, view.getContext());
-                final file settingsFile = new file(defValues.SETTINGS_FILE, view.getContext());
-                if(settingsFile.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
-                    Intent intent = new Intent(view.getContext(), RepsTimerActivity.class);
-                    launchIntent(intent);
-                    return;
-                } else if(settingsFile.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE)){
-                    Intent intent = new Intent(view.getContext(), WorkoutActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    launchIntent(intent);
-                    return;
-                }
-                //Set language to setting's language
-                utils.setLang(view.getContext(), new file(defValues.SETTINGS_FILE, view.getContext()).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
-                //Move to second layout with timer's stuff and set all texts
-                L1.setVisibility(View.GONE);
-                L2.setVisibility(View.VISIBLE);
-                L2.setBackgroundColor(view.getResources().getColor(R.color.yellow));
-                rSets.setText(String.valueOf(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS)));
-                status.setText(view.getResources().getString(R.string.prepare));
-                //hrSensor stuff
-                setHrState(true, hrSensor, hr);
-                //Chrono stuff
-                time.setVisibility(View.VISIBLE);
-                chrono.setVisibility(View.GONE);
-                if (settingsFile.get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)){
-                    time.setVisibility(View.INVISIBLE);
-                    chrono.setVisibility(View.VISIBLE);
-                }
-                //Check if long prepare time option is enabled or disabled
-                int prepareTime;
-                if(!settingsFile.get(defValues.SETTINGS_ENABLEPREPARE, defValues.DEFAULT_ENABLEPREPARE) || settingsFile.get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)){
-                    startTimer(view, file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
-                    chrono.setBase(SystemClock.elapsedRealtime());
-                    chrono.start();
-                    return;
-                } else if(new file(defValues.SETTINGS_FILE, view.getContext()).get(defValues.SETTINGS_LONGPREPARE, defValues.DEFAULT_LONGPREPARE)){
-                    prepareTime = defValues.LONG_PREPARETIME;
-                }else{
-                    prepareTime = defValues.SHORT_PREPARETIME;
-                }
-                prepareTimer = new CountDownTimer(prepareTime, 1000) {
-                    @Override
-                    public void onTick(long l) {
-                        timerUpdate((int) l / 1000);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        startTimer(view, file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
-                    }
-                };
-                prepareTimer.start();
-
-            }
-        });
-        //Start long press opens settings
-        start.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Intent intent = new Intent(view.getContext(), SettingsActivity.class);
+        start.setOnClickListener(view -> {
+            final file file = new file(defValues.TIMER_FILE, view.getContext());
+            final file settingsFile = new file(defValues.SETTINGS_FILE, view.getContext());
+            if(settingsFile.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
+                Intent intent = new Intent(view.getContext(), RepsTimerActivity.class);
+                launchIntent(intent);
+                return;
+            } else if(settingsFile.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE)){
+                Intent intent = new Intent(view.getContext(), WorkoutActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 launchIntent(intent);
-                return true;
+                return;
             }
+            //Set language to setting's language
+            utils.setLang(view.getContext(), new file(defValues.SETTINGS_FILE, view.getContext()).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+            //Move to second layout with timer's stuff and set all texts
+            L1.setVisibility(View.GONE);
+            L2.setVisibility(View.VISIBLE);
+            L2.setBackgroundColor(view.getResources().getColor(R.color.yellow));
+            rSets.setText(String.valueOf(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS)));
+            status.setText(view.getResources().getString(R.string.prepare));
+            //hrSensor stuff
+            setHrState(true, hrSensor, hr);
+            //Chrono stuff
+            time.setVisibility(View.VISIBLE);
+            chrono.setVisibility(View.GONE);
+            if (settingsFile.get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)){
+                time.setVisibility(View.INVISIBLE);
+                chrono.setVisibility(View.VISIBLE);
+            }
+            //Check if long prepare time option is enabled or disabled
+            int prepareTime;
+            if(!settingsFile.get(defValues.SETTINGS_ENABLEPREPARE, defValues.DEFAULT_ENABLEPREPARE) || settingsFile.get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)){
+                startTimer(view, file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
+                chrono.setBase(SystemClock.elapsedRealtime());
+                chrono.start();
+                return;
+            } else if(new file(defValues.SETTINGS_FILE, view.getContext()).get(defValues.SETTINGS_LONGPREPARE, defValues.DEFAULT_LONGPREPARE)){
+                prepareTime = defValues.LONG_PREPARETIME;
+            }else{
+                prepareTime = defValues.SHORT_PREPARETIME;
+            }
+            prepareTimer = new CountDownTimer(prepareTime, 1000) {
+                @Override
+                public void onTick(long l) {
+                    timerUpdate((int) l / 1000);
+                }
+
+                @Override
+                public void onFinish() {
+                    startTimer(view, file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME), file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
+                }
+            };
+            prepareTimer.start();
+
+        });
+        //Start long press opens settings
+        start.setOnLongClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), SettingsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            launchIntent(intent);
+            return true;
         });
         //Cancel button
         //To avoid accidental clicks, just a long click will cancel it
-        cancel.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                //Return if no timer has started
-                //Display start layout
-                L1.setVisibility(View.VISIBLE);
-                L2.setVisibility(View.GONE);
-                //Stop timers
-                stopTimers();
-                //Stop chrono
-                if (new file(defValues.SETTINGS_FILE, getContext()).get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE))
-                    chrono.stop();
-                //Unregister hr sensor listener to avoid battery drain
-                setHrState(false, hrSensor, hr);
-                return true;
-            }
+        cancel.setOnLongClickListener(view -> {
+            //Return if no timer has started
+            //Display start layout
+            L1.setVisibility(View.VISIBLE);
+            L2.setVisibility(View.GONE);
+            //Stop timers
+            stopTimers();
+            //Stop chrono
+            if (new file(defValues.SETTINGS_FILE, getContext()).get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE))
+                chrono.stop();
+            //Unregister hr sensor listener to avoid battery drain
+            setHrState(false, hrSensor, hr);
+            return true;
         });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Send toast
-                Toast.makeText(view.getContext(), view.getResources().getString(R.string.canceltoast), Toast.LENGTH_SHORT).show();
-            }
+        cancel.setOnClickListener(view -> {
+            //Send toast
+            Toast.makeText(view.getContext(), view.getResources().getString(R.string.canceltoast), Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -392,12 +369,7 @@ public class AmazTimer extends Activity {
         if (v < 4) {
             utils.vibrate(defValues.SHORT_VIBRATION, this, true);
             if (v == 1){
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        utils.vibrate(defValues.LONG_VIBRATION, getContext(), true);
-                    }
-                }, 950);
+                new Handler().postDelayed(() -> utils.vibrate(defValues.LONG_VIBRATION, getContext(), true), 950);
             }
         }
     }
@@ -481,14 +453,11 @@ public class AmazTimer extends Activity {
     @Override
     public void onPause() {
         this.hasResumed = false;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(hasResumed())
-                    return;
-                buttonListener.stop();
-                stopTimers();
-            }
+        new Handler().postDelayed(() -> {
+            if(hasResumed())
+                return;
+            buttonListener.stop();
+            stopTimers();
         }, 15 * 1000);
         super.onPause();
     }
@@ -532,31 +501,18 @@ public class AmazTimer extends Activity {
 
     private void setupBtnListener(){
         final Handler btnListenerHandler = new Handler();
-        final Runnable btnPressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                btnPress(1);
-            }
-        };
-        final Runnable settingsRunnable = new Runnable() {
-            @Override
-            public void run() {
-                btnPress(2);
-            }
-        };
+        final Runnable btnPressRunnable = () -> btnPress(1);
+        final Runnable settingsRunnable = () -> btnPress(2);
         if(!buttonListener.isListening())
-            buttonListener.start(this, new buttonInterface() {
-                @Override
-                public void onKeyEvent(buttonEvent ButtonEvent) {
-                    if((SystemProperties.isPace() || SystemProperties.isVerge() || (SystemProperties.isStratos() && SystemProperties.isStratosNewKeys())) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
-                        btnListenerHandler.post(btnPressRunnable);
-                    else if((SystemProperties.isStratos() && !SystemProperties.isStratosNewKeys()) && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                        btnListenerHandler.post(btnPressRunnable);
-                    else if((SystemProperties.isStratos() && !SystemProperties.isStratosNewKeys()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
-                        btnListenerHandler.post(settingsRunnable);
-                    //else if(SystemProperties.isStratos3())
-                    Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
-                }
+            buttonListener.start(this, ButtonEvent -> {
+                if((SystemProperties.isPace() || SystemProperties.isVerge() || (SystemProperties.isStratos() && SystemProperties.isStratosNewKeys())) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
+                    btnListenerHandler.post(btnPressRunnable);
+                else if((SystemProperties.isStratos() && !SystemProperties.isStratosNewKeys()) && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                    btnListenerHandler.post(btnPressRunnable);
+                else if((SystemProperties.isStratos() && !SystemProperties.isStratosNewKeys()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
+                    btnListenerHandler.post(settingsRunnable);
+                //else if(SystemProperties.isStratos3())
+                Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
             });
     }
 }

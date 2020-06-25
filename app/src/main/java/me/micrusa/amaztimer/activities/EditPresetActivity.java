@@ -40,85 +40,74 @@ public class EditPresetActivity extends AppCompatActivity {
 
     private void createOnClickListeners(final int PresetID) {
         final me.micrusa.amaztimer.utils.file finalFile = new file("preset" + PresetID, this);
-        plusMinusBtn = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Get values from file
-                int sets = finalFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
-                int work = finalFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
-                int rest = finalFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
-                //Increase or decrease values
-                switch (v.getId()) {
-                    case R.id.plus:
-                        sets++;
-                        break;
-                    case R.id.plus2:
-                        work++;
-                        break;
-                    case R.id.plus3:
-                        rest++;
-                        break;
-                    case R.id.minus2:
-                        sets--;
-                        break;
-                    case R.id.minus:
-                        work--;
-                        break;
-                    case R.id.minus3:
-                        rest--;
-                        break;
-                    default:
-                        break;
-                }
-                //Save to file and set texts
-                utils.pushToFile(finalFile, sets, work, rest);
-                setTimeTexts(sets, work, rest);
+        plusMinusBtn = v -> {
+            //Get values from file
+            int sets = finalFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+            int work = finalFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+            int rest = finalFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+            //Increase or decrease values
+            switch (v.getId()) {
+                case R.id.plus:
+                    sets++;
+                    break;
+                case R.id.plus2:
+                    work++;
+                    break;
+                case R.id.plus3:
+                    rest++;
+                    break;
+                case R.id.minus2:
+                    sets--;
+                    break;
+                case R.id.minus:
+                    work--;
+                    break;
+                case R.id.minus3:
+                    rest--;
+                    break;
+                default:
+                    break;
             }
+            //Save to file and set texts
+            utils.pushToFile(finalFile, sets, work, rest);
+            setTimeTexts(sets, work, rest);
         };
 
-        longPlusMinusBtn = new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                //Get values from file
-                int sets = finalFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
-                int work = finalFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
-                int rest = finalFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
-                //Increase or decrease values
-                switch (v.getId()) {
-                    case R.id.plus:
-                        sets = sets + 5;
-                        break;
-                    case R.id.plus2:
-                        work = work + 60;
-                        break;
-                    case R.id.plus3:
-                        rest = rest + 60;
-                        break;
-                    case R.id.minus2:
-                        sets = sets - 5;
-                        break;
-                    case R.id.minus:
-                        work = work - 60;
-                        break;
-                    case R.id.minus3:
-                        rest = rest - 60;
-                        break;
-                    default:
-                        break;
-                }
-                //Save to file and set texts
-                utils.pushToFile(finalFile, sets, work, rest);
-                setTimeTexts(sets, work, rest);
-                return true;
+        longPlusMinusBtn = v -> {
+            //Get values from file
+            int sets = finalFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+            int work = finalFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+            int rest = finalFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+            //Increase or decrease values
+            switch (v.getId()) {
+                case R.id.plus:
+                    sets = sets + 5;
+                    break;
+                case R.id.plus2:
+                    work = work + 60;
+                    break;
+                case R.id.plus3:
+                    rest = rest + 60;
+                    break;
+                case R.id.minus2:
+                    sets = sets - 5;
+                    break;
+                case R.id.minus:
+                    work = work - 60;
+                    break;
+                case R.id.minus3:
+                    rest = rest - 60;
+                    break;
+                default:
+                    break;
             }
+            //Save to file and set texts
+            utils.pushToFile(finalFile, sets, work, rest);
+            setTimeTexts(sets, work, rest);
+            return true;
         };
         //Edit button finishes activity
-        editBtn = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        };
+        editBtn = v -> finish();
     }
 
     private void setOnClickListeners() {

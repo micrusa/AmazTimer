@@ -28,48 +28,42 @@ public class PresetsActivity extends AppCompatActivity {
     private int[] firstArray;
     private int[] secondArray;
 
-    private final View.OnClickListener startClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int[] array = null;
-            //Get correct array by the id
-            switch (v.getId()) {
-                case R.id.start1:
-                    array = getValues(1);
-                    break;
-                case R.id.start2:
-                    array = getValues(2);
-                    break;
-                default:
-                    break;
-            }
-            //If array is null return
-            if(array == null) return;
-            file f = new file(defValues.TIMER_FILE, v.getContext());
-            //Save values to timer file
-            utils.pushToFile(f, array[0], array[1], array[2]);
-            //Open main class
-            Intent intent = new Intent(v.getContext(), AmazTimer.class);
-            v.getContext().startActivity(intent);
+    private final View.OnClickListener startClickListener = v -> {
+        int[] array = null;
+        //Get correct array by the id
+        switch (v.getId()) {
+            case R.id.start1:
+                array = getValues(1);
+                break;
+            case R.id.start2:
+                array = getValues(2);
+                break;
+            default:
+                break;
         }
+        //If array is null return
+        if(array == null) return;
+        file f = new file(defValues.TIMER_FILE, v.getContext());
+        //Save values to timer file
+        utils.pushToFile(f, array[0], array[1], array[2]);
+        //Open main class
+        Intent intent = new Intent(v.getContext(), AmazTimer.class);
+        v.getContext().startActivity(intent);
     };
 
-    private final View.OnClickListener editClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), EditPresetActivity.class);
-            switch (v.getId()) {
-                case R.id.edit1:
-                    intent.putExtra("ID", 1);
-                    break;
-                case R.id.edit2:
-                    intent.putExtra("ID", 2);
-                    break;
-                default:
-                    break;
-            }
-            v.getContext().startActivity(intent);
+    private final View.OnClickListener editClickListener = v -> {
+        Intent intent = new Intent(v.getContext(), EditPresetActivity.class);
+        switch (v.getId()) {
+            case R.id.edit1:
+                intent.putExtra("ID", 1);
+                break;
+            case R.id.edit2:
+                intent.putExtra("ID", 2);
+                break;
+            default:
+                break;
         }
+        v.getContext().startActivity(intent);
     };
 
     @Override
