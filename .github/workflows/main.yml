@@ -23,10 +23,13 @@ jobs:
       uses: dev-drprasad/delete-tag-and-release@v0.1.2
       with:
        tag_name: edgy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Create edgy release
       uses: meeDamian/github-release@v2.0.2
       with:
+        token: ${{ secrets.GITHUB_TOKEN }}
         tag: edgy
         name: Edgy
         body: Continuous integration build, no support will be given for this build and it might have bugs or even not work
