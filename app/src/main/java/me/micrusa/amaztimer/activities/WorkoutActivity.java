@@ -170,7 +170,9 @@ public class WorkoutActivity extends AppCompatActivity {
                     else
                         btnListenerHandler.post(upBtnPressRunnable);
                 else if(SystemProperties.isStratos())
-                    if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                    if(SystemProperties.isStratosNewKeys())
+                        btnListenerHandler.post(downBtnPressRunnable);
+                    else if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
                         btnListenerHandler.post(downBtnPressRunnable);
                     else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
                         btnListenerHandler.post(upBtnPressRunnable);

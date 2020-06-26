@@ -504,11 +504,13 @@ public class AmazTimer extends Activity {
         final Runnable settingsRunnable = () -> btnPress(2);
         if(!buttonListener.isListening())
             buttonListener.start(this, ButtonEvent -> {
-                if((SystemProperties.isPace() || SystemProperties.isVerge() || (SystemProperties.isStratos() && SystemProperties.isStratosNewKeys())) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
+                if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER && ButtonEvent.isLongPress())
                     btnListenerHandler.post(btnPressRunnable);
-                else if((SystemProperties.isStratos() && !SystemProperties.isStratosNewKeys()) && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                else if(SystemProperties.isStratos() && SystemProperties.isStratosNewKeys())
                     btnListenerHandler.post(btnPressRunnable);
-                else if((SystemProperties.isStratos() && !SystemProperties.isStratosNewKeys()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
+                else if(SystemProperties.isStratos() && ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                    btnListenerHandler.post(btnPressRunnable);
+                else if(SystemProperties.isStratos() && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
                     btnListenerHandler.post(settingsRunnable);
                 //else if(SystemProperties.isStratos3())
                 Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
