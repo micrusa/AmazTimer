@@ -499,6 +499,7 @@ public class AmazTimer extends Activity {
     }
 
     private void setupBtnListener(){
+        //Create a Handler because buttonListener runs in a different thread
         final Handler btnListenerHandler = new Handler();
         final Runnable btnPressRunnable = () -> btnPress(1);
         final Runnable settingsRunnable = () -> btnPress(2);

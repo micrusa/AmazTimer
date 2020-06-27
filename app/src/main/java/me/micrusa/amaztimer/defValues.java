@@ -16,7 +16,7 @@ public final class defValues {
     public static final int DEF_RESTTIME = 10;
     //Vibration times
     public static final int SHORT_VIBRATION = 100; //0.1s
-    public static final int LONG_VIBRATION = 700; //0.5s
+    public static final int LONG_VIBRATION = 700; //0.7s
     //Preparation times
     public static final int SHORT_PREPARETIME = 5 * 1000;
     public static final int LONG_PREPARETIME = 60 * 1000;

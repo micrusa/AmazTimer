@@ -52,7 +52,7 @@ public class hrSensor implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         int v = (int) event.values[0];
-        if (isAccuracyValid()) {
+        if (isAccuracyValid() && v > 25 && v < 230 /*Limit to range 25-230 to avoid fake readings*/) {
             //Get hr value and set the text if battery saving mode is disabled
             if (!new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING)
                     && !new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE))
@@ -67,7 +67,7 @@ public class hrSensor implements SensorEventListener {
                 currentLap.addTrackpoint(new Trackpoint(v, new Date()));
             this.latestHrTime = currentDate;
         } else {
-            Log.i("AmazTimer", "hrSensor: unvalid heart rate: " + String.valueOf(v) + " with " + String.valueOf(this.accuracy) + " accuracy");
+            //Log.i("AmazTimer", "hrSensor: unvalid heart rate: " + String.valueOf(v) + " with " + String.valueOf(this.accuracy) + " accuracy");
         }
     }
 
