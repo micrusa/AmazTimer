@@ -164,20 +164,10 @@ public class WorkoutActivity extends AppCompatActivity {
         final Runnable downBtnPressRunnable = this::downBtnPress;
         if(!buttonListener.isListening())
             buttonListener.start(this, ButtonEvent -> {
-                if((SystemProperties.isPace() || SystemProperties.isVerge()) && ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
-                    if(ButtonEvent.isLongPress())
-                        btnListenerHandler.post(downBtnPressRunnable);
-                    else
-                        btnListenerHandler.post(upBtnPressRunnable);
-                else if(SystemProperties.isStratos())
-                    if(SystemProperties.isStratosNewKeys())
-                        btnListenerHandler.post(downBtnPressRunnable);
-                    else if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                        btnListenerHandler.post(downBtnPressRunnable);
-                    else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
-                        btnListenerHandler.post(upBtnPressRunnable);
-                //else if(SystemProperties.isStratos3())
-                Log.i("AmazTimer", "Key " + ButtonEvent.getKey() + " has been pressed. isLongClick = " + ButtonEvent.isLongPress());
+                if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                    btnListenerHandler.post(downBtnPressRunnable);
+                else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
+                    btnListenerHandler.post(upBtnPressRunnable);
             });
     }
 
