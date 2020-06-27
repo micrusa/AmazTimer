@@ -30,6 +30,15 @@ public class SystemProperties {
         }
     }
 
+    public static boolean getBoolean(String key, boolean def) {
+        try {
+            return (Boolean) Class.forName("android.os.SystemProperties").getMethod("getBoolean", String.class, boolean.class)
+                    .invoke(null, key, def);
+        } catch (Exception e) {
+            return def;
+        }
+    }
+
     public static boolean isPace(){
         return checkIfModel(new String[]{"A1602", "A1612"}, "Pace") || new File("/system/.pace_hybrid").exists();
     }
@@ -47,7 +56,7 @@ public class SystemProperties {
     }
 
     public static boolean isStratosNewKeys(){
-        return Boolean.parseBoolean(getSystemProperty("prop.keyfeature.five"));
+        return getBoolean("prop.keyfeature.five", false);
     }
 
     public static boolean checkIfModel(String[] targetModels, String Name){
