@@ -50,6 +50,9 @@ public class buttonListener {
         if(SystemProperties.isStratos3()){
             Log.d("AmazTimer", "S3 detected, Button controls won't be enabled.");
             return;
+        } else if(isListening()){
+            //No logging to avoid excessive logging
+            return;
         }
 
         powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);

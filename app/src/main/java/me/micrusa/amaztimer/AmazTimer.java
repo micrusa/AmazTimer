@@ -503,12 +503,11 @@ public class AmazTimer extends Activity {
         final Handler btnListenerHandler = new Handler();
         final Runnable btnPressRunnable = () -> btnPress(1);
         final Runnable settingsRunnable = () -> btnPress(2);
-        if(!buttonListener.isListening())
-            buttonListener.start(this, ButtonEvent -> {
-                if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                    btnListenerHandler.post(btnPressRunnable);
-                else if(ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
-                    btnListenerHandler.post(settingsRunnable);
-            });
+        buttonListener.start(this, ButtonEvent -> {
+            if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                btnListenerHandler.post(btnPressRunnable);
+            else if(ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
+                btnListenerHandler.post(settingsRunnable);
+        });
     }
 }

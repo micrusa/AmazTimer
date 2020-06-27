@@ -162,13 +162,12 @@ public class WorkoutActivity extends AppCompatActivity {
         final Handler btnListenerHandler = new Handler();
         final Runnable upBtnPressRunnable = this::upBtnPress;
         final Runnable downBtnPressRunnable = this::downBtnPress;
-        if(!buttonListener.isListening())
-            buttonListener.start(this, ButtonEvent -> {
-                if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                    btnListenerHandler.post(downBtnPressRunnable);
-                else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
-                    btnListenerHandler.post(upBtnPressRunnable);
-            });
+        buttonListener.start(this, ButtonEvent -> {
+            if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+                btnListenerHandler.post(downBtnPressRunnable);
+            else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
+                btnListenerHandler.post(upBtnPressRunnable);
+        });
     }
 
     private void upBtnPress(){
