@@ -16,11 +16,14 @@ public class SystemProperties {
     public static String getSystemProperty(String name) {
         InputStreamReader in;
         BufferedReader reader;
+        String prop;
         try {
             Process proc = Runtime.getRuntime().exec(new String[]{"/system/bin/getprop", name});
             in = new InputStreamReader(proc.getInputStream());
             reader = new BufferedReader(in);
-            return reader.readLine();
+            prop = reader.readLine();
+            reader.close();
+            return prop;
         } catch (IOException e) {
             Log.e("AmazTimer", "SystemProperties getSystemProperty exception: {}" + e.getMessage());
             return null;
