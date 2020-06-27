@@ -6,7 +6,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -102,7 +101,7 @@ public class hrSensor implements SensorEventListener {
         latestTraining.saveDataToFile(this.context, totalTimeInSeconds);
         if (new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_TCX, defValues.DEFAULT_TCX)) {
             addCurrentLap();
-            boolean result = new SaveTCX().saveToFile(this.context, this.TCXData);
+            boolean result = SaveTCX.saveToFile(this.TCXData);
             resetTcxData();
             utils.setLang(this.context, new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
             if (result)

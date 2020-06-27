@@ -26,15 +26,15 @@ import me.micrusa.amaztimer.utils.SystemProperties;
 
 public class SaveTCX {
 
-    private String FILE_PATH = Environment.getExternalStorageDirectory().getPath() + "/AmazTimer/";
+    private static String FILE_PATH = Environment.getExternalStorageDirectory().getPath() + "/AmazTimer/";
 
-    private Element Activity;
-    private Document tcx;
+    private static Element Activity;
+    private static Document tcx;
 
-    private String TAG = "AmazTimer TCX";
+    private static String TAG = "AmazTimer TCX";
 
 
-    public boolean saveToFile(Context paramContext, TCXData TCXData){
+    public static boolean saveToFile(TCXData TCXData){
         if (TCXData.isEmpty()){
             Log.d(TAG, "TCXData is empty, returning!");
             return false;
@@ -185,7 +185,7 @@ public class SaveTCX {
         return tcxFile.exists();
     }
 
-    private void fillLap(Lap lap){
+    private static void fillLap(Lap lap){
         Element Lap = tcx.createElement("Lap");
         Lap.setAttribute("StartTime", lap.getStartTime());
         Activity.appendChild(Lap);
@@ -227,7 +227,7 @@ public class SaveTCX {
 
     }
 
-    private void fillTrackPoint(Trackpoint tp, Element Track){
+    private static void fillTrackPoint(Trackpoint tp, Element Track){
         Element Trackpoint = tcx.createElement("Trackpoint");
         Track.appendChild(Trackpoint);
 
