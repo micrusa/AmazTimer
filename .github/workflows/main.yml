@@ -15,7 +15,16 @@ jobs:
     - name: Build AmazTimer
       uses: vgaidarji/android-github-actions-build@v1.0.1
       with: 
-        args: "./gradlew assembleDebug"
+        args: "./gradlew assembleRelease"
+        
+    - name: Sign apk
+      uses: r0adkll/sign-android-release@v1
+      with:
+       releaseDirectory: app/build/outputs/apk/release
+       signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+       alias: ${{ secrets.ALIAS }}
+       keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+       keyPassword: ${{ secrets.KEY_PASSWORD }}
         
     - name: Delete edgy release
       uses: dev-drprasad/delete-tag-and-release@v0.1.2
@@ -32,5 +41,5 @@ jobs:
         name: Edgy
         body: Continuous integration build, no support will be given for this build and it might have bugs or even not work
         prerelease: true
-        files: AmazTimer-EDGY.apk:./app/build/outputs/apk/debug/app-debug.apk
+        files: AmazTimer-EDGY.apk:$SIGNED_RELEASE_FILE
         gzip: false
