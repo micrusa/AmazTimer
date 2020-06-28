@@ -35,6 +35,7 @@ public class SystemProperties {
             return (Boolean) Class.forName("android.os.SystemProperties").getMethod("getBoolean", String.class, boolean.class)
                     .invoke(null, key, def);
         } catch (Exception e) {
+            e.printStackTrace();
             return def;
         }
     }
