@@ -63,7 +63,7 @@ public class SystemProperties {
     public static boolean checkIfModel(String[] targetModels, String Name){
         String model = getSystemProperty("ro.build.huami.model");
         boolean check = Arrays.asList(targetModels).contains(model);
-        Log.i("AmazTimer", "[System Properties] Current model (" + model + ") is " + ((check) ? "" : "NOT ") + "a " + Name);
+        //Log.i("AmazTimer", "[System Properties] Current model (" + model + ") is " + ((check) ? "" : "NOT ") + "a " + Name);
         return check;
     }
 
