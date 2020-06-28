@@ -17,6 +17,9 @@ jobs:
       with: 
         args: "./gradlew assembleRelease"
         
+    - name: Give permissions to sign apk
+      run: sudo chown -R $USER:$USER app/build/outputs/apk/release
+        
     - name: Sign apk
       uses: r0adkll/sign-android-release@v1
       with:
