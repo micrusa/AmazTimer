@@ -2,12 +2,13 @@ package me.micrusa.amaztimer.utils;
 
 import android.util.Log;
 
+import org.tinylog.Logger;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.logging.Logger;
 
 public class SystemProperties {
 
@@ -25,7 +26,7 @@ public class SystemProperties {
             reader.close();
             return prop;
         } catch (IOException e) {
-            Log.e("AmazTimer", "SystemProperties getSystemProperty exception: {}" + e.getMessage());
+            Logger.error(e);
             return null;
         }
     }
@@ -63,7 +64,7 @@ public class SystemProperties {
     public static boolean checkIfModel(String[] targetModels, String Name){
         String model = getSystemProperty("ro.build.huami.model");
         boolean check = Arrays.asList(targetModels).contains(model);
-        //Log.i("AmazTimer", "[System Properties] Current model (" + model + ") is " + ((check) ? "" : "NOT ") + "a " + Name);
+        //Logger.info("Current model (" + model + ") is " + ((check) ? "" : "NOT ") + "a " + Name);
         return check;
     }
 

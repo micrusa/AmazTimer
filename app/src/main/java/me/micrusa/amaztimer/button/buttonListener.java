@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.PowerManager;
 import android.util.Log;
 
+import org.tinylog.Logger;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -48,7 +50,7 @@ public class buttonListener {
     public void start(Context context, final buttonInterface buttonInterface) {
 
         if(SystemProperties.isStratos3()){
-            Log.d("AmazTimer", "S3 detected, Button controls won't be enabled.");
+            Logger.debug("S3 detected, returning");
             return;
         } else if(isListening()){
             //No logging to avoid excessive logging
@@ -144,13 +146,13 @@ public class buttonListener {
                             break;
                         }
                         default: {
-                            Log.d("AmazTimer", "Unsupported key: " + code);
+                            Logger.debug("Unsupported key: " + code);
                             break;
                         }
                     }
                 }
             } catch (FileNotFoundException e) {
-                Log.e("AmazTimer", FILE_PATH + " not found");
+                Logger.error(e);
             }
 
             return null;

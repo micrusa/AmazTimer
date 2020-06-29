@@ -6,6 +6,7 @@ import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.tinylog.Logger;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,7 +51,7 @@ public class file {
                 // Parse to json
                 this.data = new JSONObject(data.toString());
             } catch (Exception e) {
-                e.printStackTrace();
+                Logger.error(e);
                 if (this.data == null) {
                     this.data = new JSONObject();
                 }
@@ -68,7 +69,7 @@ public class file {
             writer.write(this.data.toString());
             writer.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e);
         }
     }
 
@@ -140,7 +141,7 @@ public class file {
                 return true;
             }
         } catch (JSONException e) {
-            Log.e("File", e.toString());
+            Logger.error(e);
         }
 
         try {
@@ -160,7 +161,7 @@ public class file {
                 return true;
             }
         } catch (JSONException e) {
-            Log.e("File", e.toString());
+            Logger.error(e);
         }
 
         try {
@@ -180,7 +181,7 @@ public class file {
                 return true;
             }
         } catch (JSONException e) {
-            Log.e("File", e.toString());
+            Logger.error(e);
         }
 
         try {

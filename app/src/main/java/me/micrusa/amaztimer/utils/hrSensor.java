@@ -66,7 +66,7 @@ public class hrSensor implements SensorEventListener {
                 currentLap.addTrackpoint(new Trackpoint(v, new Date()));
             this.latestHrTime = currentDate;
         } else {
-            //Log.i("AmazTimer", "hrSensor: unvalid heart rate: " + String.valueOf(v) + " with " + String.valueOf(this.accuracy) + " accuracy");
+            //Logger.info("hrSensor: unvalid heart rate: " + String.valueOf(v) + " with " + String.valueOf(this.accuracy) + " accuracy");
         }
     }
 

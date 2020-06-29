@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
+import org.tinylog.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -36,7 +37,7 @@ public class SaveTCX {
 
     public static boolean saveToFile(TCXData TCXData){
         if (TCXData.isEmpty()){
-            Log.d(TAG, "TCXData is empty, returning!");
+            Logger.debug("TCX Data empty, returning...");
             return false;
         }
         if (!new File(FILE_PATH).exists())
@@ -100,7 +101,7 @@ public class SaveTCX {
                 if (!lap.isLapEmpty())
                     fillLap(lap);
                 else
-                    Log.d(TAG, "Skipped lap " + lap.getStartTime() + " because it is empty");
+                    Logger.debug("Skipped lap " + lap.getStartTime() + " because it is empty");
             }
 
             Element Creator = tcx.createElement("Creator");
@@ -179,7 +180,7 @@ public class SaveTCX {
                 streamResult.getOutputStream().close();
 
         } catch (ParserConfigurationException | TransformerException | IOException ex) {
-            Log.e(TAG, "Exception while saving tcx file: " + ex.toString());
+            Logger.error(ex);
             return false;
         }
         return tcxFile.exists();
