@@ -5,12 +5,13 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 
 import me.micrusa.amaztimer.defValues;
 
 public class latestTraining {
 
-    private ArrayList<Integer> hrArray = new ArrayList<>();
+    private LinkedList<Integer> hrArray = new LinkedList<>();
 
     void addHrValue(int value){
         this.hrArray.add(value);

@@ -3,6 +3,7 @@ package me.micrusa.amaztimer.TCX.data;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import me.micrusa.amaztimer.TCX.Constants;
@@ -12,7 +13,7 @@ import me.micrusa.amaztimer.utils.latestTraining;
 
 public class Lap {
 
-    private List<Trackpoint> tps = new ArrayList<Trackpoint>();
+    private LinkedList<Trackpoint> tps = new LinkedList<>();
     private String StartTime;
     private String intensity;
     private long longStartTime;
@@ -69,7 +70,7 @@ public class Lap {
         return max;
     }
 
-    public List<Trackpoint> getTrackpoints(){
+    public LinkedList<Trackpoint> getTrackpoints(){
         return this.tps;
     }
 
