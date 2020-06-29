@@ -1,12 +1,13 @@
 package me.micrusa.amaztimer.TCX.data;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import me.micrusa.amaztimer.TCX.data.Lap;
 
 public class TCXData {
 
-    private ArrayList<Lap> laps = new ArrayList<Lap>();
+    private LinkedList<Lap> laps = new LinkedList<>();
 
     public boolean isEmpty(){
         return laps.size() == 0;
@@ -16,7 +17,7 @@ public class TCXData {
         laps.add(lap);
     }
 
-    public ArrayList<Lap> getLaps(){
+    public LinkedList<Lap> getLaps(){
         return this.laps;
     }
 

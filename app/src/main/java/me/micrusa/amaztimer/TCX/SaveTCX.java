@@ -32,8 +32,6 @@ public class SaveTCX {
     private static Element Activity;
     private static Document tcx;
 
-    private static String TAG = "AmazTimer TCX";
-
 
     public static boolean saveToFile(TCXData TCXData){
         if (TCXData.isEmpty()){
