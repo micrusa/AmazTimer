@@ -9,22 +9,18 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class SystemProperties {
 
     //Everything inside this class is from AmazMod.
 
     public static String getSystemProperty(String name) {
-        InputStreamReader in;
-        BufferedReader reader;
-        String prop;
         try {
             Process proc = Runtime.getRuntime().exec(new String[]{"/system/bin/getprop", name});
-            in = new InputStreamReader(proc.getInputStream());
-            reader = new BufferedReader(in);
-            prop = reader.readLine();
-            reader.close();
-            return prop;
+            try(BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()))){
+                return reader.readLine();
+            }
         } catch (IOException e) {
             Logger.error(e);
             return null;
@@ -36,7 +32,7 @@ public class SystemProperties {
             return (Boolean) Class.forName("android.os.SystemProperties").getMethod("getBoolean", String.class, boolean.class)
                     .invoke(null, key, def);
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.error(e);
             return def;
         }
     }
