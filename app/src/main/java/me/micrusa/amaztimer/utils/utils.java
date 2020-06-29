@@ -52,25 +52,20 @@ public class utils {
     }
 
     public static int getUpdatedTime(int currentTime, int update, Context paramContext){
-        int result = currentTime + update;
-        if(result < defValues.MIN_TIME){
-            result = defValues.MIN_TIME;
-            vibrate(defValues.SHORT_VIBRATION, paramContext);
-        } else if(result > defValues.MAX_TIME){
-            result = defValues.MAX_TIME;
-            vibrate(defValues.SHORT_VIBRATION, paramContext);
-        }
-        return result;
+        return getUpdatedValue(currentTime + update, defValues.MIN_TIME, defValues.MAX_TIME, paramContext);
     }
 
     public static int getUpdatedSets(int currentSets, int update, Context paramContext){
-        int result = currentSets + update;
-        if(result < defValues.MIN_SETS){
-            result = defValues.MIN_SETS;
+        return getUpdatedValue(currentSets + update, defValues.MIN_SETS, defValues.MAX_SETS, paramContext);
+    }
+
+    private static int getUpdatedValue(int result, int min, int max, Context paramContext){
+        if(result < min){
             vibrate(defValues.SHORT_VIBRATION, paramContext);
-        } else if(result > defValues.MAX_SETS){
-            result = defValues.MAX_SETS;
+            return min;
+        } else if(result > max){
             vibrate(defValues.SHORT_VIBRATION, paramContext);
+            return max;
         }
         return result;
     }
