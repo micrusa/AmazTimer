@@ -89,7 +89,6 @@ public class AmazTimer extends Activity {
             default:
                 break;
         }
-        //Set texts and save to file
         setTexts(sets, workTime, restTime);
         utils.pushToFile(file, sets, workTime, restTime);
     };
@@ -133,7 +132,6 @@ public class AmazTimer extends Activity {
             default:
                 break;
         }
-        //Set texts and save to file
         setTexts(sets, workTime, restTime);
         utils.pushToFile(file, sets, workTime, restTime);
         return true;
@@ -149,11 +147,8 @@ public class AmazTimer extends Activity {
             new Handler().postDelayed(this::finish, 1000);
         }
         this.isTimerActive = false;
-        // Save Activity variables
-        if (SystemProperties.isStratos3())
-            setContentView(R.layout.round_amaztimer);
-        else
-            setContentView(R.layout.amaztimer);
+        //Set layout depending on device
+        setContentView(SystemProperties.isStratos3() || SystemProperties.isVerge() ? R.layout.round_amaztimer : R.layout.amaztimer);
         //Setup items
         this.init();
         //Register buttonListener
@@ -237,9 +232,7 @@ public class AmazTimer extends Activity {
         });
         //Start long press opens settings
         start.setOnLongClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), SettingsActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            launchIntent(intent);
+            launchIntent(new Intent(view.getContext(), SettingsActivity.class));
             return true;
         });
         //Cancel button
@@ -296,44 +289,44 @@ public class AmazTimer extends Activity {
             } else if (hr.getVisibility() == View.VISIBLE) {
                 hr.setVisibility(View.INVISIBLE);
             }
-        } else if (new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)) {
-            hrSensor.unregisterListener();
-        }
-        if(!state)
+        } else {
             this.isTimerActive = false;
+            if (new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH))
+                hrSensor.unregisterListener();
+        }
     }
 
     private void init() {
         //Buttons
-        plus = this.findViewById(R.id.plus);
-        plus2 = this.findViewById(R.id.plus2);
-        plus3 = this.findViewById(R.id.plus3);
-        minus = this.findViewById(R.id.minus2);
-        minus2 = this.findViewById(R.id.minus);
-        minus3 = this.findViewById(R.id.minus3);
-        start = this.findViewById(R.id.start);
-        cancel = this.findViewById(R.id.cancel);
+        plus = findViewById(R.id.plus);
+        plus2 = findViewById(R.id.plus2);
+        plus3 = findViewById(R.id.plus3);
+        minus = findViewById(R.id.minus2);
+        minus2 = findViewById(R.id.minus);
+        minus3 = findViewById(R.id.minus3);
+        start = findViewById(R.id.start);
+        cancel = findViewById(R.id.cancel);
         //TextViews
-        sets = this.findViewById(R.id.sets);
-        rest = this.findViewById(R.id.rest);
-        work = this.findViewById(R.id.work);
-        time = this.findViewById(R.id.time);
-        hr = this.findViewById(R.id.heartbeat);
-        rSets = this.findViewById(R.id.remSets);
-        status = this.findViewById(R.id.status);
-        settingstext = this.findViewById(R.id.textView);
-        setsText = this.findViewById(R.id.textView4);
-        workText = this.findViewById(R.id.textView5);
-        restText = this.findViewById(R.id.textView6);
+        sets = findViewById(R.id.sets);
+        rest = findViewById(R.id.rest);
+        work = findViewById(R.id.work);
+        time = findViewById(R.id.time);
+        hr = findViewById(R.id.heartbeat);
+        rSets = findViewById(R.id.remSets);
+        status = findViewById(R.id.status);
+        settingstext = findViewById(R.id.textView);
+        setsText = findViewById(R.id.textView4);
+        workText = findViewById(R.id.textView5);
+        restText = findViewById(R.id.textView6);
         //Layouts
-        L1 = this.findViewById(R.id.startScreen);
-        L2 = this.findViewById(R.id.timerScreen);
+        L1 = findViewById(R.id.startScreen);
+        L2 = findViewById(R.id.timerScreen);
         //Chrono
-        chrono = this.findViewById(R.id.chrono);
+        chrono = findViewById(R.id.chrono);
     }
 
     private void reloadTexts() {
-        Resources res = this.getResources();
+        Resources res = getResources();
         start.setText(res.getString(R.string.start));
         cancel.setText(res.getString(R.string.cancel));
         setsText.setText(res.getString(R.string.sets));
@@ -347,17 +340,14 @@ public class AmazTimer extends Activity {
                 || !new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)) {
             time.setText(utils.formatTime(v));
             if (v == 1){
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        time.setText(utils.formatTime(0));
-                    }
-                }, 950);
+                new Handler().postDelayed(() -> time.setText(utils.formatTime(0)), 950 /*1s wouldn't be visible*/);
             }
         } else if (new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING)){
             if (!time.getText().toString().equals("--:--")) {
                 time.setText("--:--");
             }
+            //If battery saving && hr measurements enabled update values just once per second
+            //to avoid more layout rendering
             if (new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH)){
                 int latestHr = hrSensor.getLatestValue();
                 if(latestHr == 0)
@@ -417,7 +407,6 @@ public class AmazTimer extends Activity {
     }
 
     private void restTimer(final View view, final int work, final int rest) {
-        this.isTimerActive = true;
         hrSensor.newLap(Constants.STATUS_RESTING);
         this.workStarted = false;
         this.restStarted = true;
