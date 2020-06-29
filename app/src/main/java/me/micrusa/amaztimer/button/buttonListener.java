@@ -49,11 +49,10 @@ public class buttonListener {
 
     public void start(Context context, final buttonInterface buttonInterface) {
 
-        if(SystemProperties.isStratos3()){
-            Logger.debug("S3 detected, returning");
+        if(isListening()) //No logging to avoid excessive logging
             return;
-        } else if(isListening()){
-            //No logging to avoid excessive logging
+        else if(SystemProperties.isStratos3()){
+            Logger.debug("S3 detected, returning");
             return;
         }
 
