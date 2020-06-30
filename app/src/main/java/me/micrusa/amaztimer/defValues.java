@@ -44,6 +44,7 @@ public final class defValues {
     public static final boolean DEFAULT_WORKOUTMODE = false;
     public static final boolean DEFAULT_CHRONOMODE = false;
     public static final boolean DEFAULT_TCX = true;
+    public static final boolean DEFAULT_SOUND = true;
     //Files name
     //They're in different files bc sometimes they have conflicts if they're all in the same file
     public static final String TIMER_FILE = "amaztimer";
@@ -70,6 +71,7 @@ public final class defValues {
     public static final String SETTINGS_WORKOUTMODE = "workout";
     public static final String SETTINGS_CHRONOMODE = "chrono";
     public static final String SETTINGS_TCX = "tcx";
+    public static final String SETTINGS_SOUND = "sound";
     //Settings keys
     public static final String KEY_BATTERYSAVING = "batterySaving";
     public static final String KEY_HRTOGGLE = "hrOn";
@@ -86,6 +88,7 @@ public final class defValues {
     public static final String KEY_WORKOUT = "workoutmode";
     public static final String KEY_CHRONO = "chronomode";
     public static final String KEY_TCX = "tcx";
+    public static final String KEY_SOUND = "sound";
     //Some useful stuff
     public static final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;
     public static final int VERSION_CODE = BuildConfig.VERSION_CODE;

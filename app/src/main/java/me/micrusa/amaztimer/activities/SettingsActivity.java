@@ -13,6 +13,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
 
@@ -61,6 +62,9 @@ public class SettingsActivity extends AppCompatActivity {
             case defValues.KEY_WEIGHT:
                 bodyFile.set(defValues.SETTINGS_WEIGHT, Integer.parseInt((String) newValue));
                 preference.setSummary(newValue + "Kg");
+                break;
+            case defValues.KEY_SOUND:
+                file.set(defValues.SETTINGS_SOUND, (Boolean) newValue);
                 break;
             case defValues.KEY_LONGPREPARE:
                 file.set(defValues.SETTINGS_LONGPREPARE, (Boolean) newValue);
@@ -145,6 +149,7 @@ public class SettingsActivity extends AppCompatActivity {
             SwitchPreferenceCompat chronoMode = findPreference(defValues.KEY_CHRONO);
             SwitchPreferenceCompat enablePrepare = findPreference(defValues.KEY_ENABLEPREPARE);
             SwitchPreferenceCompat enableTcx = findPreference(defValues.KEY_TCX);
+            SwitchPreferenceCompat enableSound = findPreference(defValues.KEY_SOUND);
             batterySaving.setOnPreferenceChangeListener(onPreferenceChangeListener);
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
             longPrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
@@ -153,6 +158,9 @@ public class SettingsActivity extends AppCompatActivity {
             chronoMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             enablePrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
             enableTcx.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            //enableSound only visible for verge
+            enableSound.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            enableSound.setVisible(SystemProperties.isVerge());
             ListPreference lang = findPreference(defValues.KEY_LANG);
             ListPreference gender = findPreference(defValues.KEY_GENDER);
             lang.setOnPreferenceChangeListener(onPreferenceChangeListener);

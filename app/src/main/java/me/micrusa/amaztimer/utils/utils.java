@@ -20,9 +20,9 @@ public class utils {
     }
 
     public static void vibrate(int time, Context context, boolean sound){
-        if(sound && (SystemProperties.isVerge())){
+        if(sound && SystemProperties.isVerge()
+                && new file(defValues.SETTINGS_FILE, context).get(defValues.SETTINGS_SOUND, defValues.DEFAULT_SOUND))
             MediaPlayer.create(context, R.raw.beep).start();
-        }
         Vibrator v = (Vibrator) context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         if (v != null) {
             v.vibrate(time);

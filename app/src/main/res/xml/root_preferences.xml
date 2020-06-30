@@ -54,6 +54,12 @@
             app:title="@string/morepreparetime"
             app:summary="@string/morepreparetimesum"/>
 
+        <SwitchPreferenceCompat
+            app:key="sound"
+            app:title="@string/timersound"
+            app:defaultValue="true"
+            android:defaultValue="true" />
+
         <ListPreference
             app:key="lang"
             app:title="@string/lang"
