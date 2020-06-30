@@ -47,7 +47,6 @@ public class AmazTimer extends Activity {
     private buttonListener buttonListener = new buttonListener();
     //Settings
     private boolean isTimerActive;
-    private boolean hasLaunchedActivity = false;
     private boolean hasResumed = false;
 
     private final View.OnClickListener plusMinusBtnListener = view -> {
@@ -459,7 +458,6 @@ public class AmazTimer extends Activity {
         super.onResume();
         utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         this.reloadTexts();
-        this.hasLaunchedActivity = false;
     }
 
     private void btnPress(int i){
@@ -481,10 +479,7 @@ public class AmazTimer extends Activity {
 
     private void launchIntent(Intent intent){
         buttonListener.stop();
-        if(!this.hasLaunchedActivity){
-            this.hasLaunchedActivity = true;
-            this.startActivity(intent);
-        }
+        this.startActivity(intent);
     }
 
     private void setupBtnListener(){
