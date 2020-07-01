@@ -24,25 +24,14 @@ public class buttonEvent {
     }
 
     public int getKey(){
-        if(!isStratos() || isStratosNewKeys()){
-            if(this.key == KEY_CENTER){
-                if(isLongPress())
-                    return KEY_DOWN;
-                else
-                    return KEY_UP;
-            } else if(this.key == KEY_DOWN)
-                return KEY_CENTER;
+        //1 Key layout
+        if(isPace() || isVerge()){
+            if(isLongPress())
+                return KEY_DOWN;
             else
-                return this.key;
-        } else {
-            if(this.key == KEY_DOWN) {
-                if (isLongPress())
-                    return KEY_DOWN;
-                else
-                    return KEY_UP;
-            } else
-                return this.key;
-        }
+                return KEY_UP;
+        } else
+            return this.key;
     }
 
 }

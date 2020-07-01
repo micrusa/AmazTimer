@@ -51,8 +51,8 @@ public class buttonListener {
 
         if(isListening()) //No logging to avoid excessive logging
             return;
-        else if(SystemProperties.isStratos3()){
-            Logger.debug("S3 detected, returning");
+        else if(SystemProperties.isStratos3() || SystemProperties.isStratos()){
+            Logger.debug("Stratos 2/3 detected, returning");
             return;
         }
 
