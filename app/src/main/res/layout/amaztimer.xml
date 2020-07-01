@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@android:color/black"
+    tools:ignore="Overdraw">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/startScreen"
@@ -20,22 +21,22 @@
             android:id="@+id/sets"
             android:layout_width="73dp"
             android:layout_height="20dp"
+            android:layout_marginBottom="2dp"
             android:textAlignment="center"
             android:textSize="18sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/plus"
+            app:layout_constraintBottom_toTopOf="@+id/textView5"
             app:layout_constraintEnd_toStartOf="@+id/plus"
             app:layout_constraintStart_toEndOf="@+id/minus2" />
 
         <Button
             android:id="@+id/minus3"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="28dp"
             android:background="@drawable/remove"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/start"
+            app:layout_constraintBottom_toBottomOf="@+id/rest"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -50,9 +51,9 @@
 
         <Button
             android:id="@+id/plus3"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="36dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="28dp"
             android:background="@drawable/add"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/minus3"
@@ -61,7 +62,7 @@
         <Button
             android:id="@+id/start"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/circle_button"
             android:text="@string/start"
@@ -73,22 +74,20 @@
 
         <Button
             android:id="@+id/plus"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="12dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:background="@drawable/add"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/plus2"
+            app:layout_constraintBottom_toBottomOf="@+id/sets"
             app:layout_constraintEnd_toEndOf="@+id/plus3" />
 
         <Button
             android:id="@+id/minus"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="12dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:background="@drawable/remove"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/minus3"
+            app:layout_constraintBottom_toBottomOf="@+id/work"
             app:layout_constraintStart_toStartOf="@+id/minus3" />
 
         <TextView
@@ -103,12 +102,11 @@
 
         <Button
             android:id="@+id/minus2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="12dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:background="@drawable/remove"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/minus"
+            app:layout_constraintBottom_toBottomOf="@+id/sets"
             app:layout_constraintStart_toStartOf="@+id/minus3" />
 
         <TextView
@@ -128,28 +126,28 @@
             android:textAlignment="center"
             android:textSize="18sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/plus3"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toStartOf="@+id/plus3"
             app:layout_constraintStart_toEndOf="@+id/minus3" />
 
         <Button
             android:id="@+id/plus2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="12dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:background="@drawable/add"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/plus3"
+            app:layout_constraintBottom_toBottomOf="@+id/work"
             app:layout_constraintEnd_toEndOf="@+id/plus3" />
 
         <TextView
             android:id="@+id/work"
             android:layout_width="73dp"
             android:layout_height="20dp"
+            android:layout_marginBottom="2dp"
             android:textAlignment="center"
             android:textSize="18sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/plus2"
+            app:layout_constraintBottom_toTopOf="@+id/textView6"
             app:layout_constraintEnd_toStartOf="@+id/plus2"
             app:layout_constraintStart_toEndOf="@+id/minus" />
 
@@ -181,9 +179,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="--:--"
+            android:text="@string/nullinfo"
             android:textColor="@color/black"
             android:textSize="36sp"
+            app:layout_constraintBottom_toTopOf="@+id/status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Chronometer
+            android:id="@+id/chrono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -194,7 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:drawableStart="@drawable/heartbeat"
-            android:text="--"
+            android:text="@string/nullinfo"
             android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/time"
@@ -207,7 +217,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="48dp"
-            android:text="-"
+            android:text="@string/nullinfo"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/status"
@@ -219,7 +229,7 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="--------------"
+            android:text="@string/nullinfo"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/cancel"
@@ -229,14 +239,14 @@
 
         <Button
             android:id="@+id/cancel"
-            android:layout_width="67dp"
+            android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/circle_button"
             android:text="@android:string/cancel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/time"
-            app:layout_constraintHorizontal_bias="0.555"
+            app:layout_constraintHorizontal_bias="0.514"
             app:layout_constraintStart_toStartOf="@+id/time" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

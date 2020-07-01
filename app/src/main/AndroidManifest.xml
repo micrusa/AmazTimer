@@ -1,39 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="me.micrusa.app.amazwidgets">
+    package="me.micrusa.amaztimer">
 
     <uses-sdk tools:overrideLibrary="android.support.wear" />
+
+    <uses-feature android:name="android.hardware.type.watch" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.BODY_SENSORS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="AmazTimer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.WorkoutActivity" />
+        <activity android:name=".activities.AppInfo" />
+        <activity android:name=".activities.RepsTimerActivity" />
+        <activity android:name=".activities.LatestTrainActivity" />
+        <activity android:name=".activities.EditPresetActivity" />
+
         <meta-data
-            android:name="com.huami.watch.launcher.springboard.PASSAGER_TARGET"
-            android:resource="@array/spring_depend" />
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
 
-        <activity android:name="me.micrusa.amaztimer.activities.PresetsActivity" />
-
-        <activity android:name="me.micrusa.amaztimer.activities.SettingsActivity" />
-
+        <activity android:name=".activities.PresetsActivity" />
+        <activity android:name=".activities.SettingsActivity" />
         <activity
-            android:label="AmazTimer"
-            android:name="me.micrusa.amaztimer.AmazTimer"
-            android:icon="@mipmap/ic_launcher">
+            android:name=".AmazTimer"
+            android:icon="@mipmap/ic_launcher"
+            android:label="AmazTimer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

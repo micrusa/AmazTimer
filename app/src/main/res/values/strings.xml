@@ -1,8 +1,13 @@
 <resources>
+    <!--Don't translate this!-->
+    <string name="amaztimer" translatable="false">AmazTimer</string>
+    <string name="kcal" translatable="false">Kcal</string>
+    <string name="nullinfo" translatable="false">--</string>
+    <!--Start translating here-->
     <string name="start">Start</string>
     <string name="work">Work</string>
     <string name="rest">Rest</string>
-    <string name="sets" translatable="false">Sets</string>
+    <string name="sets">Sets</string>
     <string name="prepare">Get prepared!</string>
     <string name="cancel">Cancel</string>
     <string name="canceltoast">Long click!</string>
@@ -11,11 +16,41 @@
     <string name="lang">Language</string>
     <string name="startsettings">Long press start for settings</string>
     <string name="hrEnabled">Heart rate monitoring</string>
-    <string name="saved" translatable="false">Presets</string>
-
-    <!-- Preference Titles -->
-
-    <!-- Messages Preferences -->
-
-    <!-- Sync Preferences -->
+    <string name="saved">Presets</string>
+    <string name="edit">Edit</string>
+    <string name="misc">Misc</string>
+    <string name="weight">Weight</string>
+    <string name="age">Year of birth</string>
+    <string name="gender">Gender</string>
+    <string name="averagehr">Average hr</string>
+    <string name="maxhr">Max hr</string>
+    <string name="minhr">Min hr</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="latesttrain">Latest train</string>
+    <string name="morepreparetime">More time to prepare</string>
+    <string name="morepreparetimesum">If you enable this, prepare timer will last 60 seconds instead of 5, so you\'ll have enough time to start an activity</string>
+    <string name="waitforstart">Timer haven\'t started!</string>
+    <string name="finishset">Finish set</string>
+    <string name="reps">Reps</string>
+    <string name="repsmode">Reps mode</string>
+    <string name="hrzone">HR zone</string>
+    <string name="appinfo">App info</string>
+    <string name="appcredit">App by @micrusa</string>
+    <string name="translationcredit">Translation by @micrusa</string>
+    <string name="thanksto">Thanks to:</string>
+    <string name="thanksfor">for</string>
+    <string name="allcontributors">All contributors</string>
+    <string name="ageyo">years old</string>
+    <string name="workout">Workout mode</string>
+    <string name="workoutsum">No timers, end sets manually. Useful for weight trainings</string>
+    <string name="modes">Modes</string>
+    <string name="enableprep">Enable prepare timer</string>
+    <string name="chrono">Chrono mode</string>
+    <string name="chronosum">It will vibrate with the selected intervals but instead of showing the countdown on the screen, a chronometer will start</string>
+    <string name="tcxexport">TCX Export</string>
+    <string name="tcxsum">Can be uploaded to strava. Will be exported to Internal Storage/AmazTimer/</string>
+    <string name="tcxexporting">Exporting to TCX file...</string>
+    <string name="tcxerror">Error saving TCX file</string>
+    <string name="timersound">Enable sound</string>
 </resources>

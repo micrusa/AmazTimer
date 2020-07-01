@@ -1,0 +1,51 @@
+<resources>
+    <!--Don't translate this!-->
+    <!--Start translating here-->
+    <string name="start">Начать</string>
+    <string name="work">Работа</string>
+    <string name="rest">Отдых</string>
+    <string name="sets">Подход</string>
+    <string name="prepare">Приготовьтесь!</string>
+    <string name="cancel">Отмена</string>
+    <string name="canceltoast">Долгий клик!</string>
+    <string name="settings">Настройки</string>
+    <string name="batterysaving">Экономия батареи</string>
+    <string name="lang">Язык</string>
+    <string name="startsettings">Долгое нажатие для перехода в настройки</string>
+    <string name="hrEnabled">Мониторинг ЧСС</string>
+    <string name="saved">Предустановки</string>
+    <string name="edit">Изменить</string>
+    <string name="misc">Остальное</string>
+    <string name="weight">Вес</string>
+    <string name="age">Год рождения</string>
+    <string name="gender">Пол</string>
+    <string name="averagehr">Средний пульс</string>
+    <string name="maxhr">Макс</string>
+    <string name="minhr">Мин</string>
+    <string name="male">Мужчина</string>
+    <string name="female">Женщина</string>
+    <string name="latesttrain">Последняя тренировка</string>
+    <string name="morepreparetime">Больше времени на подготовку</string>
+    <string name="morepreparetimesum">Если вы включите это, таймер подготовки будет длиться 60 секунд вместо 5, так что у вас будет достаточно времени, чтобы начать тренировку.</string>
+    <string name="waitforstart">Таймер еще не начал!</string>
+    <string name="finishset">Закончить</string>
+    <string name="reps">Повторения</string>
+    <string name="repsmode">Режим повторений</string>
+    <string name="hrzone">Зоны ЧСС</string>
+    <string name="appinfo">Информация о приложении</string>
+    <string name="appcredit">Приложение от @micrusa</string>
+    <string name="translationcredit">Перевод от Osmat</string>
+    <string name="thanksto">Спасибо:</string>
+    <string name="thanksfor">за</string>
+    <string name="allcontributors">Все участники</string>
+    <string name="ageyo">Старые</string>
+    <string name="workout">Простая тренировка</string>
+    <string name="workoutsum">Никаких таймеров, управление подходами вручную. Полезно для силовых тренировок</string>
+    <string name="modes">Режимы</string>
+    <string name="enableprep">Включить таймер подготовки</string>
+    <string name="chrono">Режим хронографа</string>
+    <string name="chronosum">Часы будут вибрировать с выбранными интервалами, но вместо показа обратного отсчета на экране будет запущен секундомер</string>
+    <string name="tcxexport">TCX экспорт</string>
+    <string name="tcxsum">Может быть загружен в strava. Экспортируется в Internal Storage/AmazTimer/</string>
+    <string name="tcxexporting">Экспорт в TCX-файл...</string>
+</resources>

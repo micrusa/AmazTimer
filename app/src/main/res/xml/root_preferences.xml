@@ -1,15 +1,64 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/settings">
+    <PreferenceCategory app:title="@string/modes">
+
+        <SwitchPreferenceCompat
+            app:key="repsmode"
+            app:title="@string/repsmode" />
+
+        <SwitchPreferenceCompat
+            app:key="workoutmode"
+            app:title="@string/workout"
+            app:summary="@string/workoutsum"/>
+
+        <SwitchPreferenceCompat
+            app:key="chronomode"
+            app:title="@string/chrono"
+            app:summary="@string/chronosum"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/batterysaving">
 
         <SwitchPreferenceCompat
             app:key="batterySaving"
             app:title="@string/batterysaving"/>
 
         <SwitchPreferenceCompat
-            app:key="hrOn"
+            android:defaultValue="true"
             app:defaultValue="true"
-            app:title="@string/hrEnabled"/>
+            app:key="hrOn"
+            app:title="@string/hrEnabled" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/settings">
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            app:defaultValue="true"
+            app:key="tcx"
+            app:title="@string/tcxexport"
+            app:summary="@string/tcxsum"/>
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            app:defaultValue="true"
+            app:key="prepon"
+            app:title="@string/enableprep"
+            app:summary="@string/enableprep"/>
+
+        <SwitchPreferenceCompat
+            app:key="huamiactivity"
+            app:title="@string/morepreparetime"
+            app:summary="@string/morepreparetimesum"/>
+
+        <SwitchPreferenceCompat
+            app:key="sound"
+            app:title="@string/timersound"
+            app:defaultValue="true"
+            android:defaultValue="true" />
 
         <ListPreference
             app:key="lang"
@@ -18,9 +67,37 @@
             app:entryValues="@array/langvalues"
             app:defaultValue="en" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/misc">
+
         <Preference
             app:key="saved"
             app:title="@string/saved" />
+
+        <Preference
+            app:key="latesttrain"
+            app:title="@string/latesttrain" />
+
+        <ListPreference
+            app:key="gender"
+            app:title="@string/gender"
+            app:entries="@array/gender"
+            app:entryValues="@array/gendervalues"
+            app:defaultValue="male" />
+
+        <ListPreference
+            android:key="weight"
+            android:summary="Kg"
+            android:title="@string/weight" />
+
+        <ListPreference
+            android:key="age"
+            android:title="@string/age" />
+
+        <Preference
+            android:key="appinfo"
+            android:title="@string/appinfo" />
 
     </PreferenceCategory>
 

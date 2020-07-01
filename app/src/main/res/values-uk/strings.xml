@@ -1,0 +1,51 @@
+<resources>
+    <!-- Do not translate this!-->
+    <!-- Start translating here-->
+    <string name="start"> Почати </string>
+    <string name="work"> Робота </string>
+    <string name="rest"> Відпочинок </string>
+    <string name="sets"> Підхід </string>
+    <string name="prepare"> Приготуйтеся! </string>
+    <string name="cancel"> Зупинити </string>
+    <string name="canceltoast"> Довгий тап! </string>
+    <string name="settings"> Налаштування </string>
+    <string name="batterysaving"> Економія батареї </string>
+    <string name="lang"> Мова </string>
+    <string name="startsettings"> Використовуйте довгий тап для переходу в настройки</string>
+    <string name="hrEnabled"> Моніторинг ЧСС</string>
+    <string name="saved"> Пресети </string>
+    <string name="edit"> Змінити </string>
+    <string name="misc"> Iнше </string>
+    <string name="weight"> Вага </string>
+    <string name="age"> Рік народження </string>
+    <string name="gender"> Стать </string>
+    <string name="averagehr"> Середній пульс </string>
+    <string name="maxhr"> Макс </string>
+    <string name="minhr"> Мін </string>
+    <string name="male"> Чоловік </string>
+    <string name="female"> Жінка </string>
+    <string name="latesttrain"> Останнє тренування </string>
+    <string name="morepreparetime"> Більше часу на підготовку </string>
+    <string name="morepreparetimesum"> Якщо ви увімкнете це, таймер підготовки триватиме 60 секунд замість 5, так що у вас буде достатньо часу, щоб почати тренування. </string>
+    <string name="waitforstart"> Таймер ще не почався! </string>
+    <string name="finishset"> Закінчити </string>
+    <string name="reps"> Повторення </string>
+    <string name="repsmode"> Режим повторень </string>
+    <string name="hrzone"> Зони ЧСС </string>
+    <string name="appinfo"> Інформація про програму </string>
+    <string name="appcredit"> Додаток від @micrusa </string>
+    <string name="translationcredit"> Переклад від Osmat </string>
+    <string name="thanksto"> Дякую: </string>
+    <string name="thanksfor"> за </string>
+    <string name="allcontributors"> Усі учасники </string>
+    <string name="ageyo"> Старі </string>
+    <string name="workout"> Звичайне тренування </string>
+    <string name="workoutsum"> Ніяких таймерів, управління підходами вручну. Корисно для силових тренувань </string>
+    <string name="modes"> Режими </string>
+    <string name="enableprep"> Увімкнути таймер підготовки </string>
+    <string name="chrono"> Режим хронографа </string>
+    <string name="chronosum"> Годинник будуть вібрувати з вибраними інтервалами, але замість відображення зворотного відліку на екрані буде запущений секундомір </string>
+    <string name="tcxexport"> TCX експорт </string>
+    <string name="tcxsum"> Може бути завантажений в strava. Експортується в Internal Storage / AmazTimer / </string>
+    <string name="tcxexporting"> Експорт в TCX-файл ... </string>
+</resources>

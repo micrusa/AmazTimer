@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="spring_depend">
-        <item>me.micrusa.amaztimer/me.micrusa.amaztimer.widget</item>
-    </string-array>
-    <!-- Reply Preference -->
+    <!-- Languages preference -->
     <string-array name="languages">
         <item>English</item>
         <item>Spanish</item>
         <item>Italian</item>
+        <item>Croatian</item>
+        <item>Hebrew</item>
+        <item>Russian</item>
+        <item>Ukranian</item>
+        <item>Czech</item>
     </string-array>
-
     <string-array name="langvalues">
         <item>en</item>
         <item>es</item>
         <item>it</item>
+        <item>hr</item>
+        <item>iw</item>
+        <item>ru</item>
+        <item>uk</item>
+        <item>cs</item>
+    </string-array>
+
+    <!-- Gender preference -->
+    <string-array name="gender">
+        <item>@string/male</item>
+        <item>@string/female</item>
+    </string-array>
+    <string-array name="gendervalues">
+        <item>true</item>
+        <item>false</item>
     </string-array>
 </resources>

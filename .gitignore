@@ -15,3 +15,4 @@
 /app/release/output.json
 /app/release/
 install.bat
+.idea/jarRepositories.xml
