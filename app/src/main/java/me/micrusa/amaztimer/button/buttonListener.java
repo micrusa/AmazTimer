@@ -167,7 +167,7 @@ public class buttonListener {
             executor = null;
             listening = false;
         }
-        if (wakeLock.isHeld())
+        if (wakeLock != null && wakeLock.isHeld())
             wakeLock.release();
     }
 
