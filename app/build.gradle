@@ -8,8 +8,8 @@ android {
         applicationId "me.micrusa.amaztimer"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 60
-        versionName "6.0"
+        versionCode 62
+        versionName "6.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
