@@ -49,10 +49,10 @@ public class buttonListener {
 
     public void start(Context context, final buttonInterface buttonInterface) {
 
-        if(isListening()) //No logging to avoid excessive logging
+        if(isListening())
             return;
-        else if(SystemProperties.isStratos3() || SystemProperties.isStratos()){
-            Logger.debug("Stratos 2/3 detected, returning");
+        else if(SystemProperties.isStratos3()){
+            Logger.debug("Stratos 3 detected, returning");
             return;
         }
 

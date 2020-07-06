@@ -16,8 +16,8 @@ Any amazfit device running android (Pace, stratos 1/2/3, verge)
 - If you liked my work, consider buying me a coffee [here](https://www.paypal.me/migueelcs)
 
 ##HW Buttons
-- Pace/Verge: Single click to end set, long click to start/stop timer
-- Stratos: Not supported yet, will be supported soon
+- Pace/Verge/S2 with new layout: Single click to end set, long click to start/stop timer. Center button on S2
+- Stratos with old key layout: lower button to start, center button for settings and upper button to end sets
 - Stratos 3: Not supported
 
 ## Installation
@@ -36,6 +36,7 @@ You can also use installer or uninstall it through AmazMod
 - [@GreatApo](https://github.com/GreatApo) for [Amazfit Calendar Widget](https://github.com/GreatApo/AmazfitPaceCalendarWidget)
 - [AmazMod](https://github.com/AmazMod/AmazMod) team
 - [@1immortal](https://github.com/1immortal) for creating app installer
+- All contributors
 
 ## How to move or disable widget
 - If you have AmazMod, you can do it through mobile app or watch app
