@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="yellow">#FFFF00</color>
+    <color name="divider">#660606</color>
+    <color name="work">#ff0000</color>
+    <color name="rest">#00ff49</color>
 </resources>

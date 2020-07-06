@@ -48,4 +48,8 @@
     <string name="tcxexporting">Exporting to TCX file...</string>
     <string name="tcxerror">Error saving TCX file</string>
     <string name="timersound">Enable sound</string>
+    <string name="finishset">Finish set</string>
+    <string name="time">Time</string>
+    <string name="currentset">Curr. set</string>
+    <string name="heartrate">Heart Rate</string>
 </resources>

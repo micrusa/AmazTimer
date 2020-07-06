@@ -44,4 +44,8 @@
     <string name="tcxexporting">Exportando a un archivo TCX...</string>
     <string name="tcxerror">Error al guardar archivo TCX</string>
     <string name="timersound">Activar sonido</string>
+    <string name="finishset">Terminar serie</string>
+    <string name="time">Tiempo</string>
+    <string name="currentset">Serie actual</string>
+    <string name="heartrate">Ritmo cardiaco</string>
 </resources>
