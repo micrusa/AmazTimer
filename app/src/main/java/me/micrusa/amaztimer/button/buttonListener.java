@@ -49,7 +49,7 @@ public class buttonListener {
 
     public void start(Context context, final buttonInterface buttonInterface) {
 
-        if(isListening())
+        if(listening)
             return;
         else if(SystemProperties.isStratos3()){
             Logger.debug("Stratos 3 detected, returning");
@@ -171,7 +171,4 @@ public class buttonListener {
             wakeLock.release();
     }
 
-    public boolean isListening() {
-        return listening;
-    }
 }
