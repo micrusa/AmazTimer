@@ -43,7 +43,7 @@ public class PresetsActivity extends AppCompatActivity {
         }
         //If array is null return
         if(array == null) return;
-        file f = new file(defValues.TIMER_FILE, v.getContext());
+        file f = new file(defValues.TIMER_FILE);
         //Save values to timer file
         utils.pushToFile(f, array[0], array[1], array[2]);
         //Open main class
@@ -78,8 +78,8 @@ public class PresetsActivity extends AppCompatActivity {
 
     private void init() {
         //Setup files
-        this.file1 = new file("preset1", this);
-        this.file2 = new file("preset2", this);
+        this.file1 = new file("preset1");
+        this.file2 = new file("preset2");
         //Setup objects
         preset1 = this.findViewById(R.id.preset1);
         preset2 = this.findViewById(R.id.preset2);

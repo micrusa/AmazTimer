@@ -4,8 +4,6 @@
     <string name="work">Lavora</string>
     <string name="rest">Riposa</string>
     <string name="prepare">Preparati!</string>
-    <string name="cancel">Annulla</string>
-    <string name="canceltoast">Tieni premuto!</string>
     <string name="settings">Impostazioni</string>
     <string name="batterysaving">Risparmio batteria</string>
     <string name="lang">Lingua</string>
@@ -26,9 +24,6 @@
     <string name="latesttrain">Ultimo allenamento</string>
     <string name="morepreparetime">Più tempo per prepararti</string>
     <string name="morepreparetimesum">Se attivato, il tempo di preparazione sarà di 60 secondi invece di 5, quindi avrai il tempo di avviare un\'attività</string>
-    <string name="waitforstart">Timer non avviato!</string>
-    <string name="finishset">Set terminato</string>
-    <string name="reps">Ripetizioni</string>
     <string name="repsmode">Modalità ripetizioni</string>
     <string name="hrzone">Zona HR</string>
     <string name="appinfo">App info</string>

@@ -2,8 +2,6 @@ package me.micrusa.amaztimer.utils;
 
 import android.content.Context;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -20,8 +18,8 @@ public class latestTraining {
     void saveDataToFile(Context context, int time){
         if(this.hrArray.size() < 1)
             return;
-        file dataFile = new file(defValues.LATEST_TRAIN_FILE, context);
-        file bodyFile = new file(defValues.BODY_FILE, context);
+        file dataFile = new file(defValues.LATEST_TRAIN_FILE);
+        file bodyFile = new file(defValues.BODY_FILE);
         //Get min and max heart rate
         int minHr = this.hrArray.indexOf(Collections.min(hrArray));
         int maxHr = this.hrArray.indexOf(Collections.max(hrArray));
@@ -56,11 +54,9 @@ public class latestTraining {
         return (int) (kcalPerMin * time) / 60;
     }
 
-    void cleanAllValues(Context context){
+    void cleanAllValues(){
         //Clear values and save default values to file, this way it wont conflict with other trainings
         this.hrArray.clear();
-        file dataFile = new file(defValues.LATEST_TRAIN_FILE, context);
-        saveToFile(dataFile, defValues.DEFAULT_HR_VALUES, defValues.DEFAULT_HR_VALUES, defValues.DEFAULT_HR_VALUES, defValues.DEFAULT_KCAL_VALUES);
     }
 
     private void saveToFile(file file, int minHr, int maxHr, int avgHr, int kcal){

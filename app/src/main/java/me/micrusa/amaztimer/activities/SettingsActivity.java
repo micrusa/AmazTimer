@@ -29,12 +29,12 @@ public class SettingsActivity extends AppCompatActivity {
                 .replace(R.id.settings, new SettingsFragment())
                 .commit();
         //Set language before creating preferences
-        utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
     }
 
     private static final OnPreferenceChangeListener onPreferenceChangeListener = (preference, newValue) -> {
-        file file = new file(defValues.SETTINGS_FILE, preference.getContext());
-        file bodyFile = new file(defValues.BODY_FILE, preference.getContext());
+        file file = new file(defValues.SETTINGS_FILE);
+        file bodyFile = new file(defValues.BODY_FILE);
 
         SwitchPreferenceCompat repsMode = preference.getPreferenceManager().findPreference(defValues.KEY_REPSMODE);
         SwitchPreferenceCompat workoutMode = preference.getPreferenceManager().findPreference(defValues.KEY_WORKOUT);
@@ -199,7 +199,7 @@ public class SettingsActivity extends AppCompatActivity {
                 weight.setSummary(defValues.DEFAULT_WEIGHT + weight.getSummary().toString());
             age.setOnPreferenceChangeListener(onPreferenceChangeListener);
             weight.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            file settingsFile = new file(defValues.SETTINGS_FILE, getContext());
+            file settingsFile = new file(defValues.SETTINGS_FILE);
             //Disable longPrepare if prepare timer is off
             if (settingsFile.get(defValues.SETTINGS_ENABLEPREPARE, defValues.DEFAULT_ENABLEPREPARE))
                 longPrepare.setEnabled(true);

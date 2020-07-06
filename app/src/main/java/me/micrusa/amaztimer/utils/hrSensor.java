@@ -6,7 +6,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -22,30 +21,33 @@ import me.micrusa.amaztimer.defValues;
 
 @SuppressWarnings("CanBeFinal")
 public class hrSensor implements SensorEventListener {
-    private Context context;
-    private SensorManager sensorManager;
     private Sensor hrSens;
-    private TextView hrText;
+    private hrListener listener;
     private final latestTraining latestTraining = new latestTraining();
     private long startTime;
     private int accuracy = 2;
-    private int latestHr = 0;
     private String latestHrTime;
+
+    private static hrSensor hrSensor;
 
     //All tcx needed stuff
     private String currentLapStatus = Constants.STATUS_RESTING;
     private Lap currentLap;
     private TCXData TCXData;
 
-    public hrSensor(Context c, TextView hr) {
+    public static hrSensor getInstance(){
+        return hrSensor;
+    }
+
+    public static hrSensor initialize(hrListener listener){
+        hrSensor = new hrSensor(listener);
+        return hrSensor;
+    }
+
+    private hrSensor(hrListener listener) {
         //Setup sensor manager, sensor and textview
-        this.sensorManager = (SensorManager) c.getSystemService(Context.SENSOR_SERVICE);
-        if (sensorManager != null) {
-            this.hrSens = sensorManager.getDefaultSensor(defValues.HRSENSOR);
-        }
-        this.hrText = hr;
-        this.context = c;
         this.TCXData = new TCXData();
+        this.listener = listener;
     }
 
     @Override
@@ -53,13 +55,10 @@ public class hrSensor implements SensorEventListener {
         int v = (int) event.values[0];
         if (isAccuracyValid() && v > 25 && v < 230 /*Limit to range 25-230 to avoid fake readings*/) {
             //Get hr value and set the text if battery saving mode is disabled
-            if (!new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_BATTERYSAVING, defValues.DEFAULT_BATTERYSAVING)
-                    && !new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE))
-                this.hrText.setText(String.valueOf(v));
+            listener.onHrChanged(v);
             //Send hr value to latestTraining array
             latestTraining.addHrValue(v);
             //Set latest hr value
-            this.latestHr = v;
             String currentDate = new SimpleDateFormat(Constants.DATE_FORMAT).format(new Date()) + Constants.CHAR_DATETIME + new SimpleDateFormat(Constants.TIME_FORMAT).format(new Date()) + Constants.CHAR_AFTERTIME;
             //Create Trackpoint and add it to current Lap
             if (!currentDate.equals(this.latestHrTime))
@@ -75,39 +74,37 @@ public class hrSensor implements SensorEventListener {
         this.accuracy = param1Int;
     }
 
-    public void registerListener() {
+    public void registerListener(Context context) {
         //Clean all values to avoid merging other values
-        latestTraining.cleanAllValues(this.context);
+        latestTraining.cleanAllValues();
         //Register listener with delay in defValues class
-        this.sensorManager.registerListener(this, this.hrSens, defValues.HRSENSOR_DELAY);
+        SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        sm.registerListener(this, sm.getDefaultSensor(defValues.HRSENSOR), defValues.HRSENSOR_DELAY);
         //Register start time
         this.startTime = System.currentTimeMillis();
-    }
-
-    public int getLatestValue(){
-        return this.latestHr;
     }
 
     private boolean isAccuracyValid(){
         return this.accuracy >= defValues.ACCURACY_RANGE[0] && this.accuracy <= defValues.ACCURACY_RANGE[1];
     }
 
-    public void unregisterListener() {
+    public void unregisterListener(Context context) {
         //Unregister listener to avoid battery drain
-        this.sensorManager.unregisterListener(this, this.hrSens);
+        SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        sm.unregisterListener(this);
         //Save time and send it to latestTraining
         long endTime = System.currentTimeMillis();
         int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
-        latestTraining.saveDataToFile(this.context, totalTimeInSeconds);
-        if (new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_TCX, defValues.DEFAULT_TCX)) {
+        latestTraining.saveDataToFile(context, totalTimeInSeconds);
+        if (new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_TCX, defValues.DEFAULT_TCX)) {
             addCurrentLap();
             boolean result = SaveTCX.saveToFile(this.TCXData);
             resetTcxData();
-            utils.setLang(this.context, new file(defValues.SETTINGS_FILE, this.context).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+            utils.setLang(context, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
             if (result)
-                Toast.makeText(this.context, R.string.tcxexporting, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.tcxexporting, Toast.LENGTH_SHORT).show();
             else
-                Toast.makeText(this.context, R.string.tcxerror, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.tcxerror, Toast.LENGTH_SHORT).show();
         } else {
             resetTcxData();
         }
@@ -122,7 +119,7 @@ public class hrSensor implements SensorEventListener {
         if (this.currentLap != null) {
             this.currentLap.setIntensity(this.currentLapStatus);
             this.currentLap.endLap(System.currentTimeMillis());
-            file bodyFile = new file(defValues.BODY_FILE, this.context);
+            file bodyFile = new file(defValues.BODY_FILE);
             this.currentLap.calcCalories(bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE),
                     bodyFile.get(defValues.SETTINGS_WEIGHT, defValues.DEFAULT_WEIGHT),
                     bodyFile.get(defValues.SETTINGS_MALE, defValues.DEFAULT_MALE));
@@ -134,5 +131,9 @@ public class hrSensor implements SensorEventListener {
         this.addCurrentLap();
         this.currentLapStatus = lapStatus;
         this.currentLap = new Lap();
+    }
+
+    public static interface hrListener{
+        void onHrChanged(int hr);
     }
 }
