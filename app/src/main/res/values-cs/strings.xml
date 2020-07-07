@@ -5,8 +5,6 @@
     <string name="rest">Odpočinek</string>
     <string name="sets">Sady</string>
     <string name="prepare">Připravit se!</string>
-    <string name="cancel">Zrušit</string>
-    <string name="canceltoast">Dlouhý stisk!</string>
     <string name="settings">Nastavení</string>
     <string name="batterysaving">Úspora baterie</string>
     <string name="lang">Jazyk</string>
@@ -26,9 +24,6 @@
     <string name="latesttrain">Poslední trénink</string>
     <string name="morepreparetime">Víc času na přípravu</string>
     <string name="morepreparetimesum">Pokud toto povolíte, časovač přípravy bude trvat 60 s místo 5, takže budete mít dost času zahájit aktivitu</string>
-    <string name="waitforstart">Časovač nebyl spuštěn!</string>
-    <string name="finishset">Dokončit sadu</string>
-    <string name="reps">Opakování</string>
     <string name="repsmode">Režim opakování</string>
     <string name="hrzone">Zóna TF</string>
     <string name="appinfo">O aplikaci</string>

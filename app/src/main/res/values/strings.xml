@@ -9,8 +9,6 @@
     <string name="rest">Rest</string>
     <string name="sets">Sets</string>
     <string name="prepare">Get prepared!</string>
-    <string name="cancel">Cancel</string>
-    <string name="canceltoast">Long click!</string>
     <string name="settings">Settings</string>
     <string name="batterysaving">Battery saving</string>
     <string name="lang">Language</string>
@@ -30,9 +28,6 @@
     <string name="latesttrain">Latest train</string>
     <string name="morepreparetime">More time to prepare</string>
     <string name="morepreparetimesum">If you enable this, prepare timer will last 60 seconds instead of 5, so you\'ll have enough time to start an activity</string>
-    <string name="waitforstart">Timer haven\'t started!</string>
-    <string name="finishset">Finish set</string>
-    <string name="reps">Reps</string>
     <string name="repsmode">Reps mode</string>
     <string name="hrzone">HR zone</string>
     <string name="appinfo">App info</string>
@@ -53,4 +48,8 @@
     <string name="tcxexporting">Exporting to TCX file...</string>
     <string name="tcxerror">Error saving TCX file</string>
     <string name="timersound">Enable sound</string>
+    <string name="finishset">Finish set</string>
+    <string name="time">Time</string>
+    <string name="currentset">Curr. set</string>
+    <string name="heartrate">Heart Rate</string>
 </resources>

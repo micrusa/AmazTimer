@@ -4,8 +4,6 @@
     <string name="work">Trabajo</string>
     <string name="rest">Descanso</string>
     <string name="prepare">Preparate!</string>
-    <string name="cancel">Cancelar</string>
-    <string name="canceltoast">¡Mantén pulsado!</string>
     <string name="settings">Ajustes</string>
     <string name="batterysaving">Ahorro de batería</string>
     <string name="lang">Idioma</string>
@@ -26,9 +24,6 @@
     <string name="latesttrain">Último entrenamiento</string>
     <string name="morepreparetime">Más tiempo para prepararse</string>
     <string name="morepreparetimesum">Al activar esto la cuenta atrás de preparación durará más, 60s, de forma que tendrás tiempo para comenzar una actividad</string>
-    <string name="waitforstart">¡El contador no ha empezado!</string>
-    <string name="finishset">Terminar serie</string>
-    <string name="reps">Repeticiones</string>
     <string name="repsmode">Modo de repeticiones</string>
     <string name="hrzone">Zona de RC</string>
     <string name="appinfo">Información</string>
@@ -49,4 +44,8 @@
     <string name="tcxexporting">Exportando a un archivo TCX...</string>
     <string name="tcxerror">Error al guardar archivo TCX</string>
     <string name="timersound">Activar sonido</string>
+    <string name="finishset">Terminar serie</string>
+    <string name="time">Tiempo</string>
+    <string name="currentset">Serie actual</string>
+    <string name="heartrate">Ritmo cardiaco</string>
 </resources>

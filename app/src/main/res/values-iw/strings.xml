@@ -6,8 +6,6 @@
     <string name="rest">מנוחה</string>
     <string name="sets">חזרות</string>
     <string name="prepare">התכוננו!</string>
-    <string name="cancel">ביטול</string>
-    <string name="canceltoast">לחיצה ארוכה</string>
     <string name="settings">הגדרות</string>
     <string name="batterysaving">חיסכון בסוללה</string>
     <string name="lang">שפה</string>
@@ -27,9 +25,6 @@
     <string name="latesttrain">אימון אחרון</string>
     <string name="morepreparetime">זמן הכנה מורחב</string>
     <string name="morepreparetimesum">בהפעלת אפשרות זו, זמן ההכנה לפעילות ימשך 60 שניות במקום 5, כך שיהיה לכם מספיק זמן להתחיל את האימון.</string>
-    <string name="waitforstart">ספירת הזמן לא התחילה!</string>
-    <string name="finishset">סיום אימון</string>
-    <string name="reps">חזרות</string>
     <string name="repsmode">מצב חזרות</string>
     <string name="hrzone">איזור דופק</string>
     <string name="appinfo">מידע</string>

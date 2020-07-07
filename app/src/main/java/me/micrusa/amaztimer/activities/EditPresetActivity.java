@@ -39,7 +39,7 @@ public class EditPresetActivity extends AppCompatActivity {
     }
 
     private void createOnClickListeners(final int PresetID) {
-        final me.micrusa.amaztimer.utils.file finalFile = new file("preset" + PresetID, this);
+        final me.micrusa.amaztimer.utils.file finalFile = new file("preset" + PresetID);
         plusMinusBtn = v -> {
             //Get values from file
             int sets = finalFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
@@ -147,7 +147,7 @@ public class EditPresetActivity extends AppCompatActivity {
 
     private void startActivity(int PresetID) {
         //Set lang
-        utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         //Make settings text invisible
         settingstext.setVisibility(View.GONE);
         //Set all texts again
@@ -157,7 +157,7 @@ public class EditPresetActivity extends AppCompatActivity {
         restText.setText(res.getString(R.string.rest));
         edit.setText(res.getString(R.string.edit));
         //Set times to values in file
-        file file = new file("preset" + PresetID, this);
+        file file = new file("preset" + PresetID);
         setTimeTexts(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS),
                 file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME),
                 file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));

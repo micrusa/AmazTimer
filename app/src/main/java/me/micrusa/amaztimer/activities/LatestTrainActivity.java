@@ -40,7 +40,7 @@ public class LatestTrainActivity extends AppCompatActivity {
 
     private void setupLang(){
         //Set language and set all texts again
-        utils.setLang(this, new file(defValues.SETTINGS_FILE, this).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         avghrText.setText(getResources().getString(R.string.averagehr));
         maxhrText.setText(getResources().getString(R.string.maxhr));
         minhrText.setText(getResources().getString(R.string.minhr));
@@ -50,7 +50,7 @@ public class LatestTrainActivity extends AppCompatActivity {
 
     private void setTexts(){
         //Set all values texts
-        file file = new file(defValues.LATEST_TRAIN_FILE, this);
+        file file = new file(defValues.LATEST_TRAIN_FILE);
         avghr.setText(String.valueOf(file.get(defValues.SETTINGS_AVGHR, defValues.DEFAULT_HR_VALUES)));
         maxhr.setText(String.valueOf(file.get(defValues.SETTINGS_MAXHR, defValues.DEFAULT_HR_VALUES)));
         minhr.setText(String.valueOf(file.get(defValues.SETTINGS_MINHR, defValues.DEFAULT_HR_VALUES)));
@@ -59,7 +59,7 @@ public class LatestTrainActivity extends AppCompatActivity {
     }
 
     private String hrZonePercentage(int avgHr){
-        file bodyFile = new file(defValues.BODY_FILE, this);
+        file bodyFile = new file(defValues.BODY_FILE);
         if(avgHr == 0 | bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE) == 0){
             return "--";
         }

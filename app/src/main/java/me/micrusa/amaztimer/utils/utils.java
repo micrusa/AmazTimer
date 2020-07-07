@@ -21,7 +21,7 @@ public class utils {
 
     public static void vibrate(int time, Context context, boolean sound){
         if(sound && SystemProperties.isVerge()
-                && new file(defValues.SETTINGS_FILE, context).get(defValues.SETTINGS_SOUND, defValues.DEFAULT_SOUND))
+                && new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_SOUND, defValues.DEFAULT_SOUND))
             MediaPlayer.create(context, R.raw.beep).start();
         Vibrator v = (Vibrator) context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         if (v != null) {
@@ -68,6 +68,19 @@ public class utils {
             return max;
         }
         return result;
+    }
+
+    public static int getMode(){
+        file settings = new file(defValues.SETTINGS_FILE);
+        if(settings.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE))
+            return 1;
+        if(settings.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE))
+            return 2;
+        else return 0;
+    }
+
+    public static boolean isModeManualSets(){
+        return getMode() == 2;
     }
 
 }

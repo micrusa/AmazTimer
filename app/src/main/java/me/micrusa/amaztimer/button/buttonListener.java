@@ -34,8 +34,8 @@ public class buttonListener {
     private final int KEY_EVENT_UP = 0;
     private final int KEY_EVENT_PRESS = 1;
 
-    private final int TRIGGER = 500;
-    private final int LONG_TRIGGER = TRIGGER * 4;
+    private final int TRIGGER = 600;
+    private final int LONG_TRIGGER = TRIGGER * 6;
     private final int LONG_TRIGGER_MAX = TRIGGER * 10;
 
     private PowerManager powerManager;

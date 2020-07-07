@@ -1,9 +1,6 @@
 package me.micrusa.amaztimer.utils;
 
 
-import android.content.Context;
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.tinylog.Logger;
@@ -23,12 +20,14 @@ public class file {
     private JSONObject data;
 
     // Constructor
-    public file(String tag, Context context) {
+    public file(String tag) {
         this.data = null;
 
         // Get file info
         this.settings_file_name = tag + ".json";
-        this.save_directory = context.getExternalFilesDir(null);
+        this.save_directory = new File("/sdcard/Android/data/me.micrusa.amaztimer/files/");
+        if(!save_directory.exists())
+            save_directory.mkdirs();
 
         // Load settings
         this.load();

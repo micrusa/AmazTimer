@@ -6,8 +6,6 @@
     <string name="rest">Отдых</string>
     <string name="sets">Подход</string>
     <string name="prepare">Приготовьтесь!</string>
-    <string name="cancel">Отмена</string>
-    <string name="canceltoast">Долгий клик!</string>
     <string name="settings">Настройки</string>
     <string name="batterysaving">Экономия батареи</string>
     <string name="lang">Язык</string>
@@ -27,9 +25,6 @@
     <string name="latesttrain">Последняя тренировка</string>
     <string name="morepreparetime">Больше времени на подготовку</string>
     <string name="morepreparetimesum">Если вы включите это, таймер подготовки будет длиться 60 секунд вместо 5, так что у вас будет достаточно времени, чтобы начать тренировку.</string>
-    <string name="waitforstart">Таймер еще не начал!</string>
-    <string name="finishset">Закончить</string>
-    <string name="reps">Повторения</string>
     <string name="repsmode">Режим повторений</string>
     <string name="hrzone">Зоны ЧСС</string>
     <string name="appinfo">Информация о приложении</string>
