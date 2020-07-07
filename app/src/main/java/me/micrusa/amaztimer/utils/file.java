@@ -26,6 +26,8 @@ public class file {
         // Get file info
         this.settings_file_name = tag + ".json";
         this.save_directory = new File("/sdcard/Android/data/me.micrusa.amaztimer/files/");
+        if(!save_directory.exists())
+            save_directory.mkdirs();
 
         // Load settings
         this.load();
