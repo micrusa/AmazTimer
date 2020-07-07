@@ -143,6 +143,7 @@ public class TimerActivity extends AppCompatActivity {
         status.setBackground(getDrawable(working ? R.color.work : R.color.rest));
         status.setText(currSet + "|" + text);
         if(chronoHandler != null) chronoHandler.stop();
+        if(timerHandler != null) timerHandler.stop();
     }
 
     private void updateButtons(boolean manual){
