@@ -62,9 +62,6 @@ public class SettingsActivity extends AppCompatActivity {
             case defValues.KEY_SOUND:
                 file.set(defValues.SETTINGS_SOUND, (Boolean) newValue);
                 break;
-            case defValues.KEY_LONGPREPARE:
-                file.set(defValues.SETTINGS_LONGPREPARE, (Boolean) newValue);
-                break;
             case defValues.KEY_REPSMODE:
                 file.set(defValues.SETTINGS_REPSMODE, (Boolean) newValue);
                 if ((Boolean) newValue) {
@@ -83,11 +80,6 @@ public class SettingsActivity extends AppCompatActivity {
                 break;
             case defValues.KEY_ENABLEPREPARE:
                 file.set(defValues.SETTINGS_ENABLEPREPARE, (Boolean) newValue);
-                if ((Boolean) newValue)
-                    preference.getPreferenceManager().findPreference(defValues.KEY_LONGPREPARE).setEnabled(true);
-                else
-                    preference.getPreferenceManager().findPreference(defValues.KEY_LONGPREPARE).setEnabled(false);
-                break;
             case defValues.KEY_TCX:
                 file.set(defValues.SETTINGS_TCX, (Boolean) newValue);
                 break;
@@ -124,14 +116,12 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             SwitchPreferenceCompat hrSwitch = findPreference(defValues.KEY_HRTOGGLE);
-            SwitchPreferenceCompat longPrepare = findPreference(defValues.KEY_LONGPREPARE);
             SwitchPreferenceCompat repsMode = findPreference(defValues.KEY_REPSMODE);
             SwitchPreferenceCompat workoutMode = findPreference(defValues.KEY_WORKOUT);
             SwitchPreferenceCompat enablePrepare = findPreference(defValues.KEY_ENABLEPREPARE);
             SwitchPreferenceCompat enableTcx = findPreference(defValues.KEY_TCX);
             SwitchPreferenceCompat enableSound = findPreference(defValues.KEY_SOUND);
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            longPrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
             repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             workoutMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             enablePrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
@@ -151,6 +141,7 @@ public class SettingsActivity extends AppCompatActivity {
             appInfo.setOnPreferenceClickListener(OnPreferenceClickListener);
             ListPreference age = findPreference(defValues.KEY_AGE);
             ListPreference weight = findPreference(defValues.KEY_WEIGHT);
+
             String[] ages = new String[100];
             int startYear = defValues.CURRENT_YEAR - 100;
             int endYear = defValues.CURRENT_YEAR;
@@ -178,11 +169,6 @@ public class SettingsActivity extends AppCompatActivity {
             age.setOnPreferenceChangeListener(onPreferenceChangeListener);
             weight.setOnPreferenceChangeListener(onPreferenceChangeListener);
             file settingsFile = new file(defValues.SETTINGS_FILE);
-            //Disable longPrepare if prepare timer is off
-            if (settingsFile.get(defValues.SETTINGS_ENABLEPREPARE, defValues.DEFAULT_ENABLEPREPARE))
-                longPrepare.setEnabled(true);
-            else
-                longPrepare.setEnabled(false);
 
             if (settingsFile.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE)){
                 repsMode.setEnabled(false);

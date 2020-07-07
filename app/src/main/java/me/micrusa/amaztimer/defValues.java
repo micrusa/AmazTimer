@@ -29,14 +29,12 @@ public final class defValues {
     public static final int MAX_TIME = 900; //15m
     //Default values
     public static final String DEFAULT_LANG = "en";
-    public static final Boolean DEFAULT_ENABLEPREPARE = true;
     public static final boolean DEFAULT_HRSWITCH = true;
     public static final boolean DEFAULT_REPSMODE = false;
     public static final int DEFAULT_WEIGHT = 70;
     public static final int DEFAULT_AGE = 20;
     public static final boolean DEFAULT_MALE = true;
     public static final int DEFAULT_HR_VALUES = 0;
-    public static final int DEFAULT_KCAL_VALUES = 0;
     public static final boolean DEFAULT_WORKOUTMODE = false;
     public static final boolean DEFAULT_TCX = true;
     public static final boolean DEFAULT_SOUND = true;
@@ -59,7 +57,6 @@ public final class defValues {
     public static final String SETTINGS_MINHR = "minhr";
     public static final String SETTINGS_MAXHR = "maxhr";
     public static final String SETTINGS_KCAL = "kcal";
-    public static final String SETTINGS_LONGPREPARE = "longprep";
     public static final String SETTINGS_ENABLEPREPARE = "prepon";
     public static final String SETTINGS_REPSMODE = "repsmode";
     public static final String SETTINGS_WORKOUTMODE = "workout";
@@ -71,7 +68,6 @@ public final class defValues {
     public static final String KEY_GENDER = "gender";
     public static final String KEY_AGE = "age";
     public static final String KEY_WEIGHT = "weight";
-    public static final String KEY_LONGPREPARE = "huamiactivity";
     public static final String KEY_ENABLEPREPARE = "prepon";
     public static final String KEY_REPSMODE = "repsmode";
     public static final String KEY_SAVED = "saved";

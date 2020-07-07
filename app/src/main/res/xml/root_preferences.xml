@@ -37,11 +37,6 @@
             app:summary="@string/enableprep"/>
 
         <SwitchPreferenceCompat
-            app:key="huamiactivity"
-            app:title="@string/morepreparetime"
-            app:summary="@string/morepreparetimesum"/>
-
-        <SwitchPreferenceCompat
             app:key="sound"
             app:title="@string/timersound"
             app:defaultValue="true"
