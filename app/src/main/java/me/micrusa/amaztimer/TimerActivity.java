@@ -84,12 +84,12 @@ public class TimerActivity extends AppCompatActivity {
         //Setup total time chrono
         elapsedtime.setBase(SystemClock.elapsedRealtime());
         elapsedtime.start();
-        //Start hrSensor
+        //Heart rate
         hrSensor.initialize(hr -> heartrate.setText(String.valueOf(hr)));
-        hrSensor.getInstance().registerListener(this);
+        if(settingsFile.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH))
+            hrSensor.getInstance().registerListener(this); //Register if hr enabled
         //Set sets int (Text will be set on working())
         currSet = utils.isModeManualSets() ? 0 : timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS) + 1;
-        //Start working
         working();
     }
 
@@ -97,7 +97,8 @@ public class TimerActivity extends AppCompatActivity {
         if(hasFinished)
             return true;
         hasFinished = true;
-        hrSensor.getInstance().unregisterListener(this);
+        if(settingsFile.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH))
+            hrSensor.getInstance().unregisterListener(this); //Unregister if hr enabled
         if (timerHandler != null)
             timerHandler.stop();
         if(chronoHandler != null)
@@ -138,7 +139,7 @@ public class TimerActivity extends AppCompatActivity {
 
     private void updateStatus(boolean working){
         isWorking = working;
-        String text = working ? getResources().getString(R.string.work) : getResources().getString(R.string.rest);
+        String text = getResources().getString(working ? R.string.work : R.string.rest);
         status.setBackground(getDrawable(working ? R.color.work : R.color.rest));
         status.setText(currSet + "|" + text);
         if(chronoHandler != null) chronoHandler.stop();

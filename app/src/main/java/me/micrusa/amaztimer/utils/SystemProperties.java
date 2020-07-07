@@ -77,8 +77,4 @@ public class SystemProperties {
             return "Unknown device";
     }
 
-    public static boolean isDeviceSupported(){
-        return isPace() || isStratos() || isVerge() || isStratos3();
-    }
-
 }
