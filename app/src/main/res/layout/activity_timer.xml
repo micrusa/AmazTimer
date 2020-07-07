@@ -182,7 +182,6 @@
         android:textSize="8sp"
         app:layout_constraintBottom_toTopOf="@+id/view5"
         app:layout_constraintEnd_toStartOf="@+id/text_heartrate"
-        app:layout_constraintHorizontal_bias="0.357"
         app:layout_constraintStart_toEndOf="@+id/view3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
