@@ -7,7 +7,8 @@ android {
     defaultConfig {
         applicationId "me.micrusa.amaztimer"
         minSdkVersion 21
-        targetSdkVersion 29
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 22
         versionCode 62
         versionName "6.2"
 
