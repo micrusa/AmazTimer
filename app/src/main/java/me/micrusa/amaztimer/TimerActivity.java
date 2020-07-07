@@ -35,6 +35,7 @@ public class TimerActivity extends AppCompatActivity {
     private timerHandler timerHandler;
 
     private boolean hasResumed;
+    private boolean isWorking;
     private int currSet;
 
     private me.micrusa.amaztimer.utils.chronoHandler chronoHandler;
@@ -55,6 +56,12 @@ public class TimerActivity extends AppCompatActivity {
         setupBtnListener();
         //Setup onClickListeners
         cancel.setOnClickListener(view -> endTimer());
+        finishset.setOnClickListener(view -> {
+            if (isWorking)
+                resting();
+            else
+                working();
+        });
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +132,7 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     private void updateStatus(boolean working){
+        isWorking = working;
         String text = working ? getResources().getString(R.string.work) : getResources().getString(R.string.rest);
         status.setBackground(getDrawable(working ? R.color.work : R.color.rest));
         status.setText(currSet + "|" + text);
