@@ -85,7 +85,8 @@ public class hrSensor implements SensorEventListener {
     }
 
     private boolean isAccuracyValid(){
-        return this.accuracy >= defValues.ACCURACY_RANGE[0] && this.accuracy <= defValues.ACCURACY_RANGE[1];
+        //Disabled for testing purposes
+        return true; //this.accuracy >= defValues.ACCURACY_RANGE[0] && this.accuracy <= defValues.ACCURACY_RANGE[1];
     }
 
     public void unregisterListener(Context context) {
