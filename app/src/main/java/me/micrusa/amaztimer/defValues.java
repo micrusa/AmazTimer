@@ -6,6 +6,7 @@ import android.hardware.SensorManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public final class defValues {
     //Format for times
@@ -79,6 +80,5 @@ public final class defValues {
     //Some useful stuff
     public static final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;
     public static final int VERSION_CODE = BuildConfig.VERSION_CODE;
-    @SuppressLint("SimpleDateFormat")
-    public static final int CURRENT_YEAR = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
+    public static final int CURRENT_YEAR = Integer.parseInt(new SimpleDateFormat("yyyy", Locale.US).format(new Date()));
 }
