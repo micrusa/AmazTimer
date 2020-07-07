@@ -54,7 +54,7 @@ public class SystemProperties {
     }
 
     public static boolean isStratosNewKeys(){
-        return getBoolean("prop.keyfeature.five", false);
+        return isStratos() && getBoolean("prop.keyfeature.five", false);
     }
 
     public static boolean checkIfModel(String[] targetModels, String Name){

@@ -24,18 +24,11 @@ public class buttonEvent {
     }
 
     public int getKey(){
-        if(isPace() || isVerge()){ //Pace / Verge
+        if(isPace() || isVerge() || (isStratosNewKeys() && key == KEY_CENTER)){ //Pace / Verge / Stratos new keys center button
             if(isLongPress()) //Long press = key down
                 return KEY_DOWN;
             else //Short press = upper key
                 return KEY_UP;
-        } else if(isStratos() && isStratosNewKeys()){ //Stratos with new keys
-            if (this.key == KEY_CENTER) {
-                if (this.isLongPress())
-                    return KEY_DOWN;
-                else
-                    return KEY_UP;
-            }
         }
         return this.key; //If nothing was returned return just the key, also old layout will return true key
     }
