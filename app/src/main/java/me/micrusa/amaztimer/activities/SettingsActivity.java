@@ -23,13 +23,13 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Set language before creating preferences
+        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         setContentView(R.layout.settings_activity);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.settings, new SettingsFragment())
                 .commit();
-        //Set language before creating preferences
-        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
     }
 
     private static final OnPreferenceChangeListener onPreferenceChangeListener = (preference, newValue) -> {
@@ -38,7 +38,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         SwitchPreferenceCompat repsMode = preference.getPreferenceManager().findPreference(defValues.KEY_REPSMODE);
         SwitchPreferenceCompat workoutMode = preference.getPreferenceManager().findPreference(defValues.KEY_WORKOUT);
-        SwitchPreferenceCompat chronoMode = preference.getPreferenceManager().findPreference(defValues.KEY_CHRONO);
 
         String key = preference.getKey();
         switch (key) {
@@ -72,20 +71,16 @@ public class SettingsActivity extends AppCompatActivity {
             case defValues.KEY_REPSMODE:
                 file.set(defValues.SETTINGS_REPSMODE, (Boolean) newValue);
                 if ((Boolean) newValue) {
-                    chronoMode.setEnabled(false);
                     workoutMode.setEnabled(false);
                 } else {
-                    chronoMode.setEnabled(true);
                     workoutMode.setEnabled(true);
                 }
                 break;
             case defValues.KEY_WORKOUT:
                 file.set(defValues.SETTINGS_WORKOUTMODE, (Boolean) newValue);
                 if ((Boolean) newValue) {
-                    chronoMode.setEnabled(false);
                     repsMode.setEnabled(false);
                 } else {
-                    chronoMode.setEnabled(true);
                     repsMode.setEnabled(true);
                 }
                 break;
@@ -95,16 +90,6 @@ public class SettingsActivity extends AppCompatActivity {
                     preference.getPreferenceManager().findPreference(defValues.KEY_LONGPREPARE).setEnabled(true);
                 else
                     preference.getPreferenceManager().findPreference(defValues.KEY_LONGPREPARE).setEnabled(false);
-                break;
-            case defValues.KEY_CHRONO:
-                file.set(defValues.SETTINGS_CHRONOMODE, (Boolean) newValue);
-                if ((Boolean) newValue) {
-                    workoutMode.setEnabled(false);
-                    repsMode.setEnabled(false);
-                } else {
-                    workoutMode.setEnabled(true);
-                    repsMode.setEnabled(true);
-                }
                 break;
             case defValues.KEY_TCX:
                 file.set(defValues.SETTINGS_TCX, (Boolean) newValue);
@@ -146,7 +131,6 @@ public class SettingsActivity extends AppCompatActivity {
             SwitchPreferenceCompat longPrepare = findPreference(defValues.KEY_LONGPREPARE);
             SwitchPreferenceCompat repsMode = findPreference(defValues.KEY_REPSMODE);
             SwitchPreferenceCompat workoutMode = findPreference(defValues.KEY_WORKOUT);
-            SwitchPreferenceCompat chronoMode = findPreference(defValues.KEY_CHRONO);
             SwitchPreferenceCompat enablePrepare = findPreference(defValues.KEY_ENABLEPREPARE);
             SwitchPreferenceCompat enableTcx = findPreference(defValues.KEY_TCX);
             SwitchPreferenceCompat enableSound = findPreference(defValues.KEY_SOUND);
@@ -155,7 +139,6 @@ public class SettingsActivity extends AppCompatActivity {
             longPrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
             repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             workoutMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            chronoMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             enablePrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
             enableTcx.setOnPreferenceChangeListener(onPreferenceChangeListener);
             //enableSound only visible for verge
@@ -207,14 +190,9 @@ public class SettingsActivity extends AppCompatActivity {
                 longPrepare.setEnabled(false);
 
             if (settingsFile.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE)){
-                chronoMode.setEnabled(false);
                 repsMode.setEnabled(false);
             } else if (settingsFile.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
-                chronoMode.setEnabled(false);
                 workoutMode.setEnabled(false);
-            } else if (settingsFile.get(defValues.SETTINGS_CHRONOMODE, defValues.DEFAULT_CHRONOMODE)){
-                workoutMode.setEnabled(false);
-                repsMode.setEnabled(false);
             }
         }
     }

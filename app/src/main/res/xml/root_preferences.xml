@@ -12,11 +12,6 @@
             app:title="@string/workout"
             app:summary="@string/workoutsum"/>
 
-        <SwitchPreferenceCompat
-            app:key="chronomode"
-            app:title="@string/chrono"
-            app:summary="@string/chronosum"/>
-
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/batterysaving">
