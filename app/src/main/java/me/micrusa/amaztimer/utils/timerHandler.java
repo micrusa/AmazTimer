@@ -17,6 +17,7 @@ public class timerHandler {
     public timerHandler(TextView timerText, int seconds, timerInterface timerInterface, Context paramContext){
         this.timerText = timerText;
         this.context = paramContext;
+        running = true;
         timer = new CountDownTimer(seconds * 1000, 1000) {
             @Override
             public void onTick(long l) {
@@ -33,7 +34,8 @@ public class timerHandler {
     }
 
     public void stop(){
-        timer.cancel();
+        if(running)
+            timer.cancel();
     }
 
     private void updateTimer(long millis){
