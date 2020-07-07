@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_dark"
+    android:keepScreenOn="true"
     tools:context=".TimerActivity">
 
     <TextView
@@ -15,6 +16,7 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="8sp"
+        android:fontFamily="@font/applemint"
         app:layout_constraintBottom_toTopOf="@+id/view5"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -24,6 +26,7 @@
         android:layout_height="wrap_content"
         android:text="21:56"
         android:textColor="@android:color/white"
+        android:fontFamily="@font/applemint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -67,6 +70,7 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="30sp"
+        android:fontFamily="@font/applemint"
         app:layout_constraintBottom_toTopOf="@+id/view2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -95,6 +99,7 @@
         android:layout_height="37dp"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:fontFamily="@font/applemint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -106,6 +111,7 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
+        android:fontFamily="@font/applemint"
         app:layout_constraintEnd_toStartOf="@+id/heartrate"
         app:layout_constraintStart_toEndOf="@+id/totaltime"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
@@ -114,7 +120,8 @@
         android:id="@+id/heartrate"
         android:layout_width="68dp"
         android:layout_height="37dp"
-        android:text="227"
+        android:fontFamily="@font/applemint"
+        android:text="@string/nullinfo"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -130,6 +137,7 @@
         android:text="@android:string/cancel"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:fontFamily="@font/applemint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -144,6 +152,7 @@
         android:text="@string/finishset"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:fontFamily="@font/applemint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
@@ -158,6 +167,7 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="8sp"
+        android:fontFamily="@font/applemint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/totaltime" />
 
@@ -169,6 +179,7 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="8sp"
+        android:fontFamily="@font/applemint"
         app:layout_constraintBottom_toTopOf="@+id/view5"
         app:layout_constraintEnd_toStartOf="@+id/text_heartrate"
         app:layout_constraintStart_toEndOf="@+id/view3" />
