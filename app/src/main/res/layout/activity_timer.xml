@@ -15,8 +15,8 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="8sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heartrate" />
+        app:layout_constraintBottom_toTopOf="@+id/view5"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/time"
@@ -100,12 +100,13 @@
 
     <TextView
         android:id="@+id/intervaltime"
-        android:layout_width="76dp"
+        android:layout_width="62dp"
         android:layout_height="37dp"
         android:text="03:15"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/heartrate"
         app:layout_constraintStart_toEndOf="@+id/totaltime"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -121,7 +122,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/cancel"
         android:layout_width="200dp"
         android:layout_height="35dp"
         android:layout_marginTop="2dp"
@@ -130,12 +131,12 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view5" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/finishset"
         android:layout_width="160dp"
         android:layout_height="35dp"
         android:layout_marginTop="2dp"
@@ -146,7 +147,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/cancel" />
 
     <TextView
         android:id="@+id/text_time"
@@ -162,13 +163,13 @@
 
     <TextView
         android:id="@+id/text_currset"
-        android:layout_width="76dp"
+        android:layout_width="62dp"
         android:layout_height="12dp"
         android:text="@string/currentset"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="8sp"
-        app:layout_constraintStart_toEndOf="@+id/view3"
-        app:layout_constraintTop_toBottomOf="@+id/intervaltime" />
+        app:layout_constraintBottom_toTopOf="@+id/view5"
+        app:layout_constraintStart_toEndOf="@+id/view3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

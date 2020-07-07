@@ -14,6 +14,7 @@ import java.util.Date;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.TCX.SaveTCX;
+import me.micrusa.amaztimer.TCX.TCXUtils;
 import me.micrusa.amaztimer.TCX.data.Lap;
 import me.micrusa.amaztimer.TCX.data.TCXData;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
@@ -21,7 +22,6 @@ import me.micrusa.amaztimer.defValues;
 
 @SuppressWarnings("CanBeFinal")
 public class hrSensor implements SensorEventListener {
-    private Sensor hrSens;
     private hrListener listener;
     private final latestTraining latestTraining = new latestTraining();
     private long startTime;
@@ -59,9 +59,9 @@ public class hrSensor implements SensorEventListener {
             //Send hr value to latestTraining array
             latestTraining.addHrValue(v);
             //Set latest hr value
-            String currentDate = new SimpleDateFormat(Constants.DATE_FORMAT).format(new Date()) + Constants.CHAR_DATETIME + new SimpleDateFormat(Constants.TIME_FORMAT).format(new Date()) + Constants.CHAR_AFTERTIME;
+            String currentDate = TCXUtils.formatDate(new Date());
             //Create Trackpoint and add it to current Lap
-            if (!currentDate.equals(this.latestHrTime))
+            if (!currentDate.equals(this.latestHrTime)) //This will limit trackpoints to 1/s
                 currentLap.addTrackpoint(new Trackpoint(v, new Date()));
             this.latestHrTime = currentDate;
         } else {

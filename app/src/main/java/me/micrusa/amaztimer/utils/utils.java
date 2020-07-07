@@ -70,4 +70,13 @@ public class utils {
         return result;
     }
 
+    public static int getMode(){
+        file settings = new file(defValues.SETTINGS_FILE);
+        if(settings.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE))
+            return 1;
+        if(settings.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE))
+            return 2;
+        else return 0;
+    }
+
 }
