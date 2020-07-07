@@ -36,6 +36,7 @@ public class TimerActivity extends AppCompatActivity {
 
     private boolean hasResumed;
     private boolean isWorking;
+    private boolean hasFinished;
     private int currSet;
 
     private me.micrusa.amaztimer.utils.chronoHandler chronoHandler;
@@ -93,6 +94,9 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     private boolean endTimer(){
+        if(hasFinished)
+            return true;
+        hasFinished = true;
         hrSensor.getInstance().unregisterListener(this);
         if (timerHandler != null)
             timerHandler.stop();

@@ -123,7 +123,7 @@
 
     <Button
         android:id="@+id/cancel"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_marginTop="2dp"
         android:background="@drawable/circle_button"
@@ -137,7 +137,7 @@
 
     <Button
         android:id="@+id/finishset"
-        android:layout_width="160dp"
+        android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_marginTop="2dp"
         android:background="@drawable/circle_button"
@@ -170,6 +170,7 @@
         android:textColor="@android:color/white"
         android:textSize="8sp"
         app:layout_constraintBottom_toTopOf="@+id/view5"
+        app:layout_constraintEnd_toStartOf="@+id/text_heartrate"
         app:layout_constraintStart_toEndOf="@+id/view3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
