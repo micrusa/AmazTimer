@@ -96,10 +96,11 @@ public class SaveTCX {
 
             //Fill all laps
             for (Lap lap : TCXData.getLaps()) {
-                if (!lap.isLapEmpty())
+                /*if (!lap.isLapEmpty())
                     fillLap(lap);
                 else
-                    Logger.debug("Skipped lap " + lap.getStartTime() + " because it is empty");
+                    Logger.debug("Skipped lap " + lap.getStartTime() + " because it is empty");*/
+                fillLap(lap);
             }
 
             Element Creator = tcx.createElement("Creator");
