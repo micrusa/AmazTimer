@@ -31,7 +31,7 @@ public class utils {
 
     public static String formatTime(int seconds) {
         //Format seconds to mm:ss
-        SimpleDateFormat df = new SimpleDateFormat(defValues.timeFormat, Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat(defValues.timeFormat, Locale.US);
         return df.format(new Date(seconds * 1000));
     }
 
