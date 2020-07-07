@@ -1,44 +1,50 @@
 package me.micrusa.amaztimer.utils;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import org.tinylog.Logger;
 
 public class chronoHandler {
 
     private boolean running;
-    private TextView chrono;
-    private int timeElapsed;
-    private Thread thread;
+    private thread chronoThread;
 
     public chronoHandler(TextView chrono){
-        this.chrono = chrono;
+        chronoThread = new thread(chrono, new Handler());
+        chronoThread.start();
         running = true;
-        final Handler handler = new Handler(chrono.getContext().getMainLooper());
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(Thread.currentThread().isInterrupted())
-                            return;
-                        chrono.setText(utils.formatTime(++timeElapsed));
-                        handler.postDelayed(this, 1000);
-                    }
-                });
-            }
-        });
     }
 
     public void stop(){
         if(running){
             running = false;
-            thread.interrupt();
+            chronoThread.interrupt();
+        }
+    }
+
+    private static class thread extends Thread {
+
+        private TextView chrono;
+        private int timeElapsed;
+        private Handler handler;
+
+        public thread(TextView chrono, Handler handler){
+            this.chrono = chrono;
+            this.handler = handler;
+        }
+
+        public void run(){
+            while(!Thread.currentThread().isInterrupted()){
+                try {
+                    handler.post(() -> chrono.setText(utils.formatTime(timeElapsed++)));
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
         }
     }
 }
