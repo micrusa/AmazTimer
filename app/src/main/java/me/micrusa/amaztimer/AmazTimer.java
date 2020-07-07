@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import me.micrusa.amaztimer.activities.PrepareActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.button.buttonEvent;
 import me.micrusa.amaztimer.button.buttonListener;
@@ -108,7 +109,12 @@ public class AmazTimer extends Activity {
         minus2.setOnLongClickListener(plusMinusBtnLongListener);
         minus3.setOnLongClickListener(plusMinusBtnLongListener);
         //Start button
-        start.setOnClickListener(view -> launchIntent(new Intent(view.getContext(), TimerActivity.class)));
+        start.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(),
+                    new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_ENABLEPREPARE, false)
+                            ? PrepareActivity.class : TimerActivity.class);
+            launchIntent(intent);
+        });
         //Start long press opens settings
         start.setOnLongClickListener(view -> launchIntent(new Intent(view.getContext(), SettingsActivity.class)));
     }
