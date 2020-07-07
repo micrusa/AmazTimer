@@ -17,6 +17,7 @@ import me.micrusa.amaztimer.utils.utils;
 public class PrepareActivity extends AppCompatActivity {
 
     private TextView timer;
+    private boolean finished;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class PrepareActivity extends AppCompatActivity {
     }
 
     private void startTimer(){
+        timer.setText("5");
         new CountDownTimer(5000, 1000){
             @Override
             public void onTick(long l) {
@@ -43,14 +45,21 @@ public class PrepareActivity extends AppCompatActivity {
                     if(time == 1)
                         new Handler().postDelayed(() -> {
                             timer.setText("0");
-                            utils.vibrate(defValues.SHORT_VIBRATION, PrepareActivity.this);
+                            utils.vibrate(defValues.LONG_VIBRATION, PrepareActivity.this);
                             }, 950);
                 }
             }
             @Override
             public void onFinish() {
+                finished = true;
                 startActivity(new Intent(PrepareActivity.this, TimerActivity.class));
             }
         }.start();
+    }
+
+    public void onResume() {
+        super.onResume();
+        if(finished)
+            finish();
     }
 }
