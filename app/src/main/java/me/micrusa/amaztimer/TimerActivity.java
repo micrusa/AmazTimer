@@ -55,7 +55,7 @@ public class TimerActivity extends AppCompatActivity {
         finishset = findViewById(R.id.finishset);
         setupBtnListener();
         //Setup onClickListeners
-        cancel.setOnClickListener(view -> endTimer());
+        cancel.setOnLongClickListener(view -> endTimer());
         finishset.setOnClickListener(view -> {
             if (isWorking)
                 resting();
@@ -87,18 +87,19 @@ public class TimerActivity extends AppCompatActivity {
         hrSensor.initialize(hr -> heartrate.setText(String.valueOf(hr)));
         hrSensor.getInstance().registerListener(this);
         //Set sets int (Text will be set on working())
-        currSet = utils.isModeManualSets() ? 0 : timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+        currSet = utils.isModeManualSets() ? 0 : timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS) + 1;
         //Start working
         working();
     }
 
-    private void endTimer(){
+    private boolean endTimer(){
         hrSensor.getInstance().unregisterListener(this);
         if (timerHandler != null)
             timerHandler.stop();
         if(chronoHandler != null)
             chronoHandler.stop();
         finish();
+        return true;
     }
 
     //Statuses
@@ -136,7 +137,7 @@ public class TimerActivity extends AppCompatActivity {
         String text = working ? getResources().getString(R.string.work) : getResources().getString(R.string.rest);
         status.setBackground(getDrawable(working ? R.color.work : R.color.rest));
         status.setText(currSet + "|" + text);
-        chronoHandler.stop();
+        if(chronoHandler != null) chronoHandler.stop();
     }
 
     private void updateButtons(boolean manual){

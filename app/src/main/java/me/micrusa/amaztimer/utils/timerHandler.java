@@ -33,8 +33,7 @@ public class timerHandler {
     }
 
     public void stop(){
-        if(running)
-            timer.cancel();
+        timer.cancel();
     }
 
     private void updateTimer(long millis){
