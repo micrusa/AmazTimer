@@ -18,8 +18,6 @@ public final class defValues {
     public static final int SHORT_VIBRATION = 100; //0.1s
     public static final int LONG_VIBRATION = 700; //0.7s
     //Preparation times
-    public static final int SHORT_PREPARETIME = 5 * 1000;
-    public static final int LONG_PREPARETIME = 60 * 1000;
     //Sensor value and sensor delay
     public static final int HRSENSOR_DELAY = SensorManager.SENSOR_DELAY_FASTEST;
     public static final int HRSENSOR = Sensor.TYPE_HEART_RATE;
@@ -31,9 +29,7 @@ public final class defValues {
     public static final int MAX_TIME = 900; //15m
     //Default values
     public static final String DEFAULT_LANG = "en";
-    public static final Boolean DEFAULT_LONGPREPARE = false;
     public static final Boolean DEFAULT_ENABLEPREPARE = true;
-    public static final boolean DEFAULT_BATTERYSAVING = false;
     public static final boolean DEFAULT_HRSWITCH = true;
     public static final boolean DEFAULT_REPSMODE = false;
     public static final int DEFAULT_WEIGHT = 70;
@@ -42,7 +38,6 @@ public final class defValues {
     public static final int DEFAULT_HR_VALUES = 0;
     public static final int DEFAULT_KCAL_VALUES = 0;
     public static final boolean DEFAULT_WORKOUTMODE = false;
-    public static final boolean DEFAULT_CHRONOMODE = false;
     public static final boolean DEFAULT_TCX = true;
     public static final boolean DEFAULT_SOUND = true;
     //Files name
@@ -55,7 +50,6 @@ public final class defValues {
     public static final String SETTINGS_SETS = "sets";
     public static final String SETTINGS_WORK = "work";
     public static final String SETTINGS_REST = "rest";
-    public static final String SETTINGS_BATTERYSAVING = "batterySaving";
     public static final String SETTINGS_HRSWITCH = "hrEnabled";
     public static final String SETTINGS_LANG = "lang";
     public static final String SETTINGS_WEIGHT = "weight";
@@ -69,11 +63,9 @@ public final class defValues {
     public static final String SETTINGS_ENABLEPREPARE = "prepon";
     public static final String SETTINGS_REPSMODE = "repsmode";
     public static final String SETTINGS_WORKOUTMODE = "workout";
-    public static final String SETTINGS_CHRONOMODE = "chrono";
     public static final String SETTINGS_TCX = "tcx";
     public static final String SETTINGS_SOUND = "sound";
     //Settings keys
-    public static final String KEY_BATTERYSAVING = "batterySaving";
     public static final String KEY_HRTOGGLE = "hrOn";
     public static final String KEY_LANG = "lang";
     public static final String KEY_GENDER = "gender";
@@ -86,7 +78,6 @@ public final class defValues {
     public static final String KEY_LATESTTRAIN = "latesttrain";
     public static final String KEY_APPINFO = "appinfo";
     public static final String KEY_WORKOUT = "workoutmode";
-    public static final String KEY_CHRONO = "chronomode";
     public static final String KEY_TCX = "tcx";
     public static final String KEY_SOUND = "sound";
     //Some useful stuff

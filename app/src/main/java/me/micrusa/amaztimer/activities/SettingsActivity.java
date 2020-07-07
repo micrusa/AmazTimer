@@ -41,9 +41,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         String key = preference.getKey();
         switch (key) {
-            case defValues.KEY_BATTERYSAVING:
-                file.set(defValues.SETTINGS_BATTERYSAVING, (Boolean) newValue);
-                break;
             case defValues.KEY_HRTOGGLE:
                 file.set(defValues.SETTINGS_HRSWITCH, (Boolean) newValue);
                 break;
@@ -126,7 +123,6 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            SwitchPreferenceCompat batterySaving = findPreference(defValues.KEY_BATTERYSAVING);
             SwitchPreferenceCompat hrSwitch = findPreference(defValues.KEY_HRTOGGLE);
             SwitchPreferenceCompat longPrepare = findPreference(defValues.KEY_LONGPREPARE);
             SwitchPreferenceCompat repsMode = findPreference(defValues.KEY_REPSMODE);
@@ -134,7 +130,6 @@ public class SettingsActivity extends AppCompatActivity {
             SwitchPreferenceCompat enablePrepare = findPreference(defValues.KEY_ENABLEPREPARE);
             SwitchPreferenceCompat enableTcx = findPreference(defValues.KEY_TCX);
             SwitchPreferenceCompat enableSound = findPreference(defValues.KEY_SOUND);
-            batterySaving.setOnPreferenceChangeListener(onPreferenceChangeListener);
             hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
             longPrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
             repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);

@@ -14,20 +14,6 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/batterysaving">
-
-        <SwitchPreferenceCompat
-            app:key="batterySaving"
-            app:title="@string/batterysaving"/>
-
-        <SwitchPreferenceCompat
-            android:defaultValue="true"
-            app:defaultValue="true"
-            app:key="hrOn"
-            app:title="@string/hrEnabled" />
-
-    </PreferenceCategory>
-
     <PreferenceCategory app:title="@string/settings">
 
         <SwitchPreferenceCompat
@@ -36,6 +22,12 @@
             app:key="tcx"
             app:title="@string/tcxexport"
             app:summary="@string/tcxsum"/>
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            app:defaultValue="true"
+            app:key="hrOn"
+            app:title="@string/hrEnabled" />
 
         <SwitchPreferenceCompat
             android:defaultValue="true"
