@@ -1,21 +1,14 @@
 package me.micrusa.amaztimer;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import me.micrusa.amaztimer.activities.PrepareActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
@@ -23,37 +16,31 @@ import me.micrusa.amaztimer.button.buttonEvent;
 import me.micrusa.amaztimer.button.buttonListener;
 import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.file;
-import me.micrusa.amaztimer.utils.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
 
 public class AmazTimer extends Activity {
     //Define items
     private Button plus, plus2, plus3, minus, minus2, minus3, start;
-    private TextView sets, rest, work, settingstext, setsText, workText, restText;
+    private TextView sets, rest, work;
     //Other classes
     private buttonListener buttonListener = new buttonListener();
     //Settings
     private boolean hasResumed = false;
+    private file settingsFile, timerFile;
 
     private final View.OnClickListener plusMinusBtnListener = view -> plusMinusUpdates(view.getId(), false);
     private final View.OnLongClickListener plusMinusBtnLongListener = view -> plusMinusUpdates(view.getId(), true);
 
     private boolean plusMinusUpdates(int id, boolean longClick){
-        file file = new file(defValues.TIMER_FILE);
-        int sets = file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
-        int workTime = file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
-        int restTime = file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+        int sets = timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
+        int workTime = timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+        int restTime = timerFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
         //Increase or decrease the value that user clicked
         switch(id){
             case R.id.plus:
                 sets = utils.getUpdatedSets(sets, longClick ? 5 : 1, this);
                 break;
             case R.id.plus2:
-                if(new file(defValues.SETTINGS_FILE)
-                        .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
-                    utils.vibrate(defValues.SHORT_VIBRATION, this);
-                    break;
-                }
                 workTime = utils.getUpdatedTime(workTime, longClick ? 60 : 1, this);
                 break;
             case R.id.plus3:
@@ -63,11 +50,6 @@ public class AmazTimer extends Activity {
                 sets = utils.getUpdatedSets(sets, longClick ? -5 : -1, this);
                 break;
             case R.id.minus:
-                if(new file(defValues.SETTINGS_FILE)
-                        .get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)) {
-                    utils.vibrate(defValues.SHORT_VIBRATION, this);
-                    break;
-                }
                 workTime = utils.getUpdatedTime(workTime, longClick ? -60 : -1, this);
                 break;
             case R.id.minus3:
@@ -76,8 +58,8 @@ public class AmazTimer extends Activity {
             default:
                 break;
         }
-        setTexts(sets, workTime, restTime);
-        utils.pushToFile(file, sets, workTime, restTime);
+        utils.pushToFile(timerFile, sets, workTime, restTime);
+        setTexts();
         return true;
     }
 
@@ -89,12 +71,11 @@ public class AmazTimer extends Activity {
         //Set language and layout depending on device
         utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         setContentView(SystemProperties.isStratos3() || SystemProperties.isVerge() ? R.layout.round_amaztimer : R.layout.amaztimer);
-        //Setup items
         this.init();
         //Register buttonListener
         setupBtnListener();
         //Set texts
-        this.setTimesTexts();
+        this.setTexts();
         //Plus and minus buttons
         plus.setOnClickListener(plusMinusBtnListener);
         plus2.setOnClickListener(plusMinusBtnListener);
@@ -119,29 +100,16 @@ public class AmazTimer extends Activity {
         start.setOnLongClickListener(view -> launchIntent(new Intent(view.getContext(), SettingsActivity.class)));
     }
 
-    private void setTexts(int iSets, int iWork, int iRest){
-        sets.setText(String.valueOf(iSets));
-        rest.setText(utils.formatTime(iRest));
-        //If reps mode is enabled dont show work time, else set work text
-        if(new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
-            work.setText(getResources().getString(R.string.nullinfo));
-        } else {
-            work.setText(utils.formatTime(iWork));
-        }
-    }
-
-    private void setTimesTexts() {
-        file file = new file(defValues.TIMER_FILE);
-        setTexts(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS),
-                file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME),
-                file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
-        //If reps mode is enabled dont show work time
-        if(new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
-            work.setText(getResources().getString(R.string.nullinfo));
-        }
+    private void setTexts(){
+        this.sets.setText(timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS));
+        this.work.setText(timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME));
+        this.rest.setText(timerFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
     }
 
     private void init() {
+        //Files
+        settingsFile = new file(defValues.SETTINGS_FILE);
+        timerFile = new file(defValues.TIMER_FILE);
         //Buttons
         plus = findViewById(R.id.plus);
         plus2 = findViewById(R.id.plus2);
@@ -154,16 +122,8 @@ public class AmazTimer extends Activity {
         sets = findViewById(R.id.sets);
         rest = findViewById(R.id.rest);
         work = findViewById(R.id.work);
-        settingstext = findViewById(R.id.textView);
-        setsText = findViewById(R.id.textView4);
-        workText = findViewById(R.id.textView5);
-        restText = findViewById(R.id.textView6);
     }
 
-    public void onDestroy() {
-        super.onDestroy();
-        buttonListener.stop();
-    }
     public void onStop() {
         super.onStop();
         buttonListener.stop();
@@ -185,13 +145,6 @@ public class AmazTimer extends Activity {
         super.onResume();
     }
 
-    private void btnPress(int i){
-        if(i == 1)
-            start.performClick();
-        else if(i == 2)
-            start.performLongClick();
-    }
-
     private boolean launchIntent(Intent intent){
         buttonListener.stop();
         startActivity(intent);
@@ -201,8 +154,8 @@ public class AmazTimer extends Activity {
     private void setupBtnListener(){
         //Create a Handler because buttonListener runs in a different thread
         final Handler btnListenerHandler = new Handler();
-        final Runnable btnPressRunnable = () -> btnPress(1);
-        final Runnable settingsRunnable = () -> btnPress(2);
+        final Runnable btnPressRunnable = () -> start.performClick();
+        final Runnable settingsRunnable = () -> start.performLongClick();
         buttonListener.start(this, ButtonEvent -> {
             if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
                 btnListenerHandler.post(btnPressRunnable);

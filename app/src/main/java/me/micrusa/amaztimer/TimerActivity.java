@@ -159,16 +159,15 @@ public class TimerActivity extends AppCompatActivity {
     public void onPause() {
         this.hasResumed = false;
         new Handler().postDelayed(() -> {
-            if(hasResumed())
+            if(hasResumed)
                 return;
             buttonListener.stop();
             endTimer();
         }, 15 * 1000);
         super.onPause();
     }
-    private boolean hasResumed(){return this.hasResumed;}
     public void onResume() {
-        this.hasResumed = true;
+        hasResumed = true;
         setupBtnListener();
         super.onResume();
     }
