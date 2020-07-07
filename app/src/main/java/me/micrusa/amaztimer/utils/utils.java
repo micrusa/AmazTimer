@@ -79,4 +79,8 @@ public class utils {
         else return 0;
     }
 
+    public static boolean isModeManualSets(){
+        return getMode() == 2;
+    }
+
 }

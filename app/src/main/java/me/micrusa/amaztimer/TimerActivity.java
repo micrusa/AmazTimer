@@ -79,6 +79,8 @@ public class TimerActivity extends AppCompatActivity {
         //Start hrSensor
         hrSensor.initialize(hr -> heartrate.setText(String.valueOf(hr)));
         hrSensor.getInstance().registerListener(this);
+        //Set sets int (Text will be set on working())
+        currSet = utils.isModeManualSets() ? 0 : timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
         //Start working
         working();
     }
@@ -94,7 +96,7 @@ public class TimerActivity extends AppCompatActivity {
 
     //Statuses
     private void working(){
-        if(--currSet == 0)
+        if((utils.isModeManualSets() ? ++currSet : --currSet) == 0)
             endTimer();
         hrSensor.getInstance().newLap(Constants.STATUS_ACTIVE);
         updateStatus(true);
