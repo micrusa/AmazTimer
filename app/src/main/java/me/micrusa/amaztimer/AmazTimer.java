@@ -74,8 +74,6 @@ public class AmazTimer extends Activity {
         this.init();
         //Register buttonListener
         setupBtnListener();
-        //Set texts
-        this.setTexts();
         //Plus and minus buttons
         plus.setOnClickListener(plusMinusBtnListener);
         plus2.setOnClickListener(plusMinusBtnListener);
@@ -100,10 +98,15 @@ public class AmazTimer extends Activity {
         start.setOnLongClickListener(view -> launchIntent(new Intent(view.getContext(), SettingsActivity.class)));
     }
 
+    public void onStart() {
+        super.onStart();
+        setTexts();
+    }
+
     private void setTexts(){
-        this.sets.setText(timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS));
-        this.work.setText(timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME));
-        this.rest.setText(timerFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
+        sets.setText(timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS));
+        work.setText(utils.formatTime(timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)));
+        rest.setText(utils.formatTime(timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)));
     }
 
     private void init() {
