@@ -104,7 +104,7 @@ public class AmazTimer extends Activity {
     }
 
     private void setTexts(){
-        sets.setText(timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS));
+        sets.setText(String.valueOf(timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS)));
         work.setText(utils.formatTime(timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)));
         rest.setText(utils.formatTime(timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)));
     }
