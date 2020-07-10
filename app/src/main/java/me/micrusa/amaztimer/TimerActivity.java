@@ -150,10 +150,10 @@ public class TimerActivity extends AppCompatActivity {
     }
     public void onPause() {
         this.hasResumed = false;
+        buttonListener.stop();
         new Handler().postDelayed(() -> {
             if(hasResumed)
                 return;
-            buttonListener.stop();
             endTimer();
         }, 15 * 1000);
         super.onPause();
@@ -162,6 +162,14 @@ public class TimerActivity extends AppCompatActivity {
         hasResumed = true;
         setupBtnListener();
         super.onResume();
+    }
+    public void onStop(){
+        super.onStop();
+        buttonListener.stop();
+    }
+    public void onStart(){
+        super.onStart();
+        setupBtnListener();
     }
     private void setupBtnListener(){
         //Create a Handler because buttonListener runs in a different thread
@@ -175,5 +183,4 @@ public class TimerActivity extends AppCompatActivity {
                 btnListenerHandler.post(upperBtn);
         });
     }
-
 }
