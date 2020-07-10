@@ -52,6 +52,7 @@ public class PrepareActivity extends AppCompatActivity {
             public void onFinish() {
                 finished = true;
                 startActivity(new Intent(PrepareActivity.this, TimerActivity.class));
+                finish();
             }
         }.start();
     }
