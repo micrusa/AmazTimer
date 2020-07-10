@@ -26,7 +26,7 @@ public class AmazTimer extends Activity {
     private buttonListener buttonListener = new buttonListener();
     //Settings
     private boolean hasResumed = false;
-    private file settingsFile, timerFile;
+    private file timerFile;
 
     private final View.OnClickListener plusMinusBtnListener = view -> plusMinusUpdates(view.getId(), false);
     private final View.OnLongClickListener plusMinusBtnLongListener = view -> plusMinusUpdates(view.getId(), true);
@@ -68,13 +68,12 @@ public class AmazTimer extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Set language and layout depending on device
+
         utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         setContentView(SystemProperties.isStratos3() || SystemProperties.isVerge() ? R.layout.round_amaztimer : R.layout.amaztimer);
         this.init();
-        //Register buttonListener
         setupBtnListener();
-        //Plus and minus buttons
+
         plus.setOnClickListener(plusMinusBtnListener);
         plus2.setOnClickListener(plusMinusBtnListener);
         plus3.setOnClickListener(plusMinusBtnListener);
@@ -87,14 +86,11 @@ public class AmazTimer extends Activity {
         minus.setOnLongClickListener(plusMinusBtnLongListener);
         minus2.setOnLongClickListener(plusMinusBtnLongListener);
         minus3.setOnLongClickListener(plusMinusBtnLongListener);
-        //Start button
-        start.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(),
-                    new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_ENABLEPREPARE, false)
-                            ? PrepareActivity.class : TimerActivity.class);
-            launchIntent(intent);
-        });
-        //Start long press opens settings
+
+        start.setOnClickListener(view -> launchIntent(new Intent(view.getContext(),
+                new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_ENABLEPREPARE, false)
+                        ? PrepareActivity.class : TimerActivity.class)));
+
         start.setOnLongClickListener(view -> launchIntent(new Intent(view.getContext(), SettingsActivity.class)));
     }
 
@@ -110,10 +106,7 @@ public class AmazTimer extends Activity {
     }
 
     private void init() {
-        //Files
-        settingsFile = new file(defValues.SETTINGS_FILE);
         timerFile = new file(defValues.TIMER_FILE);
-        //Buttons
         plus = findViewById(R.id.plus);
         plus2 = findViewById(R.id.plus2);
         plus3 = findViewById(R.id.plus3);
@@ -121,7 +114,6 @@ public class AmazTimer extends Activity {
         minus2 = findViewById(R.id.minus);
         minus3 = findViewById(R.id.minus3);
         start = findViewById(R.id.start);
-        //TextViews
         sets = findViewById(R.id.sets);
         rest = findViewById(R.id.rest);
         work = findViewById(R.id.work);
@@ -155,15 +147,11 @@ public class AmazTimer extends Activity {
     }
 
     private void setupBtnListener(){
-        //Create a Handler because buttonListener runs in a different thread
-        final Handler btnListenerHandler = new Handler();
-        final Runnable btnPressRunnable = () -> start.performClick();
-        final Runnable settingsRunnable = () -> start.performLongClick();
         buttonListener.start(this, ButtonEvent -> {
             if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                btnListenerHandler.post(btnPressRunnable);
+                new Handler().post(() -> start.performClick());
             else if(ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
-                btnListenerHandler.post(settingsRunnable);
+                new Handler().post(() -> start.performLongClick());
         });
     }
 }
