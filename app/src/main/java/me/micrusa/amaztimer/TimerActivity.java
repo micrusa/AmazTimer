@@ -115,12 +115,10 @@ public class TimerActivity extends AppCompatActivity {
         updateStatus(true);
         if(utils.getMode() > 0){
             chronoHandler = new chronoHandler(intervaltime);
-            updateButtons(true);
         } else {
             timerHandler = new timerHandler(intervaltime
                     , timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)
                     , this::resting, this);
-            updateButtons(false);
         }
     }
     private void resting(){
@@ -128,12 +126,10 @@ public class TimerActivity extends AppCompatActivity {
         updateStatus(false);
         if(utils.getMode() >= 2){
             chronoHandler = new chronoHandler(intervaltime);
-            updateButtons(true);
         } else {
             timerHandler = new timerHandler(intervaltime
                     , timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)
                     , this::working, this);
-            updateButtons(false);
         }
     }
 
@@ -144,11 +140,6 @@ public class TimerActivity extends AppCompatActivity {
         status.setText(currSet + "|" + text);
         if(chronoHandler != null) chronoHandler.stop();
         if(timerHandler != null) timerHandler.stop();
-    }
-
-    private void updateButtons(boolean manual){
-        finishset.setVisibility(manual ? View.VISIBLE : View.GONE);
-        cancel.setHeight(manual ? 70 : 35);
     }
 
     //Destroy, pause, resume and button stuff
