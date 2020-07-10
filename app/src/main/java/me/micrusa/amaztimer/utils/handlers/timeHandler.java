@@ -1,4 +1,4 @@
-package me.micrusa.amaztimer.utils;
+package me.micrusa.amaztimer.utils.handlers;
 
 import android.os.Handler;
 import android.os.Looper;

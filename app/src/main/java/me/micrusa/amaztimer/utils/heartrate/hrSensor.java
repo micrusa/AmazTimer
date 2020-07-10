@@ -1,4 +1,4 @@
-package me.micrusa.amaztimer.utils;
+package me.micrusa.amaztimer.utils.heartrate;
 
 
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import me.micrusa.amaztimer.R;
@@ -19,11 +18,13 @@ import me.micrusa.amaztimer.TCX.data.Lap;
 import me.micrusa.amaztimer.TCX.data.TCXData;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
 import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.utils.file;
+import me.micrusa.amaztimer.utils.utils;
 
 @SuppressWarnings("CanBeFinal")
 public class hrSensor implements SensorEventListener {
     private hrListener listener;
-    private final latestTraining latestTraining = new latestTraining();
+    private final me.micrusa.amaztimer.utils.heartrate.latestTraining latestTraining = new latestTraining();
     private long startTime;
     private int accuracy = 2;
     private String latestHrTime;

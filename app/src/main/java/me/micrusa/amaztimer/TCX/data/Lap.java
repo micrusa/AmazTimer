@@ -1,15 +1,10 @@
 package me.micrusa.amaztimer.TCX.data;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 
-import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.TCX.TCXUtils;
-import me.micrusa.amaztimer.TCX.data.Trackpoint;
-import me.micrusa.amaztimer.utils.latestTraining;
+import me.micrusa.amaztimer.utils.heartrate.latestTraining;
 
 public class Lap {
 

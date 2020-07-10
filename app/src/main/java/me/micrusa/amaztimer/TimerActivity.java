@@ -12,11 +12,11 @@ import android.widget.TextView;
 import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.button.buttonEvent;
 import me.micrusa.amaztimer.button.buttonListener;
-import me.micrusa.amaztimer.utils.chronoHandler;
+import me.micrusa.amaztimer.utils.handlers.chronoHandler;
 import me.micrusa.amaztimer.utils.file;
-import me.micrusa.amaztimer.utils.hrSensor;
-import me.micrusa.amaztimer.utils.timeHandler;
-import me.micrusa.amaztimer.utils.timerHandler;
+import me.micrusa.amaztimer.utils.heartrate.hrSensor;
+import me.micrusa.amaztimer.utils.handlers.timeHandler;
+import me.micrusa.amaztimer.utils.handlers.timerHandler;
 import me.micrusa.amaztimer.utils.utils;
 
 public class TimerActivity extends AppCompatActivity {
@@ -27,14 +27,14 @@ public class TimerActivity extends AppCompatActivity {
     private Button cancel, finishset;
 
     private timerHandler timerHandler;
-    private me.micrusa.amaztimer.utils.timeHandler timeHandler;
+    private me.micrusa.amaztimer.utils.handlers.timeHandler timeHandler;
 
     private boolean hasResumed;
     private boolean isWorking;
     private boolean hasFinished;
     private int currSet;
 
-    private me.micrusa.amaztimer.utils.chronoHandler chronoHandler;
+    private me.micrusa.amaztimer.utils.handlers.chronoHandler chronoHandler;
     private me.micrusa.amaztimer.button.buttonListener buttonListener = new buttonListener();
 
     private void init(){

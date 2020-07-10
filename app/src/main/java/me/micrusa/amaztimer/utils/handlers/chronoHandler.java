@@ -1,4 +1,4 @@
-package me.micrusa.amaztimer.utils;
+package me.micrusa.amaztimer.utils.handlers;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -6,6 +6,8 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 
 import org.tinylog.Logger;
+
+import me.micrusa.amaztimer.utils.utils;
 
 public class chronoHandler {
 

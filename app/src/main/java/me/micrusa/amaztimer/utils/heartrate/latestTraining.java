@@ -1,4 +1,4 @@
-package me.micrusa.amaztimer.utils;
+package me.micrusa.amaztimer.utils.heartrate;
 
 import android.content.Context;
 
@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.utils.file;
 
 public class latestTraining {
 

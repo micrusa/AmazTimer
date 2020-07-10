@@ -1,4 +1,4 @@
-package me.micrusa.amaztimer.utils;
+package me.micrusa.amaztimer.utils.handlers;
 
 import android.content.Context;
 import android.os.CountDownTimer;
@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.widget.TextView;
 
 import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.utils.utils;
 
 public class timerHandler {
 
