@@ -109,37 +109,28 @@ public class TimerActivity extends AppCompatActivity {
 
     //Statuses
     private void working(){
-        if((utils.isModeManualSets() ? ++currSet : --currSet) == 0)
-            endTimer();
-        hrSensor.getInstance().newLap(Constants.STATUS_ACTIVE);
         updateStatus(true);
-        if(utils.getMode() > 0){
-            chronoHandler = new chronoHandler(intervaltime);
-        } else {
-            timerHandler = new timerHandler(intervaltime
-                    , timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)
-                    , this::resting, this);
-        }
     }
     private void resting(){
-        hrSensor.getInstance().newLap(Constants.STATUS_ACTIVE);
         updateStatus(false);
-        if(utils.getMode() >= 2){
-            chronoHandler = new chronoHandler(intervaltime);
-        } else {
-            timerHandler = new timerHandler(intervaltime
-                    , timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)
-                    , this::working, this);
-        }
     }
 
     private void updateStatus(boolean working){
         isWorking = working;
+        if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0) endTimer();
+        hrSensor.getInstance().newLap(working ? Constants.STATUS_ACTIVE : Constants.STATUS_RESTING);
         String text = getResources().getString(working ? R.string.work : R.string.rest);
         status.setBackground(getDrawable(working ? R.color.work : R.color.rest));
         status.setText(currSet + "|" + text);
         if(chronoHandler != null) chronoHandler.stop();
         if(timerHandler != null) timerHandler.stop();
+        if(utils.getMode() >= (working ? 1 : 2)){
+            chronoHandler = new chronoHandler(intervaltime);
+        } else {
+            timerHandler = new timerHandler(intervaltime
+                    , working ? timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME) : timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)
+                    , working ? this::resting : this::working, this);
+        }
     }
 
     //Destroy, pause, resume and button stuff
