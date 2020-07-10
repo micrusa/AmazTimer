@@ -16,20 +16,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
-import me.micrusa.amaztimer.utils.SystemProperties;
+import static me.micrusa.amaztimer.utils.SystemProperties.isStratos3;
 
 import static android.content.Context.POWER_SERVICE;
 
 //Big thanks to AmazMod team for this way of getting button presses
 
 public class buttonListener {
-    private final String FILE_PATH = "/dev/input/event2";
+    private static String FILE_PATH = "/dev/input/event2";
 
     private final int TYPE_KEYBOARD = 1;
 
-    public static final int KEY_DOWN = 64;
-    public static final int KEY_CENTER = 116;
-    public static final int KEY_UP = 63;
+    public static final int KEY_DOWN = 64; //S3 key middle up
+    public static final int KEY_CENTER = 116; //S3 key up
+    public static final int KEY_UP = 63; //S3 key middle down
 
     private final int KEY_EVENT_UP = 0;
     private final int KEY_EVENT_PRESS = 1;
@@ -51,10 +51,9 @@ public class buttonListener {
 
         if(listening)
             return;
-        else if(SystemProperties.isStratos3()){
-            Logger.debug("Stratos 3 detected, returning");
-            return;
-        }
+
+        if(isStratos3())
+             FILE_PATH = "/dev/input/event1";
 
         powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
@@ -98,15 +97,21 @@ public class buttonListener {
 
                     long now = System.currentTimeMillis();
 
+                    int buttonEventKey;
+
                     switch (code) {
                         case KEY_DOWN: {
                             if (value == KEY_EVENT_UP) {
+                                if(isStratos3())
+                                    buttonEventKey = buttonEvent.S3_KEY_MIDDLE_UP;
+                                else
+                                    buttonEventKey = buttonEvent.KEY_DOWN;
                                 long delta = now - lastKeyDownKeyDown;
                                 if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                    buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_DOWN));
+                                    buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
                                 } else {
                                     if (delta < TRIGGER) {
-                                        buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_DOWN));
+                                        buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
                                     }
                                 }
                             } else if (value == KEY_EVENT_PRESS) {
@@ -116,12 +121,16 @@ public class buttonListener {
                         }
                         case KEY_CENTER: {
                             if (value == KEY_EVENT_UP) {
+                                if(isStratos3())
+                                    buttonEventKey = buttonEvent.S3_KEY_UP;
+                                else
+                                    buttonEventKey = buttonEvent.KEY_CENTER;
                                 long delta = now - lastKeyCenterKeyUp;
                                 if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                    buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_CENTER));
+                                    buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
                                 } else {
                                     if (delta < TRIGGER) {
-                                        buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_CENTER));
+                                        buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
                                     }
                                 }
                             } else if (value == KEY_EVENT_PRESS) {
@@ -131,12 +140,16 @@ public class buttonListener {
                         }
                         case KEY_UP: {
                             if (value == KEY_EVENT_UP) {
+                                if(isStratos3())
+                                    buttonEventKey = buttonEvent.S3_KEY_MIDDLE_DOWN;
+                                else
+                                    buttonEventKey = buttonEvent.KEY_UP;
                                 long delta = now - lastKeyUpKeyUp;
                                 if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                    buttonInterface.onKeyEvent(new buttonEvent(true, buttonEvent.KEY_UP));
+                                    buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
                                 } else {
                                     if (delta < TRIGGER) {
-                                        buttonInterface.onKeyEvent(new buttonEvent(false, buttonEvent.KEY_UP));
+                                        buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
                                     }
                                 }
                             } else if (value == KEY_EVENT_PRESS) {
