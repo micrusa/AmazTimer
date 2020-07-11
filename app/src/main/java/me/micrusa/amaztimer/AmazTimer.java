@@ -26,6 +26,7 @@ public class AmazTimer extends Activity {
     private buttonListener buttonListener = new buttonListener();
     //Settings
     private boolean hasResumed = false;
+    private boolean hasLaunchedIntent = false;
     private file timerFile;
 
     private final View.OnClickListener plusMinusBtnListener = view -> plusMinusUpdates(view.getId(), false);
@@ -94,11 +95,6 @@ public class AmazTimer extends Activity {
         start.setOnLongClickListener(view -> launchIntent(new Intent(view.getContext(), SettingsActivity.class)));
     }
 
-    public void onStart() {
-        super.onStart();
-        setTexts();
-    }
-
     private void setTexts(){
         sets.setText(String.valueOf(timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS)));
         work.setText(utils.formatTime(timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)));
@@ -119,6 +115,12 @@ public class AmazTimer extends Activity {
         work = findViewById(R.id.work);
     }
 
+    public void onStart() {
+        super.onStart();
+        hasLaunchedIntent = false;
+        setTexts();
+    }
+
     public void onStop() {
         super.onStop();
         buttonListener.stop();
@@ -136,11 +138,15 @@ public class AmazTimer extends Activity {
 
     public void onResume() {
         hasResumed = true;
+        hasLaunchedIntent = false;
         setupBtnListener();
         super.onResume();
     }
 
     private boolean launchIntent(Intent intent){
+        if(hasLaunchedIntent)
+            return true;
+        hasLaunchedIntent = true;
         buttonListener.stop();
         startActivity(intent);
         return true;
