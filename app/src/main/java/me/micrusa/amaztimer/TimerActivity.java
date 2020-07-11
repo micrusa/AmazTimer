@@ -147,11 +147,12 @@ public class TimerActivity extends AppCompatActivity {
         setupBtnListener();
     }
     private void setupBtnListener(){
+        Handler handler = new Handler();
         buttonListener.start(this, ButtonEvent -> {
             if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                new Handler().post(() -> cancel.performLongClick());
+                handler.post(() -> cancel.performLongClick());
             else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
-                new Handler().post(() -> finishset.performClick());
+                handler.post(() -> finishset.performClick());
         });
     }
 }

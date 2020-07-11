@@ -153,11 +153,12 @@ public class AmazTimer extends Activity {
     }
 
     private void setupBtnListener(){
+        Handler handler = new Handler();
         buttonListener.start(this, ButtonEvent -> {
             if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                new Handler().post(() -> start.performClick());
+                handler.post(() -> start.performClick());
             else if(ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
-                new Handler().post(() -> start.performLongClick());
+                handler.post(() -> start.performLongClick());
         });
     }
 }
