@@ -9,6 +9,7 @@ import org.tinylog.Logger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.concurrent.Callable;
@@ -23,8 +24,6 @@ import static android.content.Context.POWER_SERVICE;
 //Big thanks to AmazMod team for this way of getting button presses
 
 public class buttonListener {
-    private static String FILE_PATH = "/dev/input/event2";
-
     private final int TYPE_KEYBOARD = 1;
 
     public static final int KEY_DOWN = 64; //S3 key middle up
@@ -45,30 +44,52 @@ public class buttonListener {
 
     private boolean listening;
 
-    ExecutorService executor;
+    Thread thread;
 
     public void start(Context context, final buttonInterface buttonInterface) {
-
         if(listening)
             return;
 
-        if(isStratos3())
-             FILE_PATH = "/dev/input/event1";
-
         powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+
+        listening = true;
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "AmazTimer:buttonListener");
-        wakeLock.acquire(60*60*1000L /*1 hour (Not too much because it will get released in stop())*/);
+        wakeLock.acquire();
+        thread = new listenerThread(buttonInterface);
+        thread.start();
+    }
 
-        FutureTask<Void> futureTask = new FutureTask<>(() -> {
+    public void stop() {
+        if (thread != null) {
+            thread.interrupt();
+            thread = null;
+            listening = false;
+        }
+        if (wakeLock != null && wakeLock.isHeld())
+            wakeLock.release();
+    }
 
-            long lastKeyDownKeyDown = 0;
-            long lastKeyCenterKeyUp = 0;
-            long lastKeyUpKeyUp = 0;
+    private class listenerThread extends Thread{
+        private String FILE_PATH;
 
+        private long lastKeyDownKeyDown = 0;
+        private long lastKeyCenterKeyUp = 0;
+        private long lastKeyUpKeyUp = 0;
+
+        private buttonInterface buttonInterface;
+
+        private listenerThread(buttonInterface bInterface){
+            if(isStratos3())
+                FILE_PATH = "/dev/input/event1";
+            else
+                FILE_PATH = "/dev/input/event2";
+
+            buttonInterface = bInterface;
+        }
+
+        public void run(){
             File file = new File(FILE_PATH);
-
-            listening = true;
 
             try {
                 FileInputStream fileInputStream = new FileInputStream(file);
@@ -163,25 +184,11 @@ public class buttonListener {
                         }
                     }
                 }
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 Logger.error(e);
             }
-
-            return null;
-        });
-
-        executor = Executors.newFixedThreadPool(1);
-        executor.execute(futureTask);
-    }
-
-    public void stop() {
-        if (executor != null) {
-            executor.shutdownNow();
-            executor = null;
-            listening = false;
         }
-        if (wakeLock != null && wakeLock.isHeld())
-            wakeLock.release();
+
     }
 
 }
