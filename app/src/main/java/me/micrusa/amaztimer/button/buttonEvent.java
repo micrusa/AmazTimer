@@ -12,9 +12,9 @@ public class buttonEvent {
     public static final int KEY_CENTER = 1;
     public static final int KEY_DOWN = 2;
 
-    public static final int S3_KEY_UP = 3;
-    public static final int S3_KEY_MIDDLE_UP = 4;
-    public static final int S3_KEY_MIDDLE_DOWN = 5;
+    static final int S3_KEY_UP = 3;
+    static final int S3_KEY_MIDDLE_UP = 4;
+    static final int S3_KEY_MIDDLE_DOWN = 5;
 
     private boolean isLongPress;
     private int key;
