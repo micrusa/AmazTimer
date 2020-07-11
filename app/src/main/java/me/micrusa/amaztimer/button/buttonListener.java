@@ -49,7 +49,7 @@ public class buttonListener {
 
     public void start(Context context, final buttonInterface buttonInterface) {
 
-        if(listening || buttonStore.isLocked())
+        if(listening)
             return;
 
         if(isStratos3())
@@ -69,7 +69,6 @@ public class buttonListener {
             File file = new File(FILE_PATH);
 
             listening = true;
-            buttonStore.lock();
 
             try {
                 FileInputStream fileInputStream = new FileInputStream(file);
@@ -180,7 +179,6 @@ public class buttonListener {
             executor.shutdownNow();
             executor = null;
             listening = false;
-            buttonStore.unlock();
         }
         if (wakeLock != null && wakeLock.isHeld())
             wakeLock.release();
