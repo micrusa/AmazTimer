@@ -12,40 +12,25 @@ import me.micrusa.amaztimer.utils.utils;
 
 public class LatestTrainActivity extends AppCompatActivity {
 
-    private TextView avghrText, maxhrText, minhrText, latestTrainText, hrzoneText, avghr, minhr, maxhr, kcal, hrzone;
+    private TextView avghr, minhr, maxhr, kcal, hrzone;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         setContentView(R.layout.activity_latest_train);
         this.init();
-        setupLang();
         setTexts();
     }
 
     private void init(){
         //Setup all textviews
-        avghrText = findViewById(R.id.avghrText);
-        maxhrText = findViewById(R.id.maxhrText);
-        minhrText = findViewById(R.id.minhrText);
-        latestTrainText = findViewById(R.id.latestTrainText);
-        hrzoneText = findViewById(R.id.hrzoneText);
         avghr = findViewById(R.id.avghr);
         minhr = findViewById(R.id.minhr);
         maxhr = findViewById(R.id.maxhr);
         kcal = findViewById(R.id.kcal);
         hrzone = findViewById(R.id.hrzone);
-    }
-
-    private void setupLang(){
-        //Set language and set all texts again
-        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
-        avghrText.setText(getResources().getString(R.string.averagehr));
-        maxhrText.setText(getResources().getString(R.string.maxhr));
-        minhrText.setText(getResources().getString(R.string.minhr));
-        latestTrainText.setText(getResources().getString(R.string.latesttrain));
-        hrzoneText.setText(getResources().getString(R.string.hrzone));
     }
 
     private void setTexts(){

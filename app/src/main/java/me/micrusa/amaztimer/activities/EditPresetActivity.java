@@ -18,7 +18,7 @@ import me.micrusa.amaztimer.utils.utils;
 public class EditPresetActivity extends AppCompatActivity {
 
     private Button plus, plus2, plus3, minus, minus2, minus3, edit;
-    private TextView sets, rest, work, settingstext, setsText, workText, restText;
+    private TextView settingstext, sets, rest, work;
     private OnClickListener plusMinusBtn;
     private OnLongClickListener longPlusMinusBtn;
     private OnClickListener editBtn;
@@ -26,6 +26,7 @@ public class EditPresetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         setContentView(R.layout.amaztimer);
         final int PresetID = getIntent().getIntExtra("ID", 0);
         //Finish activity if received wrong ID (<=0 or >=3)
@@ -140,22 +141,11 @@ public class EditPresetActivity extends AppCompatActivity {
         rest = this.findViewById(R.id.rest);
         work = this.findViewById(R.id.work);
         settingstext = this.findViewById(R.id.textView);
-        setsText = this.findViewById(R.id.textView4);
-        workText = this.findViewById(R.id.textView5);
-        restText = this.findViewById(R.id.textView6);
     }
 
     private void startActivity(int PresetID) {
-        //Set lang
-        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
         //Make settings text invisible
         settingstext.setVisibility(View.GONE);
-        //Set all texts again
-        Resources res = this.getResources();
-        setsText.setText(res.getString(R.string.sets));
-        workText.setText(res.getString(R.string.work));
-        restText.setText(res.getString(R.string.rest));
-        edit.setText(res.getString(R.string.edit));
         //Set times to values in file
         file file = new file("preset" + PresetID);
         setTimeTexts(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS),
