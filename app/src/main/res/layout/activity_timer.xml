@@ -189,7 +189,7 @@
         android:layout_width="30dp"
         android:layout_height="3dp"
         android:layout_marginBottom="5dp"
-        android:background="@color/zonehigh"
+        android:background="@color/zonedefault"
         app:layout_constraintBottom_toTopOf="@+id/text_heartrate"
         app:layout_constraintEnd_toEndOf="@+id/heartrate"
         app:layout_constraintStart_toStartOf="@+id/heartrate" />
