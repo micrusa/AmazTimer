@@ -7,4 +7,10 @@
     <color name="divider">#660606</color>
     <color name="work">#ff0000</color>
     <color name="rest">#00ff49</color>
+    <color name="zonedefault">#99FFFFFF</color>
+    <color name="zonelow">#15ff00</color>
+    <color name="zonelowmid">#e5ff00</color>
+    <color name="zonemid">#e5ff00</color>
+    <color name="zonemidhigh">#ffa200</color>
+    <color name="zonehigh">#ff0000</color>
 </resources>

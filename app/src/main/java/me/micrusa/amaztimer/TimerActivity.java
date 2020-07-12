@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import me.micrusa.amaztimer.button.buttonEvent;
 import me.micrusa.amaztimer.button.buttonListener;
 import me.micrusa.amaztimer.utils.handlers.chronoHandler;
 import me.micrusa.amaztimer.utils.file;
+import me.micrusa.amaztimer.utils.handlers.hrZoneHandler;
 import me.micrusa.amaztimer.utils.heartrate.hrSensor;
 import me.micrusa.amaztimer.utils.handlers.timeHandler;
 import me.micrusa.amaztimer.utils.handlers.timerHandler;
@@ -25,16 +27,18 @@ public class TimerActivity extends AppCompatActivity {
     private TextView time, status, intervaltime, heartrate;
     private Chronometer elapsedtime;
     private Button cancel, finishset;
+    private View hrZoneView;
 
     private timerHandler timerHandler;
-    private me.micrusa.amaztimer.utils.handlers.timeHandler timeHandler;
+    private timeHandler timeHandler;
+    public hrZoneHandler hrZoneHandler;
+    private chronoHandler chronoHandler;
 
     private boolean hasResumed;
     private boolean isWorking;
     private boolean hasFinished;
     private int currSet;
 
-    private me.micrusa.amaztimer.utils.handlers.chronoHandler chronoHandler;
     private me.micrusa.amaztimer.button.buttonListener buttonListener = new buttonListener();
 
     private void init(){
@@ -49,6 +53,8 @@ public class TimerActivity extends AppCompatActivity {
         elapsedtime = findViewById(R.id.totaltime);
         cancel = findViewById(R.id.cancel);
         finishset = findViewById(R.id.finishset);
+        hrZoneView = findViewById(R.id.hrzoneView);
+        hrZoneHandler = new hrZoneHandler(hrZoneView);
         setupBtnListener();
         //Setup onClickListeners
         cancel.setOnLongClickListener(view -> endActivity());
@@ -73,7 +79,10 @@ public class TimerActivity extends AppCompatActivity {
         elapsedtime.setBase(SystemClock.elapsedRealtime());
         elapsedtime.start();
 
-        hrSensor.initialize(hr -> heartrate.setText(String.valueOf(hr)));
+        hrSensor.initialize(hr -> {
+            heartrate.setText(String.valueOf(hr));
+            hrZoneHandler.addHrValue(hr);
+        });
         if(settingsFile.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH))
             hrSensor.getInstance().registerListener(this); //Register if hr enabled
 

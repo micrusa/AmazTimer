@@ -40,17 +40,8 @@ public class LatestTrainActivity extends AppCompatActivity {
         maxhr.setText(String.valueOf(file.get(defValues.SETTINGS_MAXHR, defValues.DEFAULT_HR_VALUES)));
         minhr.setText(String.valueOf(file.get(defValues.SETTINGS_MINHR, defValues.DEFAULT_HR_VALUES)));
         kcal.setText(String.valueOf(file.get(defValues.SETTINGS_KCAL, defValues.DEFAULT_HR_VALUES)));
-        hrzone.setText(hrZonePercentage(file.get(defValues.SETTINGS_AVGHR, defValues.DEFAULT_HR_VALUES)));
+        hrzone.setText(utils.hrZonePercentage(file.get(defValues.SETTINGS_AVGHR, defValues.DEFAULT_HR_VALUES)));
     }
 
-    private String hrZonePercentage(int avgHr){
-        file bodyFile = new file(defValues.BODY_FILE);
-        if(avgHr == 0 | bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE) == 0){
-            return "--";
-        }
-        //noinspection UnnecessaryCallToStringValueOf
-        return String.valueOf(avgHr * 100 /
-                (220 - bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE)))
-                + "%";
-    }
+
 }

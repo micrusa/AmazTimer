@@ -28,6 +28,7 @@ public class hrSensor implements SensorEventListener {
     private long startTime;
     private int accuracy = 2;
     private String latestHrTime;
+    private int latestHr = 0;
 
     private static hrSensor hrSensor;
 
@@ -56,7 +57,10 @@ public class hrSensor implements SensorEventListener {
         int v = (int) event.values[0];
         if (isAccuracyValid() && v > 25 && v < 230 /*Limit to range 25-230 to avoid fake readings*/) {
             //Get hr value and set the text if battery saving mode is disabled
-            listener.onHrChanged(v);
+            if(latestHr != v){
+                listener.onHrChanged(v);
+                latestHr = v;
+            }
             //Send hr value to latestTraining array
             latestTraining.addHrValue(v);
             //Set latest hr value

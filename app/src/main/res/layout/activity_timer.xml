@@ -12,11 +12,11 @@
         android:id="@+id/text_heartrate"
         android:layout_width="67dp"
         android:layout_height="12dp"
+        android:fontFamily="@font/applemint"
         android:text="@string/heartrate"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="8sp"
-        android:fontFamily="@font/applemint"
         app:layout_constraintBottom_toTopOf="@+id/view5"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -183,5 +183,15 @@
         app:layout_constraintBottom_toTopOf="@+id/view5"
         app:layout_constraintEnd_toStartOf="@+id/text_heartrate"
         app:layout_constraintStart_toEndOf="@+id/view3" />
+
+    <View
+        android:id="@+id/hrzoneView"
+        android:layout_width="30dp"
+        android:layout_height="3dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/zonehigh"
+        app:layout_constraintBottom_toTopOf="@+id/text_heartrate"
+        app:layout_constraintEnd_toEndOf="@+id/heartrate"
+        app:layout_constraintStart_toStartOf="@+id/heartrate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

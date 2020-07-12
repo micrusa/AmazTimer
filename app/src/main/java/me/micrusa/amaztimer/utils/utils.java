@@ -83,4 +83,17 @@ public class utils {
         return getMode() == 2;
     }
 
+    public static String hrZonePercentage(int hr){
+        return hrZonePercentageInt(hr) + "%";
+    }
+
+    public static int hrZonePercentageInt(int hr){
+        file bodyFile = new file(defValues.BODY_FILE);
+        if(hr == 0 | bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE) == 0){
+            return 0;
+        }
+        //noinspection UnnecessaryCallToStringValueOf
+        return hr * 100 / (220 - bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE));
+    }
+
 }
