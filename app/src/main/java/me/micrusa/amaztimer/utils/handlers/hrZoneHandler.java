@@ -4,19 +4,26 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import me.micrusa.amaztimer.R;
+import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.utils;
 
 public class hrZoneHandler {
 
     private View hrView;
     private int latestHrZone = 0;
+    private boolean enable;
 
     public hrZoneHandler(View hrView){
         this.hrView = hrView;
+        enable = Prefs.getBoolean(defValues.KEY_HRZONE, true);
     }
 
     public void addHrValue(int value){
+        if(!enable)
+            return;
         int hrZone = utils.hrZonePercentageInt(value);
         if (latestHrZone != hrZone){
             latestHrZone = hrZone;

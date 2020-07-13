@@ -49,6 +49,20 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/customization">
+
+        <SwitchPreferenceCompat
+            app:key="hrzone"
+            app:defaultValue="true"
+            android:defaultValue="true"
+            app:title="@string/enablehrzone" />
+
+        <SwitchPreferenceCompat
+            app:key="invertkeys"
+            app:title="@string/invertkeys" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/misc">
 
         <Preference

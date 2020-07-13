@@ -1,5 +1,9 @@
 package me.micrusa.amaztimer.button;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
+import me.micrusa.amaztimer.defValues;
+
 import static me.micrusa.amaztimer.utils.SystemProperties.isPace;
 import static me.micrusa.amaztimer.utils.SystemProperties.isStratos;
 import static me.micrusa.amaztimer.utils.SystemProperties.isStratos3;
@@ -17,11 +21,13 @@ public class buttonEvent {
     static final int S3_KEY_MIDDLE_DOWN = 5;
 
     private boolean isLongPress;
+    private boolean isInverted;
     private int key;
 
     public buttonEvent(boolean IsLongPress, int Key){
         this.isLongPress = IsLongPress;
         this.key = Key;
+        this.isInverted = Prefs.getBoolean(defValues.KEY_INVERTKEYS, false);
     }
 
     public boolean isLongPress(){
@@ -31,19 +37,28 @@ public class buttonEvent {
     public int getKey(){
         if(isPace() || isVerge() || (isStratosNewKeys() && key == KEY_CENTER)){ //Pace / Verge / Stratos new keys center button
             if(isLongPress()) //Long press = key down
-                return KEY_DOWN;
+                return isInverted ? KEY_UP : KEY_DOWN;
             else //Short press = upper key
-                return KEY_UP;
+                return isInverted ? KEY_DOWN : KEY_UP;
         } else if(isStratos3())
             switch(key){
                 case S3_KEY_UP:
-                    return KEY_DOWN;
+                    return isInverted ? KEY_UP : KEY_DOWN;
                 case S3_KEY_MIDDLE_UP:
-                    return KEY_UP;
+                    return isInverted ? KEY_DOWN : KEY_UP;
                 case S3_KEY_MIDDLE_DOWN:
                     return KEY_CENTER;
             }
-        return this.key; //If nothing was returned return just the key, also old layout will return true key
+        else if(isStratos() && !isStratosNewKeys())
+            switch(key){
+                case KEY_UP:
+                    return isInverted ? KEY_DOWN : KEY_UP;
+                case KEY_CENTER:
+                    return KEY_CENTER;
+                case KEY_DOWN:
+                    return isInverted ? KEY_UP : KEY_DOWN;
+            }
+        return -5; //If nothing returned return -5 to not trigger anything
     }
 
 }

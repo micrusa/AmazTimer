@@ -48,4 +48,7 @@
     <string name="time">Tiempo</string>
     <string name="currentset">Serie actual</string>
     <string name="heartrate">Ritmo cardiaco</string>
+    <string name="customization">Personalización</string>
+    <string name="invertkeys">Invertir botones</string>
+    <string name="enablehrzone">Activar zona RC en tiempo real</string>
 </resources>
