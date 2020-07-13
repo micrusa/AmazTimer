@@ -34,7 +34,7 @@ public class hrSensor implements SensorEventListener {
     private int latestHr = 0;
 
     private static hrSensor hrSensor;
-    private Thread experimentalThread;
+    private experimentalSensor experimentalSensor;
 
     //All tcx needed stuff
     private String currentLapStatus = Constants.STATUS_RESTING;
@@ -93,8 +93,8 @@ public class hrSensor implements SensorEventListener {
         this.startTime = System.currentTimeMillis();
         //Register listener taking into account experimental sensor
         if(Prefs.getBoolean(defValues.KEY_HREXPERIMENT, false)){
-            experimentalThread = new experimentalSensor(new Handler(), context);
-            experimentalThread.start();
+            experimentalSensor = new experimentalSensor(new Handler(), context);
+            experimentalSensor.register();
         } else {
             SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
             sm.registerListener(this, sm.getDefaultSensor(defValues.HRSENSOR), defValues.HRSENSOR_DELAY);
@@ -108,8 +108,8 @@ public class hrSensor implements SensorEventListener {
 
     public void unregisterListener(Context context) {
         //Unregister listener
-        if(Prefs.getBoolean(defValues.KEY_HREXPERIMENT, false) && experimentalThread != null && !experimentalThread.isInterrupted())
-            experimentalThread.interrupt();
+        if(Prefs.getBoolean(defValues.KEY_HREXPERIMENT, false) && experimentalSensor != null)
+            experimentalSensor.unregister();
         else {
             SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
             sm.unregisterListener(this);
@@ -158,7 +158,7 @@ public class hrSensor implements SensorEventListener {
         void onHrChanged(int hr);
     }
 
-    private class experimentalSensor extends Thread implements SensorEventListener{
+    private class experimentalSensor implements SensorEventListener{
 
         private Handler handler;
         private Context context;
@@ -174,11 +174,6 @@ public class hrSensor implements SensorEventListener {
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            if(Thread.currentThread().isInterrupted()){
-                SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-                sm.unregisterListener(this);
-                return;
-            }
             long now = System.currentTimeMillis();
             totalDataThisBatch += (int) event.values[0] / 100;
             currentBatchSize++;
@@ -196,10 +191,16 @@ public class hrSensor implements SensorEventListener {
             handler.post(() -> hrSensor.this.onAccuracyChanged(sensor, accuracy));
         }
 
-        public void run(){
+        public void register(){
             SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
             sm.registerListener(this, sm.getDefaultSensor(65538 /*PPG Sensor*/),
-                    200_000 /*It's much faster*/, 500_000 /*500ms batching*/);
+                    200_000 /*It's much faster*/, 500_000 /*500ms batching*/,
+                    new Handler() /*Use a handler to avoid freezes*/);
+        }
+
+        public void unregister(){
+            SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+            sm.unregisterListener(this);
         }
     }
 }
