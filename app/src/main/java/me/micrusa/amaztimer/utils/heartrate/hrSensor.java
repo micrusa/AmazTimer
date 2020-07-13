@@ -21,7 +21,6 @@ import me.micrusa.amaztimer.TCX.data.Lap;
 import me.micrusa.amaztimer.TCX.data.TCXData;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
 import me.micrusa.amaztimer.defValues;
-import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.prefUtils;
 import me.micrusa.amaztimer.utils.utils;
 
@@ -31,7 +30,7 @@ public class hrSensor implements SensorEventListener {
     private final me.micrusa.amaztimer.utils.heartrate.latestTraining latestTraining = new latestTraining();
     private long startTime;
     private int accuracy = 2;
-    private String latestHrTime;
+    private String latestTrackpointTime;
     private int latestHr = 0;
 
     private static hrSensor hrSensor;
@@ -69,9 +68,10 @@ public class hrSensor implements SensorEventListener {
             //Set latest hr value
             String currentDate = TCXUtils.formatDate(new Date());
             //Create Trackpoint and add it to current Lap
-            if (!currentDate.equals(this.latestHrTime)) //This will limit trackpoints to 1/s
+            if (!currentDate.equals(this.latestTrackpointTime) && Prefs.getBoolean(defValues.KEY_TCX, defValues.DEFAULT_TCX)) { //This will limit trackpoints to 1/s
                 currentLap.addTrackpoint(new Trackpoint(v, new Date()));
-            this.latestHrTime = currentDate;
+                this.latestTrackpointTime = currentDate;
+            }
         }
     }
 
@@ -177,6 +177,7 @@ public class hrSensor implements SensorEventListener {
             if(Thread.currentThread().isInterrupted()){
                 SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
                 sm.unregisterListener(this);
+                return;
             }
             long now = System.currentTimeMillis();
             totalDataThisBatch += (int) event.values[0] / 100;
