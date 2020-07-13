@@ -2,6 +2,7 @@ package me.micrusa.amaztimer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -9,6 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+
+import com.pixplicity.easyprefs.library.Prefs;
+
+import java.util.prefs.Preferences;
 
 import me.micrusa.amaztimer.activities.PrepareActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
@@ -27,15 +32,14 @@ public class AmazTimer extends Activity {
     //Settings
     private boolean hasResumed = false;
     private boolean hasLaunchedIntent = false;
-    private file timerFile;
 
     private final View.OnClickListener plusMinusBtnListener = view -> plusMinusUpdates(view.getId(), false);
     private final View.OnLongClickListener plusMinusBtnLongListener = view -> plusMinusUpdates(view.getId(), true);
 
     private boolean plusMinusUpdates(int id, boolean longClick){
-        int sets = timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
-        int workTime = timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
-        int restTime = timerFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+        int sets = Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS);
+        int workTime = Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME);
+        int restTime = Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME);
         //Increase or decrease the value that user clicked
         switch(id){
             case R.id.plus:
@@ -59,7 +63,9 @@ public class AmazTimer extends Activity {
             default:
                 break;
         }
-        utils.pushToFile(timerFile, sets, workTime, restTime);
+        Prefs.putInt(defValues.KEY_SETS, sets);
+        Prefs.putInt(defValues.KEY_WORK, workTime);
+        Prefs.putInt(defValues.KEY_REST, restTime);
         setTexts();
         return true;
     }
@@ -70,7 +76,8 @@ public class AmazTimer extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+        utils.setupPrefs(this);
+        utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
         setContentView(SystemProperties.isStratos3() || SystemProperties.isVerge() ? R.layout.round_amaztimer : R.layout.amaztimer);
         this.init();
         setupBtnListener();
@@ -89,20 +96,19 @@ public class AmazTimer extends Activity {
         minus3.setOnLongClickListener(plusMinusBtnLongListener);
 
         start.setOnClickListener(view -> launchIntent(new Intent(view.getContext(),
-                new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_ENABLEPREPARE, false)
+                Prefs.getBoolean(defValues.KEY_ENABLEPREPARE, false)
                         ? PrepareActivity.class : TimerActivity.class)));
 
         start.setOnLongClickListener(view -> launchIntent(new Intent(view.getContext(), SettingsActivity.class)));
     }
 
     private void setTexts(){
-        sets.setText(String.valueOf(timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS)));
-        work.setText(utils.formatTime(timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)));
-        rest.setText(utils.formatTime(timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)));
+        sets.setText(String.valueOf(Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS)));
+        work.setText(utils.formatTime(Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME)));
+        rest.setText(utils.formatTime(Prefs.getInt(defValues.KEY_REST, defValues.DEF_WORKTIME)));
     }
 
     private void init() {
-        timerFile = new file(defValues.TIMER_FILE);
         plus = findViewById(R.id.plus);
         plus2 = findViewById(R.id.plus2);
         plus3 = findViewById(R.id.plus3);

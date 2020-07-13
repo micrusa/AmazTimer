@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
@@ -26,7 +28,8 @@ public class EditPresetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+        utils.setupPrefs(this);
+        utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
         setContentView(R.layout.amaztimer);
         final int PresetID = getIntent().getIntExtra("ID", 0);
         //Finish activity if received wrong ID (<=0 or >=3)
@@ -43,9 +46,9 @@ public class EditPresetActivity extends AppCompatActivity {
         final me.micrusa.amaztimer.utils.file finalFile = new file("preset" + PresetID);
         plusMinusBtn = v -> {
             //Get values from file
-            int sets = finalFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
-            int work = finalFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
-            int rest = finalFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+            int sets = Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS);
+            int work = Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME);
+            int rest = Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME);
             //Increase or decrease values
             switch (v.getId()) {
                 case R.id.plus:
@@ -76,8 +79,8 @@ public class EditPresetActivity extends AppCompatActivity {
 
         longPlusMinusBtn = v -> {
             //Get values from file
-            int sets = finalFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
-            int work = finalFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
+            int sets = Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS);;
+            int work = Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME);
             int rest = finalFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
             //Increase or decrease values
             switch (v.getId()) {
@@ -148,8 +151,8 @@ public class EditPresetActivity extends AppCompatActivity {
         settingstext.setVisibility(View.GONE);
         //Set times to values in file
         file file = new file("preset" + PresetID);
-        setTimeTexts(file.get(defValues.SETTINGS_SETS, defValues.DEF_SETS),
-                file.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME),
+        setTimeTexts(Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS),
+                Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME),
                 file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
     }
 

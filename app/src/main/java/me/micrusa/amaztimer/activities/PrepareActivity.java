@@ -8,6 +8,8 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.widget.TextView;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.TimerActivity;
 import me.micrusa.amaztimer.defValues;
@@ -27,8 +29,8 @@ public class PrepareActivity extends AppCompatActivity {
     }
 
     private void init(){
-        utils.setLang(this, new file(defValues.SETTINGS_FILE)
-                .get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+        utils.setupPrefs(this);
+        utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
         setContentView(R.layout.activity_prepare);
         timer = findViewById(R.id.prepareTime);
     }

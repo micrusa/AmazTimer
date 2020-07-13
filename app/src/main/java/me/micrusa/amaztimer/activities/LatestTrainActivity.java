@@ -5,6 +5,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
@@ -18,7 +20,8 @@ public class LatestTrainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+        utils.setupPrefs(this);
+        utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
         setContentView(R.layout.activity_latest_train);
         this.init();
         setTexts();
@@ -35,12 +38,11 @@ public class LatestTrainActivity extends AppCompatActivity {
 
     private void setTexts(){
         //Set all values texts
-        file file = new file(defValues.LATEST_TRAIN_FILE);
-        avghr.setText(String.valueOf(file.get(defValues.SETTINGS_AVGHR, defValues.DEFAULT_HR_VALUES)));
-        maxhr.setText(String.valueOf(file.get(defValues.SETTINGS_MAXHR, defValues.DEFAULT_HR_VALUES)));
-        minhr.setText(String.valueOf(file.get(defValues.SETTINGS_MINHR, defValues.DEFAULT_HR_VALUES)));
-        kcal.setText(String.valueOf(file.get(defValues.SETTINGS_KCAL, defValues.DEFAULT_HR_VALUES)));
-        hrzone.setText(utils.hrZonePercentage(file.get(defValues.SETTINGS_AVGHR, defValues.DEFAULT_HR_VALUES)));
+        avghr.setText(String.valueOf(Prefs.getInt(defValues.KEY_AVGHR, defValues.DEFAULT_HR_VALUES)));
+        maxhr.setText(String.valueOf(Prefs.getInt(defValues.KEY_MAXHR, defValues.DEFAULT_HR_VALUES)));
+        minhr.setText(String.valueOf(Prefs.getInt(defValues.KEY_MINHR, defValues.DEFAULT_HR_VALUES)));
+        kcal.setText(String.valueOf(Prefs.getInt(defValues.KEY_KCAL, defValues.DEFAULT_HR_VALUES)));
+        hrzone.setText(utils.hrZonePercentage(Prefs.getInt(defValues.KEY_AVGHR, defValues.DEFAULT_HR_VALUES)));
     }
 
 

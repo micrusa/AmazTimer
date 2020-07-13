@@ -1,6 +1,7 @@
 package me.micrusa.amaztimer.activities;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.Preference.OnPreferenceClickListener;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
+
+import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
@@ -24,7 +27,8 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Set language before creating preferences
-        utils.setLang(this, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+        utils.setupPrefs(this);
+        utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
         setContentView(R.layout.settings_activity);
         getSupportFragmentManager()
                 .beginTransaction()
@@ -33,37 +37,14 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private static final OnPreferenceChangeListener onPreferenceChangeListener = (preference, newValue) -> {
-        file file = new file(defValues.SETTINGS_FILE);
-        file bodyFile = new file(defValues.BODY_FILE);
-
         SwitchPreferenceCompat repsMode = preference.getPreferenceManager().findPreference(defValues.KEY_REPSMODE);
         SwitchPreferenceCompat workoutMode = preference.getPreferenceManager().findPreference(defValues.KEY_WORKOUT);
 
+        Resources res = preference.getContext().getResources();
+
         String key = preference.getKey();
         switch (key) {
-            case defValues.KEY_HRTOGGLE:
-                file.set(defValues.SETTINGS_HRSWITCH, (Boolean) newValue);
-                break;
-            case defValues.KEY_LANG:
-                file.set(defValues.SETTINGS_LANG, newValue.toString());
-                break;
-            case defValues.KEY_GENDER:
-                bodyFile.set(defValues.SETTINGS_MALE, Boolean.parseBoolean(newValue.toString()));
-                break;
-            case defValues.KEY_AGE:
-                int age = defValues.CURRENT_YEAR - Integer.parseInt((String) newValue);
-                bodyFile.set(defValues.SETTINGS_AGE, age);
-                preference.setSummary(String.valueOf(age) + " " + preference.getContext().getResources().getString(R.string.ageyo));
-                break;
-            case defValues.KEY_WEIGHT:
-                bodyFile.set(defValues.SETTINGS_WEIGHT, Integer.parseInt((String) newValue));
-                preference.setSummary(newValue + "Kg");
-                break;
-            case defValues.KEY_SOUND:
-                file.set(defValues.SETTINGS_SOUND, (Boolean) newValue);
-                break;
             case defValues.KEY_REPSMODE:
-                file.set(defValues.SETTINGS_REPSMODE, (Boolean) newValue);
                 if ((Boolean) newValue) {
                     workoutMode.setEnabled(false);
                 } else {
@@ -71,17 +52,17 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 break;
             case defValues.KEY_WORKOUT:
-                file.set(defValues.SETTINGS_WORKOUTMODE, (Boolean) newValue);
                 if ((Boolean) newValue) {
                     repsMode.setEnabled(false);
                 } else {
                     repsMode.setEnabled(true);
                 }
                 break;
-            case defValues.KEY_ENABLEPREPARE:
-                file.set(defValues.SETTINGS_ENABLEPREPARE, (Boolean) newValue);
-            case defValues.KEY_TCX:
-                file.set(defValues.SETTINGS_TCX, (Boolean) newValue);
+            case defValues.KEY_AGE:
+                preference.setSummary(String.valueOf(defValues.CURRENT_YEAR - Integer.parseInt((String) newValue)) + res.getString(R.string.ageyo));
+                break;
+            case defValues.KEY_WEIGHT:
+                preference.setSummary((String) newValue + "Kg");
                 break;
         }
         return true;
@@ -115,30 +96,20 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            SwitchPreferenceCompat hrSwitch = findPreference(defValues.KEY_HRTOGGLE);
             SwitchPreferenceCompat repsMode = findPreference(defValues.KEY_REPSMODE);
             SwitchPreferenceCompat workoutMode = findPreference(defValues.KEY_WORKOUT);
-            SwitchPreferenceCompat enablePrepare = findPreference(defValues.KEY_ENABLEPREPARE);
-            SwitchPreferenceCompat enableTcx = findPreference(defValues.KEY_TCX);
             SwitchPreferenceCompat enableSound = findPreference(defValues.KEY_SOUND);
-            hrSwitch.setOnPreferenceChangeListener(onPreferenceChangeListener);
             repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             workoutMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            enablePrepare.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            enableTcx.setOnPreferenceChangeListener(onPreferenceChangeListener);
             //enableSound only visible for verge
-            enableSound.setOnPreferenceChangeListener(onPreferenceChangeListener);
             enableSound.setVisible(SystemProperties.isVerge());
-            ListPreference lang = findPreference(defValues.KEY_LANG);
-            ListPreference gender = findPreference(defValues.KEY_GENDER);
-            lang.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            gender.setOnPreferenceChangeListener(onPreferenceChangeListener);
             Preference presets = findPreference(defValues.KEY_SAVED);
             Preference latestTrain = findPreference(defValues.KEY_LATESTTRAIN);
             Preference appInfo = findPreference(defValues.KEY_APPINFO);
             presets.setOnPreferenceClickListener(OnPreferenceClickListener);
             latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
             appInfo.setOnPreferenceClickListener(OnPreferenceClickListener);
+
             ListPreference age = findPreference(defValues.KEY_AGE);
             ListPreference weight = findPreference(defValues.KEY_WEIGHT);
 
@@ -168,11 +139,10 @@ public class SettingsActivity extends AppCompatActivity {
                 weight.setSummary(defValues.DEFAULT_WEIGHT + weight.getSummary().toString());
             age.setOnPreferenceChangeListener(onPreferenceChangeListener);
             weight.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            file settingsFile = new file(defValues.SETTINGS_FILE);
 
-            if (settingsFile.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE)){
+            if (Prefs.getBoolean(defValues.KEY_WORKOUT, false)){
                 repsMode.setEnabled(false);
-            } else if (settingsFile.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE)){
+            } else if (Prefs.getBoolean(defValues.KEY_REPSMODE, false)){
                 workoutMode.setEnabled(false);
             }
         }

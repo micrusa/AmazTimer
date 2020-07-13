@@ -1,9 +1,12 @@
 package me.micrusa.amaztimer.utils;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
+
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,7 +24,7 @@ public class utils {
 
     public static void vibrate(int time, Context context, boolean sound){
         if(sound && SystemProperties.isVerge()
-                && new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_SOUND, defValues.DEFAULT_SOUND))
+                && Prefs.getBoolean(defValues.KEY_SOUND, defValues.DEFAULT_SOUND))
             MediaPlayer.create(context, R.raw.beep).start();
         Vibrator v = (Vibrator) context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         if (v != null) {
@@ -35,6 +38,15 @@ public class utils {
         return df.format(new Date(seconds * 1000));
     }
 
+    public static void setupPrefs(Context context){
+        new Prefs.Builder()
+                .setContext(context)
+                .setMode(ContextWrapper.MODE_PRIVATE)
+                .setPrefsName(context.getPackageName())
+                .setUseDefaultSharedPreference(true)
+                .build();
+    }
+
     public static void setLang(Context context, String lang) {
         Locale locale = new Locale(lang);
         Configuration config = new Configuration(context.getResources().getConfiguration());
@@ -42,6 +54,8 @@ public class utils {
         config.setLocale(locale);
         context.getResources().updateConfiguration(config,
                 context.getResources().getDisplayMetrics());
+        //Also configure easyprefs so that I don't have to add it everywhere
+        setupPrefs(context);
     }
 
     public static void pushToFile(file f, int sets, int work, int rest) {
@@ -71,10 +85,9 @@ public class utils {
     }
 
     public static int getMode(){
-        file settings = new file(defValues.SETTINGS_FILE);
-        if(settings.get(defValues.SETTINGS_REPSMODE, defValues.DEFAULT_REPSMODE))
+        if(Prefs.getBoolean(defValues.KEY_REPSMODE, false))
             return 1;
-        if(settings.get(defValues.SETTINGS_WORKOUTMODE, defValues.DEFAULT_WORKOUTMODE))
+        if(Prefs.getBoolean(defValues.KEY_WORKOUT, false))
             return 2;
         else return 0;
     }
@@ -88,12 +101,11 @@ public class utils {
     }
 
     public static int hrZonePercentageInt(int hr){
-        file bodyFile = new file(defValues.BODY_FILE);
-        if(hr == 0 | bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE) == 0){
+        if(hr == 0 | prefUtils.getAge() == 0){
             return 0;
         }
         //noinspection UnnecessaryCallToStringValueOf
-        return hr * 100 / (220 - bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE));
+        return hr * 100 / (220 - prefUtils.getAge());
     }
 
 }

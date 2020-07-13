@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import me.micrusa.amaztimer.AmazTimer;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
@@ -43,9 +45,10 @@ public class PresetsActivity extends AppCompatActivity {
         }
         //If array is null return
         if(array == null) return;
-        file f = new file(defValues.TIMER_FILE);
-        //Save values to timer file
-        utils.pushToFile(f, array[0], array[1], array[2]);
+        //Save data
+        Prefs.putInt(defValues.KEY_SETS, array[0]);
+        Prefs.putInt(defValues.KEY_WORK, array[1]);
+        Prefs.putInt(defValues.KEY_REST, array[2]);
         //Open main class
         Intent intent = new Intent(v.getContext(), AmazTimer.class);
         v.getContext().startActivity(intent);

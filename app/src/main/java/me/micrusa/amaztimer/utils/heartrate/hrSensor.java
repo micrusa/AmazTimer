@@ -8,6 +8,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.Toast;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import java.util.Date;
 
 import me.micrusa.amaztimer.R;
@@ -19,6 +21,7 @@ import me.micrusa.amaztimer.TCX.data.TCXData;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.file;
+import me.micrusa.amaztimer.utils.prefUtils;
 import me.micrusa.amaztimer.utils.utils;
 
 @SuppressWarnings("CanBeFinal")
@@ -80,6 +83,7 @@ public class hrSensor implements SensorEventListener {
     }
 
     public void registerListener(Context context) {
+        utils.setupPrefs(context);
         //Clean all values to avoid merging other values
         latestTraining.cleanAllValues();
         //Register listener with delay in defValues class
@@ -102,11 +106,11 @@ public class hrSensor implements SensorEventListener {
         long endTime = System.currentTimeMillis();
         int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
         latestTraining.saveDataToFile(context, totalTimeInSeconds);
-        if (new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_TCX, defValues.DEFAULT_TCX)) {
+        if (Prefs.getBoolean(defValues.KEY_TCX, defValues.DEFAULT_TCX)) {
             addCurrentLap();
             boolean result = SaveTCX.saveToFile(this.TCXData);
             resetTcxData();
-            utils.setLang(context, new file(defValues.SETTINGS_FILE).get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+            utils.setLang(context, Prefs.getString(defValues.KEY_LANG, "en"));
             if (result)
                 Toast.makeText(context, R.string.tcxexporting, Toast.LENGTH_SHORT).show();
             else
@@ -125,10 +129,9 @@ public class hrSensor implements SensorEventListener {
         if (this.currentLap != null) {
             this.currentLap.setIntensity(this.currentLapStatus);
             this.currentLap.endLap(System.currentTimeMillis());
-            file bodyFile = new file(defValues.BODY_FILE);
-            this.currentLap.calcCalories(bodyFile.get(defValues.SETTINGS_AGE, defValues.DEFAULT_AGE),
-                    bodyFile.get(defValues.SETTINGS_WEIGHT, defValues.DEFAULT_WEIGHT),
-                    bodyFile.get(defValues.SETTINGS_MALE, defValues.DEFAULT_MALE));
+            this.currentLap.calcCalories(prefUtils.getAge(),
+                    prefUtils.getWeight(),
+                    prefUtils.isMale());
             this.TCXData.addLap(this.currentLap);
         }
     }

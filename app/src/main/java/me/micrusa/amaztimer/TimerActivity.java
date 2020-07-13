@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.button.buttonEvent;
 import me.micrusa.amaztimer.button.buttonListener;
@@ -42,9 +44,8 @@ public class TimerActivity extends AppCompatActivity {
     private me.micrusa.amaztimer.button.buttonListener buttonListener = new buttonListener();
 
     private void init(){
-        settingsFile = new file(defValues.SETTINGS_FILE);
-        timerFile = new file(defValues.TIMER_FILE);
-        utils.setLang(this, settingsFile.get(defValues.SETTINGS_LANG, defValues.DEFAULT_LANG));
+        utils.setupPrefs(this);
+        utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
         setContentView(R.layout.activity_timer);
         time = findViewById(R.id.time);
         status = findViewById(R.id.status);
@@ -83,17 +84,17 @@ public class TimerActivity extends AppCompatActivity {
             heartrate.setText(String.valueOf(hr));
             hrZoneHandler.addHrValue(hr);
         });
-        if(settingsFile.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH))
+        if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, defValues.DEFAULT_HRTOGGLE))
             hrSensor.getInstance().registerListener(this); //Register if hr enabled
 
-        currSet = utils.isModeManualSets() ? 0 : timerFile.get(defValues.SETTINGS_SETS, defValues.DEF_SETS) + 1;
+        currSet = utils.isModeManualSets() ? 0 : Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS) + 1;
         working();
     }
 
     private boolean endActivity(){
         if(hasFinished) return true;
         hasFinished = true;
-        if(settingsFile.get(defValues.SETTINGS_HRSWITCH, defValues.DEFAULT_HRSWITCH))
+        if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, defValues.DEFAULT_HRTOGGLE))
             hrSensor.getInstance().unregisterListener(this); //Unregister if hr enabled
         if (timerHandler != null) timerHandler.stop();
         if (chronoHandler != null) chronoHandler.stop();
@@ -122,7 +123,7 @@ public class TimerActivity extends AppCompatActivity {
             chronoHandler = new chronoHandler(intervaltime);
         else
             timerHandler = new timerHandler(intervaltime
-                    , working ? timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME) : timerFile.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME)
+                    , working ? Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME) : Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME)
                     , working ? this::resting : this::working, this);
     }
 
