@@ -63,7 +63,7 @@
 
     <TextView
         android:id="@+id/status"
-        android:layout_width="141dp"
+        android:layout_width="143dp"
         android:layout_height="42.5dp"
         android:background="@color/rest"
         android:fontFamily="@font/applemint"
@@ -209,6 +209,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="5dp"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/totaltime"
         app:layout_constraintTop_toTopOf="@+id/status"
@@ -220,6 +221,7 @@
         android:layout_height="10dp"
         android:text="@string/sets"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
         android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="@+id/sets"
         app:layout_constraintStart_toStartOf="@+id/sets"
