@@ -6,6 +6,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.pixplicity.easyprefs.library.Prefs;
@@ -34,6 +35,7 @@ public class hrSensor implements SensorEventListener {
     private int latestHr = 0;
 
     private static hrSensor hrSensor;
+    private Thread experimentalThread;
 
     //All tcx needed stuff
     private String currentLapStatus = Constants.STATUS_RESTING;
@@ -55,9 +57,7 @@ public class hrSensor implements SensorEventListener {
         this.listener = listener;
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        int v = (int) event.values[0];
+    public void newValue(int v){
         if (isAccuracyValid() && v > 25 && v < 230 /*Limit to range 25-230 to avoid fake readings*/) {
             //Get hr value and set the text if battery saving mode is disabled
             if(latestHr != v){
@@ -72,9 +72,12 @@ public class hrSensor implements SensorEventListener {
             if (!currentDate.equals(this.latestHrTime)) //This will limit trackpoints to 1/s
                 currentLap.addTrackpoint(new Trackpoint(v, new Date()));
             this.latestHrTime = currentDate;
-        } else {
-            //Logger.info("hrSensor: unvalid heart rate: " + String.valueOf(v) + " with " + String.valueOf(this.accuracy) + " accuracy");
         }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        newValue((int) event.values[0]);
     }
 
     @Override
@@ -86,11 +89,16 @@ public class hrSensor implements SensorEventListener {
         utils.setupPrefs(context);
         //Clean all values to avoid merging other values
         latestTraining.cleanAllValues();
-        //Register listener with delay in defValues class
-        SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        sm.registerListener(this, sm.getDefaultSensor(defValues.HRSENSOR), defValues.HRSENSOR_DELAY);
         //Register start time
         this.startTime = System.currentTimeMillis();
+        //Register listener taking into account experimental sensor
+        if(Prefs.getBoolean(defValues.KEY_HREXPERIMENT, false)){
+            experimentalThread = new experimentalSensor(new Handler(), context);
+            experimentalThread.start();
+        } else {
+            SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+            sm.registerListener(this, sm.getDefaultSensor(defValues.HRSENSOR), defValues.HRSENSOR_DELAY);
+        }
     }
 
     private boolean isAccuracyValid(){
@@ -118,6 +126,8 @@ public class hrSensor implements SensorEventListener {
         } else {
             resetTcxData();
         }
+        if(Prefs.getBoolean(defValues.KEY_HREXPERIMENT, false) && experimentalThread != null && !experimentalThread.isInterrupted())
+            experimentalThread.interrupt();
     }
 
     private void resetTcxData(){
@@ -142,7 +152,51 @@ public class hrSensor implements SensorEventListener {
         this.currentLap = new Lap();
     }
 
-    public static interface hrListener{
+    public interface hrListener{
         void onHrChanged(int hr);
+    }
+
+    private class experimentalSensor extends Thread implements SensorEventListener{
+
+        private Handler handler;
+        private Context context;
+        private long lastTime;
+        private long totalDataThisBatch = 0;
+        private long currentBatchSize = 0;
+
+        public experimentalSensor(Handler handler, Context context){
+            this.handler = handler;
+            this.lastTime = System.currentTimeMillis();
+            this.context = context;
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if(Thread.currentThread().isInterrupted()){
+                SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+                sm.unregisterListener(this);
+            }
+            long now = System.currentTimeMillis();
+            totalDataThisBatch += (int) event.values[0] / 100;
+            currentBatchSize++;
+            if(now - lastTime >= 500) { //This sensor is SO fast so limit rate to a value every 500ms
+                int v = (int) (totalDataThisBatch / currentBatchSize);
+                handler.post(() -> hrSensor.this.newValue(v));
+                totalDataThisBatch = 0;
+                currentBatchSize = 0;
+                lastTime = now;
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            handler.post(() -> hrSensor.this.onAccuracyChanged(sensor, accuracy));
+        }
+
+        public void run(){
+            SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+            sm.registerListener(this, sm.getDefaultSensor(65538 /*PPG Sensor*/),
+                    200_000 /*It's much faster*/, 500_000 /*500ms batching*/);
+        }
     }
 }

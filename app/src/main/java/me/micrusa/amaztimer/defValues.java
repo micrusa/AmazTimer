@@ -66,6 +66,8 @@ public final class defValues {
     public static final String KEY_KCAL = "kcal";
     public static final String KEY_HRZONE = "hrzone";
     public static final String KEY_INVERTKEYS = "invertkeys";
+    public static final String KEY_HREXPERIMENT = "hrexperiment";
+
     //Some useful stuff
     public static final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;
     public static final int VERSION_CODE = BuildConfig.VERSION_CODE;
