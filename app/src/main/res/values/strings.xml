@@ -52,7 +52,8 @@
     <string name="time">Time</string>
     <string name="currentset">Curr. set</string>
     <string name="heartrate">Heart Rate</string>
-    <string name="enablehrzone">Enable realtime HR zone</string>
+    <string name="enablehrzone">Enable HR zone</string>
     <string name="invertkeys">Invert key layout</string>
     <string name="customization">Customization</string>
+    <string name="hrzonesum">A small bar will have a color depending on current calculated hr zone</string>
 </resources>

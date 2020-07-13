@@ -55,7 +55,8 @@
             app:key="hrzone"
             app:defaultValue="true"
             android:defaultValue="true"
-            app:title="@string/enablehrzone" />
+            app:title="@string/enablehrzone"
+            app:summary="@string/hrzonesum" />
 
         <SwitchPreferenceCompat
             app:key="invertkeys"
@@ -100,7 +101,7 @@
         <SwitchPreferenceCompat
             app:key="hrexperiment"
             app:title="Use PPG sensor directly"
-            app:summary="Get hr from hardware sensor. Accuracy might be bad, better or useless (Make sure to adjust your watch correctly if you don't want 200bpm fluctuations in 2s), and you will receive values much faster than even stock apps. Use this at your own risk, it might not work on S3/Verge." />
+            app:summary="Get hr from hardware sensor to avoid huami processing. Make sure to adjust watch correctly. Do this at your own risk" />
 
     </PreferenceCategory>
 

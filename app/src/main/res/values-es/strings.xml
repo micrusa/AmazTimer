@@ -50,5 +50,6 @@
     <string name="heartrate">Ritmo cardiaco</string>
     <string name="customization">Personalización</string>
     <string name="invertkeys">Invertir botones</string>
-    <string name="enablehrzone">Activar zona RC en tiempo real</string>
+    <string name="enablehrzone">Activar zona RC</string>
+    <string name="hrzonesum">Una pequeña barra tendrá un color dependiendo de tu zona de RC actual</string>
 </resources>
