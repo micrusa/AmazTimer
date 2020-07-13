@@ -107,9 +107,13 @@ public class hrSensor implements SensorEventListener {
     }
 
     public void unregisterListener(Context context) {
-        //Unregister listener to avoid battery drain
-        SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        sm.unregisterListener(this);
+        //Unregister listener
+        if(Prefs.getBoolean(defValues.KEY_HREXPERIMENT, false) && experimentalThread != null && !experimentalThread.isInterrupted())
+            experimentalThread.interrupt();
+        else {
+            SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+            sm.unregisterListener(this);
+        }
         //Save time and send it to latestTraining
         long endTime = System.currentTimeMillis();
         int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
@@ -126,8 +130,6 @@ public class hrSensor implements SensorEventListener {
         } else {
             resetTcxData();
         }
-        if(Prefs.getBoolean(defValues.KEY_HREXPERIMENT, false) && experimentalThread != null && !experimentalThread.isInterrupted())
-            experimentalThread.interrupt();
     }
 
     private void resetTcxData(){
