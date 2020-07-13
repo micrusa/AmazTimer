@@ -97,9 +97,9 @@
 
     <PreferenceCategory app:title="Experimental">
 
-        <Preference
+        <SwitchPreferenceCompat
             app:key="hrexperiment"
-            app:title="Use HR sensor directly"
+            app:title="Use PPG sensor directly"
             app:summary="Get hr from hardware sensor. Accuracy might be bad, better or useless, and you will receive values much faster than even stock apps. Use this at your own risk, it might not work on S3/Verge" />
 
     </PreferenceCategory>
