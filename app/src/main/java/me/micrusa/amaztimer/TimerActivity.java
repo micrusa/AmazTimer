@@ -24,9 +24,7 @@ import me.micrusa.amaztimer.utils.handlers.timerHandler;
 import me.micrusa.amaztimer.utils.utils;
 
 public class TimerActivity extends AppCompatActivity {
-
-    private file settingsFile, timerFile;
-    private TextView time, status, intervaltime, heartrate;
+    private TextView time, status, intervaltime, heartrate, sets;
     private Chronometer elapsedtime;
     private Button cancel, finishset;
     private View hrZoneView;
@@ -49,6 +47,7 @@ public class TimerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timer);
         time = findViewById(R.id.time);
         status = findViewById(R.id.status);
+        sets = findViewById(R.id.sets);
         intervaltime = findViewById(R.id.intervaltime);
         heartrate = findViewById(R.id.heartrate);
         elapsedtime = findViewById(R.id.totaltime);
@@ -114,9 +113,9 @@ public class TimerActivity extends AppCompatActivity {
         isWorking = working;
         if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0) endActivity();
         hrSensor.getInstance().newLap(working ? Constants.STATUS_ACTIVE : Constants.STATUS_RESTING);
-        String text = getResources().getString(working ? R.string.work : R.string.rest);
+        sets.setText(String.valueOf(currSet));
         status.setBackground(getDrawable(working ? R.color.work : R.color.rest));
-        status.setText(currSet + "|" + text);
+        status.setText(getResources().getString(working ? R.string.work : R.string.rest));
         if(chronoHandler != null) chronoHandler.stop();
         if(timerHandler != null) timerHandler.stop();
         if(utils.getMode() >= (working ? 1 : 2))
