@@ -41,9 +41,9 @@ public class EditPresetActivity extends AppCompatActivity {
     }
 
     private void createOnClickListeners(final int PresetID) {
-        final String presetKey = PresetID == 1 ? defValues.KEY_PRESET1 : defValues.KEY_PRESET2;
-        final String valuesStr = Prefs.getString(presetKey, "8:30:20");
         plusMinusBtn = v -> {
+            String presetKey = PresetID == 1 ? defValues.KEY_PRESET1 : defValues.KEY_PRESET2;
+            String valuesStr = Prefs.getString(presetKey, "8:30:20");
             int sets = Integer.parseInt(valuesStr.split(":")[0]);
             int work = Integer.parseInt(valuesStr.split(":")[1]);
             int rest = Integer.parseInt(valuesStr.split(":")[2]);
@@ -76,6 +76,8 @@ public class EditPresetActivity extends AppCompatActivity {
         };
 
         longPlusMinusBtn = v -> {
+            String presetKey = PresetID == 1 ? defValues.KEY_PRESET1 : defValues.KEY_PRESET2;
+            String valuesStr = Prefs.getString(presetKey, "8:30:20");
             int sets = Integer.parseInt(valuesStr.split(":")[0]);
             int work = Integer.parseInt(valuesStr.split(":")[1]);
             int rest = Integer.parseInt(valuesStr.split(":")[2]);
