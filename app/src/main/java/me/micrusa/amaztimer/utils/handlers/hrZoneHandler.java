@@ -8,7 +8,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.heartrate.hrUtils;
 
 public class hrZoneHandler {
 
@@ -24,7 +24,7 @@ public class hrZoneHandler {
     public void addHrValue(int value){
         if(!enable)
             return;
-        int hrZone = utils.hrZonePercentageInt(value);
+        int hrZone = hrUtils.hrZonePercentageInt(value);
         if (latestHrZone != hrZone){
             latestHrZone = hrZone;
 

@@ -89,16 +89,4 @@ public class utils {
         return getMode() == 2;
     }
 
-    public static String hrZonePercentage(int hr){
-        return hrZonePercentageInt(hr) + "%";
-    }
-
-    public static int hrZonePercentageInt(int hr){
-        if(hr == 0 | prefUtils.getAge() == 0){
-            return 0;
-        }
-        //noinspection UnnecessaryCallToStringValueOf
-        return hr * 100 / (220 - prefUtils.getAge());
-    }
-
 }

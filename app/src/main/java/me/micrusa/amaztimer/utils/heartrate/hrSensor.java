@@ -30,11 +30,11 @@ import me.micrusa.amaztimer.utils.utils;
 @SuppressWarnings("CanBeFinal")
 public class hrSensor {
     private hrListener listener;
-    private final me.micrusa.amaztimer.utils.heartrate.latestTraining latestTraining = new latestTraining();
+    private final latestTraining latestTraining = new latestTraining();
     private long startTime;
     private int accuracy = 2;
     private String latestTrackpointTime;
-    private int latestHr = 0;
+    public int latestHr = 0;
 
     private static hrSensor hrSensor;
     private Listener hrListener;
@@ -61,6 +61,7 @@ public class hrSensor {
 
     public void newValue(int v){
         if (isAccuracyValid() && v > 25 && v < 230 /*Limit to range 25-230 to avoid fake readings*/) {
+            v = hrUtils.getFlattenedHr(v); //Hr will be flattened if the preference is enabled
             //Get hr value and set the text if battery saving mode is disabled
             if(latestHr != v){
                 listener.onHrChanged(v);

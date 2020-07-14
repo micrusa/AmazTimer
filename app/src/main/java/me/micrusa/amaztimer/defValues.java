@@ -55,6 +55,7 @@ public final class defValues {
     public static final String KEY_HRZONE = "hrzone";
     public static final String KEY_INVERTKEYS = "invertkeys";
     public static final String KEY_HREXPERIMENT = "hrexperiment";
+    public static final String KEY_FLATTENHR = "flattenhr";
 
     //Some useful stuff
     public static final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;

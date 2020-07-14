@@ -9,6 +9,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.utils.heartrate.hrUtils;
 import me.micrusa.amaztimer.utils.utils;
 
 public class LatestTrainActivity extends AppCompatActivity {
@@ -41,7 +42,7 @@ public class LatestTrainActivity extends AppCompatActivity {
         maxhr.setText(String.valueOf(Prefs.getInt(defValues.KEY_MAXHR, defValues.DEFAULT_HR_VALUES)));
         minhr.setText(String.valueOf(Prefs.getInt(defValues.KEY_MINHR, defValues.DEFAULT_HR_VALUES)));
         kcal.setText(String.valueOf(Prefs.getInt(defValues.KEY_KCAL, defValues.DEFAULT_HR_VALUES)));
-        hrzone.setText(utils.hrZonePercentage(Prefs.getInt(defValues.KEY_AVGHR, defValues.DEFAULT_HR_VALUES)));
+        hrzone.setText(hrUtils.hrZonePercentage(Prefs.getInt(defValues.KEY_AVGHR, defValues.DEFAULT_HR_VALUES)));
     }
 
 
