@@ -56,4 +56,5 @@
     <string name="invertkeys">Invert key layout</string>
     <string name="customization">Customization</string>
     <string name="hrzonesum">A small bar will have a color depending on current calculated hr zone</string>
+    <string name="cancel">Cancel</string>
 </resources>
