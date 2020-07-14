@@ -58,13 +58,6 @@ public class utils {
         setupPrefs(context);
     }
 
-    public static void pushToFile(file f, int sets, int work, int rest) {
-        //Save all values to the given file
-        f.set(defValues.SETTINGS_SETS, sets);
-        f.set(defValues.SETTINGS_WORK, work);
-        f.set(defValues.SETTINGS_REST, rest);
-    }
-
     public static int getUpdatedTime(int currentTime, int update, Context paramContext){
         return getUpdatedValue(currentTime + update, defValues.MIN_TIME, defValues.MAX_TIME, paramContext);
     }

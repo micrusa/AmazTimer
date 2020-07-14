@@ -10,7 +10,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
-import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
 
 public class AppInfo extends AppCompatActivity {

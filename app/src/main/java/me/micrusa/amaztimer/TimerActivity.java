@@ -1,7 +1,5 @@
 package me.micrusa.amaztimer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -10,17 +8,18 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.button.buttonEvent;
 import me.micrusa.amaztimer.button.buttonListener;
 import me.micrusa.amaztimer.utils.handlers.chronoHandler;
-import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.handlers.hrZoneHandler;
-import me.micrusa.amaztimer.utils.heartrate.hrSensor;
 import me.micrusa.amaztimer.utils.handlers.timeHandler;
 import me.micrusa.amaztimer.utils.handlers.timerHandler;
+import me.micrusa.amaztimer.utils.heartrate.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
 
 public class TimerActivity extends AppCompatActivity {

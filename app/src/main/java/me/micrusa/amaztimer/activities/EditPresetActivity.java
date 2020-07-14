@@ -1,6 +1,5 @@
 package me.micrusa.amaztimer.activities;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,7 +13,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
-import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
 
 public class EditPresetActivity extends AppCompatActivity {
@@ -43,12 +41,12 @@ public class EditPresetActivity extends AppCompatActivity {
     }
 
     private void createOnClickListeners(final int PresetID) {
-        final me.micrusa.amaztimer.utils.file finalFile = new file("preset" + PresetID);
+        final String presetKey = PresetID == 1 ? defValues.KEY_PRESET1 : defValues.KEY_PRESET2;
+        final String valuesStr = Prefs.getString(presetKey, "8:30:20");
         plusMinusBtn = v -> {
-            //Get values from file
-            int sets = Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS);
-            int work = Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME);
-            int rest = Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME);
+            int sets = Integer.parseInt(valuesStr.split(":")[0]);
+            int work = Integer.parseInt(valuesStr.split(":")[1]);
+            int rest = Integer.parseInt(valuesStr.split(":")[2]);
             //Increase or decrease values
             switch (v.getId()) {
                 case R.id.plus:
@@ -73,15 +71,14 @@ public class EditPresetActivity extends AppCompatActivity {
                     break;
             }
             //Save to file and set texts
-            utils.pushToFile(finalFile, sets, work, rest);
+            Prefs.putString(presetKey, sets + ":" + work + ":" + rest);
             setTimeTexts(sets, work, rest);
         };
 
         longPlusMinusBtn = v -> {
-            //Get values from file
-            int sets = Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS);;
-            int work = Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME);
-            int rest = finalFile.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+            int sets = Integer.parseInt(valuesStr.split(":")[0]);
+            int work = Integer.parseInt(valuesStr.split(":")[1]);
+            int rest = Integer.parseInt(valuesStr.split(":")[2]);
             //Increase or decrease values
             switch (v.getId()) {
                 case R.id.plus:
@@ -106,7 +103,7 @@ public class EditPresetActivity extends AppCompatActivity {
                     break;
             }
             //Save to file and set texts
-            utils.pushToFile(finalFile, sets, work, rest);
+            Prefs.putString(presetKey, sets + ":" + work + ":" + rest);
             setTimeTexts(sets, work, rest);
             return true;
         };
@@ -150,10 +147,9 @@ public class EditPresetActivity extends AppCompatActivity {
         //Make settings text invisible
         settingstext.setVisibility(View.GONE);
         //Set times to values in file
-        file file = new file("preset" + PresetID);
         setTimeTexts(Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS),
                 Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME),
-                file.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME));
+                Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME));
     }
 
     private void setTimeTexts(int intSets, int intWork, int intRest) {

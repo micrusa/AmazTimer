@@ -1,19 +1,18 @@
 package me.micrusa.amaztimer.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.TimerActivity;
 import me.micrusa.amaztimer.defValues;
-import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
 
 public class PrepareActivity extends AppCompatActivity {

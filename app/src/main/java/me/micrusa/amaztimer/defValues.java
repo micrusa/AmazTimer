@@ -1,9 +1,5 @@
 package me.micrusa.amaztimer;
 
-import android.annotation.SuppressLint;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -18,10 +14,7 @@ public final class defValues {
     //Vibration times
     public static final int SHORT_VIBRATION = 100; //0.1s
     public static final int LONG_VIBRATION = 700; //0.7s
-    //Preparation times
-    //Sensor value and sensor delay
-    public static final int HRSENSOR_DELAY = SensorManager.SENSOR_DELAY_FASTEST;
-    public static final int HRSENSOR = Sensor.TYPE_HEART_RATE;
+    //Accuracy range for HR measurements
     public static final int[] ACCURACY_RANGE = {0, 3};
     //Max and min values
     public static final int MIN_SETS = 1;
@@ -36,17 +29,12 @@ public final class defValues {
     public static final int DEFAULT_HR_VALUES = 0;
     public static final boolean DEFAULT_TCX = true;
     public static final boolean DEFAULT_SOUND = true;
-    //Files name
-    //They're in different files bc sometimes they have conflicts if they're all in the same file
-    public static final String TIMER_FILE = "amaztimer";
-    //Settings names
-    public static final String SETTINGS_SETS = "sets";
-    public static final String SETTINGS_WORK = "work";
-    public static final String SETTINGS_REST = "rest";
     //Settings keys
     public static final String KEY_SETS = "sets";
     public static final String KEY_WORK = "work";
     public static final String KEY_REST = "rest";
+    public static final String KEY_PRESET1 = "preset1";
+    public static final String KEY_PRESET2 = "preset2";
     public static final String KEY_HRTOGGLE = "hrOn";
     public static final String KEY_LANG = "lang";
     public static final String KEY_GENDER = "gender";

@@ -2,7 +2,6 @@ package me.micrusa.amaztimer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -13,14 +12,11 @@ import androidx.annotation.Nullable;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
-import java.util.prefs.Preferences;
-
 import me.micrusa.amaztimer.activities.PrepareActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.button.buttonEvent;
 import me.micrusa.amaztimer.button.buttonListener;
 import me.micrusa.amaztimer.utils.SystemProperties;
-import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
 
 public class AmazTimer extends Activity {

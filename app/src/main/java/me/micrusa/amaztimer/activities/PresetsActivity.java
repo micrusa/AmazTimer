@@ -14,21 +14,18 @@ import com.pixplicity.easyprefs.library.Prefs;
 import me.micrusa.amaztimer.AmazTimer;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
-import me.micrusa.amaztimer.utils.file;
 import me.micrusa.amaztimer.utils.utils;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class PresetsActivity extends AppCompatActivity {
-
-    private file file1, file2;
 
     private TextView preset1, preset2;
     private Button start1, start2, edit1, edit2;
     private final String textFormat = "SETS" + ": %s\n"
             + "WORK" + ": %t "
             + "REST" + ": %r";
-    private int[] firstArray;
-    private int[] secondArray;
+    private int[] firstArray = new int[3];
+    private int[] secondArray = new int[3];
 
     private final View.OnClickListener startClickListener = v -> {
         int[] array = null;
@@ -73,16 +70,11 @@ public class PresetsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_presets);
-        this.firstArray = new int[3];
-        this.secondArray = new int[3];
         this.init();
         setupValues();
     }
 
     private void init() {
-        //Setup files
-        this.file1 = new file("preset1");
-        this.file2 = new file("preset2");
         //Setup objects
         preset1 = this.findViewById(R.id.preset1);
         preset2 = this.findViewById(R.id.preset2);
@@ -99,12 +91,14 @@ public class PresetsActivity extends AppCompatActivity {
 
     private void setupValues() {
         //Set values
-        this.firstArray[0] = file1.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
-        this.firstArray[1] = file1.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
-        this.firstArray[2] = file1.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
-        this.secondArray[0] = file2.get(defValues.SETTINGS_SETS, defValues.DEF_SETS);
-        this.secondArray[1] = file2.get(defValues.SETTINGS_WORK, defValues.DEF_WORKTIME);
-        this.secondArray[2] = file2.get(defValues.SETTINGS_REST, defValues.DEF_RESTTIME);
+        String valuesStr = Prefs.getString(defValues.KEY_PRESET1, "8:30:20");
+        this.firstArray[0] = Integer.parseInt(valuesStr.split(":")[0]);
+        this.firstArray[1] = Integer.parseInt(valuesStr.split(":")[1]);;
+        this.firstArray[2] = Integer.parseInt(valuesStr.split(":")[2]);
+        valuesStr = Prefs.getString(defValues.KEY_PRESET1, "8:30:20");
+        this.secondArray[0] = Integer.parseInt(valuesStr.split(":")[0]);
+        this.secondArray[1] = Integer.parseInt(valuesStr.split(":")[1]);
+        this.secondArray[2] = Integer.parseInt(valuesStr.split(":")[2]);
         //Set texts from format
         Resources res = this.getResources();
         String text1 = textFormat
