@@ -25,6 +25,7 @@
             android:textAlignment="center"
             android:textSize="18sp"
             android:visibility="visible"
+            android:fontFamily="@font/applemint"
             app:layout_constraintBottom_toTopOf="@+id/textView5"
             app:layout_constraintEnd_toStartOf="@+id/plus"
             app:layout_constraintStart_toEndOf="@+id/minus2" />
@@ -45,6 +46,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sets"
             android:visibility="visible"
+            android:fontFamily="@font/applemint"
             app:layout_constraintBottom_toTopOf="@+id/sets"
             app:layout_constraintEnd_toStartOf="@+id/plus"
             app:layout_constraintStart_toEndOf="@+id/minus2" />
@@ -67,6 +69,7 @@
             android:background="@drawable/circle_button"
             android:text="@string/start"
             android:visibility="visible"
+            android:fontFamily="@font/applemint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -96,6 +99,7 @@
             android:layout_height="wrap_content"
             android:text="@string/work"
             android:visibility="visible"
+            android:fontFamily="@font/applemint"
             app:layout_constraintBottom_toTopOf="@+id/work"
             app:layout_constraintEnd_toStartOf="@+id/plus2"
             app:layout_constraintStart_toEndOf="@+id/minus" />
@@ -114,6 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rest"
+            android:fontFamily="@font/applemint"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/rest"
             app:layout_constraintEnd_toStartOf="@+id/plus3"
@@ -126,6 +131,7 @@
             android:textAlignment="center"
             android:textSize="18sp"
             android:visibility="visible"
+            android:fontFamily="@font/applemint"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toStartOf="@+id/plus3"
             app:layout_constraintStart_toEndOf="@+id/minus3" />
@@ -147,6 +153,7 @@
             android:textAlignment="center"
             android:textSize="18sp"
             android:visibility="visible"
+            android:fontFamily="@font/applemint"
             app:layout_constraintBottom_toTopOf="@+id/textView6"
             app:layout_constraintEnd_toStartOf="@+id/plus2"
             app:layout_constraintStart_toEndOf="@+id/minus" />
@@ -157,6 +164,7 @@
             android:layout_height="wrap_content"
             android:text="@string/startsettings"
             android:textSize="12sp"
+            android:fontFamily="@font/applemint"
             app:layout_constraintBottom_toTopOf="@+id/start"
             app:layout_constraintEnd_toEndOf="@+id/start"
             app:layout_constraintStart_toStartOf="@+id/start" />

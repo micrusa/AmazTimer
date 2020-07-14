@@ -211,6 +211,7 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
+        android:fontFamily="@font/applemint"
         app:layout_constraintEnd_toEndOf="@+id/totaltime"
         app:layout_constraintTop_toTopOf="@+id/status"
         tools:text="@string/nullinfo" />
