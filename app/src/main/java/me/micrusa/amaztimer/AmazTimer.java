@@ -101,7 +101,7 @@ public class AmazTimer extends Activity {
     private void setTexts(){
         sets.setText(String.valueOf(Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS)));
         work.setText(utils.formatTime(Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME)));
-        rest.setText(utils.formatTime(Prefs.getInt(defValues.KEY_REST, defValues.DEF_WORKTIME)));
+        rest.setText(utils.formatTime(Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME)));
     }
 
     private void init() {

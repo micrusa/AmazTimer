@@ -38,11 +38,11 @@ public class LatestTrainActivity extends AppCompatActivity {
 
     private void setTexts(){
         //Set all values texts
-        avghr.setText(String.valueOf(Prefs.getInt(defValues.KEY_AVGHR, defValues.DEFAULT_HR_VALUES)));
-        maxhr.setText(String.valueOf(Prefs.getInt(defValues.KEY_MAXHR, defValues.DEFAULT_HR_VALUES)));
-        minhr.setText(String.valueOf(Prefs.getInt(defValues.KEY_MINHR, defValues.DEFAULT_HR_VALUES)));
-        kcal.setText(String.valueOf(Prefs.getInt(defValues.KEY_KCAL, defValues.DEFAULT_HR_VALUES)));
-        hrzone.setText(hrUtils.hrZonePercentage(Prefs.getInt(defValues.KEY_AVGHR, defValues.DEFAULT_HR_VALUES)));
+        avghr.setText(String.valueOf(Prefs.getInt(defValues.KEY_AVGHR, 0)));
+        maxhr.setText(String.valueOf(Prefs.getInt(defValues.KEY_MAXHR, 0)));
+        minhr.setText(String.valueOf(Prefs.getInt(defValues.KEY_MINHR, 0)));
+        kcal.setText(String.valueOf(Prefs.getInt(defValues.KEY_KCAL, 0)));
+        hrzone.setText(hrUtils.hrZonePercentage(Prefs.getInt(defValues.KEY_AVGHR, 0)));
     }
 
 

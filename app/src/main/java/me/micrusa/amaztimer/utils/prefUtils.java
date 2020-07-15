@@ -15,7 +15,7 @@ public class prefUtils {
     }
 
     public static boolean isMale(){
-        return Boolean.parseBoolean(Prefs.getString(defValues.KEY_GENDER, String.valueOf(defValues.DEFAULT_MALE)));
+        return Boolean.parseBoolean(Prefs.getString(defValues.KEY_GENDER, "true"));
     }
 
 }

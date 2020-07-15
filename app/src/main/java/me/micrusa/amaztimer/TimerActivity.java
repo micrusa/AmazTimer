@@ -82,7 +82,7 @@ public class TimerActivity extends AppCompatActivity {
             heartrate.setText(String.valueOf(hr));
             hrZoneHandler.addHrValue(hr);
         });
-        if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, defValues.DEFAULT_HRTOGGLE))
+        if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, true))
             hrSensor.getInstance().registerListener(this); //Register if hr enabled
 
         currSet = utils.isModeManualSets() ? 0 : Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS) + 1;
@@ -92,7 +92,7 @@ public class TimerActivity extends AppCompatActivity {
     private boolean endActivity(){
         if(hasFinished) return true;
         hasFinished = true;
-        if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, defValues.DEFAULT_HRTOGGLE))
+        if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, true))
             hrSensor.getInstance().unregisterListener(this); //Unregister if hr enabled
         if (timerHandler != null) timerHandler.stop();
         if (chronoHandler != null) chronoHandler.stop();

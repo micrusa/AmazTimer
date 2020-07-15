@@ -22,11 +22,8 @@ public final class defValues {
     public static final int MIN_TIME = 1; //1s
     public static final int MAX_TIME = 900; //15m
     //Default values
-    public static final boolean DEFAULT_HRTOGGLE = true;
     public static final int DEFAULT_WEIGHT = 70;
     public static final int DEFAULT_AGE = 20;
-    public static final boolean DEFAULT_MALE = true;
-    public static final int DEFAULT_HR_VALUES = 0;
     public static final boolean DEFAULT_TCX = true;
     public static final boolean DEFAULT_SOUND = true;
     //Settings keys
