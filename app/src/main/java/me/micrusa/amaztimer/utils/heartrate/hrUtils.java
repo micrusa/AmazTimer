@@ -25,10 +25,10 @@ public class hrUtils {
     }
 
     public static int hrZonePercentageInt(int hr){
-        if(hr == 0 | prefUtils.getAge() == 0){
+        if(hr == 0 | prefUtils.getAge() == 0)
             return 0;
-        }
-        //noinspection UnnecessaryCallToStringValueOf
-        return hr * 100 / (220 - prefUtils.getAge());
+
+        //Source: https://www.ntnu.edu/cerg/hrmax#:~:text=Based%20on%20these%20tests%20we,211%20%2D%200.64*age%22.
+        return (int) (hr * 100 / (211 - 0.64 * prefUtils.getAge()));
     }
 }
