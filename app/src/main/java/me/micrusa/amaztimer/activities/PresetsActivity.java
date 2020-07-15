@@ -28,7 +28,7 @@ public class PresetsActivity extends AppCompatActivity {
     private int[] secondArray = new int[3];
 
     private final View.OnClickListener startClickListener = v -> {
-        int[] array = null;
+        int[] array;
         //Get correct array by the id
         switch (v.getId()) {
             case R.id.start1:
@@ -38,6 +38,7 @@ public class PresetsActivity extends AppCompatActivity {
                 array = getValues(2);
                 break;
             default:
+                array = null;
                 break;
         }
         //If array is null return
@@ -120,11 +121,10 @@ public class PresetsActivity extends AppCompatActivity {
     }
 
     private int[] getValues(int i) {
-        if(i == 1) {
+        if(i == 1)
             return this.firstArray;
-        } else {
+        else
             return this.secondArray;
-        }
     }
 
 }

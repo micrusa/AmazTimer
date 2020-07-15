@@ -22,6 +22,7 @@ public class EditPresetActivity extends AppCompatActivity {
     private OnClickListener plusMinusBtn;
     private OnLongClickListener longPlusMinusBtn;
     private OnClickListener editBtn;
+    private int PresetID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,88 +30,54 @@ public class EditPresetActivity extends AppCompatActivity {
         utils.setupPrefs(this);
         utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
         setContentView(R.layout.amaztimer);
-        final int PresetID = getIntent().getIntExtra("ID", 0);
-        //Finish activity if received wrong ID (<=0 or >=3)
-        if(PresetID <= 0 | PresetID >= 3){
+        PresetID = getIntent().getIntExtra("ID", 0);
+        if(PresetID <= 0 | PresetID >= 3)
             finish();
-        }
         this.init();
-        this.createOnClickListeners(PresetID);
+        this.createOnClickListeners();
         this.setOnClickListeners();
-        this.startActivity(PresetID);
+        this.startActivity();
     }
 
-    private void createOnClickListeners(final int PresetID) {
-        plusMinusBtn = v -> {
-            String presetKey = PresetID == 1 ? defValues.KEY_PRESET1 : defValues.KEY_PRESET2;
-            String valuesStr = Prefs.getString(presetKey, "8:30:20");
-            int sets = Integer.parseInt(valuesStr.split(":")[0]);
-            int work = Integer.parseInt(valuesStr.split(":")[1]);
-            int rest = Integer.parseInt(valuesStr.split(":")[2]);
-            //Increase or decrease values
-            switch (v.getId()) {
-                case R.id.plus:
-                    sets++;
-                    break;
-                case R.id.plus2:
-                    work++;
-                    break;
-                case R.id.plus3:
-                    rest++;
-                    break;
-                case R.id.minus2:
-                    sets--;
-                    break;
-                case R.id.minus:
-                    work--;
-                    break;
-                case R.id.minus3:
-                    rest--;
-                    break;
-                default:
-                    break;
-            }
-            //Save to file and set texts
-            Prefs.putString(presetKey, sets + ":" + work + ":" + rest);
-            setTimeTexts(sets, work, rest);
-        };
-
-        longPlusMinusBtn = v -> {
-            String presetKey = PresetID == 1 ? defValues.KEY_PRESET1 : defValues.KEY_PRESET2;
-            String valuesStr = Prefs.getString(presetKey, "8:30:20");
-            int sets = Integer.parseInt(valuesStr.split(":")[0]);
-            int work = Integer.parseInt(valuesStr.split(":")[1]);
-            int rest = Integer.parseInt(valuesStr.split(":")[2]);
-            //Increase or decrease values
-            switch (v.getId()) {
-                case R.id.plus:
-                    sets = sets + 5;
-                    break;
-                case R.id.plus2:
-                    work = work + 60;
-                    break;
-                case R.id.plus3:
-                    rest = rest + 60;
-                    break;
-                case R.id.minus2:
-                    sets = sets - 5;
-                    break;
-                case R.id.minus:
-                    work = work - 60;
-                    break;
-                case R.id.minus3:
-                    rest = rest - 60;
-                    break;
-                default:
-                    break;
-            }
-            //Save to file and set texts
-            Prefs.putString(presetKey, sets + ":" + work + ":" + rest);
-            setTimeTexts(sets, work, rest);
-            return true;
-        };
-        //Edit button finishes activity
+    private void createOnClickListeners() {
+        plusMinusBtn = v -> click(v.getId(), false);
+        longPlusMinusBtn = v -> click(v.getId(), true);
         editBtn = v -> finish();
+    }
+
+    private boolean click(int res, boolean isLongPress){
+        String presetKey = PresetID == 1 ? defValues.KEY_PRESET1 : defValues.KEY_PRESET2;
+        String valuesStr = Prefs.getString(presetKey, "8:30:20");
+        int sets = Integer.parseInt(valuesStr.split(":")[0]);
+        int work = Integer.parseInt(valuesStr.split(":")[1]);
+        int rest = Integer.parseInt(valuesStr.split(":")[2]);
+        //Increase or decrease values
+        switch (res) {
+            case R.id.plus:
+                sets = utils.getUpdatedSets(sets, isLongPress ? 5 : 1, this);
+                break;
+            case R.id.plus2:
+                work = utils.getUpdatedTime(work, isLongPress ? 60 : 1, this);
+                break;
+            case R.id.plus3:
+                rest = utils.getUpdatedTime(rest, isLongPress ? 60 : 1, this);
+                break;
+            case R.id.minus2:
+                sets = utils.getUpdatedSets(sets, isLongPress ? -5 : -1, this);
+                break;
+            case R.id.minus:
+                work = utils.getUpdatedTime(work, isLongPress ? -60 : -1, this);
+                break;
+            case R.id.minus3:
+                rest = utils.getUpdatedTime(rest, isLongPress ? -60 : -1, this);
+                break;
+            default:
+                break;
+        }
+        //Save to file and set texts
+        Prefs.putString(presetKey, sets + ":" + work + ":" + rest);
+        setTimeTexts(sets, work, rest);
+        return true; //For a simpler code on long click
     }
 
     private void setOnClickListeners() {
@@ -143,15 +110,16 @@ public class EditPresetActivity extends AppCompatActivity {
         rest = this.findViewById(R.id.rest);
         work = this.findViewById(R.id.work);
         settingstext = this.findViewById(R.id.textView);
+        settingstext.setVisibility(View.GONE);
     }
 
-    private void startActivity(int PresetID) {
-        //Make settings text invisible
-        settingstext.setVisibility(View.GONE);
-        //Set times to values in file
-        setTimeTexts(Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS),
-                Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME),
-                Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME));
+    private void startActivity() {
+        String presetKey = PresetID == 1 ? defValues.KEY_PRESET1 : defValues.KEY_PRESET2;
+        String valuesStr = Prefs.getString(presetKey, "8:30:20");
+        int sets = Integer.parseInt(valuesStr.split(":")[0]);
+        int work = Integer.parseInt(valuesStr.split(":")[1]);
+        int rest = Integer.parseInt(valuesStr.split(":")[2]);
+        setTimeTexts(sets, work, rest);
     }
 
     private void setTimeTexts(int intSets, int intWork, int intRest) {

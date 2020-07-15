@@ -12,7 +12,7 @@ import me.micrusa.amaztimer.utils.heartrate.hrSensor;
 public class experimentalListener implements SensorEventListener, Listener {
 
     private long lastTime;
-    private long totalDataThisBatch = 0;
+    private long totalHrCurrentBatch = 0;
     private long currentBatchSize = 0;
 
     public experimentalListener(){
@@ -21,13 +21,15 @@ public class experimentalListener implements SensorEventListener, Listener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        int thisValue = (int) (event.values[0] / 100);
+        if(thisValue >= 220 || thisValue <= 30) return; //Return on bad values for a more accurate result
         long now = System.currentTimeMillis();
-        totalDataThisBatch += (int) event.values[0] / 100;
+        totalHrCurrentBatch += thisValue;
         currentBatchSize++;
         if(now - lastTime >= 500) { //This sensor is SO fast so limit rate to a value every 500ms
-            int v = (int) (totalDataThisBatch / currentBatchSize);
+            int v = (int) (totalHrCurrentBatch / currentBatchSize);
             hrSensor.getInstance().newValue(v);
-            totalDataThisBatch = 0;
+            totalHrCurrentBatch = 0;
             currentBatchSize = 0;
             lastTime = now;
         }
