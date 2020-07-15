@@ -108,6 +108,13 @@
             app:title="Flatten HR"
             app:summary="Not recommended without previous preference. Algorithm is very simple so may give unaccurate values" />
 
+        <ListPreference
+            app:key="tcxtime"
+            app:title="TCX Time Offset"
+            app:summary="This is a workaround to fix possible wrong times in TCX. This ISN'T timezone, don't use it if you don't have problems"
+            app:entries="@array/tcxtimes"
+            app:entryValues="@array/tcxtimesvalues" />
+
     </PreferenceCategory>
 
 
