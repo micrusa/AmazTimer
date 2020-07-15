@@ -113,7 +113,8 @@
             app:title="TCX Time Offset"
             app:summary="This is a workaround to fix possible wrong times in TCX. This ISN'T timezone, don't use it if you don't have problems"
             app:entries="@array/tcxtimes"
-            app:entryValues="@array/tcxtimesvalues" />
+            app:entryValues="@array/tcxtimesvalues"
+            app:defaultValue="0" android:defaultValue="0"/>
 
     </PreferenceCategory>
 
