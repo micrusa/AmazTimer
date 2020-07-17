@@ -62,7 +62,7 @@ public class TrainingUtil {
         training.setKcal(hrUtils.calculateKcal(avgHr, timeSecs,
                 prefUtils.getAge(), prefUtils.getWeight(), prefUtils.isMale()));
 
-        training.save(Database.getDb()); //Save after saving everything to the class
+        training.save(FlowManager.getDatabase(Database.class)); //Save after saving everything to the class
 
         currentLap = null;
         lapStartTime = 0;

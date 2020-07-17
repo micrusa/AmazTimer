@@ -13,10 +13,6 @@ public abstract class Database extends DBFlowDatabase {
 
     public static final int VERSION = 1;
 
-    public static DatabaseWrapper getDb(){
-        return FlowManager.getDatabase(Database.class);
-    }
-
     @NotNull
     @Override
     public Class<?> getAssociatedDatabaseClassFile() {
