@@ -21,6 +21,7 @@ import me.micrusa.amaztimer.TCX.data.Lap;
 import me.micrusa.amaztimer.TCX.data.TCXData;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
 import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.trainings.TrainingUtil;
 import me.micrusa.amaztimer.utils.heartrate.listeners.Listener;
 import me.micrusa.amaztimer.utils.heartrate.listeners.experimentalListener;
 import me.micrusa.amaztimer.utils.heartrate.listeners.mainListener;
@@ -30,8 +31,6 @@ import me.micrusa.amaztimer.utils.utils;
 @SuppressWarnings("CanBeFinal")
 public class hrSensor {
     private hrListener listener;
-    private final latestTraining latestTraining = new latestTraining();
-    private long startTime;
     private int accuracy = 2;
     private String latestTrackpointTime;
     public int latestHr = 0;
@@ -67,8 +66,8 @@ public class hrSensor {
                 listener.onHrChanged(v);
                 latestHr = v;
             }
-            //Send hr value to latestTraining array
-            latestTraining.addHrValue(v);
+            //Add hr to trainings db
+            TrainingUtil.newHrData(v);
             //Set latest hr value
             String currentDate = TCXUtils.formatDate(new Date());
             //Create Trackpoint and add it to current Lap
@@ -85,10 +84,8 @@ public class hrSensor {
 
     public void registerListener(Context context) {
         utils.setupPrefs(context);
-        //Clean all values to avoid merging other values
-        latestTraining.cleanAllValues();
-        //Register start time
-        this.startTime = System.currentTimeMillis();
+        //Start workout in db
+        TrainingUtil.startWorkout();
         //Register listener taking into account experimental sensor
         if(Prefs.getBoolean(defValues.KEY_HREXPERIMENT, false))
             hrListener = new experimentalListener();
@@ -105,10 +102,8 @@ public class hrSensor {
     public void unregisterListener(Context context) {
         //Unregister listener
         hrListener.unregister(context);
-        //Save time and send it to latestTraining
-        long endTime = System.currentTimeMillis();
-        int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
-        latestTraining.saveDataToFile(context, totalTimeInSeconds);
+        //End workout in trainings db
+        TrainingUtil.endWorkout();
         if (Prefs.getBoolean(defValues.KEY_TCX, defValues.DEFAULT_TCX)) {
             addCurrentLap();
             boolean result = SaveTCX.saveToFile(this.TCXData);
@@ -143,6 +138,8 @@ public class hrSensor {
         this.addCurrentLap();
         this.currentLapStatus = lapStatus;
         this.currentLap = new Lap();
+        //Add lap to trainings db
+        TrainingUtil.newLap(lapStatus.equals(Constants.STATUS_ACTIVE));
     }
 
     public interface hrListener{
