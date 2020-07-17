@@ -75,6 +75,11 @@ public class SettingsActivity extends AppCompatActivity {
                 preference.getContext().startActivity(intent);
                 break;
             }
+            case defValues.KEY_LATESTTRAIN: {
+                Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
+                preference.getContext().startActivity(intent);
+                break;
+            }
             case defValues.KEY_APPINFO: {
                 Intent intent = new Intent(preference.getContext(), AppInfo.class);
                 preference.getContext().startActivity(intent);

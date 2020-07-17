@@ -70,6 +70,10 @@
             app:key="saved"
             app:title="@string/saved" />
 
+        <Preference
+            app:key="latesttrain"
+            app:title="@string/latesttrain" />
+
         <ListPreference
             app:key="gender"
             app:title="@string/gender"

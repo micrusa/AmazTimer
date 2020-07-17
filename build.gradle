@@ -7,10 +7,11 @@ buildscript {
         jcenter()
         mavenCentral()
     }
-
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
         classpath 'com.android.support:appcompat-v7:28.0.0'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
 
@@ -19,7 +20,6 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
-        maven { url "https://www.jitpack.io" }
     }
 }
 

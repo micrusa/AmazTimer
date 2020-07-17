@@ -14,7 +14,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name=".AmazTimerApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="AmazTimer"
@@ -23,6 +22,7 @@
         <activity android:name=".activities.PrepareActivity"></activity>
         <activity android:name=".TimerActivity" />
         <activity android:name=".activities.AppInfo" />
+        <activity android:name=".activities.LatestTrainActivity" />
         <activity android:name=".activities.EditPresetActivity" />
 
         <meta-data

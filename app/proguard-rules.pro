@@ -12,13 +12,9 @@
 #   public *;
 #}
 
-#Tinylog
 -keepnames interface org.tinylog.**
 -keepnames class * implements org.tinylog.**
 -keepclassmembers class * implements org.tinylog.** { <init>(...); }
-
-#DBFlow
--keep class * extends com.dbflow5.*
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.

@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import me.micrusa.amaztimer.TCX.TCXUtils;
-import me.micrusa.amaztimer.utils.heartrate.hrUtils;
+import me.micrusa.amaztimer.utils.heartrate.latestTraining;
 
 public class Lap {
 
@@ -49,7 +49,7 @@ public class Lap {
     }
 
     public void calcCalories(int age, int weight, boolean isMale){
-        this.kcal = hrUtils.calculateKcal(getAvgHr(), (int) getTimeInSeconds(), age, weight, isMale);
+        this.kcal = latestTraining.calculateKcal(getAvgHr(), (int) getTimeInSeconds(), age, weight, isMale);
     }
 
     public int getKcal(){
