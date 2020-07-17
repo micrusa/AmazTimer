@@ -11,6 +11,8 @@ public class HrData extends RealmObject {
         this.time = time;
         this.hr = hr;
     }
+    
+    public HrData(){} //Needed for Realm
 
     public long getTime() {
         return time;
