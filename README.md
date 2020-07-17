@@ -1,4 +1,5 @@
 # AmazTimer
+[![Maintainability](https://api.codeclimate.com/v1/badges/9389ce1c8136678546c2/maintainability)](https://codeclimate.com/github/micrusa/AmazTimer/maintainability) [![Actions Status](https://github.com/micrusa/amaztimer/workflows/CI/badge.svg)](https://github.com/micrusa/amaztimer/actions) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/migueelcs) [![latest release](https://img.shields.io/github/release/micrusa/AmazTimer.svg?label=latest%20release&style=flat)](https://github.com/micrusa/AmazTimer/releases/latest) [![commit activity](https://img.shields.io/github/commit-activity/m/micrusa/AmazTimer)](https://github.com/micrusa/AmazTimer/commits/master)
 
 ## Description
 This app is an interval/reps/workout timer for amazfit devices to do trainings with HR monitoring and TCX exports, default values are tabata training's but you can use any times and sets you want
@@ -13,7 +14,6 @@ Any amazfit device running android 5.1 MIPS (Pace, stratos 1/2/3, verge)
 ## Notes
 - Everything that needs more CPU time doesn't run in UI Thread, so if there are lags I can't fix them. This lags are more common on S3.
 - TCX files are saved in "Internal Storage/AmazTimer", for some reason windows sometimes can't read it, so you can get them using `adb pull /sdcard/AmazTimer` or through AmazMod
-- If you liked my work, you can help me keeping the project up by buying me a coffee [here](https://www.paypal.me/migueelcs)
 
 ## HW Buttons
 - Pace/Verge/S2 with new layout: Single click to end set, long click to start/stop timer. Center button on S2
