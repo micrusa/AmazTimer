@@ -7,7 +7,7 @@ import com.dbflow5.database.DatabaseWrapper;
 import org.jetbrains.annotations.NotNull;
 
 @com.dbflow5.annotation.Database(name = Database.NAME, version = Database.VERSION)
-public class Database extends DBFlowDatabase {
+public abstract class Database extends DBFlowDatabase {
 
     public static final String NAME = "AmazTimer";
 
