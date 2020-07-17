@@ -89,10 +89,8 @@ public class buttonListener {
         }
 
         public void run(){
-            File file = new File(FILE_PATH);
-
             try {
-                FileInputStream fileInputStream = new FileInputStream(file);
+                FileInputStream fileInputStream = new FileInputStream(new File(FILE_PATH));
 
                 while (true) {
                     if(Thread.currentThread().isInterrupted()){
@@ -116,76 +114,78 @@ public class buttonListener {
                         continue;
                     }
 
-                    long now = System.currentTimeMillis();
-
-                    int buttonEventKey;
-
-                    switch (code) {
-                        case KEY_DOWN: {
-                            if (value == KEY_EVENT_UP) {
-                                if(isStratos3())
-                                    buttonEventKey = buttonEvent.S3_KEY_MIDDLE_UP;
-                                else
-                                    buttonEventKey = buttonEvent.KEY_DOWN;
-                                long delta = now - lastKeyDownKeyDown;
-                                if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                    buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
-                                } else {
-                                    if (delta < TRIGGER) {
-                                        buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
-                                    }
-                                }
-                            } else if (value == KEY_EVENT_PRESS) {
-                                lastKeyDownKeyDown = now;
-                            }
-                            break;
-                        }
-                        case KEY_CENTER: {
-                            if (value == KEY_EVENT_UP) {
-                                if(isStratos3())
-                                    buttonEventKey = buttonEvent.S3_KEY_UP;
-                                else
-                                    buttonEventKey = buttonEvent.KEY_CENTER;
-                                long delta = now - lastKeyCenterKeyUp;
-                                if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                    buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
-                                } else {
-                                    if (delta < TRIGGER) {
-                                        buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
-                                    }
-                                }
-                            } else if (value == KEY_EVENT_PRESS) {
-                                lastKeyCenterKeyUp = now;
-                            }
-                            break;
-                        }
-                        case KEY_UP: {
-                            if (value == KEY_EVENT_UP) {
-                                if(isStratos3())
-                                    buttonEventKey = buttonEvent.S3_KEY_MIDDLE_DOWN;
-                                else
-                                    buttonEventKey = buttonEvent.KEY_UP;
-                                long delta = now - lastKeyUpKeyUp;
-                                if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                                    buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
-                                } else {
-                                    if (delta < TRIGGER) {
-                                        buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
-                                    }
-                                }
-                            } else if (value == KEY_EVENT_PRESS) {
-                                lastKeyUpKeyUp = now;
-                            }
-                            break;
-                        }
-                        default: {
-                            Logger.debug("Unsupported key: " + code);
-                            break;
-                        }
-                    }
+                    check(code, value);
                 }
             } catch (IOException e) {
                 Logger.error(e);
+            }
+        }
+
+        private void check(int code, int value){
+            long now = System.currentTimeMillis();
+            int buttonEventKey;
+            switch (code) {
+                case KEY_DOWN: {
+                    if (value == KEY_EVENT_UP) {
+                        if(isStratos3())
+                            buttonEventKey = buttonEvent.S3_KEY_MIDDLE_UP;
+                        else
+                            buttonEventKey = buttonEvent.KEY_DOWN;
+                        long delta = now - lastKeyDownKeyDown;
+                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
+                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
+                        } else {
+                            if (delta < TRIGGER) {
+                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
+                            }
+                        }
+                    } else if (value == KEY_EVENT_PRESS) {
+                        lastKeyDownKeyDown = now;
+                    }
+                    break;
+                }
+                case KEY_CENTER: {
+                    if (value == KEY_EVENT_UP) {
+                        if(isStratos3())
+                            buttonEventKey = buttonEvent.S3_KEY_UP;
+                        else
+                            buttonEventKey = buttonEvent.KEY_CENTER;
+                        long delta = now - lastKeyCenterKeyUp;
+                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
+                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
+                        } else {
+                            if (delta < TRIGGER) {
+                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
+                            }
+                        }
+                    } else if (value == KEY_EVENT_PRESS) {
+                        lastKeyCenterKeyUp = now;
+                    }
+                    break;
+                }
+                case KEY_UP: {
+                    if (value == KEY_EVENT_UP) {
+                        if(isStratos3())
+                            buttonEventKey = buttonEvent.S3_KEY_MIDDLE_DOWN;
+                        else
+                            buttonEventKey = buttonEvent.KEY_UP;
+                        long delta = now - lastKeyUpKeyUp;
+                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
+                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
+                        } else {
+                            if (delta < TRIGGER) {
+                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
+                            }
+                        }
+                    } else if (value == KEY_EVENT_PRESS) {
+                        lastKeyUpKeyUp = now;
+                    }
+                    break;
+                }
+                default: {
+                    Logger.debug("Unsupported key: " + code);
+                    break;
+                }
             }
         }
 

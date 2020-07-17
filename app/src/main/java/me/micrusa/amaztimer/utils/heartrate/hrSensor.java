@@ -60,8 +60,8 @@ public class hrSensor {
     }
 
     public void newValue(int v){
-        if (isAccuracyValid() && v > 25 && v < 230 /*Limit to range 25-230 to avoid fake readings*/) {
-            v = hrUtils.getFlattenedHr(v); //Hr will be flattened if the preference is enabled
+        v = hrUtils.getFlattenedHr(v); //Hr will be flattened if the preference is enabled
+        if (isAccuracyValid(v) /*Limit to range 25-230 to avoid fake readings*/) {
             //Get hr value and set the text if battery saving mode is disabled
             if(latestHr != v){
                 listener.onHrChanged(v);
@@ -97,9 +97,9 @@ public class hrSensor {
         hrListener.register(context);
     }
 
-    private boolean isAccuracyValid(){
+    private boolean isAccuracyValid(int value){
         //Disabled for testing purposes
-        return true; //this.accuracy >= defValues.ACCURACY_RANGE[0] && this.accuracy <= defValues.ACCURACY_RANGE[1];
+        return value > 25 && value < 230; //&& this.accuracy >= defValues.ACCURACY_RANGE[0] && this.accuracy <= defValues.ACCURACY_RANGE[1];
     }
 
     public void unregisterListener(Context context) {
@@ -132,9 +132,7 @@ public class hrSensor {
         if (this.currentLap != null) {
             this.currentLap.setIntensity(this.currentLapStatus);
             this.currentLap.endLap(System.currentTimeMillis());
-            this.currentLap.calcCalories(prefUtils.getAge(),
-                    prefUtils.getWeight(),
-                    prefUtils.isMale());
+            this.currentLap.calcCalories();
             this.TCXData.addLap(this.currentLap);
         }
     }
