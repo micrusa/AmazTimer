@@ -1,8 +1,6 @@
 package me.micrusa.amaztimer.trainings.database;
 
-import io.realm.RealmObject;
-
-public class Lap extends RealmObject {
+public class Lap {
 
     private int lapDuration;
     private boolean isWorking;

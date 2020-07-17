@@ -1,20 +1,37 @@
 package me.micrusa.amaztimer.trainings.database;
 
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import com.dbflow5.annotation.Column;
+import com.dbflow5.annotation.PrimaryKey;
+import com.dbflow5.annotation.Table;
+import com.dbflow5.structure.BaseModel;
 
-public class Training extends RealmObject {
+import java.util.ArrayList;
+
+import me.micrusa.amaztimer.trainings.database.lists.HrDataList;
+import me.micrusa.amaztimer.trainings.database.lists.LapList;
+import me.micrusa.amaztimer.trainings.database.lists.converter.HrDataConverter;
+import me.micrusa.amaztimer.trainings.database.lists.converter.LapConverter;
+
+@Table(database = Database.class)
+public class Training extends BaseModel {
+    @Column
     @PrimaryKey
     private long id;
 
+    @Column
     private long totalTimeSecs;
+    @Column
     private int Kcal;
+    @Column
     private int MaxHr;
+    @Column
     private int AvgHr;
+    @Column
     private int MinHr;
-    private RealmList<Lap> laps;
-    private RealmList<HrData> heartrate;
+    @Column
+    private String laps;
+    @Column
+    private String heartrate;
 
     public long getId() {
         return id;
@@ -64,11 +81,31 @@ public class Training extends RealmObject {
         MinHr = minHr;
     }
 
-    public RealmList<Lap> getLaps() {
-        return laps;
+    public LapList getLaps() {
+        return new LapConverter().getModelValue(laps);
     }
 
-    public RealmList<HrData> getHeartrate() {
-        return heartrate;
+    private void setLaps(LapList lapList){
+        laps = new LapConverter().getDBValue(lapList);
+    }
+
+    public void addLap(Lap lap){
+        LapList dbLaps = getLaps();
+        dbLaps.add(lap);
+        setLaps(dbLaps);
+    }
+
+    public HrDataList getHeartrate() {
+        return new HrDataConverter().getModelValue(heartrate);
+    }
+
+    private void setHeartrate(HrDataList hrDataList){
+        heartrate = new HrDataConverter().getDBValue(hrDataList);
+    }
+
+    public void addHrData(HrData hrData){
+        HrDataList dbHr = getHeartrate();
+        dbHr.add(hrData);
+        setHeartrate(dbHr);
     }
 }

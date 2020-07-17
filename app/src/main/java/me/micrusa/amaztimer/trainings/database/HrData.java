@@ -1,8 +1,6 @@
 package me.micrusa.amaztimer.trainings.database;
 
-import io.realm.RealmObject;
-
-public class HrData extends RealmObject {
+public class HrData {
 
     private long time;
     private int hr;
@@ -11,8 +9,6 @@ public class HrData extends RealmObject {
         this.time = time;
         this.hr = hr;
     }
-    
-    public HrData(){} //Needed for Realm
 
     public long getTime() {
         return time;

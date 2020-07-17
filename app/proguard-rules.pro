@@ -17,12 +17,7 @@
 -keepnames class * implements org.tinylog.**
 -keepclassmembers class * implements org.tinylog.** { <init>(...); }
 
-#Realm
--keepnames public class * extends io.realm.RealmObject
--keep @io.realm.annotations.RealmModule class *
--keep class io.realm.** { *; }
--dontwarn javax.**
--dontwarn io.realm.**
+#DBFlow
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.

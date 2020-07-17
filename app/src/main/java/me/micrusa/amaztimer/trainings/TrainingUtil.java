@@ -1,8 +1,10 @@
 package me.micrusa.amaztimer.trainings;
 
+import com.dbflow5.config.FlowManager;
+
 import java.util.Date;
 
-import io.realm.Realm;
+import me.micrusa.amaztimer.trainings.database.Database;
 import me.micrusa.amaztimer.trainings.database.HrData;
 import me.micrusa.amaztimer.trainings.database.Lap;
 import me.micrusa.amaztimer.trainings.database.Training;
@@ -12,80 +14,66 @@ import me.micrusa.amaztimer.utils.prefUtils;
 public class TrainingUtil {
     private static Training training;
     private static Lap currentLap;
-    private static Realm realm;
     private static long startTime;
     private static long lapStartTime = 0;
 
-    public static void startWorkout(){
-        realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        training = realm.createObject(Training.class);
-        training.setId(new Date().getTime());
-        realm.commitTransaction();
+    public static void startWorkout() {
         startTime = System.currentTimeMillis();
+        training = new Training();
+        training.setId(startTime);
     }
 
-    public static void newHrData(int hr){
-        realm.beginTransaction();
-        HrData hrData = new HrData(new Date().getTime(), hr);
-        hrData = realm.copyToRealm(hrData);
-        training.getHeartrate().add(hrData);
-        realm.commitTransaction();
+    public static void newHrData(int hr) {
+        training.addHrData(new HrData(new Date().getTime(), hr));
     }
 
-    public static void newLap(boolean isWorking){
+    public static void newLap(boolean isWorking) {
         saveLap();
-        realm.beginTransaction();
-        currentLap = realm.createObject(Lap.class);
-        currentLap.setWorking(isWorking);
-        realm.commitTransaction();
         lapStartTime = System.currentTimeMillis();
+        currentLap = new Lap();
+        currentLap.setWorking(isWorking);
     }
 
-    public static void endWorkout(){
-        try{
-            saveLap();
-            int timeSecs = (int) (System.currentTimeMillis() - startTime) / 1000;
-            realm.beginTransaction();
-            training.setTotalTimeSecs(timeSecs);
+    public static void endWorkout() {
+        saveLap(); //Save latest lap
 
-            //Max, min && avg hr
-            int maxHr = 0;
-            int minHr = 1000;
-            int avgHr = 0;
-            int hrValues = 0;
-            for(HrData hrData : training.getHeartrate()) {
-                if (hrData.getHr() > maxHr)
-                    maxHr = hrData.getHr();
-                if (hrData.getHr() < minHr)
-                    minHr = hrData.getHr();
-                avgHr += hrData.getHr();
-                hrValues++;
-            }
-            avgHr = avgHr / hrValues;
+        int timeSecs = (int) (System.currentTimeMillis() - startTime) / 1000;
+        training.setTotalTimeSecs(timeSecs);
 
-            training.setMaxHr(maxHr);
-            training.setMinHr(minHr);
-            training.setAvgHr(avgHr);
-
-            training.setKcal(hrUtils.calculateKcal(avgHr, timeSecs,
-                    prefUtils.getAge(), prefUtils.getWeight(), prefUtils.isMale()));
-            realm.commitTransaction();
-        } finally {
-            realm.close();
+        //Max, min && avg hr
+        int maxHr = 0;
+        int minHr = 1000;
+        int avgHr = 0;
+        int hrValues = 0;
+        for (HrData hrData : training.getHeartrate()) {
+            if (hrData.getHr() > maxHr)
+                maxHr = hrData.getHr();
+            if (hrData.getHr() < minHr)
+                minHr = hrData.getHr();
+            avgHr += hrData.getHr();
+            hrValues++;
         }
-        startTime = 0;
-        lapStartTime = 0;
+        avgHr = avgHr / hrValues;
+
+        training.setMaxHr(maxHr);
+        training.setMinHr(minHr);
+        training.setAvgHr(avgHr);
+
+        training.setKcal(hrUtils.calculateKcal(avgHr, timeSecs,
+                prefUtils.getAge(), prefUtils.getWeight(), prefUtils.isMale()));
+
+        training.save(Database.getDb()); //Save after saving everything to the class
+
         currentLap = null;
+        lapStartTime = 0;
+        startTime = 0;
     }
 
-    private static void saveLap(){
-        if(currentLap != null){
+    private static void saveLap() {
+        if (currentLap != null) {
             int duration = (int) (System.currentTimeMillis() - lapStartTime) / 1000;
-            realm.beginTransaction();
             currentLap.setLapDuration(duration);
-            training.getLaps().add(currentLap);
-            realm.commitTransaction();
+            training.addLap(currentLap);
         }
     }
 }
