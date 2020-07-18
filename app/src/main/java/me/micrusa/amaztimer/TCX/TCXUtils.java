@@ -15,7 +15,7 @@ public class TCXUtils {
         //Workaround for wrong times
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        int hours = calendar.get(Calendar.HOUR) + Prefs.getInt(defValues.KEY_TCX_TIME, 0);
+        int hours = calendar.get(Calendar.HOUR) + Integer.parseInt(Prefs.getString(defValues.KEY_TCX_TIME, "0"));
         calendar.set(Calendar.HOUR, hours);
         date = calendar.getTime();
 
