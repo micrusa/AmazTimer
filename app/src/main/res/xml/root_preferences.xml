@@ -67,7 +67,7 @@
             app:defaultValue="2"
             android:defaultValue="2"
             app:min="1"
-            app:max="3"
+            android:max="3"
             app:seekBarIncrement="1"
             app:showSeekBarValue="true"
             app:updatesContinuously="true"
