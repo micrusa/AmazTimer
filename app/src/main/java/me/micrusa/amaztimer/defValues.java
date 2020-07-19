@@ -54,6 +54,7 @@ public final class defValues {
     public static final String KEY_HREXPERIMENT = "hrexperiment";
     public static final String KEY_FLATTENHR = "flattenhr";
     public static final String KEY_TCX_TIME = "tcxtime";
+    public static final String KEY_VIBRATION = "vibration";
     //Some useful stuff
     public static final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;
     public static final int VERSION_CODE = BuildConfig.VERSION_CODE;

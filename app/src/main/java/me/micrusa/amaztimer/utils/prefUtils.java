@@ -18,4 +18,19 @@ public class prefUtils {
         return Boolean.parseBoolean(Prefs.getString(defValues.KEY_GENDER, "true"));
     }
 
+    public static int getVibration(int vibration){
+        int multiplier = Prefs.getInt(defValues.KEY_VIBRATION, 2);
+        switch(multiplier){
+            case 1:
+                vibration = vibration / 2;
+                break;
+            case 3:
+                vibration = vibration * 2;
+                break;
+            default:
+                break;
+        }
+        return vibration;
+    }
+
 }

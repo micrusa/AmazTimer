@@ -28,7 +28,7 @@ public class utils {
             MediaPlayer.create(context, R.raw.beep).start();
         Vibrator v = (Vibrator) context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         if (v != null) {
-            v.vibrate(time);
+            v.vibrate(prefUtils.getVibration(time));
         }
     }
 
