@@ -1,9 +1,4 @@
 <resources>
-    <!--Don't translate this!-->
-    <string name="amaztimer" translatable="false">AmazTimer</string>
-    <string name="kcal" translatable="false">Kcal</string>
-    <string name="nullinfo" translatable="false">--</string>
-    <!--Start translating here-->
     <string name="start">Iniciar</string>
     <string name="work">Treino</string>
     <string name="rest">Descanso</string>

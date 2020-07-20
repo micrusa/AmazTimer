@@ -10,6 +10,7 @@
         <item>Russian</item>
         <item>Ukranian</item>
         <item>Czech</item>
+        <item>Brazilian Portuguese</item>
     </string-array>
     <string-array name="langvalues">
         <item>en</item>
@@ -20,6 +21,7 @@
         <item>ru</item>
         <item>uk</item>
         <item>cs</item>
+        <item>pt-rBR</item>
     </string-array>
 
     <!-- Gender preference -->
