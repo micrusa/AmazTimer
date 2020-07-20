@@ -36,32 +36,10 @@ public class AmazTimer extends Activity {
         int sets = Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS);
         int workTime = Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME);
         int restTime = Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME);
-        //Increase or decrease the value that user clicked
-        switch(id){
-            case R.id.plus:
-                sets = utils.getUpdatedSets(sets, longClick ? 5 : 1, this);
-                break;
-            case R.id.plus2:
-                workTime = utils.getUpdatedTime(workTime, longClick ? 60 : 1, this);
-                break;
-            case R.id.plus3:
-                restTime = utils.getUpdatedTime(restTime, longClick ? 60 : 1, this);
-                break;
-            case R.id.minus2:
-                sets = utils.getUpdatedSets(sets, longClick ? -5 : -1, this);
-                break;
-            case R.id.minus:
-                workTime = utils.getUpdatedTime(workTime, longClick ? -60 : -1, this);
-                break;
-            case R.id.minus3:
-                restTime = utils.getUpdatedTime(restTime, longClick ? -60 : -1, this);
-                break;
-            default:
-                break;
-        }
-        Prefs.putInt(defValues.KEY_SETS, sets);
-        Prefs.putInt(defValues.KEY_WORK, workTime);
-        Prefs.putInt(defValues.KEY_REST, restTime);
+        int[] data = utils.getValues(new int[]{sets, workTime, restTime, id}, longClick, this);
+        Prefs.putInt(defValues.KEY_SETS, data[0]);
+        Prefs.putInt(defValues.KEY_WORK, data[1]);
+        Prefs.putInt(defValues.KEY_REST, data[2]);
         setTexts();
         return true;
     }

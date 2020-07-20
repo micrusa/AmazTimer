@@ -89,4 +89,32 @@ public class utils {
         return getMode() == 2;
     }
 
+    public static int[] getValues(int[] data, boolean longClick, Context context){
+        int sets = data[0]; //data -> 0 = sets, 1 = work, 2 = rest, 3 = res
+        int workTime = data[1];
+        int restTime = data[2];
+        switch(data[3]){
+            case R.id.plus:
+                sets = utils.getUpdatedSets(sets, longClick ? 5 : 1, context);
+                break;
+            case R.id.plus2:
+                workTime = utils.getUpdatedTime(workTime, longClick ? 60 : 1, context);
+                break;
+            case R.id.plus3:
+                restTime = utils.getUpdatedTime(restTime, longClick ? 60 : 1, context);
+                break;
+            case R.id.minus2:
+                sets = utils.getUpdatedSets(sets, longClick ? -5 : -1, context);
+                break;
+            case R.id.minus:
+                workTime = utils.getUpdatedTime(workTime, longClick ? -60 : -1, context);
+                break;
+            case R.id.minus3:
+                restTime = utils.getUpdatedTime(restTime, longClick ? -60 : -1, context);
+                break;
+            default:
+                break;
+        }
+        return new int[]{sets, workTime, restTime};
+    }
 }

@@ -51,32 +51,9 @@ public class EditPresetActivity extends AppCompatActivity {
         int sets = Integer.parseInt(valuesStr.split(":")[0]);
         int work = Integer.parseInt(valuesStr.split(":")[1]);
         int rest = Integer.parseInt(valuesStr.split(":")[2]);
-        //Increase or decrease values
-        switch (res) {
-            case R.id.plus:
-                sets = utils.getUpdatedSets(sets, isLongPress ? 5 : 1, this);
-                break;
-            case R.id.plus2:
-                work = utils.getUpdatedTime(work, isLongPress ? 60 : 1, this);
-                break;
-            case R.id.plus3:
-                rest = utils.getUpdatedTime(rest, isLongPress ? 60 : 1, this);
-                break;
-            case R.id.minus2:
-                sets = utils.getUpdatedSets(sets, isLongPress ? -5 : -1, this);
-                break;
-            case R.id.minus:
-                work = utils.getUpdatedTime(work, isLongPress ? -60 : -1, this);
-                break;
-            case R.id.minus3:
-                rest = utils.getUpdatedTime(rest, isLongPress ? -60 : -1, this);
-                break;
-            default:
-                break;
-        }
-        //Save to file and set texts
-        Prefs.putString(presetKey, sets + ":" + work + ":" + rest);
-        setTimeTexts(sets, work, rest);
+        int[] data = utils.getValues(new int[]{sets, work, rest, res}, isLongPress, this);
+        Prefs.putString(presetKey, data[0] + ":" + data[1] + ":" + data[2]);
+        setTimeTexts(data[0], data[1], data[2]);
         return true; //For a simpler code on long click
     }
 
