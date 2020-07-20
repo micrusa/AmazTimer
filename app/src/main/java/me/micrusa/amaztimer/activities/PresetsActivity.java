@@ -100,24 +100,20 @@ public class PresetsActivity extends AppCompatActivity {
         this.secondArray[0] = Integer.parseInt(valuesStr.split(":")[0]);
         this.secondArray[1] = Integer.parseInt(valuesStr.split(":")[1]);
         this.secondArray[2] = Integer.parseInt(valuesStr.split(":")[2]);
-        //Set texts from format
+
+        preset1.setText(getText(this.firstArray));
+        preset2.setText(getText(this.secondArray));
+    }
+
+    private String getText(int[] array){
         Resources res = this.getResources();
-        String text1 = textFormat
+        return textFormat
                 .replace("SETS", res.getString(R.string.sets))
                 .replace("WORK", res.getString(R.string.work))
                 .replace("REST", res.getString(R.string.rest))
-                .replace("%s", String.valueOf(this.firstArray[0]))
-                .replace("%t", utils.formatTime(this.firstArray[1]))
-                .replace("%r", utils.formatTime(this.firstArray[2]));
-        preset1.setText(text1);
-        String text2 = textFormat
-                .replace("SETS", res.getString(R.string.sets))
-                .replace("WORK", res.getString(R.string.work))
-                .replace("REST", res.getString(R.string.rest))
-                .replace("%s", String.valueOf(this.secondArray[0]))
-                .replace("%t", utils.formatTime(this.secondArray[1]))
-                .replace("%r", utils.formatTime(this.secondArray[2]));
-        preset2.setText(text2);
+                .replace("%s", String.valueOf(array[0]))
+                .replace("%t", utils.formatTime(array[1]))
+                .replace("%r", utils.formatTime(array[2]));
     }
 
     private int[] getValues(int i) {
