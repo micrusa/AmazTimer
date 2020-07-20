@@ -2,33 +2,31 @@ package me.micrusa.amaztimer.button;
 
 import android.content.Context;
 import android.os.PowerManager;
-import android.util.Log;
 
 import org.tinylog.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
+import java.util.LinkedHashMap;
 
-import static me.micrusa.amaztimer.utils.SystemProperties.isStratos3;
+import me.micrusa.amaztimer.utils.SystemProperties;
 
 import static android.content.Context.POWER_SERVICE;
 
-//Big thanks to AmazMod team for this way of getting button presses
-
 public class buttonListener {
+
     private final int TYPE_KEYBOARD = 1;
 
     public static final int KEY_DOWN = 64; //S3 key middle up
     public static final int KEY_CENTER = 116; //S3 key up
     public static final int KEY_UP = 63; //S3 key middle down
+    public static final int S3_KEY_UP = 116;
+    public static final int S3_KEY_MIDDLE_UP = 64;
+    public static final int S3_KEY_MIDDLE_DOWN = 63;
+    public static final int S3_KEY_DOWN = 158;
 
     private final int KEY_EVENT_UP = 0;
     private final int KEY_EVENT_PRESS = 1;
@@ -40,13 +38,11 @@ public class buttonListener {
     private PowerManager powerManager;
     PowerManager.WakeLock wakeLock;
 
-
-
     private boolean listening;
 
     Thread thread;
 
-    public void start(Context context, final buttonInterface buttonInterface) {
+    public void start(Context context, final KeyEventListener keyEventListener) {
         if(listening)
             return;
 
@@ -56,7 +52,7 @@ public class buttonListener {
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "AmazTimer:buttonListener");
         wakeLock.acquire();
-        thread = new listenerThread(buttonInterface);
+        thread = new listenerThread(keyEventListener);
         thread.start();
     }
 
@@ -73,19 +69,22 @@ public class buttonListener {
     private class listenerThread extends Thread{
         private String FILE_PATH;
 
-        private long lastKeyDownKeyDown = 0;
-        private long lastKeyCenterKeyUp = 0;
-        private long lastKeyUpKeyUp = 0;
+        private LinkedHashMap<Integer, Long> lastEvents = new LinkedHashMap<Integer, Long>() {{
+            put(KEY_UP, (long) 0);
+            put(KEY_DOWN, (long) 0);
+            put(KEY_CENTER, (long) 0);
+            put(S3_KEY_DOWN, (long) 0);
+        }};
 
-        private buttonInterface buttonInterface;
+        private KeyEventListener KeyEventListener;
 
-        private listenerThread(buttonInterface bInterface){
-            if(isStratos3())
+        private listenerThread(KeyEventListener keyEventListener){
+            if(SystemProperties.isStratos3())
                 FILE_PATH = "/dev/input/event1";
             else
                 FILE_PATH = "/dev/input/event2";
 
-            buttonInterface = bInterface;
+            KeyEventListener = keyEventListener;
         }
 
         public void run(){
@@ -110,85 +109,51 @@ public class buttonListener {
                     short code = byteBuffer.getShort(10);
                     short value = byteBuffer.getShort(12);
 
-                    if (type != TYPE_KEYBOARD) {
+                    if (type != TYPE_KEYBOARD)
                         continue;
-                    }
 
                     check(code, value);
+
                 }
             } catch (IOException e) {
                 Logger.error(e);
             }
         }
-
         private void check(int code, int value){
             long now = System.currentTimeMillis();
-            int buttonEventKey;
-            switch (code) {
-                case KEY_DOWN: {
-                    if (value == KEY_EVENT_UP) {
-                        if(isStratos3())
-                            buttonEventKey = buttonEvent.S3_KEY_MIDDLE_UP;
-                        else
-                            buttonEventKey = buttonEvent.KEY_DOWN;
-                        long delta = now - lastKeyDownKeyDown;
-                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
-                        } else {
-                            if (delta < TRIGGER) {
-                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
-                            }
-                        }
-                    } else if (value == KEY_EVENT_PRESS) {
-                        lastKeyDownKeyDown = now;
-                    }
-                    break;
-                }
-                case KEY_CENTER: {
-                    if (value == KEY_EVENT_UP) {
-                        if(isStratos3())
-                            buttonEventKey = buttonEvent.S3_KEY_UP;
-                        else
-                            buttonEventKey = buttonEvent.KEY_CENTER;
-                        long delta = now - lastKeyCenterKeyUp;
-                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
-                        } else {
-                            if (delta < TRIGGER) {
-                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
-                            }
-                        }
-                    } else if (value == KEY_EVENT_PRESS) {
-                        lastKeyCenterKeyUp = now;
-                    }
-                    break;
-                }
-                case KEY_UP: {
-                    if (value == KEY_EVENT_UP) {
-                        if(isStratos3())
-                            buttonEventKey = buttonEvent.S3_KEY_MIDDLE_DOWN;
-                        else
-                            buttonEventKey = buttonEvent.KEY_UP;
-                        long delta = now - lastKeyUpKeyUp;
-                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
-                        } else {
-                            if (delta < TRIGGER) {
-                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
-                            }
-                        }
-                    } else if (value == KEY_EVENT_PRESS) {
-                        lastKeyUpKeyUp = now;
-                    }
-                    break;
-                }
-                default: {
-                    Logger.debug("Unsupported key: " + code);
-                    break;
-                }
-            }
-        }
+            long lastKeyDown = lastEvents.get((int) code);
 
+            if (value == KEY_EVENT_UP) {
+                long delta = now - lastKeyDown;
+                if ((delta > TRIGGER) && (delta < LONG_TRIGGER))
+                    KeyEventListener.onKeyPress(new KeyEvent(code, true));
+                else if (delta < TRIGGER)
+                    KeyEventListener.onKeyPress(new KeyEvent(code, false));
+            } else if (value == KEY_EVENT_PRESS)
+                lastKeyDown = now;
+
+            lastEvents.put((int) code, lastKeyDown);
+        }
     }
 
+    public interface KeyEventListener {
+        void onKeyPress(KeyEvent keyEvent);
+    }
+
+    public static class KeyEvent{
+        private int code;
+        private boolean longPress;
+        private KeyEvent(int code, boolean isLongPress){
+            this.code = code;
+            this.longPress = isLongPress;
+        }
+
+        public int getCode(){
+            return code;
+        }
+
+        public boolean isLongPress(){
+            return longPress;
+        }
+    }
 }
