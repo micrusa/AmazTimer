@@ -1,0 +1,62 @@
+<resources>
+    <!--Don't translate this!-->
+    <string name="amaztimer" translatable="false">AmazTimer</string>
+    <string name="kcal" translatable="false">Kcal</string>
+    <string name="nullinfo" translatable="false">--</string>
+    <!--Start translating here-->
+    <string name="start">Iniciar</string>
+    <string name="work">Trbalho</string>
+    <string name="rest">Reset</string>
+    <string name="sets">Config</string>
+    <string name="prepare">Se prepare!</string>
+    <string name="settings">Configurações</string>
+    <string name="batterysaving">Economia de bateria</string>
+    <string name="lang">Idioma</string>
+    <string name="startsettings">Mantenha pressionado para iniciar config.</string>
+    <string name="hrEnabled">Monitorização da frequência cardíaca</string>
+    <string name="saved">Predefinições</string>
+    <string name="edit">Editar</string>
+    <string name="misc">Diversos</string>
+    <string name="weight">Peso</string>
+    <string name="age">Ano de nascimento</string>
+    <string name="gender">Genero</string>
+    <string name="averagehr">Média de horas</string>
+    <string name="maxhr">Max hr</string>
+    <string name="minhr">Min hr</string>
+    <string name="male">Masculino</string>
+    <string name="female">Feminino</string>
+    <string name="latesttrain">Último Treino</string>
+    <string name="morepreparetime">Mais tempo para se preparar</string>
+    <string name="morepreparetimesum">Se você habilitar isso, o cronômetro de preparação durará 60 segundos em vez de 5, para que você tenha tempo suficiente para iniciar uma atividade</string>
+    <string name="repsmode">Modo de repetição</string>
+    <string name="hrzone">Zona de RC</string>
+    <string name="appinfo">Info do App</string>
+    <string name="appcredit">App por @micrusa</string>
+    <string name="translationcredit">Translation by Fábio Barbosa</string>
+    <string name="thanksto">Graças a:</string>
+    <string name="thanksfor">para</string>
+    <string name="allcontributors">Todos os colaboradores</string>
+    <string name="ageyo">anos</string>
+    <string name="workout">Modo de treino</string>
+    <string name="workoutsum">Sem contagem regressiva, final de série manualmente. Muito útil para musculação</string>
+    <string name="modes">Modos</string>
+    <string name="enableprep">Ativar o cronômetro de preparação</string>
+    <string name="chrono">Modo de cronómetro</string>
+    <string name="chronosum">Ele vibrará com os intervalos selecionados, mas em vez de mostrar a contagem regressiva na tela, um cronômetro começará</string>
+    <string name="tcxexport">Exportar TCX</string>
+    <string name="tcxsum">Pode ser carregado no strava. Será exportado para Armazenamento Interno/AmazTimer /</string>
+    <string name="tcxexporting">Exportando arquivo TCX...</string>
+    <string name="tcxerror">Erro ao salvar arquivo TCX</string>
+    <string name="timersound">Habilitar som</string>
+    <string name="finishset">Terminar Série</string>
+    <string name="time">Tempo</string>
+    <string name="currentset">Série Atual</string>
+    <string name="heartrate">Frequência Cardíaca</string>
+    <string name="enablehrzone">Habilitar Zona RC</string>
+    <string name="invertkeys">Inverter Botôes</string>
+    <string name="customization">Customização</string>
+    <string name="hrzonesum">Uma barra pequena terá uma cor dependendo da sua zona RC atual</string>
+    <string name="cancel">Cancelar</string>
+    <string name="vibration">Multiplicador de vibração</string>
+    <string name="vibrationsum">As vibrações serão multiplicadas por este número</string>
+</resources>
