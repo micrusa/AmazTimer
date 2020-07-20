@@ -61,21 +61,18 @@ public class hrSensor {
 
     public void newValue(int v){
         v = hrUtils.getFlattenedHr(v); //Hr will be flattened if the preference is enabled
-        if (isAccuracyValid(v) /*Limit to range 25-230 to avoid fake readings*/) {
-            //Get hr value and set the text if battery saving mode is disabled
-            if(latestHr != v){
-                listener.onHrChanged(v);
-                latestHr = v;
-            }
-            //Send hr value to latestTraining array
-            latestTraining.addHrValue(v);
-            //Set latest hr value
-            String currentDate = TCXUtils.formatDate(new Date());
-            //Create Trackpoint and add it to current Lap
-            if (!currentDate.equals(this.latestTrackpointTime) && Prefs.getBoolean(defValues.KEY_TCX, defValues.DEFAULT_TCX)) { //This will limit trackpoints to 1/s
-                currentLap.addTrackpoint(new Trackpoint(v, new Date()));
-                this.latestTrackpointTime = currentDate;
-            }
+        if(latestHr != v){
+            listener.onHrChanged(v);
+            latestHr = v;
+        }
+        //Send hr value to latestTraining array
+        latestTraining.addHrValue(v);
+        //Set latest hr value
+        String currentDate = TCXUtils.formatDate(new Date());
+        //Create Trackpoint and add it to current Lap
+        if (!currentDate.equals(this.latestTrackpointTime) && Prefs.getBoolean(defValues.KEY_TCX, defValues.DEFAULT_TCX)) { //This will limit trackpoints to 1/s
+            currentLap.addTrackpoint(new Trackpoint(v, new Date()));
+            this.latestTrackpointTime = currentDate;
         }
     }
 
@@ -95,11 +92,6 @@ public class hrSensor {
         else
             hrListener = new mainListener();
         hrListener.register(context);
-    }
-
-    private boolean isAccuracyValid(int value){
-        //Disabled for testing purposes
-        return value > 25 && value < 230; //&& this.accuracy >= defValues.ACCURACY_RANGE[0] && this.accuracy <= defValues.ACCURACY_RANGE[1];
     }
 
     public void unregisterListener(Context context) {

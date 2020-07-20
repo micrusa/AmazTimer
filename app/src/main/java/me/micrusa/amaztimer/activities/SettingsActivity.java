@@ -35,60 +35,6 @@ public class SettingsActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private static final OnPreferenceChangeListener onPreferenceChangeListener = (preference, newValue) -> {
-        SwitchPreferenceCompat repsMode = preference.getPreferenceManager().findPreference(defValues.KEY_REPSMODE);
-        SwitchPreferenceCompat workoutMode = preference.getPreferenceManager().findPreference(defValues.KEY_WORKOUT);
-
-        Resources res = preference.getContext().getResources();
-
-        String key = preference.getKey();
-        switch (key) {
-            case defValues.KEY_REPSMODE:
-                if ((Boolean) newValue) {
-                    workoutMode.setEnabled(false);
-                } else {
-                    workoutMode.setEnabled(true);
-                }
-                break;
-            case defValues.KEY_WORKOUT:
-                if ((Boolean) newValue) {
-                    repsMode.setEnabled(false);
-                } else {
-                    repsMode.setEnabled(true);
-                }
-                break;
-            case defValues.KEY_AGE:
-                preference.setSummary(String.valueOf(defValues.CURRENT_YEAR - Integer.parseInt((String) newValue)) + res.getString(R.string.ageyo));
-                break;
-            case defValues.KEY_WEIGHT:
-                preference.setSummary((String) newValue + "Kg");
-                break;
-        }
-        return true;
-    };
-
-    private static final OnPreferenceClickListener OnPreferenceClickListener = preference -> {
-        String key = preference.getKey();
-        switch (key) {
-            case defValues.KEY_SAVED: {
-                Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
-                preference.getContext().startActivity(intent);
-                break;
-            }
-            case defValues.KEY_LATESTTRAIN: {
-                Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
-                preference.getContext().startActivity(intent);
-                break;
-            }
-            case defValues.KEY_APPINFO: {
-                Intent intent = new Intent(preference.getContext(), AppInfo.class);
-                preference.getContext().startActivity(intent);
-                break;
-            }
-        }
-        return true;
-    };
-
     @SuppressWarnings({"UnnecessaryCallToStringValueOf"})
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @SuppressWarnings({"ConstantConditions", "UnnecessaryCallToStringValueOf"})
@@ -109,22 +55,72 @@ public class SettingsActivity extends AppCompatActivity {
             latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
             appInfo.setOnPreferenceClickListener(OnPreferenceClickListener);
 
+            setupListPreferences();
+
+            setModesVisibility();
+        }
+
+        private final OnPreferenceChangeListener onPreferenceChangeListener = (preference, newValue) -> {
+            Resources res = preference.getContext().getResources();
+            setModesVisibility();
+
+            String key = preference.getKey();
+            switch (key) {
+                case defValues.KEY_AGE:
+                    preference.setSummary(String.valueOf(defValues.CURRENT_YEAR - Integer.parseInt((String) newValue)) + res.getString(R.string.ageyo));
+                    break;
+                case defValues.KEY_WEIGHT:
+                    preference.setSummary((String) newValue + "Kg");
+                    break;
+            }
+            return true;
+        };
+
+        private final OnPreferenceClickListener OnPreferenceClickListener = preference -> {
+            String key = preference.getKey();
+            switch (key) {
+                case defValues.KEY_SAVED: {
+                    Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
+                    preference.getContext().startActivity(intent);
+                    break;
+                }
+                case defValues.KEY_LATESTTRAIN: {
+                    Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
+                    preference.getContext().startActivity(intent);
+                    break;
+                }
+                case defValues.KEY_APPINFO: {
+                    Intent intent = new Intent(preference.getContext(), AppInfo.class);
+                    preference.getContext().startActivity(intent);
+                    break;
+                }
+            }
+            return true;
+        };
+
+        private void setModesVisibility(){
+            SwitchPreferenceCompat repsMode = findPreference(defValues.KEY_REPSMODE);
+            SwitchPreferenceCompat workoutMode = findPreference(defValues.KEY_WORKOUT);
+            if (Prefs.getBoolean(defValues.KEY_WORKOUT, false))
+                repsMode.setEnabled(false);
+            else if (Prefs.getBoolean(defValues.KEY_REPSMODE, false))
+                workoutMode.setEnabled(false);
+        }
+
+        private void setupListPreferences(){
             ListPreference age = findPreference(defValues.KEY_AGE);
             ListPreference weight = findPreference(defValues.KEY_WEIGHT);
-
             String[] ages = new String[100];
             int startYear = defValues.CURRENT_YEAR - 100;
             int endYear = defValues.CURRENT_YEAR;
-            for(int i=startYear; i<endYear; i++){
-                ages[i - startYear] = String.valueOf(i);
-            }
+            for (int i = startYear; i < endYear; i++) ages[i - startYear] = String.valueOf(i);
             age.setEntries(ages);
             age.setEntryValues(ages);
             age.setSummary(String.valueOf(endYear - Integer.parseInt(Prefs.getString(defValues.KEY_AGE, "20")))
                     + " " + getResources().getString(R.string.ageyo));
             String[] weightsEntry = new String[120];
             String[] weightsValue = new String[120];
-            for(int i=30; i<150; i++){
+            for (int i = 30; i < 150; i++) {
                 weightsEntry[i - 30] = String.valueOf(i + 1) + "Kg";
                 weightsValue[i - 30] = String.valueOf(i + 1);
             }
@@ -134,11 +130,6 @@ public class SettingsActivity extends AppCompatActivity {
 
             age.setOnPreferenceChangeListener(onPreferenceChangeListener);
             weight.setOnPreferenceChangeListener(onPreferenceChangeListener);
-
-            if (Prefs.getBoolean(defValues.KEY_WORKOUT, false))
-                repsMode.setEnabled(false);
-            else if (Prefs.getBoolean(defValues.KEY_REPSMODE, false))
-                workoutMode.setEnabled(false);
         }
     }
 }

@@ -103,36 +103,32 @@ public class buttonListener {
                     byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
                     byteBuffer.put(buffer);
 
-                    int timeS = byteBuffer.getInt(0);
-                    int timeMS = byteBuffer.getInt(4);
-                    short type = byteBuffer.getShort(8);
-                    short code = byteBuffer.getShort(10);
-                    short value = byteBuffer.getShort(12);
-
-                    if (type != TYPE_KEYBOARD)
-                        continue;
-
-                    check(code, value);
+                    check(byteBuffer);
 
                 }
             } catch (IOException e) {
                 Logger.error(e);
             }
         }
-        private void check(int code, int value){
+        private void check(ByteBuffer byteBuffer){
+            int timeS = byteBuffer.getInt(0);
+            int timeMS = byteBuffer.getInt(4);
+            short type = byteBuffer.getShort(8);
+            short code = byteBuffer.getShort(10);
+            short value = byteBuffer.getShort(12);
+
+            if (type == TYPE_KEYBOARD) return;
+
             long now = System.currentTimeMillis();
-            long lastKeyDown = lastEvents.get((int) code);
+            long delta = now - lastEvents.get((int) code);
 
             if (value == KEY_EVENT_UP) {
-                long delta = now - lastKeyDown;
-                if ((delta > TRIGGER) && (delta < LONG_TRIGGER))
+                if (delta > TRIGGER && delta < LONG_TRIGGER)
                     KeyEventListener.onKeyPress(new KeyEvent(code, true));
                 else if (delta < TRIGGER)
                     KeyEventListener.onKeyPress(new KeyEvent(code, false));
             } else if (value == KEY_EVENT_PRESS)
-                lastKeyDown = now;
-
-            lastEvents.put((int) code, lastKeyDown);
+                lastEvents.put((int) code, now);
         }
     }
 
