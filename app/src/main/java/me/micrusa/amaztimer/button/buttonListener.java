@@ -71,7 +71,8 @@ public class buttonListener {
     private class listenerThread extends Thread{
         private String FILE_PATH;
 
-        private HashMap<Integer, Long> lastEvents = new HashMap<>();
+        private long latestEvent = 0L;
+        private int latestKey = 0;
 
         private KeyEventListener KeyEventListener;
 
@@ -82,11 +83,6 @@ public class buttonListener {
                 FILE_PATH = "/dev/input/event2";
 
             KeyEventListener = keyEventListener;
-
-            lastEvents.put(KEY_UP, 1L);
-            lastEvents.put(KEY_DOWN, 1L);
-            lastEvents.put(KEY_CENTER, 1L);
-            lastEvents.put(S3_KEY_DOWN, (long) 1L);
         }
 
         public void run(){
@@ -124,18 +120,17 @@ public class buttonListener {
             if (type == TYPE_KEYBOARD) return;
 
             long now = System.currentTimeMillis();
-            long delta;
-            if(lastEvents.get((int) code) != null)
-                delta = now - lastEvents.get((int) code);
-            else delta = 0;
+            long delta = now - latestEvent;
 
             if (value == KEY_EVENT_UP) {
                 if (delta > TRIGGER && delta < LONG_TRIGGER)
-                    KeyEventListener.onKeyPress(new KeyEvent(code, true));
+                    KeyEventListener.onKeyPress(new KeyEvent(latestKey, true));
                 else if (delta < TRIGGER)
-                    KeyEventListener.onKeyPress(new KeyEvent(code, false));
-            } else if (value == KEY_EVENT_PRESS)
-                lastEvents.put((int) code, now);
+                    KeyEventListener.onKeyPress(new KeyEvent(latestKey, false));
+            } else if (value == KEY_EVENT_PRESS) {
+                latestEvent = now;
+                latestKey = code;
+            }
         }
     }
 
