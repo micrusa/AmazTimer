@@ -31,8 +31,6 @@ public class EditPresetActivity extends AppCompatActivity {
         utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
         setContentView(R.layout.amaztimer);
         PresetID = getIntent().getIntExtra("ID", 0);
-        if(PresetID <= 0 | PresetID >= 3)
-            finish();
         this.init();
         this.createOnClickListeners();
         this.setOnClickListeners();

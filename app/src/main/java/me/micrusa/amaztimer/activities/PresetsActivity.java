@@ -24,24 +24,12 @@ public class PresetsActivity extends AppCompatActivity {
     private final String textFormat = "SETS" + ": %s\n"
             + "WORK" + ": %t "
             + "REST" + ": %r";
-    private int[] firstArray = new int[3];
-    private int[] secondArray = new int[3];
+    private int[] firstArray;
+    private int[] secondArray;
 
     private final View.OnClickListener startClickListener = v -> {
-        int[] array;
         //Get correct array by the id
-        switch (v.getId()) {
-            case R.id.start1:
-                array = getValues(1);
-                break;
-            case R.id.start2:
-                array = getValues(2);
-                break;
-            default:
-                array = null;
-                break;
-        }
-        //If array is null return
+        int[] array = getArrayFromInt(v.getId() == R.id.edit1 ? 1 : 2);
         if(array == null) return;
         //Save data
         Prefs.putInt(defValues.KEY_SETS, array[0]);
@@ -54,16 +42,7 @@ public class PresetsActivity extends AppCompatActivity {
 
     private final View.OnClickListener editClickListener = v -> {
         Intent intent = new Intent(v.getContext(), EditPresetActivity.class);
-        switch (v.getId()) {
-            case R.id.edit1:
-                intent.putExtra("ID", 1);
-                break;
-            case R.id.edit2:
-                intent.putExtra("ID", 2);
-                break;
-            default:
-                break;
-        }
+        intent.putExtra("ID", v.getId() == R.id.edit1 ? 1 : 2);
         v.getContext().startActivity(intent);
     };
 
@@ -92,17 +71,19 @@ public class PresetsActivity extends AppCompatActivity {
 
     private void setupValues() {
         //Set values
-        String valuesStr = Prefs.getString(defValues.KEY_PRESET1, "8:30:20");
-        this.firstArray[0] = Integer.parseInt(valuesStr.split(":")[0]);
-        this.firstArray[1] = Integer.parseInt(valuesStr.split(":")[1]);;
-        this.firstArray[2] = Integer.parseInt(valuesStr.split(":")[2]);
-        valuesStr = Prefs.getString(defValues.KEY_PRESET1, "8:30:20");
-        this.secondArray[0] = Integer.parseInt(valuesStr.split(":")[0]);
-        this.secondArray[1] = Integer.parseInt(valuesStr.split(":")[1]);
-        this.secondArray[2] = Integer.parseInt(valuesStr.split(":")[2]);
-
+        this.firstArray = getArrayFromPref(defValues.KEY_PRESET1);
+        this.secondArray = getArrayFromPref(defValues.KEY_PRESET2);
         preset1.setText(getText(this.firstArray));
         preset2.setText(getText(this.secondArray));
+    }
+
+    private int[] getArrayFromPref(String preference){
+        String prefValues = Prefs.getString(preference, "8:30:20");
+        return new int[]{
+                Integer.parseInt(prefValues.split(":")[0]),
+                Integer.parseInt(prefValues.split(":")[1]),
+                Integer.parseInt(prefValues.split(":")[2])
+        };
     }
 
     private String getText(int[] array){
@@ -116,11 +97,8 @@ public class PresetsActivity extends AppCompatActivity {
                 .replace("%r", utils.formatTime(array[2]));
     }
 
-    private int[] getValues(int i) {
-        if(i == 1)
-            return this.firstArray;
-        else
-            return this.secondArray;
+    private int[] getArrayFromInt(int i) {
+        return i == 1 ? this.firstArray : this.secondArray;
     }
 
 }
