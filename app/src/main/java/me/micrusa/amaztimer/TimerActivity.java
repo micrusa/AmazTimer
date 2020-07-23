@@ -56,12 +56,13 @@ public class TimerActivity extends AppCompatActivity {
         hrZoneHandler = new hrZoneHandler(hrZoneView);
         setupBtnListener();
         //Setup onClickListeners
-        cancel.setOnLongClickListener(view -> endActivity());
+        cancel.setOnLongClickListener(view -> {
+            utils.vibrate(defValues.HAPTIC_VIBRATION, view.getContext());
+            return endActivity();
+        });
         finishset.setOnClickListener(view -> {
-            if (isWorking)
-                resting();
-            else
-                working();
+            utils.vibrate(defValues.HAPTIC_VIBRATION, view.getContext());
+            updateStatus(!isWorking);
         });
     }
 
@@ -86,7 +87,7 @@ public class TimerActivity extends AppCompatActivity {
             hrSensor.getInstance().registerListener(this); //Register if hr enabled
 
         currSet = utils.isModeManualSets() ? 0 : Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS) + 1;
-        working();
+        updateStatus(true);
     }
 
     private boolean endActivity(){

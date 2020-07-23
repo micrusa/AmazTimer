@@ -12,7 +12,8 @@ public final class defValues {
     public static final int DEF_WORKTIME = 20;
     public static final int DEF_RESTTIME = 10;
     //Vibration times
-    public static final int SHORT_VIBRATION = 100; //0.1s
+    public static final int HAPTIC_VIBRATION = 125; //0.125s
+    public static final int SHORT_VIBRATION = 200; //0.2s
     public static final int LONG_VIBRATION = 700; //0.7s
     //Accuracy range for HR measurements
     public static final int[] ACCURACY_RANGE = {0, 3};

@@ -124,8 +124,8 @@ public class AmazTimer extends Activity {
     }
 
     private boolean launchIntent(Intent intent){
-        if(hasLaunchedIntent)
-            return true;
+        if(hasLaunchedIntent) return true;
+        utils.vibrate(defValues.HAPTIC_VIBRATION, this);
         hasLaunchedIntent = true;
         buttonListener.stop();
         startActivity(intent);
