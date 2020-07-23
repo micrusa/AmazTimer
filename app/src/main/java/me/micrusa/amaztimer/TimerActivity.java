@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.TCX.Constants;
-import me.micrusa.amaztimer.button.buttonKeyHelper;
+import me.micrusa.amaztimer.button.buttonEvent;
 import me.micrusa.amaztimer.button.buttonListener;
 import me.micrusa.amaztimer.utils.handlers.chronoHandler;
 import me.micrusa.amaztimer.utils.handlers.hrZoneHandler;
@@ -38,7 +38,7 @@ public class TimerActivity extends AppCompatActivity {
     private boolean hasFinished;
     private int currSet;
 
-    private me.micrusa.amaztimer.button.buttonListener ButtonListener = new buttonListener();
+    private me.micrusa.amaztimer.button.buttonListener buttonListener = new buttonListener();
 
     private void init(){
         utils.setupPrefs(this);
@@ -128,12 +128,12 @@ public class TimerActivity extends AppCompatActivity {
     //Destroy, pause, resume and button stuff
     public void onDestroy() {
         super.onDestroy();
-        ButtonListener.stop();
+        buttonListener.stop();
         endActivity();
     }
     public void onPause() {
         this.hasResumed = false;
-        ButtonListener.stop();
+        buttonListener.stop();
         new Handler().postDelayed(() -> {
             if(hasResumed)
                 return;
@@ -148,7 +148,7 @@ public class TimerActivity extends AppCompatActivity {
     }
     public void onStop(){
         super.onStop();
-        ButtonListener.stop();
+        buttonListener.stop();
     }
     public void onStart(){
         super.onStart();
@@ -156,10 +156,10 @@ public class TimerActivity extends AppCompatActivity {
     }
     private void setupBtnListener(){
         Handler handler = new Handler();
-        ButtonListener.start(this, e -> {
-            if(buttonKeyHelper.getKey(e) == buttonListener.KEY_DOWN)
+        buttonListener.start(this, ButtonEvent -> {
+            if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
                 handler.post(() -> cancel.performLongClick());
-            else if(buttonKeyHelper.getKey(e) == buttonListener.KEY_UP)
+            else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
                 handler.post(() -> finishset.performClick());
         });
     }
