@@ -14,7 +14,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.activities.PrepareActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
-import me.micrusa.amaztimer.button.buttonKeyHelper;
+import me.micrusa.amaztimer.button.buttonEvent;
 import me.micrusa.amaztimer.button.buttonListener;
 import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.utils;
@@ -24,7 +24,7 @@ public class AmazTimer extends Activity {
     private Button plus, plus2, plus3, minus, minus2, minus3, start;
     private TextView sets, rest, work;
     //Other classes
-    private buttonListener ButtonListener = new buttonListener();
+    private buttonListener buttonListener = new buttonListener();
     //Settings
     private boolean hasResumed = false;
     private boolean hasLaunchedIntent = false;
@@ -103,7 +103,7 @@ public class AmazTimer extends Activity {
 
     public void onStop() {
         super.onStop();
-        ButtonListener.stop();
+        buttonListener.stop();
     }
 
     public void onPause() {
@@ -111,7 +111,7 @@ public class AmazTimer extends Activity {
         new Handler().postDelayed(() -> {
             if(hasResumed)
                 return;
-            ButtonListener.stop();
+            buttonListener.stop();
         }, 15 * 1000);
         super.onPause();
     }
@@ -127,17 +127,17 @@ public class AmazTimer extends Activity {
         if(hasLaunchedIntent)
             return true;
         hasLaunchedIntent = true;
-        ButtonListener.stop();
+        buttonListener.stop();
         startActivity(intent);
         return true;
     }
 
     private void setupBtnListener(){
         Handler handler = new Handler();
-        ButtonListener.start(this, e -> {
-            if(buttonKeyHelper.getKey(e) == buttonListener.KEY_DOWN)
+        buttonListener.start(this, ButtonEvent -> {
+            if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
                 handler.post(() -> start.performClick());
-            else if(buttonKeyHelper.getKey(e) == buttonListener.KEY_CENTER)
+            else if(ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
                 handler.post(() -> start.performLongClick());
         });
     }
