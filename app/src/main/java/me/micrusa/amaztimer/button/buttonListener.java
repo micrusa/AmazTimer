@@ -2,6 +2,7 @@ package me.micrusa.amaztimer.button;
 
 import android.content.Context;
 import android.os.PowerManager;
+import android.util.Log;
 
 import org.tinylog.Logger;
 
@@ -117,6 +118,8 @@ public class buttonListener {
             short type = byteBuffer.getShort(8);
             short code = byteBuffer.getShort(10);
             short value = byteBuffer.getShort(12);
+
+            Log.d("ButtonListener", "Button " + code + ", type " + type + "value " + value);
 
             if (type == TYPE_KEYBOARD) return;
 
