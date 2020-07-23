@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import me.micrusa.amaztimer.utils.SystemProperties;
@@ -69,12 +70,7 @@ public class buttonListener {
     private class listenerThread extends Thread{
         private String FILE_PATH;
 
-        private LinkedHashMap<Integer, Long> lastEvents = new LinkedHashMap<Integer, Long>() {{
-            put(KEY_UP, (long) 0);
-            put(KEY_DOWN, (long) 0);
-            put(KEY_CENTER, (long) 0);
-            put(S3_KEY_DOWN, (long) 0);
-        }};
+        private HashMap<Integer, Long> lastEvents = new HashMap<>();
 
         private KeyEventListener KeyEventListener;
 
@@ -85,6 +81,11 @@ public class buttonListener {
                 FILE_PATH = "/dev/input/event2";
 
             KeyEventListener = keyEventListener;
+
+            lastEvents.put(KEY_UP, 1L);
+            lastEvents.put(KEY_DOWN, 1L);
+            lastEvents.put(KEY_CENTER, 1L);
+            lastEvents.put(S3_KEY_DOWN, (long) 1L);
         }
 
         public void run(){
@@ -120,7 +121,10 @@ public class buttonListener {
             if (type == TYPE_KEYBOARD) return;
 
             long now = System.currentTimeMillis();
-            long delta = now - lastEvents.get((int) code);
+            long delta;
+            if(lastEvents.get((int) code) != null)
+                delta = now - lastEvents.get((int) code);
+            else delta = 0;
 
             if (value == KEY_EVENT_UP) {
                 if (delta > TRIGGER && delta < LONG_TRIGGER)
