@@ -63,16 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
         private final OnPreferenceChangeListener onPreferenceChangeListener = (preference, newValue) -> {
             Resources res = preference.getContext().getResources();
             setModesVisibility();
-
-            String key = preference.getKey();
-            switch (key) {
-                case defValues.KEY_AGE:
-                    preference.setSummary(String.valueOf(defValues.CURRENT_YEAR - Integer.parseInt((String) newValue)) + res.getString(R.string.ageyo));
-                    break;
-                case defValues.KEY_WEIGHT:
-                    preference.setSummary((String) newValue + "Kg");
-                    break;
-            }
+            setupListPreferences();
             return true;
         };
 
@@ -116,7 +107,7 @@ public class SettingsActivity extends AppCompatActivity {
             for (int i = startYear; i < endYear; i++) ages[i - startYear] = String.valueOf(i);
             age.setEntries(ages);
             age.setEntryValues(ages);
-            age.setSummary(String.valueOf(endYear - Integer.parseInt(Prefs.getString(defValues.KEY_AGE, "20")))
+            age.setSummary(String.valueOf(endYear - Integer.parseInt(Prefs.getString(defValues.KEY_AGE, "2000")))
                     + " " + getResources().getString(R.string.ageyo));
             String[] weightsEntry = new String[120];
             String[] weightsValue = new String[120];
