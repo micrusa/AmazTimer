@@ -100,7 +100,8 @@ public class SettingsActivity extends AppCompatActivity {
         private void setupListPreferences(boolean isFirstRun){
             ListPreference age = findPreference(defValues.KEY_AGE);
             ListPreference weight = findPreference(defValues.KEY_WEIGHT);
-            age.setSummary(String.valueOf(endYear - Integer.parseInt(Prefs.getString(defValues.KEY_AGE, "2000")))
+            int currYear = defValues.CURRENT_YEAR
+            age.setSummary(String.valueOf(currYear - Integer.parseInt(Prefs.getString(defValues.KEY_AGE, "2000")))
                     + " " + getResources().getString(R.string.ageyo));
             weight.setSummary(String.valueOf(Prefs.getString(defValues.KEY_WEIGHT, "70")) + "Kg");
             
