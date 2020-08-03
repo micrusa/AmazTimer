@@ -55,15 +55,14 @@ public class SettingsActivity extends AppCompatActivity {
             latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
             appInfo.setOnPreferenceClickListener(OnPreferenceClickListener);
 
-            setupListPreferences();
-
+            setupListPreferences(true);
             setModesVisibility();
         }
 
         private final OnPreferenceChangeListener onPreferenceChangeListener = (preference, newValue) -> {
             Resources res = preference.getContext().getResources();
             setModesVisibility();
-            setupListPreferences();
+            setupListPreferences(false);
             return true;
         };
 
@@ -98,17 +97,17 @@ public class SettingsActivity extends AppCompatActivity {
                 workoutMode.setEnabled(false);
         }
 
-        private void setupListPreferences(){
+        private void setupListPreferences(boolean isFirstRun){
             ListPreference age = findPreference(defValues.KEY_AGE);
             ListPreference weight = findPreference(defValues.KEY_WEIGHT);
-            String[] ages = new String[100];
-            int startYear = defValues.CURRENT_YEAR - 100;
-            int endYear = defValues.CURRENT_YEAR;
-            for (int i = startYear; i < endYear; i++) ages[i - startYear] = String.valueOf(i);
-            age.setEntries(ages);
-            age.setEntryValues(ages);
             age.setSummary(String.valueOf(endYear - Integer.parseInt(Prefs.getString(defValues.KEY_AGE, "2000")))
                     + " " + getResources().getString(R.string.ageyo));
+            weight.setSummary(String.valueOf(Prefs.getString(defValues.KEY_WEIGHT, "70")) + "Kg");
+            
+            if(isFirstRun){
+            age.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            weight.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            
             String[] weightsEntry = new String[120];
             String[] weightsValue = new String[120];
             for (int i = 30; i < 150; i++) {
@@ -117,10 +116,14 @@ public class SettingsActivity extends AppCompatActivity {
             }
             weight.setEntries(weightsEntry);
             weight.setEntryValues(weightsValue);
-            weight.setSummary(String.valueOf(Prefs.getString(defValues.KEY_WEIGHT, "70")) + "Kg");
-
-            age.setOnPreferenceChangeListener(onPreferenceChangeListener);
-            weight.setOnPreferenceChangeListener(onPreferenceChangeListener);
+            
+            String[] ages = new String[100];
+            int startYear = defValues.CURRENT_YEAR - 100;
+            int endYear = defValues.CURRENT_YEAR;
+            for (int i = startYear; i < endYear; i++) ages[i - startYear] = String.valueOf(i);
+            age.setEntries(ages);
+            age.setEntryValues(ages);
+            }
         }
     }
 }
