@@ -20,13 +20,11 @@ import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.utils;
 
 public class AmazTimer extends Activity {
-    //Define items
     private Button plus, plus2, plus3, minus, minus2, minus3, start;
     private TextView sets, rest, work;
-    //Other classes
+    
     private buttonListener buttonListener = new buttonListener();
-    //Settings
-    private boolean hasResumed = false;
+    
     private boolean hasLaunchedIntent = false;
 
     private final View.OnClickListener plusMinusBtnListener = view -> plusMinusUpdates(view.getId(), false);
@@ -44,8 +42,6 @@ public class AmazTimer extends Activity {
         return true;
     }
 
-
-    //Much like a fragment, getView returns the content view of the page. You can set up your layout here
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,24 +103,18 @@ public class AmazTimer extends Activity {
     }
 
     public void onPause() {
-        hasResumed = false;
-        new Handler().postDelayed(() -> {
-            if(hasResumed)
-                return;
-            buttonListener.stop();
-        }, 15 * 1000);
+        buttonListener.stop();
         super.onPause();
     }
 
     public void onResume() {
-        hasResumed = true;
         hasLaunchedIntent = false;
         setupBtnListener();
         super.onResume();
     }
 
     private boolean launchIntent(Intent intent){
-        if(hasLaunchedIntent) return true;
+        if(hasLaunchedIntent) return true; //Avoid multiple activities launched
         utils.vibrate(defValues.HAPTIC_VIBRATION, this);
         hasLaunchedIntent = true;
         buttonListener.stop();
