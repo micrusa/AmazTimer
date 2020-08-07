@@ -20,6 +20,10 @@ public class prefUtils {
 
     public static int getVibration(int vibration){
         int multiplier = Prefs.getInt(defValues.KEY_VIBRATION, 2);
+        
+        //Disable multiplier on haptic vibrations
+        if(vibration == defValues.HAPTIC_VIBRATION) return vibration;
+        
         switch(multiplier){
             case 1:
                 vibration = vibration / 2;
