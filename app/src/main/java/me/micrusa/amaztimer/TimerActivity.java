@@ -136,9 +136,7 @@ public class TimerActivity extends AppCompatActivity {
         this.hasResumed = false;
         buttonListener.stop();
         new Handler().postDelayed(() -> {
-            if(hasResumed)
-                return;
-            endActivity();
+            if(!hasResumed) endActivity();
         }, 9 * 1000);
         super.onPause();
     }
@@ -150,9 +148,13 @@ public class TimerActivity extends AppCompatActivity {
     public void onStop(){
         super.onStop();
         buttonListener.stop();
+        new Handler().postDelayed(() -> {
+            if(!hasResumed) endActivity();
+        }, 9 * 1000);
     }
     public void onStart(){
         super.onStart();
+        hasResumed = true;
         setupBtnListener();
     }
     private void setupBtnListener(){
