@@ -27,6 +27,7 @@ public class timerHandler {
 
             @Override
             public void onFinish() {
+                if(!running) return;
                 running = false;
                 timerInterface.onFinish();
             }
