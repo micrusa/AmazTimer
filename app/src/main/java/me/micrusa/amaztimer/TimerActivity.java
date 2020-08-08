@@ -139,7 +139,7 @@ public class TimerActivity extends AppCompatActivity {
             if(hasResumed)
                 return;
             endActivity();
-        }, 15 * 1000);
+        }, 9 * 1000);
         super.onPause();
     }
     public void onResume() {
