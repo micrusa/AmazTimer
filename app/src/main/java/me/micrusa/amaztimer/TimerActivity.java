@@ -95,9 +95,7 @@ public class TimerActivity extends AppCompatActivity {
         hasFinished = true;
         if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, true))
             hrSensor.getInstance().unregisterListener(this); //Unregister if hr enabled
-        if (timerHandler != null) timerHandler.stop();
-        if (chronoHandler != null) chronoHandler.stop();
-        if (timeHandler != null) timeHandler.stop();
+        stopHandlers(true);
         finish();
         return true;
     }
@@ -116,14 +114,19 @@ public class TimerActivity extends AppCompatActivity {
         sets.setText(String.valueOf(currSet));
         status.setBackground(getDrawable(working ? R.color.work : R.color.rest));
         status.setText(getResources().getString(working ? R.string.work : R.string.rest));
-        if(chronoHandler != null) chronoHandler.stop();
-        if(timerHandler != null) timerHandler.stop();
+        stopHandlers(false);
         if(utils.getMode() >= (working ? 1 : 2))
             chronoHandler = new chronoHandler(intervaltime);
         else
             timerHandler = new timerHandler(intervaltime
                     , working ? Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME) : Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME)
                     , working ? this::resting : this::working, this);
+    }
+    
+    private void stopHandlers(boolean isEnd){
+        if(chronoHandler != null) chronoHandler.stop();
+        if(timerHandler != null) timerHandler.stop();
+        if(isEnd && timeHandler != null) timeHandler.stop();
     }
 
     //Destroy, pause, resume and button stuff
