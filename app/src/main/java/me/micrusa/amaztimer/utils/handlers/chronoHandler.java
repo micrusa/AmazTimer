@@ -27,7 +27,7 @@ public class chronoHandler {
         }
     }
 
-    private static class thread extends Thread {
+    private class thread extends Thread {
 
         private TextView chrono;
         private int timeElapsed;
