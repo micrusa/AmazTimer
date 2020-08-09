@@ -58,7 +58,8 @@ public class TimerActivity extends AppCompatActivity {
         //Setup onClickListeners
         cancel.setOnLongClickListener(view -> {
             utils.vibrate(defValues.HAPTIC_VIBRATION, view.getContext());
-            return endActivity();
+            endActivity();
+            return true;
         });
         finishset.setOnClickListener(view -> {
             utils.vibrate(defValues.HAPTIC_VIBRATION, view.getContext());
@@ -91,7 +92,6 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     private boolean endActivity(){
-        if(hasFinished) return true;
         hasFinished = true;
         if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, true))
             hrSensor.getInstance().unregisterListener(this); //Unregister if hr enabled
