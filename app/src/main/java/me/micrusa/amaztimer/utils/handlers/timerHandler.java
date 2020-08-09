@@ -43,7 +43,10 @@ public class timerHandler {
 
     private void updateTimer(long millis){
         int time = (int) millis / 1000;
-        if(!running) return; //Avoid vibrations/changes when not running
+        if(!running) {
+          timer.cancel();
+          return;
+        } //Avoid vibrations/changes when not running
         timerText.setText(utils.formatTime(time));
         if(time < 4){
             utils.vibrate(defValues.SHORT_VIBRATION, context, true);
