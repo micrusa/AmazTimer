@@ -41,6 +41,7 @@ public class chronoHandler {
         public void run(){
             while(!Thread.currentThread().isInterrupted()){
                 try {
+                    if(!running) break;
                     handler.post(() -> chrono.setText(utils.formatTime(timeElapsed++)));
                     sleep(1000);
                 } catch (InterruptedException e) {
