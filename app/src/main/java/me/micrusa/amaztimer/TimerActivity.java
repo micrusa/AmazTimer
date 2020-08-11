@@ -112,6 +112,7 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     private void updateStatus(boolean working){
+        stopHandlers(false);
         isWorking = working;
         isRunning = true;
         if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0) endActivity();
@@ -119,7 +120,6 @@ public class TimerActivity extends AppCompatActivity {
         sets.setText(String.valueOf(currSet));
         status.setBackground(getDrawable(working ? R.color.work : R.color.rest));
         status.setText(getResources().getString(working ? R.string.work : R.string.rest));
-        stopHandlers(false);
         if(utils.getMode() >= (working ? 1 : 2))
             chronoHandler = new chronoHandler(intervaltime);
         else
