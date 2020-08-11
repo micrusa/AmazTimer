@@ -95,6 +95,7 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     private boolean endActivity(){
+        if(hasFinished) return true;
         hasFinished = true;
         isRunning = false;
         if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, true))
