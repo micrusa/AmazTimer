@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.TimerActivity;
 
 public class timerHandler {
 
@@ -43,7 +44,7 @@ public class timerHandler {
 
     private void updateTimer(long millis){
         int time = (int) millis / 1000;
-        if(!running) {
+        if(!running || !TimerActivity.isRunning) {
           timer.cancel();
           return;
         } //Avoid vibrations/changes when not running
