@@ -44,7 +44,7 @@ public class timerHandler {
 
     private void updateTimer(long millis){
         int time = (int) millis / 1000;
-        if(!running /*|| !TimerActivity.isRunning*/) {
+        if(!running || !TimerActivity.isRunning) {
           timer.cancel();
           return;
         } //Avoid vibrations/changes when not running
