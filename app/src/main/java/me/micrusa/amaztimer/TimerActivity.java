@@ -37,6 +37,8 @@ public class TimerActivity extends AppCompatActivity {
     private boolean isWorking;
     private boolean hasFinished;
     private int currSet;
+    
+    public static boolean isRunning;
 
     private me.micrusa.amaztimer.button.buttonListener buttonListener = new buttonListener();
 
@@ -74,6 +76,7 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     private void startTimer(){
+        isRunning = true;
         //Setup time
         timeHandler = new timeHandler(time);
         //Setup total time elapsed chrono
@@ -93,6 +96,7 @@ public class TimerActivity extends AppCompatActivity {
 
     private boolean endActivity(){
         hasFinished = true;
+        isRunning = false;
         if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, true))
             hrSensor.getInstance().unregisterListener(this); //Unregister if hr enabled
         stopHandlers(true);
@@ -109,6 +113,7 @@ public class TimerActivity extends AppCompatActivity {
 
     private void updateStatus(boolean working){
         isWorking = working;
+        isRunning = true;
         if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0) endActivity();
         hrSensor.getInstance().newLap(working ? Constants.STATUS_ACTIVE : Constants.STATUS_RESTING);
         sets.setText(String.valueOf(currSet));
