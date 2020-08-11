@@ -102,16 +102,15 @@ public class hrSensor {
         int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
         latestTraining.saveDataToFile(context, totalTimeInSeconds);
         if (Prefs.getBoolean(defValues.KEY_TCX, defValues.DEFAULT_TCX)) {
-            addCurrentLap();
-            resetTcxData();
-            utils.setLang(context, Prefs.getString(defValues.KEY_LANG, "en"));
             new Handler().postDelayed(() -> {
+              addCurrentLap();
               if(SaveTCX.saveToFile(this.TCXData)){
                 Toast.makeText(context, R.string.tcxexporting, Toast.LENGTH_SHORT).show();
               } else {
                 Toast.makeText(context, R.string.tcxerror, Toast.LENGTH_SHORT).show();
               }
-            }, 5);
+              resetTcxData();
+            }, 1);
         } else {
             resetTcxData();
         }
