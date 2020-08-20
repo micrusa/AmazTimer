@@ -29,7 +29,7 @@ public class hrUtils {
             return 0;
 
         //Source: https://www.ntnu.edu/cerg/hrmax#:~:text=Based%20on%20these%20tests%20we,211%20%2D%200.64*age%22.
-        return (int) (hr * 100 / (211 - 0.64 * prefUtils.getAge()));
+        return (int) (hr * 100 / getMaxHr());
     }
 
     public static int calculateKcal(int avgHr, int time){
@@ -46,5 +46,9 @@ public class hrUtils {
         }
         //Calculate kcal from kcal/min
         return (int) (kcalPerMin * time) / 60;
+    }
+    
+    public static int getMaxHr(){
+        return 211 - 0.64 * prefUtils.getAge();
     }
 }
