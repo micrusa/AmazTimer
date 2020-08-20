@@ -48,7 +48,7 @@ public class hrUtils {
         return (int) (kcalPerMin * time) / 60;
     }
     
-    public static int getMaxHr(){
+    public static double getMaxHr(){
         return 211 - 0.64 * prefUtils.getAge();
     }
 }
