@@ -22,11 +22,11 @@ public class experimentalListener implements SensorEventListener, Listener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         int thisValue = (int) (event.values[0] / 100);
-        if(thisValue >= 220 || thisValue <= 30) return; //Return on bad values for a more accurate result
+        if(thisValue >= 220 || thisValue <= 40) return; //Return on bad values for a more accurate result
         long now = System.currentTimeMillis();
         totalHrCurrentBatch += thisValue;
         currentBatchSize++;
-        if(now - lastTime >= 500) { //This sensor is SO fast so limit rate to a value every 500ms
+        if(now - lastTime >= 750) { //This sensor is SO fast so limit rate to a value every 750ms
             int v = (int) (totalHrCurrentBatch / currentBatchSize);
             hrSensor.getInstance().newValue(v);
             totalHrCurrentBatch = 0;
@@ -43,7 +43,7 @@ public class experimentalListener implements SensorEventListener, Listener {
     public void register(Context context){
         SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         sm.registerListener(this, sm.getDefaultSensor(65538 /*PPG Sensor*/),
-                200_000 /*It's much faster*/, 500_000 /*500ms batching*/,
+                200_000 /*This value is ignored*/, 500_000 /*500ms batching*/,
                 new Handler() /*Use a handler to avoid freezes*/);
     }
     public void unregister(Context context){
