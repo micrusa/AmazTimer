@@ -32,7 +32,6 @@ public class hrSensor {
     private hrListener listener;
     private final latestTraining latestTraining = new latestTraining();
     private long startTime;
-    private int accuracy = 2;
     private String latestTrackpointTime;
     public int latestHr = 0;
 
@@ -76,9 +75,7 @@ public class hrSensor {
         }
     }
 
-    public void onAccuracyChanged(Sensor param1Sensor, int param1Int) {
-        this.accuracy = param1Int;
-    }
+    public void onAccuracyChanged(Sensor param1Sensor, int param1Int) {}
 
     public void registerListener(Context context) {
         utils.setupPrefs(context);
