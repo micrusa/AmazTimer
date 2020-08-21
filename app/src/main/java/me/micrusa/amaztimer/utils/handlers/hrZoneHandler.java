@@ -10,6 +10,9 @@ import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.defValues;
 import me.micrusa.amaztimer.utils.heartrate.hrUtils;
 
+import static java.lang.Math.abs;
+
+
 public class hrZoneHandler {
 
     private View hrView;
@@ -25,7 +28,7 @@ public class hrZoneHandler {
         if(!enable)
             return;
         int hrZone = hrUtils.hrZonePercentageInt(value);
-        if (latestHrZone != hrZone){
+        if (abs(latestHrZone - hrZone) <= 5){
             latestHrZone = hrZone;
 
             Drawable zoneColor;
