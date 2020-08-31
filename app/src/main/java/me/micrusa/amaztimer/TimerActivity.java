@@ -9,6 +9,7 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -104,13 +105,6 @@ public class TimerActivity extends AppCompatActivity {
         return true;
     }
 
-    private void working(){
-        updateStatus(true);
-    }
-    private void resting(){
-        updateStatus(false);
-    }
-
     private void updateStatus(boolean working){
         stopHandlers(false);
         isWorking = working;
@@ -118,14 +112,14 @@ public class TimerActivity extends AppCompatActivity {
         if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0) endActivity();
         hrSensor.getInstance().newLap(working ? Constants.STATUS_ACTIVE : Constants.STATUS_RESTING);
         sets.setText(String.valueOf(currSet));
-        status.setBackground(getDrawable(working ? R.color.work : R.color.rest));
+        status.setBackground(ContextCompat.getDrawable(this, working ? R.color.work : R.color.rest));
         status.setText(getResources().getString(working ? R.string.work : R.string.rest));
         if(utils.getMode() >= (working ? 1 : 2))
             chronoHandler = new chronoHandler(intervaltime);
         else
             timerHandler = new timerHandler(intervaltime
                     , working ? Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME) : Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME)
-                    , working ? this::resting : this::working, this);
+                    , () -> updateStatus(!working), this);
     }
     
     private void stopHandlers(boolean isEnd){
