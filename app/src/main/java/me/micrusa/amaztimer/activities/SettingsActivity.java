@@ -25,9 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Set language before creating preferences
-        utils.setupPrefs(this);
-        utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
+        utils.setupLang(this);
         setContentView(R.layout.settings_activity);
         getSupportFragmentManager()
                 .beginTransaction()

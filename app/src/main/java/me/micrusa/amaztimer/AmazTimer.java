@@ -45,9 +45,7 @@ public class AmazTimer extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        utils.setupPrefs(this);
-        utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
+        utils.setupLang(this);
         setContentView(SystemProperties.isStratos3() || SystemProperties.isVerge() ? R.layout.round_amaztimer : R.layout.amaztimer);
         this.init();
         setupBtnListener();

@@ -78,7 +78,6 @@ public class hrSensor {
     public void onAccuracyChanged(Sensor param1Sensor, int param1Int) {}
 
     public void registerListener(Context context) {
-        utils.setupPrefs(context);
         //Clean all values to avoid merging other values
         latestTraining.cleanAllValues();
         //Register start time

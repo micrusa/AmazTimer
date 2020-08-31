@@ -47,15 +47,13 @@ public class utils {
                 .build();
     }
 
-    public static void setLang(Context context, String lang) {
-        Locale locale = new Locale(lang);
+    public static void setupLang(Context context) {
+        Locale locale = new Locale(Prefs.getString(defValues.KEY_LANG, "en"));
         Configuration config = new Configuration(context.getResources().getConfiguration());
         Locale.setDefault(locale);
         config.setLocale(locale);
         context.getResources().updateConfiguration(config,
                 context.getResources().getDisplayMetrics());
-        //Also configure easyprefs so that I don't have to add it everywhere
-        setupPrefs(context);
     }
 
     public static int getUpdatedTime(int currentTime, int update, Context paramContext){

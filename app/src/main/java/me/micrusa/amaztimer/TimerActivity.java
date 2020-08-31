@@ -43,8 +43,7 @@ public class TimerActivity extends AppCompatActivity {
     private me.micrusa.amaztimer.button.buttonListener buttonListener = new buttonListener();
 
     private void init(){
-        utils.setupPrefs(this);
-        utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
+        utils.setupLang(this);
         setContentView(R.layout.activity_timer);
         time = findViewById(R.id.time);
         status = findViewById(R.id.status);

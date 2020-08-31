@@ -20,8 +20,7 @@ public class LatestTrainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        utils.setupPrefs(this);
-        utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
+        utils.setupLang(this);
         setContentView(R.layout.activity_latest_train);
         this.init();
         setTexts();

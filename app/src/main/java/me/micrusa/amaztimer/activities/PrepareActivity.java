@@ -28,8 +28,7 @@ public class PrepareActivity extends AppCompatActivity {
     }
 
     private void init(){
-        utils.setupPrefs(this);
-        utils.setLang(this, Prefs.getString(defValues.KEY_LANG, "en"));
+        utils.setupLang(this);
         setContentView(R.layout.activity_prepare);
         timer = findViewById(R.id.prepareTime);
     }
