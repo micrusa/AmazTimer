@@ -1,5 +1,7 @@
 package me.micrusa.amaztimer.utils;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Configuration;
@@ -23,13 +25,23 @@ public class utils {
     }
 
     public static void vibrate(int time, Context context, boolean sound){
-        if(sound && SystemProperties.isVerge()
-                && Prefs.getBoolean(Constants.KEY_SOUND, Constants.DEFAULT_SOUND))
+        if(sound && soundEnabled())
             MediaPlayer.create(context, R.raw.beep).start();
         Vibrator v = (Vibrator) context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         if (v != null) {
             v.vibrate(prefUtils.getVibration(time));
         }
+    }
+
+    private static boolean soundEnabled(){
+        return Prefs.getBoolean(Constants.KEY_SOUND, Constants.DEFAULT_SOUND)
+                && (SystemProperties.isVerge() || isBluetoothHeadsetConnected());
+    }
+
+    private static boolean isBluetoothHeadsetConnected() {
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        return mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()
+                && mBluetoothAdapter.getProfileConnectionState(BluetoothHeadset.HEADSET) == BluetoothHeadset.STATE_CONNECTED;
     }
 
     public static String formatTime(int seconds) {

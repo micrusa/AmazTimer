@@ -45,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
             repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             workoutMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             //enableSound only visible for verge
-            enableSound.setVisible(SystemProperties.isVerge());
+            //enableSound.setVisible(SystemProperties.isVerge());
             Preference presets = findPreference(Constants.KEY_SAVED);
             Preference latestTrain = findPreference(Constants.KEY_LATESTTRAIN);
             Preference appInfo = findPreference(Constants.KEY_APPINFO);
