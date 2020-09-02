@@ -41,7 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             SwitchPreferenceCompat repsMode = findPreference(Constants.KEY_REPSMODE);
             SwitchPreferenceCompat workoutMode = findPreference(Constants.KEY_WORKOUT);
-            SwitchPreferenceCompat enableSound = findPreference(Constants.KEY_SOUND);
+            //SwitchPreferenceCompat enableSound = findPreference(Constants.KEY_SOUND);
             repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             workoutMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             //enableSound only visible for verge
@@ -58,7 +58,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         private final OnPreferenceChangeListener onPreferenceChangeListener = (preference, newValue) -> {
-            Resources res = preference.getContext().getResources();
             setModesVisibility();
             setupListPreferences(false);
             return true;

@@ -42,13 +42,13 @@ public class EditPresetActivity extends AppCompatActivity {
         editBtn = v -> finish();
     }
 
-    private boolean click(int res, boolean isLongPress){
+    private boolean click(int btnId, boolean isLongPress){
         String presetKey = PresetID == 1 ? Constants.KEY_PRESET1 : Constants.KEY_PRESET2;
-        String valuesStr = Prefs.getString(presetKey, "8:30:20");
-        int sets = Integer.parseInt(valuesStr.split(":")[0]);
-        int work = Integer.parseInt(valuesStr.split(":")[1]);
-        int rest = Integer.parseInt(valuesStr.split(":")[2]);
-        int[] data = utils.getValues(new int[]{sets, work, rest, res}, isLongPress, this);
+        String[] valuesStr = Prefs.getString(presetKey, "8:30:20").split(":");
+        int sets = Integer.parseInt(valuesStr[0]);
+        int work = Integer.parseInt(valuesStr[1]);
+        int rest = Integer.parseInt(valuesStr[2]);
+        int[] data = utils.getValues(new int[]{sets, work, rest, btnId}, isLongPress, this);
         Prefs.putString(presetKey, data[0] + ":" + data[1] + ":" + data[2]);
         setTimeTexts(data[0], data[1], data[2]);
         return true; //For a simpler code on long click

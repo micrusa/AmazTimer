@@ -19,13 +19,13 @@ import me.micrusa.amaztimer.utils.utils;
 @SuppressWarnings("FieldCanBeLocal")
 public class PresetsActivity extends AppCompatActivity {
 
-    private TextView preset1, preset2;
-    private Button start1, start2, edit1, edit2;
-    private final String textFormat = "SETS" + ": %s\n"
+    private static final String textFormat = "SETS" + ": %s\n"
             + "WORK" + ": %t "
             + "REST" + ": %r";
-    private int[] firstArray;
-    private int[] secondArray;
+
+    private TextView preset1, preset2;
+    private Button start1, start2, edit1, edit2;
+    private int[] firstArray, secondArray;
 
     private final View.OnClickListener startClickListener = v -> {
         //Get correct array by the id
@@ -51,7 +51,6 @@ public class PresetsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_presets);
         this.init();
-        setupValues();
     }
 
     private void init() {
@@ -67,10 +66,7 @@ public class PresetsActivity extends AppCompatActivity {
         start2.setOnClickListener(startClickListener);
         edit1.setOnClickListener(editClickListener);
         edit2.setOnClickListener(editClickListener);
-    }
 
-    private void setupValues() {
-        //Set values
         this.firstArray = getArrayFromPref(Constants.KEY_PRESET1);
         this.secondArray = getArrayFromPref(Constants.KEY_PRESET2);
         preset1.setText(getText(this.firstArray));
@@ -78,11 +74,11 @@ public class PresetsActivity extends AppCompatActivity {
     }
 
     private int[] getArrayFromPref(String preference){
-        String prefValues = Prefs.getString(preference, "8:30:20");
+        String prefValues[] = Prefs.getString(preference, "8:30:20").split(":");
         return new int[]{
-                Integer.parseInt(prefValues.split(":")[0]),
-                Integer.parseInt(prefValues.split(":")[1]),
-                Integer.parseInt(prefValues.split(":")[2])
+                Integer.parseInt(prefValues[0]),
+                Integer.parseInt(prefValues[1]),
+                Integer.parseInt(prefValues[2])
         };
     }
 

@@ -23,12 +23,11 @@ public class AppInfo extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void init(){
-        //TextViews
         TextView appText = findViewById(R.id.amaztimer);
         TextView appCredits = findViewById(R.id.appcredit);
         TextView translationCredits = findViewById(R.id.translationcredit);
         TextView thanksto = findViewById(R.id.thanksto);
-        //Define SPACE and NEWLINE
+
         String SPACE = " ";
         String NEWLINE = "\n- ";
         String FOR = getResources().getString(R.string.thanksfor);

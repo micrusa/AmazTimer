@@ -23,26 +23,20 @@ public class LatestTrainActivity extends AppCompatActivity {
         utils.setupLang(this);
         setContentView(R.layout.activity_latest_train);
         this.init();
-        setTexts();
     }
 
     private void init(){
-        //Setup all textviews
         avghr = findViewById(R.id.avghr);
         minhr = findViewById(R.id.minhr);
         maxhr = findViewById(R.id.maxhr);
         kcal = findViewById(R.id.kcal);
         hrzone = findViewById(R.id.hrzone);
-    }
 
-    private void setTexts(){
-        //Set all values texts
+        //Set all texts
         avghr.setText(String.valueOf(Prefs.getInt(Constants.KEY_AVGHR, 0)));
         maxhr.setText(String.valueOf(Prefs.getInt(Constants.KEY_MAXHR, 0)));
         minhr.setText(String.valueOf(Prefs.getInt(Constants.KEY_MINHR, 0)));
         kcal.setText(String.valueOf(Prefs.getInt(Constants.KEY_KCAL, 0)));
         hrzone.setText(hrUtils.hrZonePercentage(Prefs.getInt(Constants.KEY_AVGHR, 0)));
     }
-
-
 }
