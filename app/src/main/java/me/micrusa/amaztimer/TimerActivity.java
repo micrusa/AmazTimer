@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
-import me.micrusa.amaztimer.TCX.Constants;
+import me.micrusa.amaztimer.TCX.TCXConstants;
 import me.micrusa.amaztimer.button.buttonEvent;
 import me.micrusa.amaztimer.button.buttonListener;
 import me.micrusa.amaztimer.utils.handlers.chronoHandler;
@@ -59,12 +59,12 @@ public class TimerActivity extends AppCompatActivity {
         setupBtnListener();
         //Setup onClickListeners
         cancel.setOnLongClickListener(view -> {
-            utils.vibrate(defValues.HAPTIC_VIBRATION, view.getContext());
+            utils.vibrate(Constants.HAPTIC_VIBRATION, view.getContext());
             endActivity();
             return true;
         });
         finishset.setOnClickListener(view -> {
-            utils.vibrate(defValues.HAPTIC_VIBRATION, view.getContext());
+            utils.vibrate(Constants.HAPTIC_VIBRATION, view.getContext());
             updateStatus(!isWorking);
         });
     }
@@ -87,10 +87,10 @@ public class TimerActivity extends AppCompatActivity {
             heartrate.setText(String.valueOf(hr));
             hrZoneHandler.addHrValue(hr);
         });
-        if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, true))
+        if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true))
             hrSensor.getInstance().registerListener(this); //Register if hr enabled
 
-        currSet = utils.isModeManualSets() ? 0 : Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS) + 1;
+        currSet = utils.isModeManualSets() ? 0 : Prefs.getInt(Constants.KEY_SETS, Constants.DEF_SETS) + 1;
         updateStatus(true);
     }
 
@@ -98,7 +98,7 @@ public class TimerActivity extends AppCompatActivity {
         if(hasFinished) return true;
         hasFinished = true;
         isRunning = false;
-        if(Prefs.getBoolean(defValues.KEY_HRTOGGLE, true))
+        if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true))
             hrSensor.getInstance().unregisterListener(this); //Unregister if hr enabled
         stopHandlers(true);
         finish();
@@ -110,7 +110,7 @@ public class TimerActivity extends AppCompatActivity {
         isWorking = working;
         isRunning = true;
         if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0) endActivity();
-        hrSensor.getInstance().newLap(working ? Constants.STATUS_ACTIVE : Constants.STATUS_RESTING);
+        hrSensor.getInstance().newLap(working ? TCXConstants.STATUS_ACTIVE : TCXConstants.STATUS_RESTING);
         sets.setText(String.valueOf(currSet));
         status.setBackground(ContextCompat.getDrawable(this, working ? R.color.work : R.color.rest));
         status.setText(getResources().getString(working ? R.string.work : R.string.rest));
@@ -118,7 +118,7 @@ public class TimerActivity extends AppCompatActivity {
             chronoHandler = new chronoHandler(intervaltime);
         else
             timerHandler = new timerHandler(intervaltime
-                    , working ? Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME) : Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME)
+                    , working ? Prefs.getInt(Constants.KEY_WORK, Constants.DEF_WORKTIME) : Prefs.getInt(Constants.KEY_REST, Constants.DEF_RESTTIME)
                     , () -> updateStatus(!working), this);
     }
     

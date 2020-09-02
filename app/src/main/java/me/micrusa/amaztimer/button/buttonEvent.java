@@ -2,7 +2,7 @@ package me.micrusa.amaztimer.button;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 
 import static me.micrusa.amaztimer.utils.SystemProperties.isPace;
 import static me.micrusa.amaztimer.utils.SystemProperties.isStratos;
@@ -27,7 +27,7 @@ public class buttonEvent {
     public buttonEvent(boolean IsLongPress, int Key){
         this.isLongPress = IsLongPress;
         this.key = Key;
-        this.isInverted = Prefs.getBoolean(defValues.KEY_INVERTKEYS, false);
+        this.isInverted = Prefs.getBoolean(Constants.KEY_INVERTKEYS, false);
     }
 
     public boolean isLongPress(){

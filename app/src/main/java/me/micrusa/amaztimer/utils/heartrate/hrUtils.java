@@ -2,14 +2,14 @@ package me.micrusa.amaztimer.utils.heartrate;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.prefUtils;
 
 public class hrUtils {
     private static final int MAX_HR_FLUCTUATION = 3;
 
     public static int getFlattenedHr(int hr){
-        if(!Prefs.getBoolean(defValues.KEY_FLATTENHR, false))
+        if(!Prefs.getBoolean(Constants.KEY_FLATTENHR, false))
             return hr; //Don't flatten if flattening disabled
         int lastHr = hrSensor.getInstance().latestHr;
         int difference = Math.abs(lastHr - hr);

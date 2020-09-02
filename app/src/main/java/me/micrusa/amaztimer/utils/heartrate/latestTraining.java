@@ -7,7 +7,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.Collections;
 import java.util.LinkedList;
 
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.prefUtils;
 
 public class latestTraining {
@@ -49,10 +49,10 @@ public class latestTraining {
 
     private void saveToFile(int minHr, int maxHr, int avgHr, int kcal){
         //Save data to file
-        Prefs.putInt(defValues.KEY_MINHR, minHr);
-        Prefs.putInt(defValues.KEY_MAXHR, maxHr);
-        Prefs.putInt(defValues.KEY_AVGHR, avgHr);
-        Prefs.putInt(defValues.KEY_KCAL, kcal);
+        Prefs.putInt(Constants.KEY_MINHR, minHr);
+        Prefs.putInt(Constants.KEY_MAXHR, maxHr);
+        Prefs.putInt(Constants.KEY_AVGHR, avgHr);
+        Prefs.putInt(Constants.KEY_KCAL, kcal);
     }
 
 }

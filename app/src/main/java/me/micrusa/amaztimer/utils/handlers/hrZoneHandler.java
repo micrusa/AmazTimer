@@ -7,7 +7,7 @@ import android.view.View;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.heartrate.hrUtils;
 
 import static java.lang.Math.abs;
@@ -21,7 +21,7 @@ public class hrZoneHandler {
 
     public hrZoneHandler(View hrView){
         this.hrView = hrView;
-        enable = Prefs.getBoolean(defValues.KEY_HRZONE, true);
+        enable = Prefs.getBoolean(Constants.KEY_HRZONE, true);
     }
 
     public void addHrValue(int value){

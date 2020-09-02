@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.heartrate.hrUtils;
 import me.micrusa.amaztimer.utils.utils;
 
@@ -37,11 +37,11 @@ public class LatestTrainActivity extends AppCompatActivity {
 
     private void setTexts(){
         //Set all values texts
-        avghr.setText(String.valueOf(Prefs.getInt(defValues.KEY_AVGHR, 0)));
-        maxhr.setText(String.valueOf(Prefs.getInt(defValues.KEY_MAXHR, 0)));
-        minhr.setText(String.valueOf(Prefs.getInt(defValues.KEY_MINHR, 0)));
-        kcal.setText(String.valueOf(Prefs.getInt(defValues.KEY_KCAL, 0)));
-        hrzone.setText(hrUtils.hrZonePercentage(Prefs.getInt(defValues.KEY_AVGHR, 0)));
+        avghr.setText(String.valueOf(Prefs.getInt(Constants.KEY_AVGHR, 0)));
+        maxhr.setText(String.valueOf(Prefs.getInt(Constants.KEY_MAXHR, 0)));
+        minhr.setText(String.valueOf(Prefs.getInt(Constants.KEY_MINHR, 0)));
+        kcal.setText(String.valueOf(Prefs.getInt(Constants.KEY_KCAL, 0)));
+        hrzone.setText(hrUtils.hrZonePercentage(Prefs.getInt(Constants.KEY_AVGHR, 0)));
     }
 
 

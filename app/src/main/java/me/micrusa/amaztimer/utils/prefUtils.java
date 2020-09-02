@@ -2,27 +2,27 @@ package me.micrusa.amaztimer.utils;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 
 public class prefUtils {
 
     public static int getWeight(){
-        return Integer.parseInt(Prefs.getString(defValues.KEY_WEIGHT, String.valueOf(defValues.DEFAULT_WEIGHT)));
+        return Integer.parseInt(Prefs.getString(Constants.KEY_WEIGHT, String.valueOf(Constants.DEFAULT_WEIGHT)));
     }
 
     public static int getAge(){
-        return defValues.CURRENT_YEAR - Integer.parseInt(Prefs.getString(defValues.KEY_AGE, String.valueOf(defValues.DEFAULT_AGE)));
+        return Constants.CURRENT_YEAR - Integer.parseInt(Prefs.getString(Constants.KEY_AGE, String.valueOf(Constants.DEFAULT_AGE)));
     }
 
     public static boolean isMale(){
-        return Boolean.parseBoolean(Prefs.getString(defValues.KEY_GENDER, "true"));
+        return Boolean.parseBoolean(Prefs.getString(Constants.KEY_GENDER, "true"));
     }
 
     public static int getVibration(int vibration){
-        int multiplier = Prefs.getInt(defValues.KEY_VIBRATION, 2);
+        int multiplier = Prefs.getInt(Constants.KEY_VIBRATION, 2);
         
         //Disable multiplier on haptic vibrations
-        if(vibration == defValues.HAPTIC_VIBRATION) return vibration;
+        if(vibration == Constants.HAPTIC_VIBRATION) return vibration;
         
         switch(multiplier){
             case 1:

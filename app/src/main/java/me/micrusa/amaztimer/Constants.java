@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public final class defValues {
+public final class Constants {
     //Format for times
     public static final String timeFormat = "mm:ss";
     //Default sets and times

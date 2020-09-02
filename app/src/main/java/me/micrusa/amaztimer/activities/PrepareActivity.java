@@ -8,11 +8,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pixplicity.easyprefs.library.Prefs;
-
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.TimerActivity;
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.utils;
 
 public class PrepareActivity extends AppCompatActivity {
@@ -40,11 +38,11 @@ public class PrepareActivity extends AppCompatActivity {
                 int time = (int) l / 1000;
                 timer.setText(String.valueOf(time));
                 if(time < 4){
-                    utils.vibrate(defValues.SHORT_VIBRATION, PrepareActivity.this);
+                    utils.vibrate(Constants.SHORT_VIBRATION, PrepareActivity.this);
                     if(time == 1)
                         new Handler().postDelayed(() -> {
                             timer.setText("0");
-                            utils.vibrate(defValues.LONG_VIBRATION, PrepareActivity.this);
+                            utils.vibrate(Constants.LONG_VIBRATION, PrepareActivity.this);
                             }, 950);
                 }
             }

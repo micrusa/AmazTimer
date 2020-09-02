@@ -13,7 +13,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.AmazTimer;
 import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.utils;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -32,9 +32,9 @@ public class PresetsActivity extends AppCompatActivity {
         int[] array = getArrayFromInt(v.getId() == R.id.edit1 ? 1 : 2);
         if(array == null) return;
         //Save data
-        Prefs.putInt(defValues.KEY_SETS, array[0]);
-        Prefs.putInt(defValues.KEY_WORK, array[1]);
-        Prefs.putInt(defValues.KEY_REST, array[2]);
+        Prefs.putInt(Constants.KEY_SETS, array[0]);
+        Prefs.putInt(Constants.KEY_WORK, array[1]);
+        Prefs.putInt(Constants.KEY_REST, array[2]);
         //Open main class
         Intent intent = new Intent(v.getContext(), AmazTimer.class);
         v.getContext().startActivity(intent);
@@ -71,8 +71,8 @@ public class PresetsActivity extends AppCompatActivity {
 
     private void setupValues() {
         //Set values
-        this.firstArray = getArrayFromPref(defValues.KEY_PRESET1);
-        this.secondArray = getArrayFromPref(defValues.KEY_PRESET2);
+        this.firstArray = getArrayFromPref(Constants.KEY_PRESET1);
+        this.secondArray = getArrayFromPref(Constants.KEY_PRESET2);
         preset1.setText(getText(this.firstArray));
         preset2.setText(getText(this.secondArray));
     }

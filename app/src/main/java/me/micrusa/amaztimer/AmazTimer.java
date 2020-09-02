@@ -31,13 +31,13 @@ public class AmazTimer extends Activity {
     private final View.OnLongClickListener plusMinusBtnLongListener = view -> plusMinusUpdates(view.getId(), true);
 
     private boolean plusMinusUpdates(int id, boolean longClick){
-        int sets = Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS);
-        int workTime = Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME);
-        int restTime = Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME);
+        int sets = Prefs.getInt(Constants.KEY_SETS, Constants.DEF_SETS);
+        int workTime = Prefs.getInt(Constants.KEY_WORK, Constants.DEF_WORKTIME);
+        int restTime = Prefs.getInt(Constants.KEY_REST, Constants.DEF_RESTTIME);
         int[] data = utils.getValues(new int[]{sets, workTime, restTime, id}, longClick, this);
-        Prefs.putInt(defValues.KEY_SETS, data[0]);
-        Prefs.putInt(defValues.KEY_WORK, data[1]);
-        Prefs.putInt(defValues.KEY_REST, data[2]);
+        Prefs.putInt(Constants.KEY_SETS, data[0]);
+        Prefs.putInt(Constants.KEY_WORK, data[1]);
+        Prefs.putInt(Constants.KEY_REST, data[2]);
         setTexts();
         return true;
     }
@@ -64,16 +64,16 @@ public class AmazTimer extends Activity {
         minus3.setOnLongClickListener(plusMinusBtnLongListener);
 
         start.setOnClickListener(view -> launchIntent(new Intent(view.getContext(),
-                Prefs.getBoolean(defValues.KEY_ENABLEPREPARE, false)
+                Prefs.getBoolean(Constants.KEY_ENABLEPREPARE, false)
                         ? PrepareActivity.class : TimerActivity.class)));
 
         start.setOnLongClickListener(view -> launchIntent(new Intent(view.getContext(), SettingsActivity.class)));
     }
 
     private void setTexts(){
-        sets.setText(String.valueOf(Prefs.getInt(defValues.KEY_SETS, defValues.DEF_SETS)));
-        work.setText(utils.formatTime(Prefs.getInt(defValues.KEY_WORK, defValues.DEF_WORKTIME)));
-        rest.setText(utils.formatTime(Prefs.getInt(defValues.KEY_REST, defValues.DEF_RESTTIME)));
+        sets.setText(String.valueOf(Prefs.getInt(Constants.KEY_SETS, Constants.DEF_SETS)));
+        work.setText(utils.formatTime(Prefs.getInt(Constants.KEY_WORK, Constants.DEF_WORKTIME)));
+        rest.setText(utils.formatTime(Prefs.getInt(Constants.KEY_REST, Constants.DEF_RESTTIME)));
     }
 
     private void init() {
@@ -113,7 +113,7 @@ public class AmazTimer extends Activity {
 
     private boolean launchIntent(Intent intent){
         if(hasLaunchedIntent) return true; //Avoid multiple activities launched
-        utils.vibrate(defValues.HAPTIC_VIBRATION, this);
+        utils.vibrate(Constants.HAPTIC_VIBRATION, this);
         hasLaunchedIntent = true;
         buttonListener.stop();
         startActivity(intent);

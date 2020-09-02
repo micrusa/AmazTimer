@@ -5,7 +5,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.widget.TextView;
 
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.utils;
 import me.micrusa.amaztimer.TimerActivity;
 
@@ -50,10 +50,10 @@ public class timerHandler {
         } //Avoid vibrations/changes when not running
         timerText.setText(utils.formatTime(time));
         if(time < 4){
-            utils.vibrate(defValues.SHORT_VIBRATION, context, true);
+            utils.vibrate(Constants.SHORT_VIBRATION, context, true);
             if(time == 1){
                 new Handler().postDelayed(() -> {
-                    utils.vibrate(defValues.LONG_VIBRATION, context, true);
+                    utils.vibrate(Constants.LONG_VIBRATION, context, true);
                     timerText.setText(utils.formatTime(0));
                 }, 950);
             }

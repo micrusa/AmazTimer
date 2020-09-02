@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.utils;
 
 public class EditPresetActivity extends AppCompatActivity {
@@ -43,7 +43,7 @@ public class EditPresetActivity extends AppCompatActivity {
     }
 
     private boolean click(int res, boolean isLongPress){
-        String presetKey = PresetID == 1 ? defValues.KEY_PRESET1 : defValues.KEY_PRESET2;
+        String presetKey = PresetID == 1 ? Constants.KEY_PRESET1 : Constants.KEY_PRESET2;
         String valuesStr = Prefs.getString(presetKey, "8:30:20");
         int sets = Integer.parseInt(valuesStr.split(":")[0]);
         int work = Integer.parseInt(valuesStr.split(":")[1]);
@@ -88,7 +88,7 @@ public class EditPresetActivity extends AppCompatActivity {
     }
 
     private void startActivity() {
-        String presetKey = PresetID == 1 ? defValues.KEY_PRESET1 : defValues.KEY_PRESET2;
+        String presetKey = PresetID == 1 ? Constants.KEY_PRESET1 : Constants.KEY_PRESET2;
         String valuesStr = Prefs.getString(presetKey, "8:30:20");
         int sets = Integer.parseInt(valuesStr.split(":")[0]);
         int work = Integer.parseInt(valuesStr.split(":")[1]);

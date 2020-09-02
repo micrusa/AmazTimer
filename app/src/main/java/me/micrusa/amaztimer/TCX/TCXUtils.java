@@ -8,24 +8,24 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 
 public class TCXUtils {
     public static String formatDate(Date date){
         //Workaround for wrong times
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        int hours = calendar.get(Calendar.HOUR) + Integer.parseInt(Prefs.getString(defValues.KEY_TCX_TIME, "0"));
+        int hours = calendar.get(Calendar.HOUR) + Integer.parseInt(Prefs.getString(Constants.KEY_TCX_TIME, "0"));
         calendar.set(Calendar.HOUR, hours);
         date = calendar.getTime();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATE_FORMAT, Locale.US);
-        SimpleDateFormat timeFormat = new SimpleDateFormat(Constants.TIME_FORMAT, Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(TCXConstants.DATE_FORMAT, Locale.US);
+        SimpleDateFormat timeFormat = new SimpleDateFormat(TCXConstants.TIME_FORMAT, Locale.US);
         dateFormat.setTimeZone(TimeZone.getDefault());
         timeFormat.setTimeZone(TimeZone.getDefault());
         return dateFormat.format(date)
-                + Constants.CHAR_DATETIME
+                + TCXConstants.CHAR_DATETIME
                 + timeFormat.format(date)
-                + Constants.CHAR_AFTERTIME;
+                + TCXConstants.CHAR_AFTERTIME;
     }
 }

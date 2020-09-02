@@ -15,7 +15,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.utils;
 
@@ -39,16 +39,16 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            SwitchPreferenceCompat repsMode = findPreference(defValues.KEY_REPSMODE);
-            SwitchPreferenceCompat workoutMode = findPreference(defValues.KEY_WORKOUT);
-            SwitchPreferenceCompat enableSound = findPreference(defValues.KEY_SOUND);
+            SwitchPreferenceCompat repsMode = findPreference(Constants.KEY_REPSMODE);
+            SwitchPreferenceCompat workoutMode = findPreference(Constants.KEY_WORKOUT);
+            SwitchPreferenceCompat enableSound = findPreference(Constants.KEY_SOUND);
             repsMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             workoutMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             //enableSound only visible for verge
             enableSound.setVisible(SystemProperties.isVerge());
-            Preference presets = findPreference(defValues.KEY_SAVED);
-            Preference latestTrain = findPreference(defValues.KEY_LATESTTRAIN);
-            Preference appInfo = findPreference(defValues.KEY_APPINFO);
+            Preference presets = findPreference(Constants.KEY_SAVED);
+            Preference latestTrain = findPreference(Constants.KEY_LATESTTRAIN);
+            Preference appInfo = findPreference(Constants.KEY_APPINFO);
             presets.setOnPreferenceClickListener(OnPreferenceClickListener);
             latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
             appInfo.setOnPreferenceClickListener(OnPreferenceClickListener);
@@ -67,17 +67,17 @@ public class SettingsActivity extends AppCompatActivity {
         private final OnPreferenceClickListener OnPreferenceClickListener = preference -> {
             String key = preference.getKey();
             switch (key) {
-                case defValues.KEY_SAVED: {
+                case Constants.KEY_SAVED: {
                     Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
                     preference.getContext().startActivity(intent);
                     break;
                 }
-                case defValues.KEY_LATESTTRAIN: {
+                case Constants.KEY_LATESTTRAIN: {
                     Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
                     preference.getContext().startActivity(intent);
                     break;
                 }
-                case defValues.KEY_APPINFO: {
+                case Constants.KEY_APPINFO: {
                     Intent intent = new Intent(preference.getContext(), AppInfo.class);
                     preference.getContext().startActivity(intent);
                     break;
@@ -87,21 +87,21 @@ public class SettingsActivity extends AppCompatActivity {
         };
 
         private void setModesVisibility(){
-            SwitchPreferenceCompat repsMode = findPreference(defValues.KEY_REPSMODE);
-            SwitchPreferenceCompat workoutMode = findPreference(defValues.KEY_WORKOUT);
-            if (Prefs.getBoolean(defValues.KEY_WORKOUT, false))
+            SwitchPreferenceCompat repsMode = findPreference(Constants.KEY_REPSMODE);
+            SwitchPreferenceCompat workoutMode = findPreference(Constants.KEY_WORKOUT);
+            if (Prefs.getBoolean(Constants.KEY_WORKOUT, false))
                 repsMode.setEnabled(false);
-            else if (Prefs.getBoolean(defValues.KEY_REPSMODE, false))
+            else if (Prefs.getBoolean(Constants.KEY_REPSMODE, false))
                 workoutMode.setEnabled(false);
         }
 
         private void setupListPreferences(boolean isFirstRun){
-            ListPreference age = findPreference(defValues.KEY_AGE);
-            ListPreference weight = findPreference(defValues.KEY_WEIGHT);
-            int currYear = defValues.CURRENT_YEAR;
-            age.setSummary(String.valueOf(currYear - Integer.parseInt(Prefs.getString(defValues.KEY_AGE, "2000")))
+            ListPreference age = findPreference(Constants.KEY_AGE);
+            ListPreference weight = findPreference(Constants.KEY_WEIGHT);
+            int currYear = Constants.CURRENT_YEAR;
+            age.setSummary(String.valueOf(currYear - Integer.parseInt(Prefs.getString(Constants.KEY_AGE, "2000")))
                     + " " + getResources().getString(R.string.ageyo));
-            weight.setSummary(String.valueOf(Prefs.getString(defValues.KEY_WEIGHT, "70")) + "Kg");
+            weight.setSummary(String.valueOf(Prefs.getString(Constants.KEY_WEIGHT, "70")) + "Kg");
             
             if(isFirstRun){
             age.setOnPreferenceChangeListener(onPreferenceChangeListener);
@@ -117,8 +117,8 @@ public class SettingsActivity extends AppCompatActivity {
             weight.setEntryValues(weightsValue);
             
             String[] ages = new String[100];
-            int startYear = defValues.CURRENT_YEAR - 100;
-            int endYear = defValues.CURRENT_YEAR;
+            int startYear = Constants.CURRENT_YEAR - 100;
+            int endYear = Constants.CURRENT_YEAR;
             for (int i = startYear; i < endYear; i++) ages[i - startYear] = String.valueOf(i);
             age.setEntries(ages);
             age.setEntryValues(ages);

@@ -1,9 +1,7 @@
 package me.micrusa.amaztimer.TCX.data;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import me.micrusa.amaztimer.TCX.Constants;
 import me.micrusa.amaztimer.TCX.TCXUtils;
 
 public class Trackpoint {

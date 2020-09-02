@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 
 public class utils {
 
@@ -24,7 +24,7 @@ public class utils {
 
     public static void vibrate(int time, Context context, boolean sound){
         if(sound && SystemProperties.isVerge()
-                && Prefs.getBoolean(defValues.KEY_SOUND, defValues.DEFAULT_SOUND))
+                && Prefs.getBoolean(Constants.KEY_SOUND, Constants.DEFAULT_SOUND))
             MediaPlayer.create(context, R.raw.beep).start();
         Vibrator v = (Vibrator) context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         if (v != null) {
@@ -34,7 +34,7 @@ public class utils {
 
     public static String formatTime(int seconds) {
         //Format seconds to mm:ss
-        SimpleDateFormat df = new SimpleDateFormat(defValues.timeFormat, Locale.US);
+        SimpleDateFormat df = new SimpleDateFormat(Constants.timeFormat, Locale.US);
         return df.format(new Date(seconds * 1000));
     }
 
@@ -48,7 +48,7 @@ public class utils {
     }
 
     public static void setupLang(Context context) {
-        Locale locale = new Locale(Prefs.getString(defValues.KEY_LANG, "en"));
+        Locale locale = new Locale(Prefs.getString(Constants.KEY_LANG, "en"));
         Configuration config = new Configuration(context.getResources().getConfiguration());
         Locale.setDefault(locale);
         config.setLocale(locale);
@@ -57,28 +57,28 @@ public class utils {
     }
 
     public static int getUpdatedTime(int currentTime, int update, Context paramContext){
-        return getUpdatedValue(currentTime + update, defValues.MIN_TIME, defValues.MAX_TIME, paramContext);
+        return getUpdatedValue(currentTime + update, Constants.MIN_TIME, Constants.MAX_TIME, paramContext);
     }
 
     public static int getUpdatedSets(int currentSets, int update, Context paramContext){
-        return getUpdatedValue(currentSets + update, defValues.MIN_SETS, defValues.MAX_SETS, paramContext);
+        return getUpdatedValue(currentSets + update, Constants.MIN_SETS, Constants.MAX_SETS, paramContext);
     }
 
     private static int getUpdatedValue(int result, int min, int max, Context paramContext){
         if(result < min){
-            vibrate(defValues.SHORT_VIBRATION, paramContext);
+            vibrate(Constants.SHORT_VIBRATION, paramContext);
             return min;
         } else if(result > max){
-            vibrate(defValues.SHORT_VIBRATION, paramContext);
+            vibrate(Constants.SHORT_VIBRATION, paramContext);
             return max;
         }
         return result;
     }
 
     public static int getMode(){
-        if(Prefs.getBoolean(defValues.KEY_REPSMODE, false))
+        if(Prefs.getBoolean(Constants.KEY_REPSMODE, false))
             return 1;
-        if(Prefs.getBoolean(defValues.KEY_WORKOUT, false))
+        if(Prefs.getBoolean(Constants.KEY_WORKOUT, false))
             return 2;
         else return 0;
     }

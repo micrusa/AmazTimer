@@ -3,9 +3,6 @@ package me.micrusa.amaztimer.utils.heartrate;
 
 import android.content.Context;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Handler;
 import android.widget.Toast;
 
@@ -14,18 +11,16 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.Date;
 
 import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.TCX.Constants;
+import me.micrusa.amaztimer.TCX.TCXConstants;
 import me.micrusa.amaztimer.TCX.SaveTCX;
 import me.micrusa.amaztimer.TCX.TCXUtils;
 import me.micrusa.amaztimer.TCX.data.Lap;
 import me.micrusa.amaztimer.TCX.data.TCXData;
 import me.micrusa.amaztimer.TCX.data.Trackpoint;
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.heartrate.listeners.Listener;
 import me.micrusa.amaztimer.utils.heartrate.listeners.experimentalListener;
 import me.micrusa.amaztimer.utils.heartrate.listeners.mainListener;
-import me.micrusa.amaztimer.utils.prefUtils;
-import me.micrusa.amaztimer.utils.utils;
 
 @SuppressWarnings("CanBeFinal")
 public class hrSensor {
@@ -39,7 +34,7 @@ public class hrSensor {
     private Listener hrListener;
 
     //All tcx needed stuff
-    private String currentLapStatus = Constants.STATUS_RESTING;
+    private String currentLapStatus = TCXConstants.STATUS_RESTING;
     private Lap currentLap;
     private TCXData TCXData;
 
@@ -69,7 +64,7 @@ public class hrSensor {
         //Set latest hr value
         String currentDate = TCXUtils.formatDate(new Date());
         //Create Trackpoint and add it to current Lap
-        if (!currentDate.equals(this.latestTrackpointTime) && Prefs.getBoolean(defValues.KEY_TCX, defValues.DEFAULT_TCX)) { //This will limit trackpoints to 1/s
+        if (!currentDate.equals(this.latestTrackpointTime) && Prefs.getBoolean(Constants.KEY_TCX, Constants.DEFAULT_TCX)) { //This will limit trackpoints to 1/s
             currentLap.addTrackpoint(new Trackpoint(v, new Date()));
             this.latestTrackpointTime = currentDate;
         }
@@ -83,7 +78,7 @@ public class hrSensor {
         //Register start time
         this.startTime = System.currentTimeMillis();
         //Register listener taking into account experimental sensor
-        if(Prefs.getBoolean(defValues.KEY_HREXPERIMENT, false))
+        if(Prefs.getBoolean(Constants.KEY_HREXPERIMENT, false))
             hrListener = new experimentalListener();
         else
             hrListener = new mainListener();
@@ -97,7 +92,7 @@ public class hrSensor {
         long endTime = System.currentTimeMillis();
         int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
         latestTraining.saveDataToFile(context, totalTimeInSeconds);
-        if (Prefs.getBoolean(defValues.KEY_TCX, defValues.DEFAULT_TCX)) {
+        if (Prefs.getBoolean(Constants.KEY_TCX, Constants.DEFAULT_TCX)) {
             new Handler().postDelayed(() -> {
               addCurrentLap();
               if(SaveTCX.saveToFile(this.TCXData)){

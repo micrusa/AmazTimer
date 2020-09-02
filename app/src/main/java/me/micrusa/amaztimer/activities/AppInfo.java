@@ -6,10 +6,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pixplicity.easyprefs.library.Prefs;
-
 import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.defValues;
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.utils;
 
 public class AppInfo extends AppCompatActivity {
@@ -36,7 +34,7 @@ public class AppInfo extends AppCompatActivity {
         String FOR = getResources().getString(R.string.thanksfor);
         //Set texts
         appText.setText(appText.getText()
-                + SPACE + defValues.VERSION_NAME + SPACE + "(" + defValues.VERSION_CODE + ")");
+                + SPACE + Constants.VERSION_NAME + SPACE + "(" + Constants.VERSION_CODE + ")");
         appCredits.setText(getResources().getString(R.string.appcredit));
         translationCredits.setText(getResources().getString(R.string.translationcredit));
         thanksto.setText(getResources().getString(R.string.thanksto)
