@@ -28,6 +28,7 @@ public class hrSensor {
     private final latestTraining latestTraining = new latestTraining();
     private long startTime;
     private String latestTrackpointTime;
+    private boolean prevListening = false;
     public int latestHr = 0;
 
     private static hrSensor hrSensor;
@@ -53,13 +54,17 @@ public class hrSensor {
         this.listener = listener;
     }
 
+    public void setListener(hrListener listener){
+        this.listener = listener;
+    }
+
     public void newValue(int v){
         v = hrUtils.getFlattenedHr(v); //Hr will be flattened if the preference is enabled
+        if(prevListening) return; //Don't use value if activity haven't started
         if(latestHr != v){
             listener.onHrChanged(v);
             latestHr = v;
         }
-        //Send hr value to latestTraining array
         latestTraining.addHrValue(v);
         //Set latest hr value
         String currentDate = TCXUtils.formatDate(new Date());
@@ -72,17 +77,35 @@ public class hrSensor {
 
     public void onAccuracyChanged(Sensor param1Sensor, int param1Int) {}
 
+    public void onMainActCreate(Context context){
+        if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true) && !prevListening
+                && Prefs.getBoolean(Constants.KEY_HRONSTART, true)){
+            prevListening = true;
+            if(Prefs.getBoolean(Constants.KEY_HREXPERIMENT, false))
+                hrListener = new experimentalListener();
+            else
+                hrListener = new mainListener();
+            hrListener.register(context);
+        }
+    }
+
+    public void onMainActDestroy(Context context){
+        if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true)
+                && Prefs.getBoolean(Constants.KEY_HRONSTART, true))
+            hrListener.unregister(context);
+    }
+
     public void registerListener(Context context) {
-        //Clean all values to avoid merging other values
         latestTraining.cleanAllValues();
-        //Register start time
         this.startTime = System.currentTimeMillis();
         //Register listener taking into account experimental sensor
-        if(Prefs.getBoolean(Constants.KEY_HREXPERIMENT, false))
-            hrListener = new experimentalListener();
-        else
-            hrListener = new mainListener();
-        hrListener.register(context);
+        if(!prevListening) {
+            if (Prefs.getBoolean(Constants.KEY_HREXPERIMENT, false))
+                hrListener = new experimentalListener();
+            else
+                hrListener = new mainListener();
+            hrListener.register(context);
+        } else prevListening = false;
     }
 
     public void unregisterListener(Context context) {

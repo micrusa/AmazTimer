@@ -59,4 +59,6 @@
     <string name="cancel">Cancel</string>
     <string name="vibration">Vibration multiplier</string>
     <string name="vibrationsum">Vibrations will get multiplied by this number</string>
+    <string name="hrstart">Start getting HR values on app start</string>
+    <string name="hrstartsum">This will avoid having some secs without HR values due to late starting</string>
 </resources>

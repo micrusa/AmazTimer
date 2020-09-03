@@ -1,7 +1,6 @@
 package me.micrusa.amaztimer.activities;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +15,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
-import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.utils;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -92,6 +90,14 @@ public class SettingsActivity extends AppCompatActivity {
                 repsMode.setEnabled(false);
             else if (Prefs.getBoolean(Constants.KEY_REPSMODE, false))
                 workoutMode.setEnabled(false);
+
+            //HR modes
+            SwitchPreferenceCompat hrEnabled = findPreference(Constants.KEY_HRTOGGLE);
+            SwitchPreferenceCompat hrOnStart = findPreference(Constants.KEY_HRONSTART);
+            SwitchPreferenceCompat experimentalHr = findPreference(Constants.KEY_HREXPERIMENT);
+
+            hrOnStart.setEnabled(hrEnabled.isChecked());
+            experimentalHr.setEnabled(hrEnabled.isChecked());
         }
 
         private void setupListPreferences(boolean isFirstRun){

@@ -30,6 +30,13 @@
             app:title="@string/hrEnabled" />
 
         <SwitchPreferenceCompat
+            android:defaultValue="true"
+            app:defaultValue="true"
+            app:key="hrStart"
+            app:title="@string/hrstart"
+            app:summary="@string/hrstartsum" />
+
+        <SwitchPreferenceCompat
             app:key="prepon"
             app:title="@string/enableprep"
             app:summary="@string/enableprep"/>

@@ -17,6 +17,7 @@ import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.button.buttonEvent;
 import me.micrusa.amaztimer.button.buttonListener;
 import me.micrusa.amaztimer.utils.SystemProperties;
+import me.micrusa.amaztimer.utils.heartrate.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
 
 public class AmazTimer extends Activity {
@@ -48,6 +49,10 @@ public class AmazTimer extends Activity {
         utils.setupLang(this);
         setContentView(SystemProperties.isStratos3() || SystemProperties.isVerge() ? R.layout.round_amaztimer : R.layout.amaztimer);
         this.init();
+        //Start listening for hr to avoid some time without HR values when started
+        hrSensor.initialize(listener -> {});
+        hrSensor.getInstance().onMainActCreate(this);
+
         setupBtnListener();
 
         plus.setOnClickListener(plusMinusBtnListener);
@@ -105,8 +110,14 @@ public class AmazTimer extends Activity {
         super.onPause();
     }
 
+     public void onDestroy(){
+        super.onDestroy();
+        hrSensor.getInstance().onMainActDestroy(this);
+     }
+
     public void onResume() {
         hasLaunchedIntent = false;
+        hrSensor.getInstance().onMainActCreate(this);
         setupBtnListener();
         super.onResume();
     }

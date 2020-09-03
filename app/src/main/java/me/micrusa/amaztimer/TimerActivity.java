@@ -83,10 +83,15 @@ public class TimerActivity extends AppCompatActivity {
         elapsedtime.setBase(SystemClock.elapsedRealtime());
         elapsedtime.start();
 
-        hrSensor.initialize(hr -> {
+        hrSensor.hrListener hrListener = hr -> {
             heartrate.setText(String.valueOf(hr));
             hrZoneHandler.addHrValue(hr);
-        });
+        };
+        if(hrSensor.getInstance() == null)
+            hrSensor.initialize(hrListener);
+        else
+            hrSensor.getInstance().setListener(hrListener);
+
         if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true))
             hrSensor.getInstance().registerListener(this); //Register if hr enabled
 
