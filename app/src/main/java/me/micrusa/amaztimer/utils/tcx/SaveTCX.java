@@ -1,8 +1,6 @@
-package me.micrusa.amaztimer.TCX;
+package me.micrusa.amaztimer.utils.tcx;
 
-import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
 
 import org.tinylog.Logger;
 import org.w3c.dom.Document;
@@ -20,9 +18,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import me.micrusa.amaztimer.TCX.data.Lap;
-import me.micrusa.amaztimer.TCX.data.TCXData;
-import me.micrusa.amaztimer.TCX.data.Trackpoint;
+import me.micrusa.amaztimer.utils.tcx.data.Lap;
+import me.micrusa.amaztimer.utils.tcx.data.TCXData;
+import me.micrusa.amaztimer.utils.tcx.data.Trackpoint;
 import me.micrusa.amaztimer.utils.SystemProperties;
 
 public class SaveTCX {

@@ -1,9 +1,6 @@
-package me.micrusa.amaztimer.TCX.data;
+package me.micrusa.amaztimer.utils.tcx.data;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-
-import me.micrusa.amaztimer.TCX.data.Lap;
 
 public class TCXData {
 

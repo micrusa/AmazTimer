@@ -13,9 +13,9 @@ import androidx.core.content.ContextCompat;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
-import me.micrusa.amaztimer.TCX.TCXConstants;
-import me.micrusa.amaztimer.button.buttonEvent;
-import me.micrusa.amaztimer.button.buttonListener;
+import me.micrusa.amaztimer.utils.tcx.TCXConstants;
+import me.micrusa.amaztimer.utils.button.buttonEvent;
+import me.micrusa.amaztimer.utils.button.buttonListener;
 import me.micrusa.amaztimer.utils.handlers.chronoHandler;
 import me.micrusa.amaztimer.utils.handlers.hrZoneHandler;
 import me.micrusa.amaztimer.utils.handlers.timeHandler;
@@ -41,7 +41,7 @@ public class TimerActivity extends AppCompatActivity {
     
     public static boolean isRunning;
 
-    private me.micrusa.amaztimer.button.buttonListener buttonListener = new buttonListener();
+    private me.micrusa.amaztimer.utils.button.buttonListener buttonListener = new buttonListener();
 
     private void init(){
         utils.setupLang(this);

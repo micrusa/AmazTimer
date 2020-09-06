@@ -14,8 +14,8 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.activities.PrepareActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
-import me.micrusa.amaztimer.button.buttonEvent;
-import me.micrusa.amaztimer.button.buttonListener;
+import me.micrusa.amaztimer.utils.button.buttonEvent;
+import me.micrusa.amaztimer.utils.button.buttonListener;
 import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.heartrate.hrSensor;
 import me.micrusa.amaztimer.utils.utils;

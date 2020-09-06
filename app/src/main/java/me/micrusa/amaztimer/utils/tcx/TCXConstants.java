@@ -1,4 +1,4 @@
-package me.micrusa.amaztimer.TCX;
+package me.micrusa.amaztimer.utils.tcx;
 
 public class TCXConstants {
     public final static String STATUS_ACTIVE = "Active";

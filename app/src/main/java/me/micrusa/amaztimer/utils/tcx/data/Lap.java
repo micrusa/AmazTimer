@@ -1,9 +1,9 @@
-package me.micrusa.amaztimer.TCX.data;
+package me.micrusa.amaztimer.utils.tcx.data;
 
 import java.util.Date;
 import java.util.LinkedList;
 
-import me.micrusa.amaztimer.TCX.TCXUtils;
+import me.micrusa.amaztimer.utils.tcx.TCXUtils;
 import me.micrusa.amaztimer.utils.heartrate.hrUtils;
 
 public class Lap {

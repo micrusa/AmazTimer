@@ -11,12 +11,12 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.Date;
 
 import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.TCX.TCXConstants;
-import me.micrusa.amaztimer.TCX.SaveTCX;
-import me.micrusa.amaztimer.TCX.TCXUtils;
-import me.micrusa.amaztimer.TCX.data.Lap;
-import me.micrusa.amaztimer.TCX.data.TCXData;
-import me.micrusa.amaztimer.TCX.data.Trackpoint;
+import me.micrusa.amaztimer.utils.tcx.TCXConstants;
+import me.micrusa.amaztimer.utils.tcx.SaveTCX;
+import me.micrusa.amaztimer.utils.tcx.TCXUtils;
+import me.micrusa.amaztimer.utils.tcx.data.Lap;
+import me.micrusa.amaztimer.utils.tcx.data.TCXData;
+import me.micrusa.amaztimer.utils.tcx.data.Trackpoint;
 import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.heartrate.listeners.Listener;
 import me.micrusa.amaztimer.utils.heartrate.listeners.experimentalListener;

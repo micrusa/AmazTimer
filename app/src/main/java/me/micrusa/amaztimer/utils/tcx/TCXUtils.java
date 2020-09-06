@@ -1,4 +1,4 @@
-package me.micrusa.amaztimer.TCX;
+package me.micrusa.amaztimer.utils.tcx;
 
 import com.pixplicity.easyprefs.library.Prefs;
 

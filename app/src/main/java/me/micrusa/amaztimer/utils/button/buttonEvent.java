@@ -1,4 +1,4 @@
-package me.micrusa.amaztimer.button;
+package me.micrusa.amaztimer.utils.button;
 
 import com.pixplicity.easyprefs.library.Prefs;
 

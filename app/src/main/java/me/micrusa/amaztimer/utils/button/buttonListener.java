@@ -1,21 +1,15 @@
-package me.micrusa.amaztimer.button;
+package me.micrusa.amaztimer.utils.button;
 
 import android.content.Context;
 import android.os.PowerManager;
-import android.util.Log;
 
 import org.tinylog.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
 
 import static me.micrusa.amaztimer.utils.SystemProperties.isStratos3;
 
