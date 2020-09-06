@@ -22,43 +22,34 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils;
+package me.micrusa.amaztimer.utils.sensors.repsCounter.utils;
 
-import com.pixplicity.easyprefs.library.Prefs;
+import java.util.HashMap;
+import java.util.Scanner;
 
-import me.micrusa.amaztimer.Constants;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
 
-public class prefUtils {
+public class PeaksChecker {
 
-    public static int getWeight(){
-        return Integer.parseInt(Prefs.getString(Constants.KEY_WEIGHT, String.valueOf(Constants.DEFAULT_WEIGHT)));
+    public static HashMap<Double, Integer> get(double[] arr) {
+        HashMap<Double, Integer> peaks = new HashMap<>();
+
+        for (int i = 1; i < arr.length; i++)
+            if (isPeak(arr, i, RepsCounter.PEAKS_POSITIONS_CHECK))
+                peaks.put(arr[i], i);
+
+        return peaks;
     }
 
-    public static int getAge(){
-        return Constants.CURRENT_YEAR - Integer.parseInt(Prefs.getString(Constants.KEY_AGE, String.valueOf(Constants.DEFAULT_AGE)));
-    }
-
-    public static boolean isMale(){
-        return Boolean.parseBoolean(Prefs.getString(Constants.KEY_GENDER, "true"));
-    }
-
-    public static int getVibration(int vibration){
-        int multiplier = Prefs.getInt(Constants.KEY_VIBRATION, 2);
-        
-        //Disable multiplier on haptic vibrations
-        if(vibration == Constants.HAPTIC_VIBRATION) return vibration;
-        
-        switch(multiplier){
-            case 1:
-                vibration = vibration / 2;
-                break;
-            case 3:
-                vibration = vibration * 2;
-                break;
-            default:
-                break;
+    private static boolean isPeak(double[] arr, int i, int checkPositions){
+        for(int x = 1; x <= checkPositions; x++){
+            boolean peak = isPeakLoop(arr, i, x);
+            if (!peak) return false;
         }
-        return vibration;
+        return true;
     }
 
+    private static boolean isPeakLoop(double[] arr, int i, int checkPos){
+        return arr[i - checkPos] <= arr[i] && arr[i] >= arr[i + checkPos];
+    }
 }

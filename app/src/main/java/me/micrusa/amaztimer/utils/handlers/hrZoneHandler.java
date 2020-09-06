@@ -8,7 +8,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
-import me.micrusa.amaztimer.utils.heartrate.hrUtils;
+import me.micrusa.amaztimer.utils.sensors.heartrate.hrUtils;
 
 import static java.lang.Math.abs;
 

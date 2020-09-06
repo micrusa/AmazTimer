@@ -22,34 +22,40 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils.handlers;
+package me.micrusa.amaztimer.utils.sensors.repsCounter.listeners;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Handler;
-import android.os.Looper;
-import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import me.micrusa.amaztimer.utils.sensors.objects.Listener;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
 
-public class timeHandler {
-
-    private Handler timeHandler;
-
-    public timeHandler(TextView time){
-        timeHandler = new Handler(Looper.getMainLooper());
-        timeHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                time.setText(new SimpleDateFormat("HH:mm", Locale.US).format(new Date()));
-                timeHandler.postDelayed(this, 1000);
-            }
-        }, 10);
+public class Gyroscope implements SensorEventListener, Listener {
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        RepsCounter.newGyroValues(event.values[0], event.values[2]);
     }
 
-    public void stop(){
-        timeHandler.removeCallbacksAndMessages(null);
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
     }
 
+    @Override
+    public void register(Context context) {
+        SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        Sensor gyro = sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
+        sm.registerListener(this, gyro, SensorManager.SENSOR_DELAY_GAME, new Handler());
+    }
+
+    @Override
+    public void unregister(Context context) {
+        SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        sm.unregisterListener(this);
+    }
 }
