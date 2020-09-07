@@ -50,7 +50,7 @@ public class PeaksChecker {
 
     private static boolean isPeakLoop(double[] arr, int i, int checkPos){
         if(i - checkPos >= 0 && i + checkPos < arr.length)
-            return arr[i - checkPos] <= arr[i] && arr[i] >= arr[i + checkPos];
+            return arr[i - checkPos] <= arr[i] && arr[i] >= arr[i + checkPos] && arr[i] != 0;
         else
             return false;
     }
