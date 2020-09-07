@@ -106,7 +106,7 @@
         android:layout_width="68dp"
         android:layout_height="37dp"
         android:fontFamily="@font/applemint"
-        android:text="35"
+        android:text="0"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"

@@ -22,36 +22,47 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils.sensors.repsCounter.utils;
+package me.micrusa.amaztimer.utils.sensors.repsCounter.ui;
 
-import java.util.HashMap;
+import android.app.Dialog;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.Window;
+import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+
+import me.micrusa.amaztimer.R;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsConstants;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
 
-public class PeaksChecker {
+public class ExerciseDialog extends Dialog {
 
-    public static HashMap<Double, Integer> get(double[] arr) {
-        HashMap<Double, Integer> peaks = new HashMap<>();
+    private Context context;
+    private ListView lv;
 
-        for (int i = 1; i < arr.length; i++)
-            if (isPeak(arr, i, RepsCounter.CURRENT_EXERCISE.PEAKS_POSITIONS_CHECK))
-                peaks.put(arr[i], i);
+    public ExerciseDialog(@NonNull Context context) {
+        super(context);
 
-        return peaks;
+        this.context = context;
     }
 
-    private static boolean isPeak(double[] arr, int i, int checkPositions){
-        for(int x = 1; x <= checkPositions; x++){
-            boolean peak = isPeakLoop(arr, i, x);
-            if (!peak) return false;
-        }
-        return true;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.dialog_exercise_select);
+
+        lv = findViewById(R.id.exerciseList);
+        ExerciseAdapter adapter = new ExerciseAdapter(context, RepsConstants.EXERCISES);
+
+        lv.setAdapter(adapter);
+        lv.setOnItemClickListener((adapterView, view, i, l) -> {
+            RepsCounter.setExercise((Exercise) adapterView.getItemAtPosition(i));
+            dismiss();
+        });
     }
 
-    private static boolean isPeakLoop(double[] arr, int i, int checkPos){
-        if(i - checkPos >= 0 && i + checkPos < arr.length)
-            return arr[i - checkPos] <= arr[i] && arr[i] >= arr[i + checkPos];
-        else
-            return false;
-    }
+
 }

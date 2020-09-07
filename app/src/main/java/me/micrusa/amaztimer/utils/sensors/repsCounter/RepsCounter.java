@@ -25,6 +25,7 @@
 package me.micrusa.amaztimer.utils.sensors.repsCounter;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
@@ -32,22 +33,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import me.micrusa.amaztimer.utils.sensors.repsCounter.listeners.Accelerometer;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.ExerciseDialog;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.utils.Filtering;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.utils.PeaksChecker;
 
 public class RepsCounter {
 
-    public static final int PEAKS_POSITIONS_CHECK = 10;
-    public static final int PEAK_CHECKING_INTERVAL = 1000; //1s
-    public static final int CHEBYSHEV_FILTER_RIPPLE_PERCENT = 24; //0-29
-    public static final float MIN_MOVEMENT_TO_RECORD = 2;
+    public static Exercise CURRENT_EXERCISE = RepsConstants.EXERCISES.get(0);
 
     private static ArrayList<RepsListener> listeners = new ArrayList<>();
     private static Accelerometer accelerometer = new Accelerometer();
 
     private static long lastTimeCheckedPeaks = 0;
     private static int currentPeaks = 0;
-    private static char currentAxis;
     private static boolean isCounting = true;
 
     private static ArrayList<Double> allAccelValues = new ArrayList<>();
@@ -58,9 +57,9 @@ public class RepsCounter {
         if(!isCounting) return;
         float accel = accelX;
 
-        if(currentAxis == 'X') accel = accelX;
-        else if(currentAxis == 'Y') accel = accelY;
-        else if(currentAxis == 'Z') accel = accelZ;
+        if(CURRENT_EXERCISE.AXIS == 'X') accel = accelX;
+        else if(CURRENT_EXERCISE.AXIS == 'Y') accel = accelY;
+        else if(CURRENT_EXERCISE.AXIS == 'Z') accel = accelZ;
 
         if(accel == 0) return; //Ignore filtered values
 
@@ -69,7 +68,7 @@ public class RepsCounter {
         if(lastTimeCheckedPeaks == 0) //Make it wait 4s until checking peaks for the first time
             lastTimeCheckedPeaks = System.currentTimeMillis() + 3000;
 
-        if(System.currentTimeMillis() - lastTimeCheckedPeaks >= PEAK_CHECKING_INTERVAL)
+        if(System.currentTimeMillis() - lastTimeCheckedPeaks >= RepsConstants.PEAK_CHECKING_INTERVAL)
             checkPeaks();
     }
 
@@ -79,7 +78,7 @@ public class RepsCounter {
     private static void checkPeaks(){
         lastTimeCheckedPeaks = System.currentTimeMillis();
 
-        double[] newValues = Filtering.filterSignal(currentBatchAccelValues, 80000, 30000, 2, 0, CHEBYSHEV_FILTER_RIPPLE_PERCENT);
+        double[] newValues = Filtering.filterSignal(currentBatchAccelValues, 80000, 30000, 2, 0, CURRENT_EXERCISE.CHEBYSHEV_FILTER_RIPPLE_PERCENT);
         currentBatchAccelValues = new ArrayList<>();
 
         for(double value : newValues)
@@ -104,31 +103,13 @@ public class RepsCounter {
     }
 
     //UI controlled stuff
-    public static void setAxis(char axis){
-        currentAxis = axis;
+    public static void setExercise(Exercise ex){
+        CURRENT_EXERCISE = ex;
     }
 
     public static void showNewSetDialog(Context context){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Select axis");
-        builder.setItems(new CharSequence[]
-                        {"X", "Y", "Z"},
-                (dialog, selected) -> {
-                    switch (selected) {
-                        case 0:
-                            setAxis('X');
-                            break;
-                        case 1:
-                            setAxis('Y');
-                            break;
-                        case 2:
-                            setAxis('Z');
-                            break;
-                        default:
-
-                    }
-                });
-        builder.create().show();
+        Dialog dialog = new ExerciseDialog(context);
+        dialog.show();
     }
 
     public static void newSet(boolean count){
@@ -153,7 +134,6 @@ public class RepsCounter {
         accelerometer.unregister(context);
     }
 
-    //Reset data
     private static void resetData(){
         currentBatchAccelValues = new ArrayList<>();
         allAccelValues = new ArrayList<>();

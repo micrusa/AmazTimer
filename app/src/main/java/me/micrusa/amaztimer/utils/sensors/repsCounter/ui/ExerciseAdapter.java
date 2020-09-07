@@ -22,36 +22,40 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils.sensors.repsCounter.utils;
+package me.micrusa.amaztimer.utils.sensors.repsCounter.ui;
 
-import java.util.HashMap;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
-import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
+import androidx.annotation.NonNull;
 
-public class PeaksChecker {
+import java.util.ArrayList;
 
-    public static HashMap<Double, Integer> get(double[] arr) {
-        HashMap<Double, Integer> peaks = new HashMap<>();
+import me.micrusa.amaztimer.R;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
 
-        for (int i = 1; i < arr.length; i++)
-            if (isPeak(arr, i, RepsCounter.CURRENT_EXERCISE.PEAKS_POSITIONS_CHECK))
-                peaks.put(arr[i], i);
+public class ExerciseAdapter extends ArrayAdapter<Exercise> {
 
-        return peaks;
+    public ExerciseAdapter(@NonNull Context context, ArrayList<Exercise> exs) {
+        super(context, 0, exs);
     }
 
-    private static boolean isPeak(double[] arr, int i, int checkPositions){
-        for(int x = 1; x <= checkPositions; x++){
-            boolean peak = isPeakLoop(arr, i, x);
-            if (!peak) return false;
-        }
-        return true;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final Exercise exercise = getItem(position);
+
+        if (convertView == null)
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_exercise, parent, false);
+
+        TextView name = convertView.findViewById(R.id.exerciseName);
+
+        name.setText(exercise.getName());
+
+        return convertView;
     }
 
-    private static boolean isPeakLoop(double[] arr, int i, int checkPos){
-        if(i - checkPos >= 0 && i + checkPos < arr.length)
-            return arr[i - checkPos] <= arr[i] && arr[i] >= arr[i + checkPos];
-        else
-            return false;
-    }
 }

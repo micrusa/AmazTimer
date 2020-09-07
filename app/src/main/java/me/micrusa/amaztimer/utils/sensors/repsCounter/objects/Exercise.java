@@ -22,36 +22,27 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils.sensors.repsCounter.utils;
+package me.micrusa.amaztimer.utils.sensors.repsCounter.objects;
 
-import java.util.HashMap;
+public class Exercise {
 
-import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
+    private String name;
 
-public class PeaksChecker {
+    public int PEAKS_POSITIONS_CHECK;
+    public int CHEBYSHEV_FILTER_RIPPLE_PERCENT;
+    public float MIN_MOVEMENT_TO_RECORD;
+    public char AXIS;
 
-    public static HashMap<Double, Integer> get(double[] arr) {
-        HashMap<Double, Integer> peaks = new HashMap<>();
-
-        for (int i = 1; i < arr.length; i++)
-            if (isPeak(arr, i, RepsCounter.CURRENT_EXERCISE.PEAKS_POSITIONS_CHECK))
-                peaks.put(arr[i], i);
-
-        return peaks;
+    public Exercise(String name, int PEAKS_POSITIONS_CHECK, int CHEBYSHEV_FILTER_RIPPLE_PERCENT, float MIN_MOVEMENT_TO_RECORD, char axis){
+        this.name = name;
+        this.PEAKS_POSITIONS_CHECK = PEAKS_POSITIONS_CHECK;
+        this.CHEBYSHEV_FILTER_RIPPLE_PERCENT = CHEBYSHEV_FILTER_RIPPLE_PERCENT;
+        this.MIN_MOVEMENT_TO_RECORD = MIN_MOVEMENT_TO_RECORD;
+        this.AXIS = axis;
     }
 
-    private static boolean isPeak(double[] arr, int i, int checkPositions){
-        for(int x = 1; x <= checkPositions; x++){
-            boolean peak = isPeakLoop(arr, i, x);
-            if (!peak) return false;
-        }
-        return true;
+    public String getName(){
+        return name;
     }
 
-    private static boolean isPeakLoop(double[] arr, int i, int checkPos){
-        if(i - checkPos >= 0 && i + checkPos < arr.length)
-            return arr[i - checkPos] <= arr[i] && arr[i] >= arr[i + checkPos];
-        else
-            return false;
-    }
 }

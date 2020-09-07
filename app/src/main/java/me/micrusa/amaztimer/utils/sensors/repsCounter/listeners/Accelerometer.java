@@ -31,6 +31,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
 
+import org.tinylog.Logger;
+
 import java.util.ArrayList;
 
 import me.micrusa.amaztimer.utils.sensors.objects.Listener;
@@ -45,9 +47,11 @@ public class Accelerometer implements SensorEventListener, Listener {
         float accelerationZ = event.values[2];
 
         //Noise filtering
-        if (Math.abs(accelerationX) < RepsCounter.MIN_MOVEMENT_TO_RECORD) accelerationX = 0;
-        if (Math.abs(accelerationY) < RepsCounter.MIN_MOVEMENT_TO_RECORD) accelerationY = 0;
-        if (Math.abs(accelerationZ) < RepsCounter.MIN_MOVEMENT_TO_RECORD) accelerationZ = 0;
+        if (Math.abs(accelerationX) < RepsCounter.CURRENT_EXERCISE.MIN_MOVEMENT_TO_RECORD) accelerationX = 0;
+        if (Math.abs(accelerationY) < RepsCounter.CURRENT_EXERCISE.MIN_MOVEMENT_TO_RECORD) accelerationY = 0;
+        if (Math.abs(accelerationZ) < RepsCounter.CURRENT_EXERCISE.MIN_MOVEMENT_TO_RECORD) accelerationZ = 0;
+
+        Logger.debug("Received X:" + accelerationX + " Y:" + accelerationY + " Z:" + accelerationZ);
 
         RepsCounter.newAccelValues(accelerationX, accelerationY, accelerationZ);
     }

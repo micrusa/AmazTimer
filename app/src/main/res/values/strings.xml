@@ -63,4 +63,5 @@
     <string name="hrstartsum">This will avoid having some secs without HR values due to late starting</string>
     <string name="reps">Reps</string>
     <string name="repscountermode">Reps counter mode</string>
+    <string name="selectexercise">Select exercise</string>
 </resources>

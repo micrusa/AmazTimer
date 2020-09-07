@@ -22,36 +22,18 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils.sensors.repsCounter.utils;
+package me.micrusa.amaztimer.utils.sensors.repsCounter;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
-import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
 
-public class PeaksChecker {
+public class RepsConstants {
 
-    public static HashMap<Double, Integer> get(double[] arr) {
-        HashMap<Double, Integer> peaks = new HashMap<>();
+    public static final int PEAK_CHECKING_INTERVAL = 1000; //1s
 
-        for (int i = 1; i < arr.length; i++)
-            if (isPeak(arr, i, RepsCounter.CURRENT_EXERCISE.PEAKS_POSITIONS_CHECK))
-                peaks.put(arr[i], i);
+    public static final ArrayList<Exercise> EXERCISES = new ArrayList<Exercise>(){{
+        add(new Exercise("Biceps curl", 10, 24, 2, 'X'));
+    }};
 
-        return peaks;
-    }
-
-    private static boolean isPeak(double[] arr, int i, int checkPositions){
-        for(int x = 1; x <= checkPositions; x++){
-            boolean peak = isPeakLoop(arr, i, x);
-            if (!peak) return false;
-        }
-        return true;
-    }
-
-    private static boolean isPeakLoop(double[] arr, int i, int checkPos){
-        if(i - checkPos >= 0 && i + checkPos < arr.length)
-            return arr[i - checkPos] <= arr[i] && arr[i] >= arr[i + checkPos];
-        else
-            return false;
-    }
 }
