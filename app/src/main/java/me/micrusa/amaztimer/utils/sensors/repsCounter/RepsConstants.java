@@ -34,6 +34,11 @@ public class RepsConstants {
 
     public static final ArrayList<Exercise> EXERCISES = new ArrayList<Exercise>(){{
         add(new Exercise("Biceps curl", 10, 24, 2, 'X'));
+        add(new Exercise("Bench press", 10, 24, 2, 'X'));
+        add(new Exercise("Crunches", 10, 24, 2, 'X'));
+        add(new Exercise("Pull ups", 10, 24, 1, 'X'));
+        add(new Exercise("Jumping jacks", 10, 24, 2, 'X'));
+        add(new Exercise("Other", 10, 24, 2, 'X'));
     }};
 
 }
