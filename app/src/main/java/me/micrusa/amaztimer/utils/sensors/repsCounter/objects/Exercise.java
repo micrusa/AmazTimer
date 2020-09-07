@@ -26,23 +26,23 @@ package me.micrusa.amaztimer.utils.sensors.repsCounter.objects;
 
 public class Exercise {
 
-    private String name;
+    private int name_stringid;
 
     public int PEAKS_POSITIONS_CHECK;
     public int CHEBYSHEV_FILTER_RIPPLE_PERCENT;
     public float MIN_MOVEMENT_TO_RECORD;
     public char AXIS;
 
-    public Exercise(String name, int PEAKS_POSITIONS_CHECK, int CHEBYSHEV_FILTER_RIPPLE_PERCENT, float MIN_MOVEMENT_TO_RECORD, char axis){
-        this.name = name;
+    public Exercise(int name_id, int PEAKS_POSITIONS_CHECK, int CHEBYSHEV_FILTER_RIPPLE_PERCENT, float MIN_MOVEMENT_TO_RECORD, char axis){
+        this.name_stringid = name_id;
         this.PEAKS_POSITIONS_CHECK = PEAKS_POSITIONS_CHECK;
         this.CHEBYSHEV_FILTER_RIPPLE_PERCENT = CHEBYSHEV_FILTER_RIPPLE_PERCENT;
         this.MIN_MOVEMENT_TO_RECORD = MIN_MOVEMENT_TO_RECORD;
         this.AXIS = axis;
     }
 
-    public String getName(){
-        return name;
+    public int getNameId(){
+        return name_stringid;
     }
 
 }

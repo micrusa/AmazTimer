@@ -55,4 +55,15 @@
     <string name="cancel">Cancelar</string>
     <string name="vibration">Multiplicador de vibración</string>
     <string name="vibrationsum">Las vibraciones se multiplicarán por este número</string>
+    <string name="hrstart">Detectar HR desde el inicio</string>
+    <string name="hrstartsum">Esto evitará varios segundos sin RC en actividades</string>
+    <string name="reps">Repeticiones</string>
+    <string name="repscountermode">Contador de repeticiones</string>
+    <string name="selectexercise">Selecciona el ejercicio</string>
+    <string name="bicepscurl">Curl de biceps</string>
+    <string name="benchpress">Press de banca</string>
+    <string name="crunches">Abdominales</string>
+    <string name="pullups">Dominadas</string>
+    <string name="jjacks">Saltos de tijera</string>
+    <string name="other">Otro</string>
 </resources>

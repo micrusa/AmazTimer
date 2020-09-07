@@ -24,8 +24,11 @@
 
 package me.micrusa.amaztimer.utils.sensors.repsCounter;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
+import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
 
 public class RepsConstants {
@@ -33,12 +36,12 @@ public class RepsConstants {
     public static final int PEAK_CHECKING_INTERVAL = 1000; //1s
 
     public static final ArrayList<Exercise> EXERCISES = new ArrayList<Exercise>(){{
-        add(new Exercise("Biceps curl", 10, 24, 2, 'X'));
-        add(new Exercise("Bench press", 10, 24, 2, 'X'));
-        add(new Exercise("Crunches", 10, 24, 2, 'X'));
-        add(new Exercise("Pull ups", 10, 24, 1, 'X'));
-        add(new Exercise("Jumping jacks", 10, 24, 2, 'X'));
-        add(new Exercise("Other", 10, 24, 2, 'X'));
+        EXERCISES.add(new Exercise(R.string.bicepscurl, 10, 24, 2, 'X'));
+        EXERCISES.add(new Exercise(R.string.benchpress, 10, 24, 2, 'X'));
+        EXERCISES.add(new Exercise(R.string.crunches, 10, 24, 2, 'X'));
+        EXERCISES.add(new Exercise(R.string.pullups, 10, 24, 1, 'X'));
+        EXERCISES.add(new Exercise(R.string.jjacks, 10, 24, 2, 'X'));
+        EXERCISES.add(new Exercise(R.string.other, 10, 24, 2, 'X'));
     }};
 
 }

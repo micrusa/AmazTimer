@@ -64,4 +64,10 @@
     <string name="reps">Reps</string>
     <string name="repscountermode">Reps counter mode</string>
     <string name="selectexercise">Select exercise</string>
+    <string name="bicepscurl">Biceps curl</string>
+    <string name="benchpress">Bench press</string>
+    <string name="crunches">Crunches</string>
+    <string name="pullups">Pull Ups</string>
+    <string name="jjacks">Jumping jacks</string>
+    <string name="other">Other</string>
 </resources>

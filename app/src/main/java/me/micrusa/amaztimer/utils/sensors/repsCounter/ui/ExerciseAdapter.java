@@ -53,7 +53,7 @@ public class ExerciseAdapter extends ArrayAdapter<Exercise> {
 
         TextView name = convertView.findViewById(R.id.exerciseName);
 
-        name.setText(exercise.getName());
+        name.setText(exercise.getNameId());
 
         return convertView;
     }
