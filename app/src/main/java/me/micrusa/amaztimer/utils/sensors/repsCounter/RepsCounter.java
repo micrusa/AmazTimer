@@ -24,7 +24,9 @@
 
 package me.micrusa.amaztimer.utils.sensors.repsCounter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,12 +47,14 @@ public class RepsCounter {
     private static long lastTimeCheckedPeaks = 0;
     private static int currentPeaks = 0;
     private static char currentAxis;
+    private static boolean isCounting = true;
 
     private static ArrayList<Double> allAccelValues = new ArrayList<>();
     private static ArrayList<Float> currentBatchAccelValues = new ArrayList<>();
 
     //Sensor outputs
     public static void newAccelValues(float accelX, float accelY, float accelZ){
+        if(!isCounting) return;
         float accel = accelX;
 
         if(currentAxis == 'X') accel = accelX;
@@ -101,7 +105,31 @@ public class RepsCounter {
         currentAxis = axis;
     }
 
-    public static void newSet(){
+    public static void showNewSetDialog(Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Select axis");
+        builder.setItems(new CharSequence[]
+                        {"X", "Y", "Z"},
+                (dialog, selected) -> {
+                    switch (selected) {
+                        case 0:
+                            setAxis('X');
+                            break;
+                        case 1:
+                            setAxis('Y');
+                            break;
+                        case 2:
+                            setAxis('Z');
+                            break;
+                        default:
+
+                    }
+                });
+        builder.create().show();
+    }
+
+    public static void newSet(boolean count){
+        isCounting = count;
         resetData();
     }
 

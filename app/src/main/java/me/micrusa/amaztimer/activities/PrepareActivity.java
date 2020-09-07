@@ -35,6 +35,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.TimerActivity;
 import me.micrusa.amaztimer.Constants;
+import me.micrusa.amaztimer.utils.prefUtils;
 import me.micrusa.amaztimer.utils.utils;
 
 public class PrepareActivity extends AppCompatActivity {
@@ -73,7 +74,7 @@ public class PrepareActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 finished = true;
-                startActivity(new Intent(PrepareActivity.this, TimerActivity.class));
+                startActivity(new Intent(PrepareActivity.this, prefUtils.getTimerClass()));
                 finish();
             }
         }.start();

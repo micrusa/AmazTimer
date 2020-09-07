@@ -61,4 +61,6 @@
     <string name="vibrationsum">Vibrations will get multiplied by this number</string>
     <string name="hrstart">Start getting HR values on app start</string>
     <string name="hrstartsum">This will avoid having some secs without HR values due to late starting</string>
+    <string name="reps">Reps</string>
+    <string name="repscountermode">Reps counter mode</string>
 </resources>

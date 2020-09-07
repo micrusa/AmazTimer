@@ -110,10 +110,14 @@ public class SettingsActivity extends AppCompatActivity {
         private void setModesVisibility(){
             SwitchPreferenceCompat repsMode = findPreference(Constants.KEY_REPSMODE);
             SwitchPreferenceCompat workoutMode = findPreference(Constants.KEY_WORKOUT);
-            if (Prefs.getBoolean(Constants.KEY_WORKOUT, false))
-                repsMode.setEnabled(false);
-            else if (Prefs.getBoolean(Constants.KEY_REPSMODE, false))
-                workoutMode.setEnabled(false);
+            SwitchPreferenceCompat repsCounterMode = findPreference(Constants.KEY_REPSCOUNT);
+            boolean workout = workoutMode.isChecked();
+            boolean reps = repsMode.isChecked();
+            boolean repsCounter = repsCounterMode.isChecked();
+
+            repsMode.setEnabled(!(workout || repsCounter));
+            workoutMode.setEnabled(!(reps || repsCounter));
+            repsCounterMode.setEnabled(!(workout || reps));
 
             //HR modes
             SwitchPreferenceCompat hrEnabled = findPreference(Constants.KEY_HRTOGGLE);

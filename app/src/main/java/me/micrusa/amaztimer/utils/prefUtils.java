@@ -27,6 +27,8 @@ package me.micrusa.amaztimer.utils;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.Constants;
+import me.micrusa.amaztimer.RepsCounterActivity;
+import me.micrusa.amaztimer.TimerActivity;
 
 public class prefUtils {
 
@@ -40,6 +42,10 @@ public class prefUtils {
 
     public static boolean isMale(){
         return Boolean.parseBoolean(Prefs.getString(Constants.KEY_GENDER, "true"));
+    }
+
+    public static Class getTimerClass(){
+        return Prefs.getBoolean(Constants.KEY_REPSCOUNT, false) ? RepsCounterActivity.class : TimerActivity.class;
     }
 
     public static int getVibration(int vibration){

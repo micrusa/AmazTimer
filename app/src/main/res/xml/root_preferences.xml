@@ -8,6 +8,10 @@
             app:title="@string/repsmode" />
 
         <SwitchPreferenceCompat
+            app:key="repscounter"
+            app:title="Reps counter mode" />
+
+        <SwitchPreferenceCompat
             app:key="workoutmode"
             app:title="@string/workout"
             app:summary="@string/workoutsum"/>

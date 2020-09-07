@@ -81,6 +81,7 @@ public final class Constants {
     public static final String KEY_TCX_TIME = "tcxtime";
     public static final String KEY_VIBRATION = "vibration";
     public static final String KEY_HRONSTART = "hrStart";
+    public static final String KEY_REPSCOUNT = "repscounter";
     //Some useful stuff
     public static final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;
     public static final int VERSION_CODE = BuildConfig.VERSION_CODE;

@@ -41,6 +41,7 @@ import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.utils.button.buttonEvent;
 import me.micrusa.amaztimer.utils.button.buttonListener;
 import me.micrusa.amaztimer.utils.SystemProperties;
+import me.micrusa.amaztimer.utils.prefUtils;
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
 
@@ -94,7 +95,7 @@ public class AmazTimer extends Activity {
 
         start.setOnClickListener(view -> launchIntent(new Intent(view.getContext(),
                 Prefs.getBoolean(Constants.KEY_ENABLEPREPARE, false)
-                        ? PrepareActivity.class : TimerActivity.class)));
+                        ? PrepareActivity.class : prefUtils.getTimerClass())));
 
         start.setOnLongClickListener(view -> launchIntent(new Intent(view.getContext(), SettingsActivity.class)));
     }

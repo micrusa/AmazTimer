@@ -24,9 +24,9 @@
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/applemint"
         android:text="21:56"
         android:textColor="@android:color/white"
-        android:fontFamily="@font/applemint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -101,12 +101,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
-    <Chronometer
-        android:id="@+id/totaltime"
+    <TextView
+        android:id="@+id/repscounter"
         android:layout_width="68dp"
         android:layout_height="37dp"
         android:fontFamily="@font/applemint"
+        android:text="35"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
@@ -115,13 +117,13 @@
         android:id="@+id/intervaltime"
         android:layout_width="62dp"
         android:layout_height="37dp"
+        android:fontFamily="@font/applemint"
         android:text="03:15"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        android:fontFamily="@font/applemint"
         app:layout_constraintEnd_toStartOf="@+id/heartrate"
-        app:layout_constraintStart_toEndOf="@+id/totaltime"
+        app:layout_constraintStart_toEndOf="@+id/repscounter"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <TextView
@@ -157,10 +159,10 @@
         android:layout_height="35dp"
         android:layout_marginTop="2dp"
         android:background="@drawable/circle_button"
+        android:fontFamily="@font/applemint"
         android:text="@string/finishset"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:fontFamily="@font/applemint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
@@ -170,14 +172,13 @@
         android:id="@+id/text_time"
         android:layout_width="68dp"
         android:layout_height="12dp"
-        android:layout_marginTop="1dp"
         android:fontFamily="@font/applemint"
-        android:text="@string/time"
+        android:text="@string/reps"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="8sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totaltime" />
+        app:layout_constraintTop_toBottomOf="@+id/repscounter" />
 
     <TextView
         android:id="@+id/text_currset"
@@ -207,12 +208,12 @@
         android:layout_width="40dp"
         android:layout_height="30dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/applemint"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        android:fontFamily="@font/applemint"
-        app:layout_constraintEnd_toEndOf="@+id/totaltime"
+        app:layout_constraintEnd_toStartOf="@+id/status"
         app:layout_constraintTop_toTopOf="@+id/status"
         tools:text="@string/nullinfo" />
 

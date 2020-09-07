@@ -25,7 +25,6 @@
 package me.micrusa.amaztimer.utils.sensors.repsCounter.utils;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
 import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
 
@@ -50,6 +49,9 @@ public class PeaksChecker {
     }
 
     private static boolean isPeakLoop(double[] arr, int i, int checkPos){
-        return arr[i - checkPos] <= arr[i] && arr[i] >= arr[i + checkPos];
+        if(i - checkPos >= 0 && i + checkPos < arr.length)
+            return arr[i - checkPos] <= arr[i] && arr[i] >= arr[i + checkPos];
+        else
+            return false;
     }
 }
