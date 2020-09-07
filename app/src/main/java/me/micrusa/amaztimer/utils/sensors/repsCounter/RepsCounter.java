@@ -37,9 +37,10 @@ import me.micrusa.amaztimer.utils.sensors.repsCounter.utils.PeaksChecker;
 
 public class RepsCounter {
 
-    public static final int PEAKS_POSITIONS_CHECK = 5;
+    public static final int PEAKS_POSITIONS_CHECK = 10;
     public static final int PEAK_CHECKING_INTERVAL = 1000; //1s
-    public static final int CHEBYSHEV_FILTER_RIPPLE_PERCENT = 20; //0-29
+    public static final int CHEBYSHEV_FILTER_RIPPLE_PERCENT = 24; //0-29
+    public static final float MIN_MOVEMENT_TO_RECORD = 2;
 
     private static ArrayList<RepsListener> listeners = new ArrayList<>();
     private static Accelerometer accelerometer = new Accelerometer();
@@ -60,6 +61,8 @@ public class RepsCounter {
         if(currentAxis == 'X') accel = accelX;
         else if(currentAxis == 'Y') accel = accelY;
         else if(currentAxis == 'Z') accel = accelZ;
+
+        if(accel == 0) return; //Ignore filtered values
 
         currentBatchAccelValues.add(accel);
 

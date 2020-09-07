@@ -45,9 +45,9 @@ public class Accelerometer implements SensorEventListener, Listener {
         float accelerationZ = event.values[2];
 
         //Noise filtering
-        if (Math.abs(accelerationX) < 1) accelerationX = 0;
-        if (Math.abs(accelerationY) < 1) accelerationY = 0;
-        if (Math.abs(accelerationZ) < 1) accelerationZ = 0;
+        if (Math.abs(accelerationX) < RepsCounter.MIN_MOVEMENT_TO_RECORD) accelerationX = 0;
+        if (Math.abs(accelerationY) < RepsCounter.MIN_MOVEMENT_TO_RECORD) accelerationY = 0;
+        if (Math.abs(accelerationZ) < RepsCounter.MIN_MOVEMENT_TO_RECORD) accelerationZ = 0;
 
         RepsCounter.newAccelValues(accelerationX, accelerationY, accelerationZ);
     }
