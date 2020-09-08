@@ -73,6 +73,8 @@ public class WorkoutViewerActivity extends AppCompatActivity {
 
             Workout workout = database.workoutDao().findByTime(time);
 
+            database.close();
+
             handler.post(() -> setDataFromWorkout(workout));
         }).start();
     }

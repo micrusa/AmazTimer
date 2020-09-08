@@ -82,6 +82,8 @@ public class SaveWorkout {
                     AmazTimerDB.class, DBConstants.DB_NAME).build();
 
             db.workoutDao().insertAll(workout);
+
+            db.close();
         }).start();
 
     }

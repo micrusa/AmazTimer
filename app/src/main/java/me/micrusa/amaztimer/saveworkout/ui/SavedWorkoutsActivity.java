@@ -80,6 +80,8 @@ public class SavedWorkoutsActivity extends AppCompatActivity {
                                             .build();
 
                                     database.workoutDao().delete(workout);
+
+                                    database.close();
                                 }).start();
                             })
                             .setNegativeButton(R.string.no, (dialogI, i1) -> dialogI.dismiss())
