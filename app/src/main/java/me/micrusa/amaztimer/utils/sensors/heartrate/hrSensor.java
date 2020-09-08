@@ -83,7 +83,6 @@ public class hrSensor {
     }
 
     public void newValue(int i){
-        i = hrUtils.getFlattenedHr(i); //Hr will be flattened if the preference is enabled
         if(prevListening) return; //Don't use value if activity haven't started
         if(latestHr != i){
             listener.onHrChanged(i);

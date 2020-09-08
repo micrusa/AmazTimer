@@ -31,14 +31,16 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
 
+import java.util.ArrayList;
+
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrSensor;
 import me.micrusa.amaztimer.utils.sensors.objects.Listener;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.utils.Filtering;
 
 public class experimentalListener implements SensorEventListener, Listener {
 
+    private ArrayList<Float> allHr = new ArrayList<>();
     private long lastTime;
-    private long totalHrCurrentBatch = 0;
-    private long currentBatchSize = 0;
 
     public experimentalListener(){
         this.lastTime = System.currentTimeMillis();
@@ -46,16 +48,17 @@ public class experimentalListener implements SensorEventListener, Listener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        int thisValue = (int) (event.values[0] / 100);
-        if(thisValue >= 220 || thisValue <= 40) return; //Return on bad values for a more accurate result
+        float thisValue = event.values[0] / 100;
+        if(!(thisValue >= 220 || thisValue <= 40))
+            allHr.add(thisValue); //Add just great values for a more accurate result
+
         long now = System.currentTimeMillis();
-        totalHrCurrentBatch += thisValue;
-        currentBatchSize++;
-        if(now - lastTime >= 750) { //This sensor is SO fast so limit rate to a value every 750ms
-            int v = (int) (totalHrCurrentBatch / currentBatchSize);
-            hrSensor.getInstance().newValue(v);
-            totalHrCurrentBatch = 0;
-            currentBatchSize = 0;
+        if(now - lastTime >= 750 && allHr.size() >= 1) { //This sensor is SO fast so limit rate to a value every 750ms
+            double[] values = Filtering.filterSignal(allHr, 80000, 30000, 2, 0, 15);
+            double totalValue = 0;
+            for(double value : values)
+                totalValue += value;
+            hrSensor.getInstance().newValue((int) (totalValue / values.length));
             lastTime = now;
         }
     }

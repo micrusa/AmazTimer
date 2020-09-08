@@ -126,11 +126,6 @@
             app:title="Use PPG sensor directly"
             app:summary="Get hr from hardware sensor to avoid huami processing. Make sure to adjust watch correctly. Do this at your own risk" />
 
-        <SwitchPreferenceCompat
-            app:key="flattenhr"
-            app:title="Flatten HR"
-            app:summary="Not recommended without previous preference. Algorithm is very simple so may give unaccurate values" />
-
         <ListPreference
             app:key="tcxtime"
             app:title="TCX Time Offset"
