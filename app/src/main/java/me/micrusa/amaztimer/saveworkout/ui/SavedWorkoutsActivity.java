@@ -50,45 +50,47 @@ public class SavedWorkoutsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_saved_workouts);
 
         lv = findViewById(R.id.saved_workouts_lv);
+        addDataToList();
 
+        lv.setOnItemClickListener((adapterView, view, i, l) -> {
+            Workout workout = (Workout) adapterView.getItemAtPosition(i);
+            Intent intent = new Intent(this, WorkoutViewerActivity.class);
+            intent.putExtra("id", workout.time);
+            startActivity(intent);
+        });
+
+        lv.setOnItemLongClickListener((adapterView, view, i, l) -> {
+            Workout workout = (Workout) adapterView.getItemAtPosition(i);
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.deleteworkout)
+                    .setPositiveButton("Yes", (di, i1) -> {
+                        new Thread(() -> {
+                            AmazTimerDB database = Room
+                                    .databaseBuilder(getApplicationContext(), AmazTimerDB.class, DBConstants.DB_NAME)
+                                    .build();
+
+                            database.workoutDao().delete(workout);
+                            database.close();
+
+                            addDataToList();
+                        }).start();
+                    })
+                    .setNegativeButton("No", (dialogI, i1) -> dialogI.dismiss())
+                    .create().show();
+            return true;
+        });
+    }
+
+    private void addDataToList(){
         final Handler handler = new Handler();
         new Thread(() -> {
             AmazTimerDB db = Room
                     .databaseBuilder(getApplicationContext(), AmazTimerDB.class, DBConstants.DB_NAME)
                     .build();
-
             List<Workout> workouts = db.workoutDao().getAll();
+            db.close();
 
-            handler.post(() -> {
-                lv.setAdapter(new WorkoutAdapter(this, workouts));
-
-                lv.setOnItemClickListener((adapterView, view, i, l) -> {
-                    Workout workout = (Workout) adapterView.getItemAtPosition(i);
-                    Intent intent = new Intent(this, WorkoutViewerActivity.class);
-                    intent.putExtra("id", workout.time);
-                    startActivity(intent);
-                });
-
-                lv.setOnItemLongClickListener((adapterView, view, i, l) -> {
-                    Workout workout = (Workout) adapterView.getItemAtPosition(i);
-                    new AlertDialog.Builder(this)
-                            .setTitle(R.string.deleteworkout)
-                            .setPositiveButton("Yes", (di, i1) -> {
-                                new Thread(() -> {
-                                    AmazTimerDB database = Room
-                                            .databaseBuilder(getApplicationContext(), AmazTimerDB.class, DBConstants.DB_NAME)
-                                            .build();
-
-                                    database.workoutDao().delete(workout);
-
-                                    database.close();
-                                }).start();
-                            })
-                            .setNegativeButton("No", (dialogI, i1) -> dialogI.dismiss())
-                            .create().show();
-                    return true;
-                });
-            });
+            handler.post(() -> lv.setAdapter(new WorkoutAdapter(this, workouts)));
         }).start();
     }
 }
