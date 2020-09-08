@@ -114,7 +114,8 @@ public class utils {
     public static int getMode(){
         if(Prefs.getBoolean(Constants.KEY_REPSMODE, false))
             return 1;
-        if(Prefs.getBoolean(Constants.KEY_WORKOUT, false))
+        if(Prefs.getBoolean(Constants.KEY_WORKOUT, false) 
+                || Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))
             return 2;
         else return 0;
     }
