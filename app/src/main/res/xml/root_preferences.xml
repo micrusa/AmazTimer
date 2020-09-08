@@ -95,7 +95,7 @@
 
         <Preference
             app:key="latesttrain"
-            app:title="@string/latesttrain" />
+            app:title="@string/workouts" />
 
         <ListPreference
             app:key="gender"

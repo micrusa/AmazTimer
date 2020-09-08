@@ -39,6 +39,8 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
+import me.micrusa.amaztimer.saveworkout.ui.SavedWorkoutsActivity;
+import me.micrusa.amaztimer.saveworkout.ui.WorkoutViewerActivity;
 import me.micrusa.amaztimer.utils.utils;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -69,7 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
             //enableSound only visible for verge
             //enableSound.setVisible(SystemProperties.isVerge());
             Preference presets = findPreference(Constants.KEY_SAVED);
-            Preference latestTrain = findPreference(Constants.KEY_LATESTTRAIN);
+            Preference latestTrain = findPreference(Constants.KEY_WORKOUTVIEWER);
             Preference appInfo = findPreference(Constants.KEY_APPINFO);
             presets.setOnPreferenceClickListener(OnPreferenceClickListener);
             latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
@@ -93,8 +95,8 @@ public class SettingsActivity extends AppCompatActivity {
                     preference.getContext().startActivity(intent);
                     break;
                 }
-                case Constants.KEY_LATESTTRAIN: {
-                    Intent intent = new Intent(preference.getContext(), LatestTrainActivity.class);
+                case Constants.KEY_WORKOUTVIEWER: {
+                    Intent intent = new Intent(preference.getContext(), SavedWorkoutsActivity.class);
                     preference.getContext().startActivity(intent);
                     break;
                 }

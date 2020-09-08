@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="me.micrusa.amaztimer">
 
-    <uses-sdk tools:overrideLibrary="android.support.wear" />
-
-    <uses-feature android:name="android.hardware.type.watch" />
-
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -16,34 +12,31 @@
 
     <application
         android:name=".AmazTimerApplication"
+        tools:replace="android:allowBackup, android:label"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="AmazTimer"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.PrepareActivity" />
-        <activity android:name=".TimerActivity" />
-        <activity android:name=".RepsCounterActivity" />
-        <activity android:name=".activities.AppInfo" />
-        <activity android:name=".activities.LatestTrainActivity" />
-        <activity android:name=".activities.EditPresetActivity" />
-
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="true" />
-
-        <activity android:name=".activities.PresetsActivity" />
-        <activity android:name=".activities.SettingsActivity" />
         <activity
             android:name=".AmazTimer"
             android:icon="@mipmap/ic_launcher"
             android:label="AmazTimer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".saveworkout.ui.WorkoutViewerActivity" />
+        <activity android:name=".saveworkout.ui.SavedWorkoutsActivity" android:exported="true" />
+        <activity android:name=".activities.PrepareActivity" />
+        <activity android:name=".TimerActivity" />
+        <activity android:name=".RepsCounterActivity" />
+        <activity android:name=".activities.AppInfo" />
+        <activity android:name=".activities.EditPresetActivity" />
+        <activity android:name=".activities.PresetsActivity" />
+        <activity android:name=".activities.SettingsActivity" />
     </application>
 
 </manifest>

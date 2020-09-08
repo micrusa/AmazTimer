@@ -65,7 +65,7 @@ public final class Constants {
     public static final String KEY_ENABLEPREPARE = "prepon";
     public static final String KEY_REPSMODE = "repsmode";
     public static final String KEY_SAVED = "saved";
-    public static final String KEY_LATESTTRAIN = "latesttrain";
+    public static final String KEY_WORKOUTVIEWER = "latesttrain";
     public static final String KEY_APPINFO = "appinfo";
     public static final String KEY_WORKOUT = "workoutmode";
     public static final String KEY_TCX = "tcx";
