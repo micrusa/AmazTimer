@@ -73,7 +73,7 @@ public class SavedWorkoutsActivity extends AppCompatActivity {
                     Workout workout = (Workout) adapterView.getItemAtPosition(i);
                     new AlertDialog.Builder(this)
                             .setTitle(R.string.deleteworkout)
-                            .setPositiveButton(R.string.yes, (di, i1) -> {
+                            .setPositiveButton("Yes", (di, i1) -> {
                                 new Thread(() -> {
                                     AmazTimerDB database = Room
                                             .databaseBuilder(getApplicationContext(), AmazTimerDB.class, DBConstants.DB_NAME)
@@ -84,7 +84,7 @@ public class SavedWorkoutsActivity extends AppCompatActivity {
                                     database.close();
                                 }).start();
                             })
-                            .setNegativeButton(R.string.no, (dialogI, i1) -> dialogI.dismiss())
+                            .setNegativeButton("No", (dialogI, i1) -> dialogI.dismiss())
                             .create().show();
                     return true;
                 });

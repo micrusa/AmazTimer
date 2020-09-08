@@ -66,4 +66,10 @@
     <string name="pullups">Dominadas</string>
     <string name="jjacks">Saltos de tijera</string>
     <string name="other">Otro</string>
+    <string name="deleteworkout">Quieres borrar el entrenamiento?</string>
+    <string name="workouts">Entrenamientos</string>
+    <string name="workout_name">Entrenamiento</string>
+    <string name="duration">Duración</string>
+    <string name="worktime">Trabajo</string>
+    <string name="resttime">Descanso</string>
 </resources>
