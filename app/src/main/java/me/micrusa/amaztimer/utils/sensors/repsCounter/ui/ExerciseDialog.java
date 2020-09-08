@@ -32,6 +32,9 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsConstants;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
@@ -55,7 +58,7 @@ public class ExerciseDialog extends Dialog {
         setContentView(R.layout.dialog_exercise_select);
 
         lv = findViewById(R.id.exerciseList);
-        ExerciseAdapter adapter = new ExerciseAdapter(context, RepsConstants.EXERCISES);
+        ExerciseAdapter adapter = new ExerciseAdapter(context, new ArrayList<>(Arrays.asList(RepsConstants.EXERCISES)));
 
         lv.setAdapter(adapter);
         lv.setOnItemClickListener((adapterView, view, i, l) -> {

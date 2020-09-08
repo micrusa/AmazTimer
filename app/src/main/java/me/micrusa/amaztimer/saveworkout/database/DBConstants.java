@@ -22,26 +22,10 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils.sensors.repsCounter;
+package me.micrusa.amaztimer.saveworkout.database;
 
-import android.content.Context;
+public class DBConstants {
 
-import java.util.ArrayList;
-
-import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
-
-public class RepsConstants {
-
-    public static final int PEAK_CHECKING_INTERVAL = 1000; //1s
-
-    public static final Exercise[] EXERCISES = new Exercise[]{
-            new Exercise(R.string.bicepscurl, 10, 24, 2, 'X'),
-            new Exercise(R.string.benchpress, 10, 24, 2, 'X'),
-            new Exercise(R.string.crunches, 10, 24, 2, 'X'),
-            new Exercise(R.string.pullups, 10, 24, 1, 'X'),
-            new Exercise(R.string.jjacks, 10, 24, 2, 'X'),
-            new Exercise(R.string.other, 10, 24, 2, 'X')
-    };
-
+    public static final String DB_NAME = "amaztimer_db";
+    public static final int VERSION = 1;
 }

@@ -40,7 +40,7 @@ import me.micrusa.amaztimer.utils.sensors.repsCounter.utils.PeaksChecker;
 
 public class RepsCounter {
 
-    public static Exercise CURRENT_EXERCISE = RepsConstants.EXERCISES.get(0);
+    public static Exercise CURRENT_EXERCISE = RepsConstants.EXERCISES[0];
 
     private static ArrayList<RepsListener> listeners = new ArrayList<>();
     private static Accelerometer accelerometer = new Accelerometer();
@@ -98,7 +98,7 @@ public class RepsCounter {
             listener.onNewRepsValue(currentPeaks);
     }
 
-    public static int getPeaks(){
+    public static int getReps(){
         return currentPeaks;
     }
 

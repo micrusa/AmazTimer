@@ -22,26 +22,30 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils.sensors.repsCounter;
+package me.micrusa.amaztimer.saveworkout.database.dao;
 
-import android.content.Context;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
+import me.micrusa.amaztimer.saveworkout.database.objects.Workout;
 
-public class RepsConstants {
+@Dao
+public interface WorkoutDao {
 
-    public static final int PEAK_CHECKING_INTERVAL = 1000; //1s
+    @Query("SELECT * FROM workout")
+    List<Workout> getAll();
 
-    public static final Exercise[] EXERCISES = new Exercise[]{
-            new Exercise(R.string.bicepscurl, 10, 24, 2, 'X'),
-            new Exercise(R.string.benchpress, 10, 24, 2, 'X'),
-            new Exercise(R.string.crunches, 10, 24, 2, 'X'),
-            new Exercise(R.string.pullups, 10, 24, 1, 'X'),
-            new Exercise(R.string.jjacks, 10, 24, 2, 'X'),
-            new Exercise(R.string.other, 10, 24, 2, 'X')
-    };
+    @Query("SELECT * FROM workout WHERE time LIKE :time LIMIT 1")
+    Workout findByTime(long time);
+
+    @Insert
+    void insertAll(Workout... workouts);
+
+    @Delete
+    void delete(Workout workout);
 
 }

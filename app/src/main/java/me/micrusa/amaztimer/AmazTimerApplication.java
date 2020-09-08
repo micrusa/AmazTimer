@@ -25,16 +25,25 @@
 package me.micrusa.amaztimer;
 
 import android.app.Application;
+import android.content.Context;
 
 import me.micrusa.amaztimer.utils.utils;
 
 public class AmazTimerApplication extends Application {
 
+    private static Application mApp;
+
     public void onCreate() {
         super.onCreate();
 
+        mApp = this;
+
         utils.setupPrefs(this);
         utils.setupLang(this);
+    }
+
+    public static Context getContext(){
+        return mApp.getApplicationContext();
     }
 
 }

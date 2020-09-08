@@ -22,26 +22,19 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils.sensors.repsCounter;
+package me.micrusa.amaztimer.saveworkout.database;
 
-import android.content.Context;
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
-import java.util.ArrayList;
+import me.micrusa.amaztimer.saveworkout.database.converters.Converters;
+import me.micrusa.amaztimer.saveworkout.database.dao.WorkoutDao;
+import me.micrusa.amaztimer.saveworkout.database.objects.Workout;
 
-import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
-
-public class RepsConstants {
-
-    public static final int PEAK_CHECKING_INTERVAL = 1000; //1s
-
-    public static final Exercise[] EXERCISES = new Exercise[]{
-            new Exercise(R.string.bicepscurl, 10, 24, 2, 'X'),
-            new Exercise(R.string.benchpress, 10, 24, 2, 'X'),
-            new Exercise(R.string.crunches, 10, 24, 2, 'X'),
-            new Exercise(R.string.pullups, 10, 24, 1, 'X'),
-            new Exercise(R.string.jjacks, 10, 24, 2, 'X'),
-            new Exercise(R.string.other, 10, 24, 2, 'X')
-    };
-
+@Database(version = DBConstants.VERSION, entities = {Workout.class})
+@TypeConverters(Converters.class)
+public abstract class AmazTimerDB extends RoomDatabase {
+    public abstract WorkoutDao workoutDao();
 }
+

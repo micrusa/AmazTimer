@@ -22,26 +22,30 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils.sensors.repsCounter;
+package me.micrusa.amaztimer.saveworkout.database.converters;
 
-import android.content.Context;
+import androidx.room.TypeConverter;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
-import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
+public class Converters {
 
-public class RepsConstants {
+    @TypeConverter
+    public static List<Integer> fromString(String value) {
+        Type listType = new TypeToken<List<Integer>>() {}.getType();
+        return new Gson().fromJson(value, listType);
+    }
 
-    public static final int PEAK_CHECKING_INTERVAL = 1000; //1s
-
-    public static final Exercise[] EXERCISES = new Exercise[]{
-            new Exercise(R.string.bicepscurl, 10, 24, 2, 'X'),
-            new Exercise(R.string.benchpress, 10, 24, 2, 'X'),
-            new Exercise(R.string.crunches, 10, 24, 2, 'X'),
-            new Exercise(R.string.pullups, 10, 24, 1, 'X'),
-            new Exercise(R.string.jjacks, 10, 24, 2, 'X'),
-            new Exercise(R.string.other, 10, 24, 2, 'X')
-    };
+    @TypeConverter
+    public static String fromArrayList(List<Integer> list) {
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        return json;
+    }
 
 }

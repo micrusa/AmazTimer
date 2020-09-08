@@ -26,6 +26,8 @@ package me.micrusa.amaztimer.utils.sensors.heartrate;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
+import java.util.List;
+
 import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.prefUtils;
 
@@ -74,5 +76,16 @@ public class hrUtils {
     
     public static double getMaxHr(){
         return 211 - 0.64 * prefUtils.getAge();
+    }
+
+    public static int getAvg(List<Integer> hr){
+        int totalHr = 0;
+        for (int value : hr) {
+            totalHr += value;
+        }
+        if(hr.size() != 0)
+            return totalHr / hr.size();
+        else
+            return 0;
     }
 }

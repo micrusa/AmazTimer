@@ -22,26 +22,37 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils.sensors.repsCounter;
+package me.micrusa.amaztimer.saveworkout.database.objects;
 
-import android.content.Context;
+import androidx.preference.ListPreference;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
+@Entity
+public class Workout {
 
-public class RepsConstants {
+    @PrimaryKey
+    public long time;
 
-    public static final int PEAK_CHECKING_INTERVAL = 1000; //1s
+    @ColumnInfo(name = "heart_rate")
+    public List<Integer> hr;
 
-    public static final Exercise[] EXERCISES = new Exercise[]{
-            new Exercise(R.string.bicepscurl, 10, 24, 2, 'X'),
-            new Exercise(R.string.benchpress, 10, 24, 2, 'X'),
-            new Exercise(R.string.crunches, 10, 24, 2, 'X'),
-            new Exercise(R.string.pullups, 10, 24, 1, 'X'),
-            new Exercise(R.string.jjacks, 10, 24, 2, 'X'),
-            new Exercise(R.string.other, 10, 24, 2, 'X')
-    };
+    @ColumnInfo(name = "sets")
+    public List<Integer> sets;
+
+    @ColumnInfo(name = "reps_per_set")
+    public List<Integer> setsReps;
+
+    @ColumnInfo(name = "kcal")
+    public int kcal;
+
+    @ColumnInfo(name = "duration")
+    public int totalTime;
 
 }

@@ -35,6 +35,7 @@ import androidx.core.content.ContextCompat;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
+import me.micrusa.amaztimer.saveworkout.SaveWorkout;
 import me.micrusa.amaztimer.utils.button.buttonEvent;
 import me.micrusa.amaztimer.utils.button.buttonListener;
 import me.micrusa.amaztimer.utils.handlers.chronoHandler;
@@ -140,6 +141,7 @@ public class RepsCounterActivity extends AppCompatActivity {
             if ((utils.isModeManualSets() ? ++currSet : --currSet) == 0) endActivity();
         } else RepsCounter.showNewSetDialog(this);
         RepsCounter.newSet(working);
+        SaveWorkout.endSet(!working);
         hrSensor.getInstance().newLap(working ? TCXConstants.STATUS_ACTIVE : TCXConstants.STATUS_RESTING);
         sets.setText(String.valueOf(currSet));
         status.setBackground(ContextCompat.getDrawable(this, working ? R.color.work : R.color.rest));

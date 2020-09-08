@@ -35,6 +35,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import java.util.Date;
 
 import me.micrusa.amaztimer.R;
+import me.micrusa.amaztimer.saveworkout.SaveWorkout;
 import me.micrusa.amaztimer.utils.tcx.TCXConstants;
 import me.micrusa.amaztimer.utils.tcx.SaveTCX;
 import me.micrusa.amaztimer.utils.tcx.TCXUtils;
@@ -49,7 +50,6 @@ import me.micrusa.amaztimer.utils.sensors.heartrate.listeners.mainListener;
 @SuppressWarnings("CanBeFinal")
 public class hrSensor {
     private hrListener listener;
-    private final latestTraining latestTraining = new latestTraining();
     private long startTime;
     private String latestTrackpointTime;
     private boolean prevListening = false;
@@ -82,19 +82,19 @@ public class hrSensor {
         this.listener = listener;
     }
 
-    public void newValue(int v){
-        v = hrUtils.getFlattenedHr(v); //Hr will be flattened if the preference is enabled
+    public void newValue(int i){
+        i = hrUtils.getFlattenedHr(i); //Hr will be flattened if the preference is enabled
         if(prevListening) return; //Don't use value if activity haven't started
-        if(latestHr != v){
-            listener.onHrChanged(v);
-            latestHr = v;
+        if(latestHr != i){
+            listener.onHrChanged(i);
+            latestHr = i;
         }
-        latestTraining.addHrValue(v);
+        SaveWorkout.addHrValue(i);
         //Set latest hr value
         String currentDate = TCXUtils.formatDate(new Date());
         //Create Trackpoint and add it to current Lap
         if (!currentDate.equals(this.latestTrackpointTime) && Prefs.getBoolean(Constants.KEY_TCX, Constants.DEFAULT_TCX)) { //This will limit trackpoints to 1/s
-            currentLap.addTrackpoint(new Trackpoint(v, new Date()));
+            currentLap.addTrackpoint(new Trackpoint(i, new Date()));
             this.latestTrackpointTime = currentDate;
         }
     }
@@ -120,7 +120,7 @@ public class hrSensor {
     }
 
     public void registerListener(Context context) {
-        latestTraining.cleanAllValues();
+        SaveWorkout.startWorkout();
         this.startTime = System.currentTimeMillis();
         //Register listener taking into account experimental sensor
         if(!prevListening) {
@@ -133,12 +133,9 @@ public class hrSensor {
     }
 
     public void unregisterListener(Context context) {
-        //Unregister listener
         hrListener.unregister(context);
-        //Save time and send it to latestTraining
-        long endTime = System.currentTimeMillis();
-        int totalTimeInSeconds = (int) (endTime - startTime) / 1000;
-        latestTraining.saveDataToFile(context, totalTimeInSeconds);
+        SaveWorkout.endWorkout();
+
         if (Prefs.getBoolean(Constants.KEY_TCX, Constants.DEFAULT_TCX)) {
             new Handler().postDelayed(() -> {
               addCurrentLap();
