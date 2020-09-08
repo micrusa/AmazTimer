@@ -64,12 +64,12 @@ public class SaveWorkout {
         workout.hr.add(hr);
     }
 
-    public static void endSet(boolean saveSets){
+    public static void endSet(boolean saveSets, int reps){
         int setTime = (int) (System.currentTimeMillis() - setStartTime);
         if(setTime >= 250)
             workout.sets.add(setTime / 1000);
         if(saveSets && Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))
-            workout.setsReps.add(RepsCounter.getReps());
+            workout.setsReps.add(reps);
     }
 
     public static void endWorkout(){

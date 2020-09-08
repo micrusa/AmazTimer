@@ -141,7 +141,7 @@ public class RepsCounterActivity extends AppCompatActivity {
             if ((utils.isModeManualSets() ? ++currSet : --currSet) == 0) endActivity();
         } else RepsCounter.showNewSetDialog(this);
         RepsCounter.newSet(working);
-        SaveWorkout.endSet(!working);
+        SaveWorkout.endSet(!working, Integer.parseInt((String) reps.getText()));
         hrSensor.getInstance().newLap(working ? TCXConstants.STATUS_ACTIVE : TCXConstants.STATUS_RESTING);
         sets.setText(String.valueOf(currSet));
         status.setBackground(ContextCompat.getDrawable(this, working ? R.color.work : R.color.rest));

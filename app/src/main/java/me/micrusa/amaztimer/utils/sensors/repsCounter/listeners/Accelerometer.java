@@ -51,7 +51,7 @@ public class Accelerometer implements SensorEventListener, Listener {
         if (Math.abs(accelerationY) < RepsCounter.CURRENT_EXERCISE.MIN_MOVEMENT_TO_RECORD) accelerationY = 0;
         if (Math.abs(accelerationZ) < RepsCounter.CURRENT_EXERCISE.MIN_MOVEMENT_TO_RECORD) accelerationZ = 0;
 
-        Logger.debug("Received X:" + accelerationX + " Y:" + accelerationY + " Z:" + accelerationZ);
+        //Logger.debug("Received X:" + accelerationX + " Y:" + accelerationY + " Z:" + accelerationZ);
 
         RepsCounter.newAccelValues(accelerationX, accelerationY, accelerationZ);
     }

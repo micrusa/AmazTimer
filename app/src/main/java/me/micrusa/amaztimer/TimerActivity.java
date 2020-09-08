@@ -140,7 +140,7 @@ public class TimerActivity extends AppCompatActivity {
         isWorking = working;
         isRunning = true;
         if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0) endActivity();
-        SaveWorkout.endSet(!working);
+        SaveWorkout.endSet(!working, -1);
         hrSensor.getInstance().newLap(working ? TCXConstants.STATUS_ACTIVE : TCXConstants.STATUS_RESTING);
         sets.setText(String.valueOf(currSet));
         status.setBackground(ContextCompat.getDrawable(this, working ? R.color.work : R.color.rest));
