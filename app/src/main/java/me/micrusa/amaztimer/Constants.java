@@ -39,8 +39,6 @@ public final class Constants {
     public static final int HAPTIC_VIBRATION = 125; //0.125s
     public static final int SHORT_VIBRATION = 200; //0.2s
     public static final int LONG_VIBRATION = 700; //0.7s
-    //Accuracy range for HR measurements
-    public static final int[] ACCURACY_RANGE = {0, 3};
     //Max and min values
     public static final int MIN_SETS = 1;
     public static final int MAX_SETS = 99;
@@ -70,14 +68,9 @@ public final class Constants {
     public static final String KEY_WORKOUT = "workoutmode";
     public static final String KEY_TCX = "tcx";
     public static final String KEY_SOUND = "sound";
-    public static final String KEY_AVGHR = "avghr";
-    public static final String KEY_MAXHR = "maxhr";
-    public static final String KEY_MINHR = "minhr";
-    public static final String KEY_KCAL = "kcal";
     public static final String KEY_HRZONE = "hrzone";
     public static final String KEY_INVERTKEYS = "invertkeys";
     public static final String KEY_HREXPERIMENT = "hrexperiment";
-    public static final String KEY_FLATTENHR = "flattenhr";
     public static final String KEY_TCX_TIME = "tcxtime";
     public static final String KEY_VIBRATION = "vibration";
     public static final String KEY_HRONSTART = "hrStart";

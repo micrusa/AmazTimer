@@ -27,7 +27,6 @@ package me.micrusa.amaztimer.utils;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.Constants;
-import me.micrusa.amaztimer.RepsCounterActivity;
 import me.micrusa.amaztimer.TimerActivity;
 
 public class prefUtils {
@@ -45,7 +44,7 @@ public class prefUtils {
     }
 
     public static Class getTimerClass(){
-        return Prefs.getBoolean(Constants.KEY_REPSCOUNT, false) ? RepsCounterActivity.class : TimerActivity.class;
+        return TimerActivity.class;
     }
 
     public static int getVibration(int vibration){

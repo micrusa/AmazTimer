@@ -38,6 +38,7 @@ import androidx.core.content.ContextCompat;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.saveworkout.SaveWorkout;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
 import me.micrusa.amaztimer.utils.tcx.TCXConstants;
 import me.micrusa.amaztimer.utils.button.buttonEvent;
 import me.micrusa.amaztimer.utils.button.buttonListener;
@@ -49,7 +50,7 @@ import me.micrusa.amaztimer.utils.sensors.heartrate.hrSensor;
 import me.micrusa.amaztimer.utils.utils;
 
 public class TimerActivity extends AppCompatActivity {
-    private TextView time, status, intervaltime, heartrate, sets;
+    private TextView time, status, intervaltime, heartrate, sets, reps;
     private Chronometer elapsedtime;
     private Button cancel, finishset;
     private View hrZoneView;
@@ -70,12 +71,13 @@ public class TimerActivity extends AppCompatActivity {
 
     private void init(){
         utils.setupLang(this);
-        setContentView(R.layout.activity_timer);
+        setContentView(Prefs.getBoolean(Constants.KEY_REPSCOUNT, false) ? R.layout.activity_reps_counter : R.layout.activity_timer);
         time = findViewById(R.id.time);
         status = findViewById(R.id.status);
         sets = findViewById(R.id.sets);
         intervaltime = findViewById(R.id.intervaltime);
         heartrate = findViewById(R.id.heartrate);
+        reps = findViewById(R.id.repscounter);
         elapsedtime = findViewById(R.id.totaltime);
         cancel = findViewById(R.id.cancel);
         finishset = findViewById(R.id.finishset);
@@ -105,8 +107,13 @@ public class TimerActivity extends AppCompatActivity {
         //Setup time
         timeHandler = new timeHandler(time);
         //Setup total time elapsed chrono
-        elapsedtime.setBase(SystemClock.elapsedRealtime());
-        elapsedtime.start();
+        if(elapsedtime != null) {
+            elapsedtime.setBase(SystemClock.elapsedRealtime());
+            elapsedtime.start();
+        } else if(reps != null){ //If elapsed time is null it's because reps counter is enabled
+            RepsCounter.addRepsListener(i -> reps.setText(String.valueOf(i)));
+            RepsCounter.startCounting(this);
+        }
 
         hrSensor.hrListener hrListener = hr -> {
             heartrate.setText(String.valueOf(hr));
@@ -124,15 +131,16 @@ public class TimerActivity extends AppCompatActivity {
         updateStatus(true);
     }
 
-    private boolean endActivity(){
-        if(hasFinished) return true;
+    private void endActivity(){
+        if(hasFinished) return;
         hasFinished = true;
         isRunning = false;
         if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true))
             hrSensor.getInstance().unregisterListener(this); //Unregister if hr enabled
+        if(Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))
+            RepsCounter.stopCounting(this);
         stopHandlers(true);
         finish();
-        return true;
     }
 
     private void updateStatus(boolean working){
@@ -140,6 +148,9 @@ public class TimerActivity extends AppCompatActivity {
         isWorking = working;
         isRunning = true;
         if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0) endActivity();
+        if(!working && Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))
+            RepsCounter.showNewSetDialog(this);
+        RepsCounter.newSet(working);
         SaveWorkout.endSet(!working, -1);
         hrSensor.getInstance().newLap(working ? TCXConstants.STATUS_ACTIVE : TCXConstants.STATUS_RESTING);
         sets.setText(String.valueOf(currSet));
