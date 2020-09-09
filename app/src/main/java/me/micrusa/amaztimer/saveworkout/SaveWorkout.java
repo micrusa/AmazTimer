@@ -68,7 +68,7 @@ public class SaveWorkout {
         int setTime = (int) (System.currentTimeMillis() - setStartTime);
         if(setTime >= 250)
             workout.sets.add(setTime / 1000);
-        setTime = System.currentTimeMillis();
+        setStartTime = System.currentTimeMillis();
         if(saveSets && Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))
             workout.setsReps.add(reps);
     }
