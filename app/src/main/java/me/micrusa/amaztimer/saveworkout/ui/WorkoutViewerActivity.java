@@ -167,7 +167,7 @@ public class WorkoutViewerActivity extends AppCompatActivity {
         WorkSetsDurationLine.setLineWidth(1f);
         dataSets.add(WorkSetsDurationLine);
 
-        LineDataSet RestSetsDurationLine = new LineDataSet(workValues, getString(R.string.resttime));
+        LineDataSet RestSetsDurationLine = new LineDataSet(restValues, getString(R.string.resttime));
         RestSetsDurationLine.setDrawIcons(false);
         RestSetsDurationLine.setDrawCircles(false);
         RestSetsDurationLine.setDrawValues(false);
