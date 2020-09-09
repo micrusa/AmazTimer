@@ -44,6 +44,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.saveworkout.database.AmazTimerDB;
@@ -90,6 +91,7 @@ public class WorkoutViewerActivity extends AppCompatActivity {
 
     private void setDataFromWorkout(Workout workout){
         SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss", Locale.US);
+        format1.setTimeZone(TimeZone.getTimeZone("GMT"));
         String durationText = format1.format(new Date(workout.totalTime * 1000));
         duration.setText(durationText);
 
