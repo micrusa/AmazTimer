@@ -48,6 +48,7 @@ import java.util.Locale;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.saveworkout.database.AmazTimerDB;
 import me.micrusa.amaztimer.saveworkout.database.DBConstants;
+import me.micrusa.amaztimer.saveworkout.database.DBUtils;
 import me.micrusa.amaztimer.saveworkout.database.objects.Workout;
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrUtils;
 
@@ -67,9 +68,7 @@ public class WorkoutViewerActivity extends AppCompatActivity {
         long time = bundle.getLong("id");
         final Handler handler = new Handler();
         new Thread(() -> {
-            AmazTimerDB database = Room
-                    .databaseBuilder(getApplicationContext(), AmazTimerDB.class, DBConstants.DB_NAME)
-                    .build();
+            AmazTimerDB database = DBUtils.createDBInstance();
 
             Workout workout = database.workoutDao().findByTime(time);
 

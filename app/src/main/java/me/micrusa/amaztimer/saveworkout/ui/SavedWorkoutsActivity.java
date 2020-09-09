@@ -38,6 +38,7 @@ import java.util.List;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.saveworkout.database.AmazTimerDB;
 import me.micrusa.amaztimer.saveworkout.database.DBConstants;
+import me.micrusa.amaztimer.saveworkout.database.DBUtils;
 import me.micrusa.amaztimer.saveworkout.database.objects.Workout;
 
 public class SavedWorkoutsActivity extends AppCompatActivity {
@@ -65,9 +66,7 @@ public class SavedWorkoutsActivity extends AppCompatActivity {
                     .setTitle(R.string.deleteworkout)
                     .setPositiveButton("Yes", (di, i1) -> {
                         new Thread(() -> {
-                            AmazTimerDB database = Room
-                                    .databaseBuilder(getApplicationContext(), AmazTimerDB.class, DBConstants.DB_NAME)
-                                    .build();
+                            AmazTimerDB database = DBUtils.createDBInstance();
 
                             database.workoutDao().delete(workout);
                             database.close();
@@ -84,9 +83,7 @@ public class SavedWorkoutsActivity extends AppCompatActivity {
     private void addDataToList(){
         final Handler handler = new Handler();
         new Thread(() -> {
-            AmazTimerDB db = Room
-                    .databaseBuilder(getApplicationContext(), AmazTimerDB.class, DBConstants.DB_NAME)
-                    .build();
+            AmazTimerDB db = DBUtils.createDBInstance();
             List<Workout> workouts = db.workoutDao().getAll();
             db.close();
 
