@@ -184,5 +184,6 @@ public class WorkoutViewerActivity extends AppCompatActivity {
         repsGraph.getAxisRight().setEnabled(false);
         repsGraph.setDragEnabled(false);
         repsGraph.setTouchEnabled(false);
+        repsGraph.setScaleX(1f);
     }
 }
