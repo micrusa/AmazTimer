@@ -132,6 +132,7 @@ public class RepsCounter {
 
     public static void stopCounting(Context context){
         accelerometer.unregister(context);
+        listeners.clear();
     }
 
     private static void resetData(){
