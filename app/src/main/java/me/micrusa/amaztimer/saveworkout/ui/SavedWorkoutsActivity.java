@@ -28,6 +28,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,9 +71,8 @@ public class SavedWorkoutsActivity extends AppCompatActivity {
 
                             database.workoutDao().delete(workout);
                             database.close();
-
-                            addDataToList();
                         }).start();
+                        addDataToList();
                     })
                     .setNegativeButton("No", (dialogI, i1) -> dialogI.dismiss())
                     .create().show();
