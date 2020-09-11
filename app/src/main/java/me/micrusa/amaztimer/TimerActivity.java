@@ -151,7 +151,7 @@ public class TimerActivity extends AppCompatActivity {
         if(!working && Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))
             RepsCounter.showNewSetDialog(this);
         RepsCounter.newSet(working);
-        SaveWorkout.endSet(!working, -1);
+        SaveWorkout.endSet(!working, Prefs.getBoolean(Constants.KEY_REPSCOUNT, false) ? Integer.parseInt((String) reps.getText()) : -1);
         hrSensor.getInstance().newLap(working ? TCXConstants.STATUS_ACTIVE : TCXConstants.STATUS_RESTING);
         sets.setText(String.valueOf(currSet));
         status.setBackground(ContextCompat.getDrawable(this, working ? R.color.work : R.color.rest));
