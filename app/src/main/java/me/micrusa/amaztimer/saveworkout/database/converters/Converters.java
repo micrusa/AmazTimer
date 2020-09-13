@@ -37,14 +37,13 @@ public class Converters {
 
     @TypeConverter
     public static List<Integer> fromString(String value) {
-        Type listType = new TypeToken<List<Integer>>() {}.getType();
+        Type listType = new TypeToken<List<Integer>>(){}.getType();
         return new Gson().fromJson(value, listType);
     }
 
     @TypeConverter
     public static String fromArrayList(List<Integer> list) {
-        Gson gson = new Gson();
-        return gson.toJson(list);
+        return new Gson().toJson(list);
     }
 
 }

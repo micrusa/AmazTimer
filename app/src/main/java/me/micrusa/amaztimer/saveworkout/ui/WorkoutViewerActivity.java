@@ -124,14 +124,7 @@ public class WorkoutViewerActivity extends AppCompatActivity {
         dataSets.add(line);
 
         hrGraph.setData(new LineData(dataSets));
-
-        hrGraph.getLegend().setTextColor(Color.WHITE);
-        hrGraph.getAxisLeft().setTextColor(Color.WHITE);
-        hrGraph.getDescription().setEnabled(false);
-        hrGraph.getXAxis().setEnabled(false);
-        hrGraph.getAxisRight().setEnabled(false);
-        hrGraph.setDragEnabled(false);
-        hrGraph.setTouchEnabled(false);
+        setupGraph(hrGraph, false);
     }
 
     private void setupRepsGraph(List<Integer> reps, List<Integer> setsDuration){
@@ -142,11 +135,7 @@ public class WorkoutViewerActivity extends AppCompatActivity {
                 values.add(new Entry(i, reps.get(i)));
 
             LineDataSet RepsLine = new LineDataSet(values, getString(R.string.reps));
-            RepsLine.setDrawIcons(false);
-            RepsLine.setDrawCircles(false);
-            RepsLine.setDrawValues(false);
-            RepsLine.setColor(Color.BLUE);
-            RepsLine.setLineWidth(1f);
+            setupLineDataSet(RepsLine, Color.BLUE);
             dataSets.add(RepsLine);
         }
 
@@ -160,30 +149,34 @@ public class WorkoutViewerActivity extends AppCompatActivity {
         }
 
         LineDataSet WorkSetsDurationLine = new LineDataSet(workValues, getString(R.string.worktime));
-        WorkSetsDurationLine.setDrawIcons(false);
-        WorkSetsDurationLine.setDrawCircles(false);
-        WorkSetsDurationLine.setDrawValues(false);
-        WorkSetsDurationLine.setColor(Color.RED);
-        WorkSetsDurationLine.setLineWidth(1f);
+        setupLineDataSet(WorkSetsDurationLine, Color.RED);
         dataSets.add(WorkSetsDurationLine);
 
         LineDataSet RestSetsDurationLine = new LineDataSet(restValues, getString(R.string.resttime));
-        RestSetsDurationLine.setDrawIcons(false);
-        RestSetsDurationLine.setDrawCircles(false);
-        RestSetsDurationLine.setDrawValues(false);
-        RestSetsDurationLine.setColor(Color.GREEN);
-        RestSetsDurationLine.setLineWidth(1f);
+        setupLineDataSet(RestSetsDurationLine, Color.GREEN);
         dataSets.add(RestSetsDurationLine);
 
         repsGraph.setData(new LineData(dataSets));
+        setupGraph(repsGraph, true);
+    }
 
-        repsGraph.getLegend().setTextColor(Color.WHITE);
-        repsGraph.getAxisLeft().setTextColor(Color.WHITE);
-        repsGraph.getXAxis().setTextColor(Color.WHITE);
-        repsGraph.getDescription().setEnabled(false);
-        repsGraph.getAxisRight().setEnabled(false);
-        repsGraph.setDragEnabled(false);
-        repsGraph.setTouchEnabled(false);
-        repsGraph.setScaleX(1f);
+    private void setupGraph(LineChart graph, boolean enableX){
+        graph.getLegend().setTextColor(Color.WHITE);
+        graph.getAxisLeft().setTextColor(Color.WHITE);
+        graph.getXAxis().setTextColor(Color.WHITE);
+        graph.getDescription().setEnabled(false);
+        graph.getXAxis().setEnabled(enableX);
+        graph.getAxisRight().setEnabled(false);
+        graph.setDragEnabled(false);
+        graph.setTouchEnabled(false);
+        if(enableX) graph.setScaleX(1f);
+    }
+
+    private void setupLineDataSet(LineDataSet line, int color){
+        line.setDrawIcons(false);
+        line.setDrawCircles(false);
+        line.setDrawValues(false);
+        line.setColor(color);
+        line.setLineWidth(1f);
     }
 }

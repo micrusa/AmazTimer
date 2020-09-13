@@ -24,23 +24,16 @@
 
 package me.micrusa.amaztimer.saveworkout;
 
-import android.content.Context;
-
-import androidx.room.Room;
-
 import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import me.micrusa.amaztimer.AmazTimerApplication;
 import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.saveworkout.database.AmazTimerDB;
-import me.micrusa.amaztimer.saveworkout.database.DBConstants;
 import me.micrusa.amaztimer.saveworkout.database.DBUtils;
 import me.micrusa.amaztimer.saveworkout.database.objects.Workout;
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrUtils;
-import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
 
 public class SaveWorkout {
 

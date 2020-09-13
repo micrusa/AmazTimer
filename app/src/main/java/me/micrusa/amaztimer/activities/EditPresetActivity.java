@@ -113,11 +113,10 @@ public class EditPresetActivity extends AppCompatActivity {
 
     private void startActivity() {
         String presetKey = PresetID == 1 ? Constants.KEY_PRESET1 : Constants.KEY_PRESET2;
-        String valuesStr = Prefs.getString(presetKey, "8:30:20");
-        int sets = Integer.parseInt(valuesStr.split(":")[0]);
-        int work = Integer.parseInt(valuesStr.split(":")[1]);
-        int rest = Integer.parseInt(valuesStr.split(":")[2]);
-        setTimeTexts(sets, work, rest);
+        String[] valuesStr = Prefs.getString(presetKey, "8:30:20").split(":");
+        setTimeTexts(Integer.parseInt(valuesStr[0]),
+                Integer.parseInt(valuesStr[1]),
+                Integer.parseInt(valuesStr[2]));
     }
 
     private void setTimeTexts(int intSets, int intWork, int intRest) {

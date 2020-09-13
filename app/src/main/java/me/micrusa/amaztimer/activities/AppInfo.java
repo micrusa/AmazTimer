@@ -52,19 +52,18 @@ public class AppInfo extends AppCompatActivity {
         TextView translationCredits = findViewById(R.id.translationcredit);
         TextView thanksto = findViewById(R.id.thanksto);
 
-        String SPACE = " ";
         String NEWLINE = "\n- ";
-        String FOR = getResources().getString(R.string.thanksfor);
+        String FOR = getString(R.string.thanksfor);
         //Set texts
         appText.setText(appText.getText()
-                + SPACE + Constants.VERSION_NAME + SPACE + "(" + Constants.VERSION_CODE + ")");
-        appCredits.setText(getResources().getString(R.string.appcredit));
-        translationCredits.setText(getResources().getString(R.string.translationcredit));
-        thanksto.setText(getResources().getString(R.string.thanksto)
-                + NEWLINE + "@Quinny899" + SPACE + FOR + SPACE + "Springboard Plugin Example"
-                + NEWLINE + "@GreatApo" + SPACE + FOR + SPACE + "Widget Calendar"
-                + NEWLINE + "@1immortal" + SPACE + FOR + SPACE + "AmazTimer installer"
+                + " " + Constants.VERSION_NAME + " (" + Constants.VERSION_CODE + ")");
+        appCredits.setText(getString(R.string.appcredit));
+        translationCredits.setText(getString(R.string.translationcredit));
+        thanksto.setText(getString(R.string.thanksto)
+                + NEWLINE + "@Quinny899 " + FOR + " Springboard Plugin Example"
+                + NEWLINE + "@GreatApo " + FOR + " Widget Calendar"
+                + NEWLINE + "@1immortal " + FOR + " AmazTimer installer"
                 + NEWLINE + "AmazMod team"
-                + NEWLINE + getResources().getString(R.string.allcontributors));
+                + NEWLINE + getString(R.string.allcontributors));
     }
 }
