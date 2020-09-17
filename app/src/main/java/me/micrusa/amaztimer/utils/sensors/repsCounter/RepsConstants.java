@@ -36,12 +36,12 @@ public class RepsConstants {
     public static final int PEAK_CHECKING_INTERVAL = 1000; //1s
 
     public static final Exercise[] EXERCISES = new Exercise[]{
-            new Exercise(R.string.bicepscurl, 10, 24, 2, 'X'),
-            new Exercise(R.string.benchpress, 10, 24, 2, 'X'),
-            new Exercise(R.string.crunches, 10, 24, 2, 'X'),
-            new Exercise(R.string.pullups, 10, 24, 1, 'X'),
-            new Exercise(R.string.jjacks, 10, 24, 2, 'X'),
-            new Exercise(R.string.other, 10, 24, 2, 'X')
+            new Exercise(R.string.bicepscurl, 13, 29, 2, 'X'),
+            new Exercise(R.string.benchpress, 13, 27, 2, 'X'),
+            new Exercise(R.string.crunches, 13, 27, 2, 'X'),
+            new Exercise(R.string.pullups, 13, 25, 1, 'X'),
+            new Exercise(R.string.jjacks, 13, 29, 2, 'X'),
+            new Exercise(R.string.other, 13, 27, 2, 'X')
     };
 
 }
