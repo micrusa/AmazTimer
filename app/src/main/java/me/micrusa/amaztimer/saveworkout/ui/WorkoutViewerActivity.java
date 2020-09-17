@@ -129,7 +129,7 @@ public class WorkoutViewerActivity extends AppCompatActivity {
 
     private void setupRepsGraph(List<Integer> reps, List<Integer> setsDuration){
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        if(reps.get(0) != 0){
+        if(reps.size() >= 1 && reps.get(0) != 0){
             ArrayList<Entry> values = new ArrayList<>();
             for(int i = 0; i < reps.size(); i++)
                 values.add(new Entry(i, reps.get(i)));
@@ -139,25 +139,29 @@ public class WorkoutViewerActivity extends AppCompatActivity {
             dataSets.add(RepsLine);
         }
 
-        ArrayList<Entry> workValues = new ArrayList<>();
-        ArrayList<Entry> restValues = new ArrayList<>();
-        for(int i = 0; i < setsDuration.size(); i++){
-            if(i % 2 == 0) //If it's a work set
-                workValues.add(new Entry((float) i / 2, setsDuration.get(i)));
-            else
-                restValues.add(new Entry((float) i / 2, setsDuration.get(i)));
+        if(setsDuration.size() >= 1){
+            ArrayList<Entry> workValues = new ArrayList<>();
+            ArrayList<Entry> restValues = new ArrayList<>();
+            for(int i = 0; i < setsDuration.size(); i++){
+                if(i % 2 == 0) //If it's a work set
+                    workValues.add(new Entry((float) i / 2, setsDuration.get(i)));
+                else
+                    restValues.add(new Entry((float) i / 2, setsDuration.get(i)));
+            }
+
+            LineDataSet WorkSetsDurationLine = new LineDataSet(workValues, getString(R.string.worktime));
+            setupLineDataSet(WorkSetsDurationLine, Color.RED);
+            dataSets.add(WorkSetsDurationLine);
+
+            LineDataSet RestSetsDurationLine = new LineDataSet(restValues, getString(R.string.resttime));
+            setupLineDataSet(RestSetsDurationLine, Color.GREEN);
+            dataSets.add(RestSetsDurationLine);
         }
 
-        LineDataSet WorkSetsDurationLine = new LineDataSet(workValues, getString(R.string.worktime));
-        setupLineDataSet(WorkSetsDurationLine, Color.RED);
-        dataSets.add(WorkSetsDurationLine);
-
-        LineDataSet RestSetsDurationLine = new LineDataSet(restValues, getString(R.string.resttime));
-        setupLineDataSet(RestSetsDurationLine, Color.GREEN);
-        dataSets.add(RestSetsDurationLine);
-
-        repsGraph.setData(new LineData(dataSets));
-        setupGraph(repsGraph, true);
+        if(dataSets.size() >= 1) {
+            repsGraph.setData(new LineData(dataSets));
+            setupGraph(repsGraph, true);
+        }
     }
 
     private void setupGraph(LineChart graph, boolean enableX){
