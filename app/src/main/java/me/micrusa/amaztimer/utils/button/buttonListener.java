@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
+import me.micrusa.amaztimer.utils.SystemProperties;
+
 import static me.micrusa.amaztimer.utils.SystemProperties.isStratos3;
 
 import static android.content.Context.POWER_SERVICE;
@@ -57,20 +59,14 @@ public class buttonListener {
 
     private PowerManager powerManager;
     PowerManager.WakeLock wakeLock;
-
-
-
-    private boolean listening;
-
+    
     Thread thread;
 
     public void start(Context context, final buttonInterface buttonInterface) {
-        if(listening)
-            return;
+        if(isListening()) return;
 
         powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
 
-        listening = true;
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "AmazTimer:buttonListener");
         wakeLock.acquire();
@@ -82,10 +78,13 @@ public class buttonListener {
         if (thread != null) {
             thread.interrupt();
             thread = null;
-            listening = false;
         }
         if (wakeLock != null && wakeLock.isHeld())
             wakeLock.release();
+    }
+
+    public boolean isListening(){
+        return thread != null;
     }
 
     private class listenerThread extends Thread{
