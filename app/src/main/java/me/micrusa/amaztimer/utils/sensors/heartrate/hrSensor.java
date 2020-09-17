@@ -50,7 +50,6 @@ import me.micrusa.amaztimer.utils.sensors.heartrate.listeners.mainListener;
 @SuppressWarnings("CanBeFinal")
 public class hrSensor {
     private hrListener listener;
-    private long startTime;
     private String latestTrackpointTime;
     private boolean prevListening = false;
     public int latestHr = 0;
@@ -120,7 +119,6 @@ public class hrSensor {
 
     public void registerListener(Context context) {
         SaveWorkout.startWorkout();
-        this.startTime = System.currentTimeMillis();
         //Register listener taking into account experimental sensor
         if(!prevListening) {
             if (Prefs.getBoolean(Constants.KEY_HREXPERIMENT, false))

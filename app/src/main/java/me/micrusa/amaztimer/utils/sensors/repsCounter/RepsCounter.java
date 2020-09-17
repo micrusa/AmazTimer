@@ -85,9 +85,8 @@ public class RepsCounter {
             allAccelValues.add(value);
 
         double[] array = new double[allAccelValues.size()];
-        int i = 0;
-        for(double value : allAccelValues)
-            array[i++] = value;
+        for(int i = 0; i < allAccelValues.size(); i++)
+            array[i] = allAccelValues.get(i);
 
         updatePeaks(PeaksChecker.get(array));
     }
