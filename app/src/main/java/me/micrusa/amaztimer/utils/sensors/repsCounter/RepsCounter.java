@@ -24,17 +24,15 @@
 
 package me.micrusa.amaztimer.utils.sensors.repsCounter;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import me.micrusa.amaztimer.utils.sensors.repsCounter.listeners.Accelerometer;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
-import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.ExerciseDialog;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.dialog.NewRepExerciseDialog;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.utils.Filtering;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.utils.PeaksChecker;
 
@@ -104,11 +102,6 @@ public class RepsCounter {
     //UI controlled stuff
     public static void setExercise(Exercise ex){
         CURRENT_EXERCISE = ex;
-    }
-
-    public static void showNewSetDialog(Context context){
-        Dialog dialog = new ExerciseDialog(context);
-        dialog.show();
     }
 
     public static void newSet(boolean count){

@@ -24,10 +24,14 @@
 
 package me.micrusa.amaztimer.utils;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.TimerActivity;
+import me.micrusa.amaztimer.activities.PrepareActivity;
 
 public class prefUtils {
 

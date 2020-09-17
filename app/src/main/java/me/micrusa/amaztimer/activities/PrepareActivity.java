@@ -74,7 +74,7 @@ public class PrepareActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 finished = true;
-                startActivity(new Intent(PrepareActivity.this, prefUtils.getTimerClass()));
+                utils.startTimer(PrepareActivity.this, true);
                 finish();
             }
         }.start();

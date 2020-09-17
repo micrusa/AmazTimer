@@ -43,6 +43,8 @@ import me.micrusa.amaztimer.utils.button.buttonListener;
 import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.prefUtils;
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrSensor;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.dialog.StartExerciseDialog;
 import me.micrusa.amaztimer.utils.utils;
 
 public class AmazTimer extends Activity {
@@ -93,9 +95,12 @@ public class AmazTimer extends Activity {
         minus2.setOnLongClickListener(plusMinusBtnLongListener);
         minus3.setOnLongClickListener(plusMinusBtnLongListener);
 
-        start.setOnClickListener(view -> launchIntent(new Intent(view.getContext(),
-                Prefs.getBoolean(Constants.KEY_ENABLEPREPARE, false)
-                        ? PrepareActivity.class : prefUtils.getTimerClass())));
+        start.setOnClickListener(view -> {
+            if(Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))
+                new StartExerciseDialog(view.getContext()).show();
+            else
+                utils.startTimer(this, false);
+        });
 
         start.setOnLongClickListener(view -> launchIntent(new Intent(view.getContext(), SettingsActivity.class)));
     }

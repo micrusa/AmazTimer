@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.utils.sensors.repsCounter.ui;
+package me.micrusa.amaztimer.utils.sensors.repsCounter.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -39,8 +39,9 @@ import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsConstants;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.ExerciseAdapter;
 
-public class ExerciseDialog extends Dialog {
+public abstract class ExerciseDialog extends Dialog {
 
     private Context context;
     private ListView lv;
@@ -62,10 +63,15 @@ public class ExerciseDialog extends Dialog {
 
         lv.setAdapter(adapter);
         lv.setOnItemClickListener((adapterView, view, i, l) -> {
-            RepsCounter.setExercise((Exercise) adapterView.getItemAtPosition(i));
+            Exercise ex = (Exercise) adapterView.getItemAtPosition(i);
+            onExerciseClick(ex);
+
             dismiss();
         });
     }
 
+    public void onExerciseClick(Exercise exercise){
+        RepsCounter.setExercise(exercise);
+    }
 
 }

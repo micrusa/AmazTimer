@@ -28,6 +28,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
@@ -40,6 +41,7 @@ import java.util.Locale;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
+import me.micrusa.amaztimer.activities.PrepareActivity;
 
 public class utils {
 
@@ -151,5 +153,12 @@ public class utils {
                 break;
         }
         return new int[]{sets, workTime, restTime};
+    }
+
+    public static void startTimer(Context context, boolean prepareDone){
+        context.startActivity(new Intent(context,
+                Prefs.getBoolean(Constants.KEY_ENABLEPREPARE, false)
+                        && !prepareDone
+                        ? PrepareActivity.class : prefUtils.getTimerClass()));
     }
 }

@@ -39,6 +39,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.saveworkout.SaveWorkout;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
+import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.dialog.NewRepExerciseDialog;
 import me.micrusa.amaztimer.utils.tcx.TCXConstants;
 import me.micrusa.amaztimer.utils.button.buttonEvent;
 import me.micrusa.amaztimer.utils.button.buttonListener;
@@ -149,7 +150,7 @@ public class TimerActivity extends AppCompatActivity {
         isRunning = true;
         if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0) endActivity();
         if(!working && Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))
-            RepsCounter.showNewSetDialog(this);
+            new NewRepExerciseDialog(this).show();
         RepsCounter.newSet(working);
         SaveWorkout.endSet(!working, Prefs.getBoolean(Constants.KEY_REPSCOUNT, false) ? Integer.parseInt((String) reps.getText()) : -1);
         hrSensor.getInstance().newLap(working ? TCXConstants.STATUS_ACTIVE : TCXConstants.STATUS_RESTING);
