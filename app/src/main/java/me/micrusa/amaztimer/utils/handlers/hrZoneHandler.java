@@ -6,6 +6,9 @@ import android.view.View;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrUtils;
@@ -16,32 +19,36 @@ import static java.lang.Math.abs;
 public class hrZoneHandler {
 
     private View hrView;
-    private int latestHrZone = 0;
     private boolean enable;
+    private static final Map<Object, Object> HR_ZONES = new HashMap<>();
 
     public hrZoneHandler(View hrView){
         this.hrView = hrView;
         enable = Prefs.getBoolean(Constants.KEY_HRZONE, true);
+        setupZonesMap();
+    }
+
+    private void setupZonesMap(){
+        Resources res = hrView.getResources();
+        HR_ZONES.put(new int[]{0, 60}, res.getDrawable(R.color.zonelow));
+        HR_ZONES.put(new int[]{60, 70}, res.getDrawable(R.color.zonelowmid));
+        HR_ZONES.put(new int[]{70, 80}, res.getDrawable(R.color.zonemid));
+        HR_ZONES.put(new int[]{80, 90}, res.getDrawable(R.color.zonemidhigh));
+        HR_ZONES.put(new int[]{90, 130}, res.getDrawable(R.color.zonehigh));
     }
 
     public void addHrValue(int value){
-        if(!enable)
-            return;
+        if(!enable) return;
         int hrZone = hrUtils.hrZonePercentageInt(value);
-        if (abs(latestHrZone - hrZone) <= 5){
-            latestHrZone = hrZone;
 
-            Drawable zoneColor;
-            Resources res = hrView.getResources();
+        for(Map.Entry<Object, Object> entry : HR_ZONES.entrySet()){
+            int[] zones = (int[]) entry.getKey();
+            Drawable drawable = (Drawable) entry.getValue();
 
-            if(hrZone < 60) zoneColor = res.getDrawable(R.color.zonelow);
-            else if(hrZone > 60 && hrZone < 70) zoneColor = res.getDrawable(R.color.zonelowmid);
-            else if(hrZone > 70 && hrZone < 80) zoneColor = res.getDrawable(R.color.zonemid);
-            else if(hrZone > 80 && hrZone < 90) zoneColor = res.getDrawable(R.color.zonemidhigh);
-            else if(hrZone > 90) zoneColor = res.getDrawable(R.color.zonehigh);
-            else zoneColor = res.getDrawable(R.color.zonedefault);
-
-            hrView.setBackground(zoneColor);
+            if(zones.length >= 2 && hrZone > zones[0] && hrZone < zones[1]){
+                hrView.setBackground(drawable);
+                return;
+            }
         }
     }
 }
