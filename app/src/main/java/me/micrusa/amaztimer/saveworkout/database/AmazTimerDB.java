@@ -32,7 +32,7 @@ import me.micrusa.amaztimer.saveworkout.database.converters.Converters;
 import me.micrusa.amaztimer.saveworkout.database.dao.WorkoutDao;
 import me.micrusa.amaztimer.saveworkout.database.objects.Workout;
 
-@Database(version = DBConstants.VERSION, entities = {Workout.class})
+@Database(version = DBConstants.VERSION, entities = {Workout.class}, exportSchema = false)
 @TypeConverters(Converters.class)
 public abstract class AmazTimerDB extends RoomDatabase {
     public abstract WorkoutDao workoutDao();
