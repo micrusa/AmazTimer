@@ -148,14 +148,7 @@ public class buttonListener {
                             buttonEventKey = buttonEvent.S3_KEY_MIDDLE_UP;
                         else
                             buttonEventKey = buttonEvent.KEY_DOWN;
-                        long delta = now - lastKeyDownKeyDown;
-                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
-                        } else {
-                            if (delta < TRIGGER) {
-                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
-                            }
-                        }
+                        sendKeyEvent(lastKeyDownKeyDown, buttonEventKey);
                     } else if (value == KEY_EVENT_PRESS) {
                         lastKeyDownKeyDown = now;
                     }
@@ -167,14 +160,7 @@ public class buttonListener {
                             buttonEventKey = buttonEvent.S3_KEY_UP;
                         else
                             buttonEventKey = buttonEvent.KEY_CENTER;
-                        long delta = now - lastKeyCenterKeyUp;
-                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
-                        } else {
-                            if (delta < TRIGGER) {
-                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
-                            }
-                        }
+                        sendKeyEvent(lastKeyCenterKeyUp, buttonEventKey);
                     } else if (value == KEY_EVENT_PRESS) {
                         lastKeyCenterKeyUp = now;
                     }
@@ -186,14 +172,7 @@ public class buttonListener {
                             buttonEventKey = buttonEvent.S3_KEY_MIDDLE_DOWN;
                         else
                             buttonEventKey = buttonEvent.KEY_UP;
-                        long delta = now - lastKeyUpKeyUp;
-                        if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                            buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
-                        } else {
-                            if (delta < TRIGGER) {
-                                buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
-                            }
-                        }
+                        sendKeyEvent(lastKeyUpKeyUp, buttonEventKey);
                     } else if (value == KEY_EVENT_PRESS) {
                         lastKeyUpKeyUp = now;
                     }
@@ -202,6 +181,17 @@ public class buttonListener {
                 default: {
                     Logger.debug("Unsupported key: " + code);
                     break;
+                }
+            }
+        }
+
+        private void sendKeyEvent(long lastKeyDown, int buttonEventKey){
+            long delta = System.currentTimeMillis() - lastKeyDown;
+            if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
+                buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
+            } else {
+                if (delta < TRIGGER) {
+                    buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
                 }
             }
         }
