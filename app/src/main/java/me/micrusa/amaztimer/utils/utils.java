@@ -76,15 +76,6 @@ public class utils {
         return df.format(new Date(seconds * 1000));
     }
 
-    public static void setupPrefs(Context context){
-        new Prefs.Builder()
-                .setContext(context)
-                .setMode(ContextWrapper.MODE_PRIVATE)
-                .setPrefsName(context.getPackageName())
-                .setUseDefaultSharedPreference(true)
-                .build();
-    }
-
     public static void setupLang(Context context) {
         Locale locale = new Locale(Prefs.getString(Constants.KEY_LANG, "en"));
         Configuration config = new Configuration(context.getResources().getConfiguration());
