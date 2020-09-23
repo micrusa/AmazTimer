@@ -59,30 +59,50 @@ public class buttonEvent {
     }
 
     public int getKey(){
-        if(isPace() || isVerge() || (isStratosNewKeys() && key == KEY_CENTER)){ //Pace / Verge / Stratos new keys center button
-            if(isLongPress()) //Long press = key down
-                return isInverted ? KEY_UP : KEY_DOWN;
-            else //Short press = upper key
-                return isInverted ? KEY_DOWN : KEY_UP;
+        int finalKey = -5; //If nothing changed return -5 to not trigger anything
+        if(isSingleKey()){
+            if(isLongPress())
+                finalKey = KEY_DOWN;
+            else
+                finalKey = KEY_UP;
         } else if(isStratos3())
             switch(key){
                 case S3_KEY_UP:
-                    return isInverted ? KEY_UP : KEY_DOWN;
+                    finalKey = KEY_DOWN;
+                    break;
                 case S3_KEY_MIDDLE_UP:
-                    return isInverted ? KEY_DOWN : KEY_UP;
+                    finalKey = KEY_UP;
+                    break;
                 case S3_KEY_MIDDLE_DOWN:
-                    return KEY_CENTER;
+                    finalKey = KEY_CENTER;
+                    break;
+                default:
+                    break;
             }
-        else if(isStratos() && !isStratosNewKeys())
-            switch(key){
-                case KEY_UP:
-                    return isInverted ? KEY_DOWN : KEY_UP;
-                case KEY_CENTER:
-                    return KEY_CENTER;
-                case KEY_DOWN:
-                    return isInverted ? KEY_UP : KEY_DOWN;
-            }
-        return -5; //If nothing returned return -5 to not trigger anything
+        else if(isStratos2Old())
+            finalKey = key;
+
+        return getInverted(finalKey);
+    }
+
+    private int getInverted(int key){
+        if(!isInverted || key == KEY_CENTER)
+            return key;
+
+        if(key == KEY_UP)
+            key = KEY_DOWN;
+        else if(key == KEY_DOWN)
+            key = KEY_UP;
+
+        return key;
+    }
+
+    private boolean isSingleKey(){ //Stratos new layout can just use center button
+        return isPace() || isVerge() || (isStratosNewKeys() && key == KEY_CENTER);
+    }
+
+    private boolean isStratos2Old(){
+        return isStratos() && !isStratosNewKeys();
     }
 
 }
