@@ -47,10 +47,6 @@ public class prefUtils {
         return Boolean.parseBoolean(Prefs.getString(Constants.KEY_GENDER, "true"));
     }
 
-    public static Class getTimerClass(){
-        return TimerActivity.class;
-    }
-
     public static int getVibration(int vibration){
         int multiplier = Prefs.getInt(Constants.KEY_VIBRATION, 2);
         

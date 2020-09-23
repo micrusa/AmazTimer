@@ -41,6 +41,7 @@ import java.util.Locale;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
+import me.micrusa.amaztimer.TimerActivity;
 import me.micrusa.amaztimer.activities.PrepareActivity;
 
 public class utils {
@@ -150,6 +151,6 @@ public class utils {
         context.startActivity(new Intent(context,
                 Prefs.getBoolean(Constants.KEY_ENABLEPREPARE, false)
                         && !prepareDone
-                        ? PrepareActivity.class : prefUtils.getTimerClass()));
+                        ? PrepareActivity.class : TimerActivity.class));
     }
 }

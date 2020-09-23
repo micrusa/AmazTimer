@@ -113,10 +113,6 @@ public class RepsCounter {
         listeners.add(listener);
     }
 
-    public static void removeRepsListener(RepsListener listener){
-        listeners.remove(listener);
-    }
-
     public static void startCounting(Context context){
         resetData();
         accelerometer.register(context);
