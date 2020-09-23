@@ -123,13 +123,12 @@ public class WorkoutViewerActivity extends AppCompatActivity {
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(line);
 
-        hrGraph.setData(new LineData(dataSets));
-        setupGraph(hrGraph, false);
+        setupGraph(hrGraph, false, new LineData(dataSets));
     }
 
     private void setupRepsGraph(List<Integer> reps, List<Integer> setsDuration){
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        if(reps.size() >= 1 && reps.get(0) != 0){
+        if(reps.size() >= 1){
             ArrayList<Entry> values = new ArrayList<>();
             for(int i = 0; i < reps.size(); i++)
                 values.add(new Entry(i, reps.get(i)));
@@ -140,31 +139,33 @@ public class WorkoutViewerActivity extends AppCompatActivity {
         }
 
         if(setsDuration.size() >= 1){
-            ArrayList<Entry> workValues = new ArrayList<>();
-            ArrayList<Entry> restValues = new ArrayList<>();
-            for(int i = 0; i < setsDuration.size(); i++){
-                if(i % 2 == 0) //If it's a work set
-                    workValues.add(new Entry((float) i / 2, setsDuration.get(i)));
-                else
-                    restValues.add(new Entry((float) i / 2, setsDuration.get(i)));
-            }
-
-            LineDataSet WorkSetsDurationLine = new LineDataSet(workValues, getString(R.string.worktime));
+            LineDataSet WorkSetsDurationLine = new LineDataSet(getDuration(setsDuration, true), getString(R.string.worktime));
             setupLineDataSet(WorkSetsDurationLine, Color.RED);
             dataSets.add(WorkSetsDurationLine);
 
-            LineDataSet RestSetsDurationLine = new LineDataSet(restValues, getString(R.string.resttime));
+            LineDataSet RestSetsDurationLine = new LineDataSet(getDuration(setsDuration, false), getString(R.string.resttime));
             setupLineDataSet(RestSetsDurationLine, Color.GREEN);
             dataSets.add(RestSetsDurationLine);
         }
 
-        if(dataSets.size() >= 1) {
-            repsGraph.setData(new LineData(dataSets));
-            setupGraph(repsGraph, true);
-        }
+        if(dataSets.size() >= 1)
+            setupGraph(repsGraph, true, new LineData(dataSets));
     }
 
-    private void setupGraph(LineChart graph, boolean enableX){
+    private ArrayList<Entry> getDuration(List<Integer> setsDuration, boolean work){
+        ArrayList<Entry> workValues = new ArrayList<>();
+        ArrayList<Entry> restValues = new ArrayList<>();
+        for(int i = 0; i < setsDuration.size(); i++){
+            if(i % 2 == 0) //If it's a work set
+                workValues.add(new Entry((float) i / 2, setsDuration.get(i)));
+            else
+                restValues.add(new Entry((float) i / 2, setsDuration.get(i)));
+        }
+        return work ? workValues : restValues;
+    }
+
+    private void setupGraph(LineChart graph, boolean enableX, LineData data){
+        graph.setData(data);
         graph.getLegend().setTextColor(Color.WHITE);
         graph.getAxisLeft().setTextColor(Color.WHITE);
         graph.getXAxis().setTextColor(Color.WHITE);
