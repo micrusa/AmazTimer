@@ -36,19 +36,17 @@ import androidx.annotation.Nullable;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
-import me.micrusa.amaztimer.activities.PrepareActivity;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.utils.button.buttonEvent;
 import me.micrusa.amaztimer.utils.button.buttonListener;
 import me.micrusa.amaztimer.utils.SystemProperties;
-import me.micrusa.amaztimer.utils.prefUtils;
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrSensor;
-import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.dialog.StartExerciseDialog;
 import me.micrusa.amaztimer.utils.utils;
 
 public class AmazTimer extends Activity {
-    private Button plus, plus2, plus3, minus, minus2, minus3, start;
+    private Button[] plusMinusBtns;
+    private Button start;
     private TextView sets, rest, work;
     
     private buttonListener buttonListener = new buttonListener();
@@ -82,18 +80,10 @@ public class AmazTimer extends Activity {
 
         setupBtnListener();
 
-        plus.setOnClickListener(plusMinusBtnListener);
-        plus2.setOnClickListener(plusMinusBtnListener);
-        plus3.setOnClickListener(plusMinusBtnListener);
-        minus.setOnClickListener(plusMinusBtnListener);
-        minus2.setOnClickListener(plusMinusBtnListener);
-        minus3.setOnClickListener(plusMinusBtnListener);
-        plus.setOnLongClickListener(plusMinusBtnLongListener);
-        plus2.setOnLongClickListener(plusMinusBtnLongListener);
-        plus3.setOnLongClickListener(plusMinusBtnLongListener);
-        minus.setOnLongClickListener(plusMinusBtnLongListener);
-        minus2.setOnLongClickListener(plusMinusBtnLongListener);
-        minus3.setOnLongClickListener(plusMinusBtnLongListener);
+        for(Button b : plusMinusBtns){
+            b.setOnClickListener(plusMinusBtnListener);
+            b.setOnLongClickListener(plusMinusBtnLongListener);
+        }
 
         start.setOnClickListener(view -> {
             if(Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))
@@ -112,12 +102,14 @@ public class AmazTimer extends Activity {
     }
 
     private void init() {
-        plus = findViewById(R.id.plus);
-        plus2 = findViewById(R.id.plus2);
-        plus3 = findViewById(R.id.plus3);
-        minus = findViewById(R.id.minus2);
-        minus2 = findViewById(R.id.minus);
-        minus3 = findViewById(R.id.minus3);
+        plusMinusBtns = new Button[]{
+                findViewById(R.id.plus),
+                findViewById(R.id.plus2),
+                findViewById(R.id.plus3),
+                findViewById(R.id.minus2),
+                findViewById(R.id.minus),
+                findViewById(R.id.minus3)
+        };
         start = findViewById(R.id.start);
         sets = findViewById(R.id.sets);
         rest = findViewById(R.id.rest);

@@ -41,7 +41,8 @@ import me.micrusa.amaztimer.utils.utils;
 
 public class EditPresetActivity extends AppCompatActivity {
 
-    private Button plus, plus2, plus3, minus, minus2, minus3, edit;
+    private Button[] plusMinusBtns;
+    private Button edit;
     private TextView settingstext, sets, rest, work;
     private OnClickListener plusMinusBtn;
     private OnLongClickListener longPlusMinusBtn;
@@ -79,29 +80,23 @@ public class EditPresetActivity extends AppCompatActivity {
     }
 
     private void setOnClickListeners() {
-        plus.setOnClickListener(plusMinusBtn);
-        plus2.setOnClickListener(plusMinusBtn);
-        plus3.setOnClickListener(plusMinusBtn);
-        minus.setOnClickListener(plusMinusBtn);
-        minus2.setOnClickListener(plusMinusBtn);
-        minus3.setOnClickListener(plusMinusBtn);
-        plus.setOnLongClickListener(longPlusMinusBtn);
-        plus2.setOnLongClickListener(longPlusMinusBtn);
-        plus3.setOnLongClickListener(longPlusMinusBtn);
-        minus.setOnLongClickListener(longPlusMinusBtn);
-        minus2.setOnLongClickListener(longPlusMinusBtn);
-        minus3.setOnLongClickListener(longPlusMinusBtn);
+        for(Button b : plusMinusBtns){
+            b.setOnClickListener(plusMinusBtn);
+            b.setOnLongClickListener(longPlusMinusBtn);
+        }
         edit.setOnClickListener(editBtn);
     }
 
     private void init() {
         //Buttons
-        plus = this.findViewById(R.id.plus);
-        plus2 = this.findViewById(R.id.plus2);
-        plus3 = this.findViewById(R.id.plus3);
-        minus = this.findViewById(R.id.minus2);
-        minus2 = this.findViewById(R.id.minus);
-        minus3 = this.findViewById(R.id.minus3);
+        plusMinusBtns = new Button[]{
+                this.findViewById(R.id.plus),
+                this.findViewById(R.id.plus2),
+                this.findViewById(R.id.plus3),
+                this.findViewById(R.id.minus2),
+                this.findViewById(R.id.minus),
+                this.findViewById(R.id.minus3)
+        };
         edit = this.findViewById(R.id.start);
         //TextViews
         sets = this.findViewById(R.id.sets);
