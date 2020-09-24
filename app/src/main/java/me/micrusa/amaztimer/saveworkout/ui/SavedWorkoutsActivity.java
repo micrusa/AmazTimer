@@ -29,6 +29,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,7 +44,7 @@ import me.micrusa.amaztimer.saveworkout.database.DBConstants;
 import me.micrusa.amaztimer.saveworkout.database.DBUtils;
 import me.micrusa.amaztimer.saveworkout.database.objects.Workout;
 
-public class SavedWorkoutsActivity extends AppCompatActivity {
+public class SavedWorkoutsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private ListView lv;
 
@@ -52,32 +54,11 @@ public class SavedWorkoutsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_saved_workouts);
 
         lv = findViewById(R.id.saved_workouts_lv);
+
+        lv.setOnItemClickListener(this);
+        lv.setOnItemLongClickListener(this);
+
         addDataToList();
-
-        lv.setOnItemClickListener((adapterView, view, i, l) -> {
-            Workout workout = (Workout) adapterView.getItemAtPosition(i);
-            Intent intent = new Intent(this, WorkoutViewerActivity.class);
-            intent.putExtra("id", workout.time);
-            startActivity(intent);
-        });
-
-        lv.setOnItemLongClickListener((adapterView, view, i, l) -> {
-            Workout workout = (Workout) adapterView.getItemAtPosition(i);
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.deleteworkout)
-                    .setPositiveButton("Yes", (di, i1) -> {
-                        new Thread(() -> {
-                            AmazTimerDB database = DBUtils.createDBInstance();
-
-                            database.workoutDao().delete(workout);
-                            database.close();
-                        }).start();
-                        addDataToList();
-                    })
-                    .setNegativeButton("No", (dialogI, i1) -> dialogI.dismiss())
-                    .create().show();
-            return true;
-        });
     }
 
     private void addDataToList(){
@@ -89,5 +70,32 @@ public class SavedWorkoutsActivity extends AppCompatActivity {
 
             handler.post(() -> lv.setAdapter(new WorkoutAdapter(this, workouts)));
         }).start();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Workout workout = (Workout) adapterView.getItemAtPosition(i);
+        Intent intent = new Intent(this, WorkoutViewerActivity.class);
+        intent.putExtra("id", workout.time);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Workout workout = (Workout) adapterView.getItemAtPosition(i);
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.deleteworkout)
+                .setPositiveButton("Yes", (di, i1) -> {
+                    new Thread(() -> {
+                        AmazTimerDB database = DBUtils.createDBInstance();
+
+                        database.workoutDao().delete(workout);
+                        database.close();
+                    }).start();
+                    addDataToList();
+                })
+                .setNegativeButton("No", (dialogI, i1) -> dialogI.dismiss())
+                .create().show();
+        return true;
     }
 }

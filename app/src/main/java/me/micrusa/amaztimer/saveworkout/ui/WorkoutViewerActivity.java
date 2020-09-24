@@ -25,7 +25,6 @@
 package me.micrusa.amaztimer.saveworkout.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -48,7 +47,6 @@ import java.util.TimeZone;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.saveworkout.database.AmazTimerDB;
-import me.micrusa.amaztimer.saveworkout.database.DBConstants;
 import me.micrusa.amaztimer.saveworkout.database.DBUtils;
 import me.micrusa.amaztimer.saveworkout.database.objects.Workout;
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrUtils;
@@ -107,11 +105,11 @@ public class WorkoutViewerActivity extends AppCompatActivity {
     }
 
     private void setupHrGraph(List<Integer> hr){
-        ArrayList<Entry> values = new ArrayList<>();
+        ArrayList<Entry> hrArray = new ArrayList<>();
         for(int i = 0; i < hr.size(); i++)
-            values.add(new Entry(i, hr.get(i)));
+            hrArray.add(new Entry(i, hr.get(i)));
 
-        LineDataSet line = new LineDataSet(values, getString(R.string.heartrate));
+        LineDataSet line = new LineDataSet(hrArray, getString(R.string.heartrate));
         line.setDrawIcons(false);
         line.setDrawCircles(false);
         line.setDrawValues(false);
@@ -129,21 +127,21 @@ public class WorkoutViewerActivity extends AppCompatActivity {
     private void setupRepsGraph(List<Integer> reps, List<Integer> setsDuration){
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         if(reps.size() >= 1){
-            ArrayList<Entry> values = new ArrayList<>();
+            ArrayList<Entry> repsArray = new ArrayList<>();
             for(int i = 0; i < reps.size(); i++)
-                values.add(new Entry(i, reps.get(i)));
+                repsArray.add(new Entry(i, reps.get(i)));
 
-            LineDataSet RepsLine = new LineDataSet(values, getString(R.string.reps));
+            LineDataSet RepsLine = new LineDataSet(repsArray, getString(R.string.reps));
             setupLineDataSet(RepsLine, Color.BLUE);
             dataSets.add(RepsLine);
         }
 
         if(setsDuration.size() >= 1){
-            LineDataSet WorkSetsDurationLine = new LineDataSet(getDuration(setsDuration, true), getString(R.string.worktime));
+            LineDataSet WorkSetsDurationLine = new LineDataSet(getSetsDurationArray(setsDuration, true), getString(R.string.worktime));
             setupLineDataSet(WorkSetsDurationLine, Color.RED);
             dataSets.add(WorkSetsDurationLine);
 
-            LineDataSet RestSetsDurationLine = new LineDataSet(getDuration(setsDuration, false), getString(R.string.resttime));
+            LineDataSet RestSetsDurationLine = new LineDataSet(getSetsDurationArray(setsDuration, false), getString(R.string.resttime));
             setupLineDataSet(RestSetsDurationLine, Color.GREEN);
             dataSets.add(RestSetsDurationLine);
         }
@@ -152,7 +150,7 @@ public class WorkoutViewerActivity extends AppCompatActivity {
             setupGraph(repsGraph, true, new LineData(dataSets));
     }
 
-    private ArrayList<Entry> getDuration(List<Integer> setsDuration, boolean work){
+    private ArrayList<Entry> getSetsDurationArray(List<Integer> setsDuration, boolean work){
         ArrayList<Entry> workValues = new ArrayList<>();
         ArrayList<Entry> restValues = new ArrayList<>();
         for(int i = 0; i < setsDuration.size(); i++){

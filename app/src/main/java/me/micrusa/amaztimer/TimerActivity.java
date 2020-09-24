@@ -148,15 +148,25 @@ public class TimerActivity extends AppCompatActivity {
         stopHandlers(false);
         isWorking = working;
         isRunning = true;
-        if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0) endActivity();
+        checkIfFinished(working);
+        newSet(working);
         if(!working && Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))
             new NewRepExerciseDialog(this).show();
-        RepsCounter.newSet(working);
-        SaveWorkout.endSet(!working, Prefs.getBoolean(Constants.KEY_REPSCOUNT, false) ? Integer.parseInt((String) reps.getText()) : -1);
-        hrSensor.getInstance().newLap(working ? TCXConstants.STATUS_ACTIVE : TCXConstants.STATUS_RESTING);
         sets.setText(String.valueOf(currSet));
         status.setBackground(ContextCompat.getDrawable(this, working ? R.color.work : R.color.rest));
         status.setText(getResources().getString(working ? R.string.work : R.string.rest));
+    }
+
+    private void checkIfFinished(boolean working){
+        if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0)
+            endActivity();
+    }
+
+    private void newSet(boolean working){
+        RepsCounter.newSet(working);
+        SaveWorkout.endSet(!working, Prefs.getBoolean(Constants.KEY_REPSCOUNT, false) ? Integer.parseInt((String) reps.getText()) : -1);
+        hrSensor.getInstance().newLap(working ? TCXConstants.STATUS_ACTIVE : TCXConstants.STATUS_RESTING);
+
         if(utils.getMode() >= (working ? 1 : 2))
             chronoHandler = new chronoHandler(intervaltime);
         else

@@ -43,7 +43,7 @@ import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.ExerciseAdapter;
 
 public abstract class ExerciseDialog extends Dialog {
 
-    private Context context;
+    protected Context context;
     private ListView lv;
 
     public ExerciseDialog(@NonNull Context context) {

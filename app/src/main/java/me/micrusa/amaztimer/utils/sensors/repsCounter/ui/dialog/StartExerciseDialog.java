@@ -32,11 +32,9 @@ import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
 import me.micrusa.amaztimer.utils.utils;
 
 public class StartExerciseDialog extends ExerciseDialog {
-    private Context context;
 
     public StartExerciseDialog(@NonNull Context context) {
         super(context);
-        this.context = context;
     }
 
     @Override

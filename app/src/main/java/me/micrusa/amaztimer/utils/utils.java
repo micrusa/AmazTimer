@@ -141,8 +141,6 @@ public class utils {
             case R.id.minus3:
                 restTime = utils.getUpdatedTime(restTime, longClick ? -60 : -1, context);
                 break;
-            default:
-                break;
         }
         return new int[]{sets, workTime, restTime};
     }
