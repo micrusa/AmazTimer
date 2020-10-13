@@ -72,7 +72,7 @@ public class AmazTimer extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         utils.setupLang(this);
-        setContentView(SystemProperties.isStratos3() || SystemProperties.isVerge() ? R.layout.round_amaztimer : R.layout.amaztimer);
+        setContentView(R.layout.amaztimer);
         this.init();
         //Start listening for hr to avoid some time without HR values when started
         hrSensor.initialize(listener -> {});
