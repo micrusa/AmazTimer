@@ -72,7 +72,7 @@ public class TimerActivity extends AppCompatActivity {
 
     private void init(){
         utils.setupLang(this);
-        setContentView(Prefs.getBoolean(Constants.KEY_REPSCOUNT, false) ? R.layout.activity_reps_counter : R.layout.activity_timer);
+        setContentView(R.layout.activity_timer);
         time = findViewById(R.id.time);
         status = findViewById(R.id.status);
         sets = findViewById(R.id.sets);
@@ -105,17 +105,15 @@ public class TimerActivity extends AppCompatActivity {
 
     private void startTimer(){
         isRunning = true;
-        //Setup time
+
+        //Setup all widgets
         timeHandler = new timeHandler(time);
-        //Setup total time elapsed chrono
-        if(elapsedtime != null) {
-            elapsedtime.setBase(SystemClock.elapsedRealtime());
-            elapsedtime.start();
-        } else if(reps != null){ //If elapsed time is null it's because reps counter is enabled
+        elapsedtime.setBase(SystemClock.elapsedRealtime());
+        elapsedtime.start();
+        if(Prefs.getBoolean(Constants.KEY_REPSCOUNT, false)){
             RepsCounter.addRepsListener(i -> reps.setText(String.valueOf(i)));
             RepsCounter.startCounting(this);
         }
-
         hrSensor.hrListener hrListener = hr -> {
             heartrate.setText(String.valueOf(hr));
             hrZoneHandler.addHrValue(hr);
