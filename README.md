@@ -30,7 +30,8 @@ You can also use installer or install/update it through AmazMod.
 You can also use installer or uninstall it through AmazMod
 
 ## Screenshots
-<img src="https://github.com/micrusa/AmazTimer/raw/master/screen1.png"/><img src="https://github.com/micrusa/AmazTimer/raw/master/screen2.png"/><img src="https://github.com/micrusa/AmazTimer/raw/master/screen3.png"/><img src="https://github.com/micrusa/AmazTimer/raw/master/screen4.png"/>
+<img src="https://github.com/micrusa/AmazTimer/raw/master/mainscreen.png" /><img src="https://github.com/micrusa/AmazTimer/raw/master/settings.png" />
+<img src="https://github.com/micrusa/AmazTimer/raw/master/workingout.png" /><img src="https://github.com/micrusa/AmazTimer/raw/master/workoutviewer.png" />
 
 ## Thanks to
 - [@GreatApo](https://github.com/GreatApo) for [Amazfit Calendar Widget](https://github.com/GreatApo/AmazfitPaceCalendarWidget)
