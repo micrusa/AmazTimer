@@ -52,8 +52,14 @@ public class utils {
     }
 
     public static void vibrate(int time, Context context, boolean sound){
-        if(sound && soundEnabled())
-            MediaPlayer.create(context, R.raw.beep).start();
+        if(sound && soundEnabled()) {
+            MediaPlayer player = MediaPlayer.create(context, R.raw.beep);
+            player.start();
+            player.setOnCompletionListener(mediaPlayer -> {
+                mediaPlayer.reset();
+                mediaPlayer.release();
+            });
+        }
         Vibrator v = (Vibrator) context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         if (v != null) {
             v.vibrate(prefUtils.getVibration(time));
