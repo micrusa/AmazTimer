@@ -32,7 +32,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -51,25 +50,29 @@ public class WorkoutAdapter extends ArrayAdapter<Workout> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         final Workout workout = getItem(position);
+        return getConvertedView(convertView, parent, workout);
+    }
 
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_workout, parent, false);
+    private View getConvertedView(View convertView, ViewGroup parent, Workout workout){
+        if(convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_workout, parent, false);
 
-        TextView title = convertView.findViewById(R.id.workout_item_title);
-        TextView duration = convertView.findViewById(R.id.workout_item_duration);
-        TextView hr = convertView.findViewById(R.id.workout_item_hr);
+            TextView title = convertView.findViewById(R.id.workout_item_title);
+            TextView duration = convertView.findViewById(R.id.workout_item_duration);
+            TextView hr = convertView.findViewById(R.id.workout_item_hr);
 
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.US);
-        String titleText = format.format(new Date(workout.time));
-        title.setText(titleText);
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.US);
+            String titleText = format.format(new Date(workout.time));
+            title.setText(titleText);
 
-        SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss", Locale.US);
-        format1.setTimeZone(TimeZone.getTimeZone("GMT"));
-        String durationText = format1.format(new Date(workout.totalTime * 1000));
-        duration.setText(durationText);
+            SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss", Locale.US);
+            format1.setTimeZone(TimeZone.getTimeZone("GMT"));
+            String durationText = format1.format(new Date(workout.totalTime * 1000));
+            duration.setText(durationText);
 
-        String hrText = hrUtils.getAvg(workout.hr) + "bpm";
-        hr.setText(hrText);
-
+            String hrText = hrUtils.getAvg(workout.hr) + "bpm";
+            hr.setText(hrText);
+        }
         return convertView;
     }
 
