@@ -60,7 +60,7 @@ public class SaveWorkout {
 
     public static void endSet(boolean saveSets, int reps){
         int setTime = (int) (System.currentTimeMillis() - setStartTime);
-        if(setTime >= 250)
+        if(setTime >= 100)
             workout.sets.add(setTime / 1000);
         setStartTime = System.currentTimeMillis();
         if(saveSets && Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))

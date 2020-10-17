@@ -49,157 +49,46 @@ import me.micrusa.amaztimer.utils.SystemProperties;
 
 public class SaveTCX {
 
-    private static String FILE_PATH = Environment.getExternalStorageDirectory().getPath() + "/AmazTimer/";
+    private static final String FILE_PATH = Environment.getExternalStorageDirectory().getPath() + "/AmazTimer/";
 
     private static Element Activity;
     private static Document tcx;
 
 
-    public static boolean saveToFile(TCXData TCXData){
-        if (TCXData.isEmpty()){
-            Logger.debug("TCX Data empty, returning...");
+    public static boolean saveToFile(TCXData tcxData){
+        if(!performChecks(tcxData))
             return false;
-        }
-        if (!new File(FILE_PATH).exists())
-            new File(FILE_PATH).mkdirs();
-
-        File tcxFile = new File(FILE_PATH + "AmazTimer" + TCXData.getTime().replaceAll(":", "-").replace("T", "_").replace("Z", "") + ".tcx");
+        File tcxFile = new File(FILE_PATH + "AmazTimer" + tcxData.getTime().replaceAll(":", "-").replace("T", "_").replace("Z", "") + ".tcx");
 
         try {
-
-            DocumentBuilderFactory tcxFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder tcxBuilder = tcxFactory.newDocumentBuilder();
-            tcx = tcxBuilder.newDocument();
-            tcx.setXmlStandalone(false);
-
-            Element root = tcx.createElement("TrainingCenterDatabase");
-            tcx.appendChild(root);
-            //Attributes
-            root.setAttribute("xmlns", "http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2");
-            root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            root.setAttribute("xsi:schemaLocation", "http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2 http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd");
+            Element root = createRoot();
 
             //Folders
-            Element Folders = tcx.createElement("Folders");
-            root.appendChild(Folders);
-            Element History = tcx.createElement("History");
-            Folders.appendChild(History);
+            Element Folders = createElement(root, "Folders", null);
+            Element History = createElement(Folders, "History", null);
 
-            Element Running = tcx.createElement("Running");
-            Running.setAttribute("Name", "Running");
-            History.appendChild(Running);
+            createElement(History, "Running", "Name", "Running");
+            createElement(History, "Biking", "Name", "Biking");
 
-            Element Biking = tcx.createElement("Biking");
-            Biking.setAttribute("Name", "Biking");
-            History.appendChild(Biking);
+            Element Other = createElement(History, "Other", "Name", "Other");
+            Element ActivityRef = createElement(Other, "ActivityRef", null);
+            createElement(ActivityRef, "Id", tcxData.getTime());
 
-            Element Other = tcx.createElement("Other");
-            Other.setAttribute("Name", "Other");
-            History.appendChild(Other);
-            Element ActivityRef = tcx.createElement("ActivityRef");
-            Other.appendChild(ActivityRef);
-            Element IdActivityRef = tcx.createElement("Id");
-            IdActivityRef.appendChild(tcx.createTextNode(TCXData.getTime()));
-            ActivityRef.appendChild(IdActivityRef);
+            createElement(History, "MultiSport", "Name", "MultiSport");
 
-            Element MultiSport = tcx.createElement("MultiSport");
-            MultiSport.setAttribute("Name", "MultiSport");
-            History.appendChild(MultiSport);
-
-            Element Activities = tcx.createElement("Activities");
-            root.appendChild(Activities);
-            Activity = tcx.createElement("Activity");
-            Activity.setAttribute("Sport", "Other");
-            Activities.appendChild(Activity);
-
-            Element Id = tcx.createElement("Id");
-            Id.appendChild(tcx.createTextNode(TCXData.getTime()));
-            Activity.appendChild(Id);
+            Element Activities = createElement(root, "Activities", null);
+            Activity = createElement(Activities, "Activity", "Sport", "Other");
+            createElement(Activity, "Id", tcxData.getTime());
 
             //Fill all laps
-            for (Lap lap : TCXData.getLaps()) {
-                /*if (!lap.isLapEmpty())
-                    fillLap(lap);
-                else
-                    Logger.debug("Skipped lap " + lap.getStartTime() + " because it is empty");*/
+            for (Lap lap : tcxData.getLaps()) {
                 fillLap(lap);
             }
 
-            Element Creator = tcx.createElement("Creator");
-            Creator.setAttribute("xsi:type", "Device_t");
-            Activity.appendChild(Creator);
-            Element Name = tcx.createElement("Name");
-            Name.appendChild(tcx.createTextNode(SystemProperties.getDeviceName()));
-            Creator.appendChild(Name);
-            Element UnitId = tcx.createElement("UnitId");
-            UnitId.appendChild(tcx.createTextNode("1111111111"));
-            Creator.appendChild(UnitId);
-            Element ProductID = tcx.createElement("ProductID");
-            ProductID.appendChild(tcx.createTextNode("450"));
-            Creator.appendChild(ProductID);
-            Element Version = tcx.createElement("Version");
-            Creator.appendChild(Version);
-            Element VersionMajor = tcx.createElement("VersionMajor");
-            VersionMajor.appendChild(tcx.createTextNode("2"));
-            Version.appendChild(VersionMajor);
-            Element VersionMinor = tcx.createElement("VersionMinor");
-            VersionMinor.appendChild(tcx.createTextNode("90"));
-            Version.appendChild(VersionMinor);
-            Element BuildMajor = tcx.createElement("BuildMajor");
-            BuildMajor.appendChild(tcx.createTextNode("0"));
-            Version.appendChild(BuildMajor);
-            Element BuildMinor = tcx.createElement("BuildMinor");
-            BuildMinor.appendChild(tcx.createTextNode("0"));
-            Version.appendChild(BuildMinor);
+            fillCreator(Activity);
+            fillAuthor(root);
 
-            Element Author = tcx.createElement("Author");
-            Author.setAttribute("xsi:type", "Application_t");
-            root.appendChild(Author);
-            Element sName = tcx.createElement("Name");
-            sName.appendChild(tcx.createTextNode("Garmin Training Center(TM)"));
-            Author.appendChild(sName);
-            Element Build = tcx.createElement("Build");
-            Author.appendChild(Build);
-            Element aVersion = tcx.createElement("Version");
-            Build.appendChild(aVersion);
-            Element aVersionMajor = tcx.createElement("VersionMajor");
-            aVersionMajor.appendChild(tcx.createTextNode("3"));
-            aVersion.appendChild(aVersionMajor);
-            Element aVersionMinor = tcx.createElement("VersionMinor");
-            aVersionMinor.appendChild(tcx.createTextNode("2"));
-            aVersion.appendChild(aVersionMinor);
-            Element aBuildMajor = tcx.createElement("BuildMajor");
-            aBuildMajor.appendChild(tcx.createTextNode("3"));
-            aVersion.appendChild(aBuildMajor);
-            Element aBuildMinor = tcx.createElement("BuildMinor");
-            aBuildMinor.appendChild(tcx.createTextNode("0"));
-            aVersion.appendChild(aBuildMinor);
-            Element Type = tcx.createElement("Type");
-            Type.appendChild(tcx.createTextNode("Release"));
-            Build.appendChild(Type);
-            Element Time = tcx.createElement("Time");
-            Time.appendChild(tcx.createTextNode("Mar 15 2007, 12:31:45"));
-            Build.appendChild(Time);
-            Element Builder = tcx.createElement("Builder");
-            Builder.appendChild(tcx.createTextNode("SQA"));
-            Build.appendChild(Builder);
-            Element LangID = tcx.createElement("LangID");
-            LangID.appendChild(tcx.createTextNode("EN"));
-            Author.appendChild(LangID);
-            Element PartNumber = tcx.createElement("PartNumber");
-            PartNumber.appendChild(tcx.createTextNode("006-A0119-00"));
-            Author.appendChild(PartNumber);
-
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource domSource = new DOMSource(tcx);
-            StreamResult streamResult = new StreamResult(tcxFile);
-
-            transformer.transform(domSource, streamResult);
-
-            if(streamResult.getOutputStream() != null)
-                streamResult.getOutputStream().close();
-
+            saveResults(tcxFile);
         } catch (ParserConfigurationException | TransformerException | IOException ex) {
             Logger.error(ex);
             return false;
@@ -207,67 +96,113 @@ public class SaveTCX {
         return tcxFile.exists();
     }
 
+    private static boolean performChecks(TCXData tcxData){
+        if (tcxData.isEmpty()){
+            Logger.debug("TCX Data empty, returning...");
+            return false;
+        }
+        if (!new File(FILE_PATH).exists())
+            new File(FILE_PATH).mkdirs();
+
+        return true;
+    }
+
+    private static void saveResults(File tcxFile) throws TransformerException, IOException{
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource domSource = new DOMSource(tcx);
+        StreamResult streamResult = new StreamResult(tcxFile);
+
+        transformer.transform(domSource, streamResult);
+
+        if(streamResult.getOutputStream() != null)
+            streamResult.getOutputStream().close();
+    }
+
     private static void fillLap(Lap lap){
-        Element Lap = tcx.createElement("Lap");
-        Lap.setAttribute("StartTime", lap.getStartTime());
-        Activity.appendChild(Lap);
+        Element Lap = createElement(Activity, "Lap", "StartTime", lap.getStartTime());
 
-        Element TotalTimeSeconds = tcx.createElement("TotalTimeSeconds");
-        TotalTimeSeconds.appendChild(tcx.createTextNode(String.valueOf(lap.getTimeInSeconds())));
-        Lap.appendChild(TotalTimeSeconds);
+        createElement(Lap, "TotalTimeSeconds", String.valueOf(lap.getTimeInSeconds()));
+        createElement(Lap, "Calories", String.valueOf(lap.getKcal()));
 
-        Element Calories = tcx.createElement("Calories");
-        Calories.appendChild(tcx.createTextNode(String.valueOf(lap.getKcal())));
-        Lap.appendChild(Calories);
+        Element AverageHeartRateBpm = createElement(Lap, "AverageHeartRateBpm", "xsi:type", "HeartRateInBeatsPerMinute_t");
+        createElement(AverageHeartRateBpm, "Value", String.valueOf(lap.getAvgHr()));
 
-        Element AverageHeartRateBpm = tcx.createElement("AverageHeartRateBpm");
-        AverageHeartRateBpm.setAttribute("xsi:type", "HeartRateInBeatsPerMinute_t");
-        Lap.appendChild(AverageHeartRateBpm);
-        Element AvgHrValue = tcx.createElement("Value");
-        AvgHrValue.appendChild(tcx.createTextNode(String.valueOf(lap.getAvgHr())));
-        AverageHeartRateBpm.appendChild(AvgHrValue);
+        Element MaxHeartRateBpm = createElement(Lap, "MaximumHeartRateBpm", "xsi:type", "HeartRateInBeatsPerMinute_t");
+        createElement(MaxHeartRateBpm, "Value", String.valueOf(lap.getMaxHr()));
 
-        Element MaxHeartRateBpm = tcx.createElement("MaximumHeartRateBpm");
-        MaxHeartRateBpm.setAttribute("xsi:type", "HeartRateInBeatsPerMinute_t");
-        Lap.appendChild(MaxHeartRateBpm);
-        Element MaxHrValue = tcx.createElement("Value");
-        MaxHrValue.appendChild(tcx.createTextNode(String.valueOf(lap.getMaxHr())));
-        MaxHeartRateBpm.appendChild(MaxHrValue);
-
-        Element Intensity = tcx.createElement("Intensity");
-        Intensity.appendChild(tcx.createTextNode(lap.getIntensity()));
-        Lap.appendChild(Intensity);
-
-        Element TriggerMethod = tcx.createElement("TriggerMethod");
-        TriggerMethod.appendChild(tcx.createTextNode("Manual"));
-        Lap.appendChild(TriggerMethod);
-
-        Element Track = tcx.createElement("Track");
-        Lap.appendChild(Track);
+        createElement(Lap, "Intensity", lap.getIntensity());
+        createElement(Lap, "TriggerMethod", "Manual");
+        
+        Element Track = createElement(Lap, "Track", null);
         for (Trackpoint tp : lap.getTrackpoints())
             fillTrackPoint(tp, Track);
-
     }
 
     private static void fillTrackPoint(Trackpoint tp, Element Track){
-        Element Trackpoint = tcx.createElement("Trackpoint");
-        Track.appendChild(Trackpoint);
+        Element Trackpoint = createElement(Track, "Trackpoint", null);
+        createElement(Trackpoint, "Time", tp.getTime());
 
-        Element Time = tcx.createElement("Time");
-        Time.appendChild(tcx.createTextNode(tp.getTime()));
-        Trackpoint.appendChild(Time);
+        Element HeartRateBpm = createElement(Trackpoint, "HeartRateBpm", "xsi:type", "HeartRateInBeatsPerMinute_t");
+        createElement(HeartRateBpm, "Value", String.valueOf(tp.getHr()));
+        createElement(Trackpoint, "SensorState", "Absent");
+    }
 
-        Element HeartRateBpm = tcx.createElement("HeartRateBpm");
-        HeartRateBpm.setAttribute("xsi:type", "HeartRateInBeatsPerMinute_t");
-        Trackpoint.appendChild(HeartRateBpm);
-        Element hrValue = tcx.createElement("Value");
-        hrValue.appendChild(tcx.createTextNode(String.valueOf(tp.getHr())));
-        HeartRateBpm.appendChild(hrValue);
+    private static void fillCreator(Element Activity){
+        Element Creator = createElement(Activity, "Creator", "xsi:type", "Device_t");
+        createElement(Creator, "Name", SystemProperties.getDeviceName());
+        createElement(Creator, "UnitId", "1111111111");
+        createElement(Creator, "ProductID", "450");
+        Element Version = createElement(Creator, "Version", null);
+        createElement(Version, "VersionMajor", "2");
+        createElement(Version, "VersionMinor", "90");
+        createElement(Version, "BuildMajor", "0");
+        createElement(Version, "BuildMinor", "0");
+    }
 
-        Element SensorState = tcx.createElement("SensorState");
-        SensorState.appendChild(tcx.createTextNode("Absent"));
-        Trackpoint.appendChild(SensorState);
+    private static void fillAuthor(Element root){
+        Element Author = createElement(root, "Author", "xsi:type", "Application_t");
+        createElement(Author, "Name", "Garmin Training Center(TM)");
+        Element Build = createElement(Author, "Build", null);
+        Element aVersion = createElement(Build, "Version", null);
+        createElement(aVersion, "VersionMajor", "3");
+        createElement(aVersion, "VersionMinor", "2");
+        createElement(aVersion, "BuildMajor", "3");
+        createElement(aVersion, "BuildMinor", "0");
+        createElement(Build, "Type", "Release");
+        createElement(Build, "Time", "Mar 15 2007, 12:31:45");
+        createElement(Build, "Builder", "SQA");
+        createElement(Author, "LangID", "EN");
+        createElement(Author, "PartNumber", "006-A0119-00");
+    }
 
+    private static Element createRoot() throws ParserConfigurationException{
+        DocumentBuilderFactory tcxFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder tcxBuilder = tcxFactory.newDocumentBuilder();
+        tcx = tcxBuilder.newDocument();
+        tcx.setXmlStandalone(false);
+
+        Element root = tcx.createElement("TrainingCenterDatabase");
+        tcx.appendChild(root);
+        //Main attributes
+        root.setAttribute("xmlns", "http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2");
+        root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+        root.setAttribute("xsi:schemaLocation", "http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2 http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd");
+        return root;
+    }
+
+    private static Element createElement(Element root, String elementName, String value){
+        Element e = tcx.createElement(elementName);
+        if(value != null) e.appendChild(tcx.createTextNode(value));
+        root.appendChild(e);
+        return e;
+    }
+
+    private static Element createElement(Element root, String elementName, String attrName, String attrValue){
+        Element e = tcx.createElement(elementName);
+        if(attrName != null && attrValue != null) e.setAttribute(attrName, attrValue);
+        root.appendChild(e);
+        return e;
     }
 
 
