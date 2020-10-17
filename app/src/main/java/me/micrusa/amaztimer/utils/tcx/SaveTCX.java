@@ -133,7 +133,7 @@ public class SaveTCX {
 
         createElement(Lap, "Intensity", lap.getIntensity());
         createElement(Lap, "TriggerMethod", "Manual");
-        
+
         Element Track = createElement(Lap, "Track", null);
         for (Trackpoint tp : lap.getTrackpoints())
             fillTrackPoint(tp, Track);
