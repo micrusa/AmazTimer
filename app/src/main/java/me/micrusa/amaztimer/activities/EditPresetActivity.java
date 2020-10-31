@@ -37,7 +37,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.Utils;
 
 public class EditPresetActivity extends AppCompatActivity {
 
@@ -52,7 +52,7 @@ public class EditPresetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        utils.setupLang(this);
+        Utils.setupLang(this);
         setContentView(R.layout.amaztimer);
         PresetID = getIntent().getIntExtra("ID", 0);
         this.init();
@@ -73,7 +73,7 @@ public class EditPresetActivity extends AppCompatActivity {
         int sets = Integer.parseInt(valuesStr[0]);
         int work = Integer.parseInt(valuesStr[1]);
         int rest = Integer.parseInt(valuesStr[2]);
-        int[] data = utils.getValues(new int[]{sets, work, rest, btnId}, isLongPress, this);
+        int[] data = Utils.getValues(new int[]{sets, work, rest, btnId}, isLongPress, this);
         Prefs.putString(presetKey, data[0] + ":" + data[1] + ":" + data[2]);
         setTimeTexts(data[0], data[1], data[2]);
         return true; //For a simpler code on long click
@@ -116,7 +116,7 @@ public class EditPresetActivity extends AppCompatActivity {
 
     private void setTimeTexts(int intSets, int intWork, int intRest) {
         sets.setText(String.valueOf(intSets));
-        work.setText(utils.formatTime(intWork));
-        rest.setText(utils.formatTime(intRest));
+        work.setText(Utils.formatTime(intWork));
+        rest.setText(Utils.formatTime(intRest));
     }
 }

@@ -32,7 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.Utils;
 
 public class AppInfo extends AppCompatActivity {
 
@@ -40,7 +40,7 @@ public class AppInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        utils.setupLang(this);
+        Utils.setupLang(this);
         setContentView(R.layout.activity_app_info);
         this.init();
     }

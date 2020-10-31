@@ -30,7 +30,7 @@ import android.os.Handler;
 import android.widget.TextView;
 
 import me.micrusa.amaztimer.Constants;
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.Utils;
 import me.micrusa.amaztimer.TimerActivity;
 
 public class timerHandler {
@@ -72,13 +72,13 @@ public class timerHandler {
           timer.cancel();
           return;
         } //Avoid vibrations/changes when not running
-        timerText.setText(utils.formatTime(time));
+        timerText.setText(Utils.formatTime(time));
         if(time < 4){
-            utils.vibrate(Constants.SHORT_VIBRATION, context, true);
+            Utils.vibrate(Constants.SHORT_VIBRATION, context, true);
             if(time == 1){
                 new Handler().postDelayed(() -> {
-                    utils.vibrate(Constants.LONG_VIBRATION, context, true);
-                    timerText.setText(utils.formatTime(0));
+                    Utils.vibrate(Constants.LONG_VIBRATION, context, true);
+                    timerText.setText(Utils.formatTime(0));
                 }, 950);
             }
         }

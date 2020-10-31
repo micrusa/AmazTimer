@@ -39,10 +39,9 @@ import com.pixplicity.easyprefs.library.Prefs;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.utils.button.buttonEvent;
 import me.micrusa.amaztimer.utils.button.buttonListener;
-import me.micrusa.amaztimer.utils.SystemProperties;
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrSensor;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.dialog.StartExerciseDialog;
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.Utils;
 
 public class AmazTimer extends Activity {
     private Button[] plusMinusBtns;
@@ -60,7 +59,7 @@ public class AmazTimer extends Activity {
         int sets = Prefs.getInt(Constants.KEY_SETS, Constants.DEF_SETS);
         int workTime = Prefs.getInt(Constants.KEY_WORK, Constants.DEF_WORKTIME);
         int restTime = Prefs.getInt(Constants.KEY_REST, Constants.DEF_RESTTIME);
-        int[] data = utils.getValues(new int[]{sets, workTime, restTime, id}, longClick, this);
+        int[] data = Utils.getValues(new int[]{sets, workTime, restTime, id}, longClick, this);
         Prefs.putInt(Constants.KEY_SETS, data[0]);
         Prefs.putInt(Constants.KEY_WORK, data[1]);
         Prefs.putInt(Constants.KEY_REST, data[2]);
@@ -71,7 +70,7 @@ public class AmazTimer extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        utils.setupLang(this);
+        Utils.setupLang(this);
         setContentView(R.layout.amaztimer);
         this.init();
         //Start listening for hr to avoid some time without HR values when started
@@ -89,7 +88,7 @@ public class AmazTimer extends Activity {
             if(Prefs.getBoolean(Constants.KEY_REPSCOUNT, false))
                 new StartExerciseDialog(view.getContext()).show();
             else
-                utils.startTimer(this, false);
+                Utils.startTimer(this, false);
         });
 
         start.setOnLongClickListener(view -> launchIntent(new Intent(view.getContext(), SettingsActivity.class)));
@@ -97,8 +96,8 @@ public class AmazTimer extends Activity {
 
     private void setTexts(){
         sets.setText(String.valueOf(Prefs.getInt(Constants.KEY_SETS, Constants.DEF_SETS)));
-        work.setText(utils.formatTime(Prefs.getInt(Constants.KEY_WORK, Constants.DEF_WORKTIME)));
-        rest.setText(utils.formatTime(Prefs.getInt(Constants.KEY_REST, Constants.DEF_RESTTIME)));
+        work.setText(Utils.formatTime(Prefs.getInt(Constants.KEY_WORK, Constants.DEF_WORKTIME)));
+        rest.setText(Utils.formatTime(Prefs.getInt(Constants.KEY_REST, Constants.DEF_RESTTIME)));
     }
 
     private void init() {
@@ -146,7 +145,7 @@ public class AmazTimer extends Activity {
 
     private boolean launchIntent(Intent intent){
         if(hasLaunchedIntent) return true; //Avoid multiple activities launched
-        utils.vibrate(Constants.HAPTIC_VIBRATION, this);
+        Utils.vibrate(Constants.HAPTIC_VIBRATION, this);
         hasLaunchedIntent = true;
         buttonListener.stop();
         startActivity(intent);

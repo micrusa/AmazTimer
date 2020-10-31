@@ -29,7 +29,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.Utils;
 
 public class StartExerciseDialog extends ExerciseDialog {
 
@@ -40,6 +40,6 @@ public class StartExerciseDialog extends ExerciseDialog {
     @Override
     public void onExerciseClick(Exercise exercise) {
         super.onExerciseClick(exercise);
-        utils.startTimer(context, false);
+        Utils.startTimer(context, false);
     }
 }

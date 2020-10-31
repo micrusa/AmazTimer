@@ -27,7 +27,6 @@ package me.micrusa.amaztimer.utils;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
@@ -44,7 +43,7 @@ import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.TimerActivity;
 import me.micrusa.amaztimer.activities.PrepareActivity;
 
-public class utils {
+public class Utils {
 
 
     public static void vibrate(int time, Context context) {
@@ -128,25 +127,18 @@ public class utils {
         int sets = data[0]; //data -> 0 = sets, 1 = work, 2 = rest, 3 = res
         int workTime = data[1];
         int restTime = data[2];
-        switch(data[3]){
-            case R.id.plus:
-                sets = utils.getUpdatedSets(sets, longClick ? 5 : 1, context);
-                break;
-            case R.id.plus2:
-                workTime = utils.getUpdatedTime(workTime, longClick ? 60 : 1, context);
-                break;
-            case R.id.plus3:
-                restTime = utils.getUpdatedTime(restTime, longClick ? 60 : 1, context);
-                break;
-            case R.id.minus2:
-                sets = utils.getUpdatedSets(sets, longClick ? -5 : -1, context);
-                break;
-            case R.id.minus:
-                workTime = utils.getUpdatedTime(workTime, longClick ? -60 : -1, context);
-                break;
-            case R.id.minus3:
-                restTime = utils.getUpdatedTime(restTime, longClick ? -60 : -1, context);
-                break;
+        if (data[3] == R.id.plus) {
+            sets = Utils.getUpdatedSets(sets, longClick ? 5 : 1, context);
+        } else if (data[3] == R.id.plus2) {
+            workTime = Utils.getUpdatedTime(workTime, longClick ? 60 : 1, context);
+        } else if (data[3] == R.id.plus3) {
+            restTime = Utils.getUpdatedTime(restTime, longClick ? 60 : 1, context);
+        } else if (data[3] == R.id.minus2) {
+            sets = Utils.getUpdatedSets(sets, longClick ? -5 : -1, context);
+        } else if (data[3] == R.id.minus) {
+            workTime = Utils.getUpdatedTime(workTime, longClick ? -60 : -1, context);
+        } else if (data[3] == R.id.minus3) {
+            restTime = Utils.getUpdatedTime(restTime, longClick ? -60 : -1, context);
         }
         return new int[]{sets, workTime, restTime};
     }

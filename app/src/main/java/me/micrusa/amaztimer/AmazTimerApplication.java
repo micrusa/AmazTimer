@@ -30,7 +30,7 @@ import android.content.ContextWrapper;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.Utils;
 
 public class AmazTimerApplication extends Application {
 
@@ -42,7 +42,7 @@ public class AmazTimerApplication extends Application {
         mApp = this;
 
         setupPrefs(this);
-        utils.setupLang(this);
+        Utils.setupLang(this);
     }
 
     public static Context getContext(){

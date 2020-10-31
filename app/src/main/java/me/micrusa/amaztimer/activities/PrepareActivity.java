@@ -24,7 +24,6 @@
 
 package me.micrusa.amaztimer.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -33,10 +32,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.TimerActivity;
 import me.micrusa.amaztimer.Constants;
-import me.micrusa.amaztimer.utils.prefUtils;
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.Utils;
 
 public class PrepareActivity extends AppCompatActivity {
 
@@ -51,7 +48,7 @@ public class PrepareActivity extends AppCompatActivity {
     }
 
     private void init(){
-        utils.setupLang(this);
+        Utils.setupLang(this);
         setContentView(R.layout.activity_prepare);
         timer = findViewById(R.id.prepareTime);
     }
@@ -63,18 +60,18 @@ public class PrepareActivity extends AppCompatActivity {
                 int time = (int) l / 1000;
                 timer.setText(String.valueOf(time));
                 if(time < 4){
-                    utils.vibrate(Constants.SHORT_VIBRATION, PrepareActivity.this);
+                    Utils.vibrate(Constants.SHORT_VIBRATION, PrepareActivity.this);
                     if(time == 1)
                         new Handler().postDelayed(() -> {
                             timer.setText("0");
-                            utils.vibrate(Constants.LONG_VIBRATION, PrepareActivity.this);
+                            Utils.vibrate(Constants.LONG_VIBRATION, PrepareActivity.this);
                             }, 950);
                 }
             }
             @Override
             public void onFinish() {
                 finished = true;
-                utils.startTimer(PrepareActivity.this, true);
+                Utils.startTimer(PrepareActivity.this, true);
                 finish();
             }
         }.start();

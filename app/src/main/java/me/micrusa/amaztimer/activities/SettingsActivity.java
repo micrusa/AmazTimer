@@ -40,8 +40,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.saveworkout.ui.SavedWorkoutsActivity;
-import me.micrusa.amaztimer.saveworkout.ui.WorkoutViewerActivity;
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.Utils;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -49,7 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        utils.setupLang(this);
+        Utils.setupLang(this);
         setContentView(R.layout.settings_activity);
         getSupportFragmentManager()
                 .beginTransaction()

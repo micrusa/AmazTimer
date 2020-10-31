@@ -25,13 +25,9 @@
 package me.micrusa.amaztimer.utils.handlers;
 
 import android.os.Handler;
-import android.os.Looper;
-import android.widget.Chronometer;
 import android.widget.TextView;
 
-import org.tinylog.Logger;
-
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.Utils;
 
 public class chronoHandler {
 
@@ -66,7 +62,7 @@ public class chronoHandler {
             while(!Thread.currentThread().isInterrupted()){
                 try {
                     if(!running) break;
-                    handler.post(() -> chrono.setText(utils.formatTime(timeElapsed++)));
+                    handler.post(() -> chrono.setText(Utils.formatTime(timeElapsed++)));
                     sleep(1000);
                 } catch (InterruptedException e) {
                     break;

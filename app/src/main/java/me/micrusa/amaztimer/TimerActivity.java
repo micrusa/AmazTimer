@@ -48,7 +48,7 @@ import me.micrusa.amaztimer.utils.handlers.hrZoneHandler;
 import me.micrusa.amaztimer.utils.handlers.timeHandler;
 import me.micrusa.amaztimer.utils.handlers.timerHandler;
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrSensor;
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.Utils;
 
 public class TimerActivity extends AppCompatActivity {
     private TextView time, status, intervaltime, heartrate, sets, reps;
@@ -71,7 +71,7 @@ public class TimerActivity extends AppCompatActivity {
     private me.micrusa.amaztimer.utils.button.buttonListener buttonListener = new buttonListener();
 
     private void init(){
-        utils.setupLang(this);
+        Utils.setupLang(this);
         setContentView(R.layout.activity_timer);
         time = findViewById(R.id.time);
         status = findViewById(R.id.status);
@@ -87,12 +87,12 @@ public class TimerActivity extends AppCompatActivity {
         setupBtnListener();
         //Setup onClickListeners
         cancel.setOnLongClickListener(view -> {
-            utils.vibrate(Constants.HAPTIC_VIBRATION, view.getContext());
+            Utils.vibrate(Constants.HAPTIC_VIBRATION, view.getContext());
             endActivity();
             return true;
         });
         finishset.setOnClickListener(view -> {
-            utils.vibrate(Constants.HAPTIC_VIBRATION, view.getContext());
+            Utils.vibrate(Constants.HAPTIC_VIBRATION, view.getContext());
             updateStatus(!isWorking);
         });
     }
@@ -126,7 +126,7 @@ public class TimerActivity extends AppCompatActivity {
         if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true))
             hrSensor.getInstance().registerListener(this); //Register if hr enabled
 
-        currSet = utils.isModeManualSets() ? 0 : Prefs.getInt(Constants.KEY_SETS, Constants.DEF_SETS) + 1;
+        currSet = Utils.isModeManualSets() ? 0 : Prefs.getInt(Constants.KEY_SETS, Constants.DEF_SETS) + 1;
         updateStatus(true);
     }
 
@@ -156,7 +156,7 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     private void checkIfFinished(boolean working){
-        if(working && (utils.isModeManualSets() ? ++currSet : --currSet) == 0)
+        if(working && (Utils.isModeManualSets() ? ++currSet : --currSet) == 0)
             endActivity();
     }
 
@@ -165,7 +165,7 @@ public class TimerActivity extends AppCompatActivity {
         SaveWorkout.endSet(!working, Prefs.getBoolean(Constants.KEY_REPSCOUNT, false) ? Integer.parseInt((String) reps.getText()) : -1);
         hrSensor.getInstance().newLap(working ? TCXConstants.STATUS_ACTIVE : TCXConstants.STATUS_RESTING);
 
-        if(utils.getMode() >= (working ? 1 : 2))
+        if(Utils.getMode() >= (working ? 1 : 2))
             chronoHandler = new chronoHandler(intervaltime);
         else
             timerHandler = new timerHandler(intervaltime

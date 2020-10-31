@@ -38,7 +38,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import me.micrusa.amaztimer.AmazTimer;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
-import me.micrusa.amaztimer.utils.utils;
+import me.micrusa.amaztimer.utils.Utils;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class PresetsActivity extends AppCompatActivity {
@@ -113,8 +113,8 @@ public class PresetsActivity extends AppCompatActivity {
                 .replace("WORK", res.getString(R.string.work))
                 .replace("REST", res.getString(R.string.rest))
                 .replace("%s", String.valueOf(array[0]))
-                .replace("%t", utils.formatTime(array[1]))
-                .replace("%r", utils.formatTime(array[2]));
+                .replace("%t", Utils.formatTime(array[1]))
+                .replace("%r", Utils.formatTime(array[2]));
     }
 
     private int[] getArrayFromInt(int i) {
