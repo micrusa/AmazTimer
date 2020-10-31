@@ -72,9 +72,10 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.87" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.61" />
 
         <Button
             android:id="@+id/plus"
@@ -121,9 +122,9 @@
             android:fontFamily="@font/applemint"
             android:text="@string/rest"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/rest"
             app:layout_constraintEnd_toStartOf="@+id/plus3"
-            app:layout_constraintStart_toEndOf="@+id/minus3" />
+            app:layout_constraintStart_toEndOf="@+id/minus3"
+            app:layout_constraintTop_toBottomOf="@+id/work" />
 
         <TextView
             android:id="@+id/rest"
@@ -133,9 +134,9 @@
             android:textAlignment="center"
             android:textSize="18sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toStartOf="@+id/plus3"
-            app:layout_constraintStart_toEndOf="@+id/minus3" />
+            app:layout_constraintStart_toEndOf="@+id/minus3"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <Button
             android:id="@+id/plus2"
@@ -150,14 +151,17 @@
             android:id="@+id/work"
             android:layout_width="73dp"
             android:layout_height="20dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:fontFamily="@font/applemint"
             android:textAlignment="center"
             android:textSize="18sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/textView6"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/plus2"
-            app:layout_constraintStart_toEndOf="@+id/minus" />
+            app:layout_constraintStart_toEndOf="@+id/minus"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.41000003" />
 
         <TextView
             android:id="@+id/textView"
@@ -166,9 +170,9 @@
             android:fontFamily="@font/applemint"
             android:text="@string/startsettings"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/start"
-            app:layout_constraintEnd_toEndOf="@+id/start"
-            app:layout_constraintStart_toStartOf="@+id/start" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rest" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
