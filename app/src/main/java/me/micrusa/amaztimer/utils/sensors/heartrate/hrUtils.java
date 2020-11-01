@@ -24,12 +24,9 @@
 
 package me.micrusa.amaztimer.utils.sensors.heartrate;
 
-import com.pixplicity.easyprefs.library.Prefs;
-
 import java.util.List;
 
-import me.micrusa.amaztimer.Constants;
-import me.micrusa.amaztimer.utils.prefUtils;
+import me.micrusa.amaztimer.utils.PrefsUtil;
 
 public class hrUtils {
     public static String hrZonePercentage(int hr){
@@ -37,7 +34,7 @@ public class hrUtils {
     }
 
     public static int hrZonePercentageInt(int hr){
-        if(hr == 0 | prefUtils.getAge() == 0)
+        if(hr == 0 | PrefsUtil.getAge() == 0)
             return 0;
 
         //Source: https://www.ntnu.edu/cerg/hrmax#:~:text=Based%20on%20these%20tests%20we,211%20%2D%200.64*age%22.
@@ -45,9 +42,9 @@ public class hrUtils {
     }
 
     public static int calculateKcal(int avgHr, int time){
-        int age = prefUtils.getAge();
-        int weight = prefUtils.getWeight();
-        boolean isMale = prefUtils.isMale();
+        int age = PrefsUtil.getAge();
+        int weight = PrefsUtil.getWeight();
+        boolean isMale = PrefsUtil.isMale();
         if(avgHr==0||time==0||age==0||weight==0){return 0;}
         double kcalPerMin;
         //Formula from https://www.calculatorpro.com/calculator/calories-burned-by-heart-rate/
@@ -61,7 +58,7 @@ public class hrUtils {
     }
     
     public static double getMaxHr(){
-        return 211 - 0.64 * prefUtils.getAge();
+        return 211 - 0.64 * PrefsUtil.getAge();
     }
 
     public static int getAvg(List<Integer> hr){

@@ -28,11 +28,11 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.micrusa.amaztimer.Constants;
 
-import static me.micrusa.amaztimer.utils.SystemProperties.isPace;
-import static me.micrusa.amaztimer.utils.SystemProperties.isStratos;
-import static me.micrusa.amaztimer.utils.SystemProperties.isStratos3;
-import static me.micrusa.amaztimer.utils.SystemProperties.isStratosNewKeys;
-import static me.micrusa.amaztimer.utils.SystemProperties.isVerge;
+import static me.micrusa.amaztimer.utils.devices.AmazfitUtils.isPace;
+import static me.micrusa.amaztimer.utils.devices.AmazfitUtils.isStratos;
+import static me.micrusa.amaztimer.utils.devices.AmazfitUtils.isStratos3;
+import static me.micrusa.amaztimer.utils.devices.AmazfitUtils.isStratosNewKeys;
+import static me.micrusa.amaztimer.utils.devices.AmazfitUtils.isVerge;
 
 public class buttonEvent {
 

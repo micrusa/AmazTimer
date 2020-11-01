@@ -35,9 +35,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-import me.micrusa.amaztimer.utils.SystemProperties;
-
-import static me.micrusa.amaztimer.utils.SystemProperties.isStratos3;
+import static me.micrusa.amaztimer.utils.devices.AmazfitUtils.isAmazfit;
+import static me.micrusa.amaztimer.utils.devices.AmazfitUtils.isStratos3;
 
 import static android.content.Context.POWER_SERVICE;
 
@@ -63,7 +62,7 @@ public class buttonListener {
     Thread thread;
 
     public void start(Context context, final buttonInterface buttonInterface) {
-        if(isListening()) return;
+        if(isListening() || !isAmazfit()) return;
 
         powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
 

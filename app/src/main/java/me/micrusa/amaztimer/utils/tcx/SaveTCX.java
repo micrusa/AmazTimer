@@ -45,7 +45,7 @@ import javax.xml.transform.stream.StreamResult;
 import me.micrusa.amaztimer.utils.tcx.data.Lap;
 import me.micrusa.amaztimer.utils.tcx.data.TCXData;
 import me.micrusa.amaztimer.utils.tcx.data.Trackpoint;
-import me.micrusa.amaztimer.utils.SystemProperties;
+import me.micrusa.amaztimer.utils.devices.SystemProperties;
 
 public class SaveTCX {
 

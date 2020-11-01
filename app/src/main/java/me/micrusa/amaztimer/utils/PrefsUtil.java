@@ -33,7 +33,7 @@ import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.TimerActivity;
 import me.micrusa.amaztimer.activities.PrepareActivity;
 
-public class prefUtils {
+public class PrefsUtil {
 
     public static int getWeight(){
         return Integer.parseInt(Prefs.getString(Constants.KEY_WEIGHT, String.valueOf(Constants.DEFAULT_WEIGHT)));

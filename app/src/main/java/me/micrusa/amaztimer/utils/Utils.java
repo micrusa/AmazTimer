@@ -28,8 +28,12 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothHeadset;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 
 import com.pixplicity.easyprefs.library.Prefs;
@@ -42,6 +46,7 @@ import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.TimerActivity;
 import me.micrusa.amaztimer.activities.PrepareActivity;
+import me.micrusa.amaztimer.utils.devices.AmazfitUtils;
 
 public class Utils {
 
@@ -51,7 +56,7 @@ public class Utils {
     }
 
     public static void vibrate(int time, Context context, boolean sound){
-        if(sound && soundEnabled()) {
+        if(sound && soundEnabled(context)) {
             MediaPlayer player = MediaPlayer.create(context, R.raw.beep);
             player.start();
             player.setOnCompletionListener(mediaPlayer -> {
@@ -61,19 +66,25 @@ public class Utils {
         }
         Vibrator v = (Vibrator) context.getSystemService(android.content.Context.VIBRATOR_SERVICE);
         if (v != null) {
-            v.vibrate(prefUtils.getVibration(time));
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+                v.vibrate(PrefsUtil.getVibration(time));
+            else
+                v.vibrate(VibrationEffect.createOneShot(time, VibrationEffect.DEFAULT_AMPLITUDE));
         }
     }
 
-    private static boolean soundEnabled(){
+    private static boolean soundEnabled(Context context){
         return Prefs.getBoolean(Constants.KEY_SOUND, Constants.DEFAULT_SOUND)
-                && (SystemProperties.isVerge() || isBluetoothHeadsetConnected());
+                && (AmazfitUtils.isVerge() || hasSoundOutput(context));
     }
 
-    private static boolean isBluetoothHeadsetConnected() {
+    private static boolean hasSoundOutput(Context context) {
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        return mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()
-                && mBluetoothAdapter.getProfileConnectionState(BluetoothHeadset.HEADSET) == BluetoothHeadset.STATE_CONNECTED;
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        return (mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()
+                && mBluetoothAdapter.getProfileConnectionState(BluetoothHeadset.HEADSET) == BluetoothHeadset.STATE_CONNECTED)
+                || (audioManager != null && (audioManager.isBluetoothA2dpOn() || audioManager.isBluetoothScoOn() || audioManager.isSpeakerphoneOn()))
+                || context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUDIO_OUTPUT);
     }
 
     public static String formatTime(int seconds) {

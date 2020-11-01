@@ -1,14 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "me.micrusa.amaztimer"
         minSdkVersion 21
-        //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 22
+        targetSdkVersion 30
         versionCode 80
         versionName "8.0"
 
