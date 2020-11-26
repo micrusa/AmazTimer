@@ -50,7 +50,7 @@ public class AmazTimer extends Activity {
     
     private buttonListener buttonListener = new buttonListener();
     
-    private boolean hasLaunchedIntent = false;
+    private boolean hasLaunchedActivities = false;
 
     private final View.OnClickListener plusMinusBtnListener = view -> plusMinusUpdates(view.getId(), false);
     private final View.OnLongClickListener plusMinusBtnLongListener = view -> plusMinusUpdates(view.getId(), true);
@@ -117,7 +117,7 @@ public class AmazTimer extends Activity {
 
     public void onStart() {
         super.onStart();
-        hasLaunchedIntent = false;
+        hasLaunchedActivities = false;
         setTexts();
     }
 
@@ -137,16 +137,16 @@ public class AmazTimer extends Activity {
      }
 
     public void onResume() {
-        hasLaunchedIntent = false;
+        hasLaunchedActivities = false;
         hrSensor.getInstance().onMainActCreate(this);
         setupBtnListener();
         super.onResume();
     }
 
     private boolean launchIntent(Intent intent){
-        if(hasLaunchedIntent) return true; //Avoid multiple activities launched
+        if(hasLaunchedActivities) return true; //Avoid multiple activities launched
         Utils.vibrate(Constants.HAPTIC_VIBRATION, this);
-        hasLaunchedIntent = true;
+        hasLaunchedActivities = true;
         buttonListener.stop();
         startActivity(intent);
         return true;

@@ -51,20 +51,20 @@ import me.micrusa.amaztimer.utils.sensors.heartrate.hrSensor;
 import me.micrusa.amaztimer.utils.Utils;
 
 public class TimerActivity extends AppCompatActivity {
-    private TextView time, status, intervaltime, heartrate, sets, reps;
+    private View hrZoneView;
     private Chronometer elapsedtime;
     private Button cancel, finishset;
-    private View hrZoneView;
+    private TextView time, status, intervaltime, heartrate, sets, reps;
 
-    private timerHandler timerHandler;
     private timeHandler timeHandler;
+    private timerHandler timerHandler;
     public hrZoneHandler hrZoneHandler;
     private chronoHandler chronoHandler;
 
-    private boolean hasResumed;
-    private boolean isWorking;
-    private boolean hasFinished;
     private int currSet;
+    private boolean isWorking;
+    private boolean hasResumed;
+    private boolean hasFinished;
     
     public static boolean isRunning;
 
@@ -85,7 +85,7 @@ public class TimerActivity extends AppCompatActivity {
         hrZoneView = findViewById(R.id.hrzoneView);
         hrZoneHandler = new hrZoneHandler(hrZoneView);
         setupBtnListener();
-        //Setup onClickListeners
+
         cancel.setOnLongClickListener(view -> {
             Utils.vibrate(Constants.HAPTIC_VIBRATION, view.getContext());
             endActivity();
@@ -110,22 +110,12 @@ public class TimerActivity extends AppCompatActivity {
         timeHandler = new timeHandler(time);
         elapsedtime.setBase(SystemClock.elapsedRealtime());
         elapsedtime.start();
-        if(Prefs.getBoolean(Constants.KEY_REPSCOUNT, false)){
-            RepsCounter.addRepsListener(i -> reps.setText(String.valueOf(i)));
-            RepsCounter.startCounting(this);
-        }
-        hrSensor.hrListener hrListener = hr -> {
+
+        RepsCounter.startIfEnabled(i -> reps.setText(String.valueOf(i)), this);
+        hrSensor.initialize(hr -> {
             heartrate.setText(String.valueOf(hr));
             hrZoneHandler.addHrValue(hr);
-        };
-        if(hrSensor.getInstance() == null)
-            hrSensor.initialize(hrListener);
-        else
-            hrSensor.getInstance().setListener(hrListener);
-
-        if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true))
-            hrSensor.getInstance().registerListener(this); //Register if hr enabled
-
+        }).registerListener(this);
         currSet = Utils.isModeManualSets() ? 0 : Prefs.getInt(Constants.KEY_SETS, Constants.DEF_SETS) + 1;
         updateStatus(true);
     }

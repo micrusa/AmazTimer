@@ -28,6 +28,7 @@ package me.micrusa.amaztimer.utils.sensors.heartrate;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.pixplicity.easyprefs.library.Prefs;
@@ -67,8 +68,11 @@ public class hrSensor {
     }
 
     public static hrSensor initialize(hrListener listener){
-        hrSensor = new hrSensor(listener);
-        return hrSensor;
+        if(getInstance() == null) {
+            hrSensor = new hrSensor(listener);
+            return hrSensor;
+        } else
+            return getInstance().setListener(listener);
     }
 
     private hrSensor(hrListener listener) {
@@ -77,8 +81,9 @@ public class hrSensor {
         this.listener = listener;
     }
 
-    public void setListener(hrListener listener){
+    public hrSensor setListener(hrListener listener){
         this.listener = listener;
+        return this;
     }
 
     public void newValue(int i){
@@ -118,15 +123,17 @@ public class hrSensor {
     }
 
     public void registerListener(Context context) {
-        SaveWorkout.startWorkout();
-        //Register listener taking into account experimental sensor
-        if(!prevListening) {
-            if (Prefs.getBoolean(Constants.KEY_HREXPERIMENT, false))
-                hrListener = new experimentalListener();
-            else
-                hrListener = new mainListener();
-            hrListener.register(context);
-        } else prevListening = false;
+        if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true)) {
+            SaveWorkout.startWorkout();
+            //Register listener taking into account experimental sensor
+            if (!prevListening) {
+                if (Prefs.getBoolean(Constants.KEY_HREXPERIMENT, false))
+                    hrListener = new experimentalListener();
+                else
+                    hrListener = new mainListener();
+                hrListener.register(context);
+            } else prevListening = false;
+        }
     }
 
     public void unregisterListener(Context context) {

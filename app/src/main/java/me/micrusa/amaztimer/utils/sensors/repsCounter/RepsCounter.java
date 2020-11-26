@@ -27,9 +27,12 @@ package me.micrusa.amaztimer.utils.sensors.repsCounter;
 import android.app.Dialog;
 import android.content.Context;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.listeners.Accelerometer;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.objects.Exercise;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.dialog.NewRepExerciseDialog;
@@ -128,5 +131,12 @@ public class RepsCounter {
         allAccelValues = new ArrayList<>();
         currentPeaks = 0;
         lastTimeCheckedPeaks = 0;
+    }
+
+    public static void startIfEnabled(RepsListener listener, Context context){
+        if(Prefs.getBoolean(Constants.KEY_REPSCOUNT, false)){
+            RepsCounter.addRepsListener(listener);
+            RepsCounter.startCounting(context);
+        }
     }
 }
