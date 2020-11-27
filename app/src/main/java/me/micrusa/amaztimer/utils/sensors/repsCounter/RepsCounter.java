@@ -54,12 +54,10 @@ public class RepsCounter {
     private static ArrayList<Float> currentBatchAccelValues = new ArrayList<>();
 
     //Sensor outputs
-    public static void newAccelValues(float accelX, float accelY, float accelZ){
+    public static void newAccelValues(float accel, float accelY, float accelZ){
         if(!isCounting) return;
-        float accel = accelX;
 
-        if(CURRENT_EXERCISE.AXIS == 'X') accel = accelX;
-        else if(CURRENT_EXERCISE.AXIS == 'Y') accel = accelY;
+       if(CURRENT_EXERCISE.AXIS == 'Y') accel = accelY;
         else if(CURRENT_EXERCISE.AXIS == 'Z') accel = accelZ;
 
         if(accel == 0) return; //Ignore filtered values
@@ -69,27 +67,28 @@ public class RepsCounter {
         if(lastTimeCheckedPeaks == 0) //Make it wait 4s until checking peaks for the first time
             lastTimeCheckedPeaks = System.currentTimeMillis() + 3000;
 
-        if(System.currentTimeMillis() - lastTimeCheckedPeaks >= RepsConstants.PEAK_CHECKING_INTERVAL)
-            checkPeaks();
+        checkPeaks();
     }
 
     public static void newGyroValues(float gyroX, float gyroZ){} //For a possible future usage
 
     //Peaks
     private static void checkPeaks(){
-        lastTimeCheckedPeaks = System.currentTimeMillis();
+        if(System.currentTimeMillis() - lastTimeCheckedPeaks >= RepsConstants.PEAK_CHECKING_INTERVAL) {
+            lastTimeCheckedPeaks = System.currentTimeMillis();
 
-        double[] newValues = Filtering.filterSignal(currentBatchAccelValues, 80000, 30000, 2, 0, CURRENT_EXERCISE.CHEBYSHEV_FILTER_RIPPLE_PERCENT);
-        currentBatchAccelValues = new ArrayList<>();
+            double[] newValues = Filtering.filterSignal(currentBatchAccelValues, 80000, 30000, 2, 0, CURRENT_EXERCISE.CHEBYSHEV_FILTER_RIPPLE_PERCENT);
+            currentBatchAccelValues = new ArrayList<>();
 
-        for(double value : newValues)
-            allAccelValues.add(value);
+            for (double value : newValues)
+                allAccelValues.add(value);
 
-        double[] array = new double[allAccelValues.size()];
-        for(int i = 0; i < allAccelValues.size(); i++)
-            array[i] = allAccelValues.get(i);
+            double[] array = new double[allAccelValues.size()];
+            for (int i = 0; i < allAccelValues.size(); i++)
+                array[i] = allAccelValues.get(i);
 
-        updatePeaks(PeaksChecker.get(array));
+            updatePeaks(PeaksChecker.get(array));
+        }
     }
 
     private static void updatePeaks(HashMap<Double, Integer> peaks){

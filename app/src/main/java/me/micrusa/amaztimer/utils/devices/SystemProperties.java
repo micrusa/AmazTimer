@@ -32,8 +32,6 @@ import me.micrusa.amaztimer.utils.devices.AmazfitUtils;
 
 public class SystemProperties {
 
-    //Everything inside this class is from AmazMod.
-
     public static String getSystemProperty(String name) {
         return System.getProperty(name);
     }

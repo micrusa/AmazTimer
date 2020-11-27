@@ -80,13 +80,8 @@ public class SaveTCX {
             Activity = createElement(Activities, "Activity", "Sport", "Other");
             createElement(Activity, "Id", tcxData.getTime());
 
-            //Fill all laps
-            for (Lap lap : tcxData.getLaps()) {
-                fillLap(lap);
-            }
-
-            fillCreator(Activity);
-            fillAuthor(root);
+            fillLaps(tcxData);
+            fillCreatorAndAuthor(Activity, root);
 
             saveResults(tcxFile);
         } catch (ParserConfigurationException | TransformerException | IOException ex) {
@@ -94,6 +89,12 @@ public class SaveTCX {
             return false;
         }
         return tcxFile.exists();
+    }
+
+    private static void fillLaps(TCXData tcxData){
+        for (Lap lap : tcxData.getLaps()) {
+            fillLap(lap);
+        }
     }
 
     private static boolean performChecks(TCXData tcxData){
@@ -148,7 +149,7 @@ public class SaveTCX {
         createElement(Trackpoint, "SensorState", "Absent");
     }
 
-    private static void fillCreator(Element Activity){
+    private static void fillCreatorAndAuthor(Element Activity, Element root){
         Element Creator = createElement(Activity, "Creator", "xsi:type", "Device_t");
         createElement(Creator, "Name", SystemProperties.getDeviceName());
         createElement(Creator, "UnitId", "1111111111");
@@ -158,9 +159,7 @@ public class SaveTCX {
         createElement(Version, "VersionMinor", "90");
         createElement(Version, "BuildMajor", "0");
         createElement(Version, "BuildMinor", "0");
-    }
 
-    private static void fillAuthor(Element root){
         Element Author = createElement(root, "Author", "xsi:type", "Application_t");
         createElement(Author, "Name", "Garmin Training Center(TM)");
         Element Build = createElement(Author, "Build", null);
