@@ -8,8 +8,8 @@ android {
         applicationId "me.micrusa.amaztimer"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 80
-        versionName "8.0"
+        versionCode 81
+        versionName "8.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -18,7 +18,6 @@ android {
         release {
             minifyEnabled true
             shrinkResources false
-            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
