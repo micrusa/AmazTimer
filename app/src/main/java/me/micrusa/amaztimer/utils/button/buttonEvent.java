@@ -68,13 +68,13 @@ public class buttonEvent {
         } else if(isStratos3())
             switch(key){
                 case S3_KEY_UP:
-                    finalKey = KEY_DOWN;
-                    break;
-                case S3_KEY_MIDDLE_UP:
                     finalKey = KEY_UP;
                     break;
-                case S3_KEY_MIDDLE_DOWN:
+                case S3_KEY_MIDDLE_UP:
                     finalKey = KEY_CENTER;
+                    break;
+                case S3_KEY_MIDDLE_DOWN:
+                    finalKey = KEY_DOWN;
                     break;
                 default:
                     break;
