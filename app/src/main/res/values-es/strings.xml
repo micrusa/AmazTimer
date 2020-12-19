@@ -74,6 +74,11 @@
     <string name="worktime">Trabajo</string>
     <string name="resttime">Descanso</string>
 
+    <string name="saved">Contadores</string>
+    <string name="create_new">Crear nuevo</string>
     <string name="enabled">Activado</string>
     <string name="disabled">Desactivado</string>
+    <string name="save">Guardar</string>
+    <string name="custom">Personalizado</string>
+    <string name="profile">Perfil</string>
 </resources>
