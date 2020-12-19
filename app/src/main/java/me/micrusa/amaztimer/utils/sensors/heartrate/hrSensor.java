@@ -104,24 +104,6 @@ public class hrSensor {
 
     public void onAccuracyChanged(Sensor param1Sensor, int param1Int) {}
 
-    public void onMainActCreate(Context context){
-        if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true) && !prevListening
-                && Prefs.getBoolean(Constants.KEY_HRONSTART, true)){
-            prevListening = true;
-            if(Prefs.getBoolean(Constants.KEY_HREXPERIMENT, false))
-                hrListener = new experimentalListener();
-            else
-                hrListener = new mainListener();
-            hrListener.register(context);
-        }
-    }
-
-    public void onMainActDestroy(Context context){
-        if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true)
-                && Prefs.getBoolean(Constants.KEY_HRONSTART, true))
-            hrListener.unregister(context);
-    }
-
     public void registerListener(Context context) {
         if(Prefs.getBoolean(Constants.KEY_HRTOGGLE, true)) {
             SaveWorkout.startWorkout();

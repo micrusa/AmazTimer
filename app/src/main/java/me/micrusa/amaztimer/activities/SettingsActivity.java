@@ -71,10 +71,8 @@ public class SettingsActivity extends AppCompatActivity {
             repsCounterMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             //enableSound only visible for verge
             //enableSound.setVisible(SystemProperties.isVerge());
-            Preference presets = findPreference(Constants.KEY_SAVED);
             Preference latestTrain = findPreference(Constants.KEY_WORKOUTVIEWER);
             Preference appInfo = findPreference(Constants.KEY_APPINFO);
-            presets.setOnPreferenceClickListener(OnPreferenceClickListener);
             latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
             appInfo.setOnPreferenceClickListener(OnPreferenceClickListener);
 

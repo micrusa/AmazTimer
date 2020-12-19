@@ -53,8 +53,6 @@ public final class Constants {
     public static final String KEY_SETS = "sets";
     public static final String KEY_WORK = "work";
     public static final String KEY_REST = "rest";
-    public static final String KEY_PRESET1 = "preset1";
-    public static final String KEY_PRESET2 = "preset2";
     public static final String KEY_HRTOGGLE = "hrOn";
     public static final String KEY_LANG = "lang";
     public static final String KEY_GENDER = "gender";
@@ -62,7 +60,6 @@ public final class Constants {
     public static final String KEY_WEIGHT = "weight";
     public static final String KEY_ENABLEPREPARE = "prepon";
     public static final String KEY_REPSMODE = "repsmode";
-    public static final String KEY_SAVED = "saved";
     public static final String KEY_WORKOUTVIEWER = "latesttrain";
     public static final String KEY_APPINFO = "appinfo";
     public static final String KEY_WORKOUT = "workoutmode";
@@ -73,7 +70,6 @@ public final class Constants {
     public static final String KEY_HREXPERIMENT = "hrexperiment";
     public static final String KEY_TCX_TIME = "tcxtime";
     public static final String KEY_VIBRATION = "vibration";
-    public static final String KEY_HRONSTART = "hrStart";
     public static final String KEY_REPSCOUNT = "repscounter";
     //Some useful stuff
     public static final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;

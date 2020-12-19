@@ -3,6 +3,7 @@
     <string name="start">Iniciar</string>
     <string name="work">Trabajo</string>
     <string name="rest">Descanso</string>
+    <string name="hr">RC</string>
     <string name="prepare">Preparate!</string>
     <string name="settings">Ajustes</string>
     <string name="batterysaving">Ahorro de batería</string>
@@ -72,4 +73,7 @@
     <string name="duration">Duración</string>
     <string name="worktime">Trabajo</string>
     <string name="resttime">Descanso</string>
+
+    <string name="enabled">Activado</string>
+    <string name="disabled">Desactivado</string>
 </resources>

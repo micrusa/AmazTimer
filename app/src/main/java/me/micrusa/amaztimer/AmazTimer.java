@@ -75,7 +75,6 @@ public class AmazTimer extends Activity {
         this.init();
         //Start listening for hr to avoid some time without HR values when started
         hrSensor.initialize(listener -> {});
-        hrSensor.getInstance().onMainActCreate(this);
 
         setupBtnListener();
 
@@ -133,12 +132,10 @@ public class AmazTimer extends Activity {
 
      public void onDestroy(){
         super.onDestroy();
-        hrSensor.getInstance().onMainActDestroy(this);
      }
 
     public void onResume() {
         hasLaunchedActivities = false;
-        hrSensor.getInstance().onMainActCreate(this);
         setupBtnListener();
         super.onResume();
     }

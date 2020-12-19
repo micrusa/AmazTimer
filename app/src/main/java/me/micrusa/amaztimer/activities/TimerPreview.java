@@ -26,17 +26,48 @@ package me.micrusa.amaztimer.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.activities.saved.SavedTimerRun;
 
 public class TimerPreview extends AppCompatActivity {
+    private TextView name, sets, work, rest, hr;
+    private Button start;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer_preview);
-        SavedTimerRun tr = SavedTimerRun.fromIntent(getIntent());
+        init(SavedTimerRun.fromIntent(getIntent()));
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void init(SavedTimerRun t){
+        name = findViewById(R.id.timer_preview_name);
+        sets = findViewById(R.id.timer_preview_sets);
+        work = findViewById(R.id.timer_preview_work);
+        rest = findViewById(R.id.timer_preview_rest);
+        hr = findViewById(R.id.timer_preview_hr);
+        start = findViewById(R.id.timer_preview_start);
+
+        name.setText(t.name);
+        sets.setText(getString(R.string.sets) + ": " + t.sets);
+        work.setText(getString(R.string.work) + ": " + t.work);
+        rest.setText(getString(R.string.rest) + ": " + t.rest);
+        hr.setText(getString(R.string.hr) + ": " + getString(t.heartrate ? R.string.enabled : R.string.disabled));
+        start.setOnClickListener(view -> {
+            Prefs.putInt(Constants.KEY_SETS, t.sets);
+            Prefs.putInt(Constants.KEY_WORK, t.work);
+            Prefs.putInt(Constants.KEY_REST, t.rest);
+            Prefs.putBoolean(Constants.KEY_HRTOGGLE, t.heartrate);
+        });
     }
 }

@@ -8,6 +8,7 @@
     <string name="work">Work</string>
     <string name="rest">Rest</string>
     <string name="sets">Sets</string>
+    <string name="hr">HR</string>
     <string name="prepare">Get prepared!</string>
     <string name="settings">Settings</string>
     <string name="batterysaving">Battery saving</string>
@@ -80,4 +81,6 @@
 
     <string name="saved">Saved</string>
     <string name="create_new">Create New</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
 </resources>
