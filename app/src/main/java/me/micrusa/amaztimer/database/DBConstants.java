@@ -27,5 +27,5 @@ package me.micrusa.amaztimer.database;
 public class DBConstants {
 
     public static final String DB_NAME = "amaztimer_db";
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
 }
