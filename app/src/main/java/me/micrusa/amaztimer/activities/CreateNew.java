@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -105,16 +106,20 @@ public class CreateNew extends AppCompatActivity {
             Utils.start(this, t);
         });
         save.setOnClickListener(view -> {
-            AmazTimerDB db = DBUtils.createInstance();
-            List<Timer> timers = db.timerDao().getAll();
-            Timer t = new Timer();
-            t.name = getString(R.string.custom) + " " + (timers.size() + 1);
-            t.sets = setsCount;
-            t.work = workTime;
-            t.rest = restTime;
-            t.heartrate = hr.isChecked();
-            db.timerDao().insertAll(t);
-            db.close();
+            Handler handler = new Handler(getMainLooper());
+            new Thread(() -> {
+                AmazTimerDB db = DBUtils.createInstance();
+                List<Timer> timers = db.timerDao().getAll();
+                Timer t = new Timer();
+                t.name = getString(R.string.custom) + " " + (timers.size() + 1);
+                t.sets = setsCount;
+                t.work = workTime;
+                t.rest = restTime;
+                t.heartrate = hr.isChecked();
+                db.timerDao().insertAll(t);
+                db.close();
+                handler.post(this::finish);
+            }).start();
         });
     }
 
