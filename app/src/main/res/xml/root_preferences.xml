@@ -76,10 +76,6 @@
 
     <PreferenceCategory app:title="@string/misc">
 
-        <Preference
-            app:key="latesttrain"
-            app:title="@string/workouts" />
-
         <ListPreference
             app:key="gender"
             app:title="@string/gender"

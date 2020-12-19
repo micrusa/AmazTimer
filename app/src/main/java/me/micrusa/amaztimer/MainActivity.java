@@ -34,13 +34,14 @@ import android.widget.Button;
 import me.micrusa.amaztimer.activities.CreateNew;
 import me.micrusa.amaztimer.activities.saved.Saved;
 import me.micrusa.amaztimer.activities.SettingsActivity;
+import me.micrusa.amaztimer.saveworkout.ui.SavedWorkoutsActivity;
 import me.micrusa.amaztimer.utils.Utils;
 import me.micrusa.amaztimer.utils.button.buttonEvent;
 import me.micrusa.amaztimer.utils.button.buttonListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button saved, createNew, settings;
+    private Button saved, createNew, settings, workouts;
     private boolean hasLaunchedActivities = false;
     private buttonListener buttonListener = new buttonListener();
 
@@ -56,10 +57,12 @@ public class MainActivity extends AppCompatActivity {
         saved = findViewById(R.id.main_saved);
         createNew = findViewById(R.id.main_create_new);
         settings = findViewById(R.id.main_settings);
+        workouts = findViewById(R.id.main_workouts);
 
         saved.setOnClickListener(view -> launchActivity(new Intent(this, Saved.class)));
         createNew.setOnClickListener(view -> launchActivity(new Intent(this, CreateNew.class)));
         settings.setOnClickListener(view -> launchActivity(new Intent(this, SettingsActivity.class)));
+        workouts.setOnClickListener(view -> launchActivity(new Intent(this, SavedWorkoutsActivity.class)));
     }
 
     private void setupBtnListener(){

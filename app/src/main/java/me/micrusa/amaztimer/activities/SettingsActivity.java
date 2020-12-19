@@ -71,9 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
             repsCounterMode.setOnPreferenceChangeListener(onPreferenceChangeListener);
             //enableSound only visible for verge
             //enableSound.setVisible(SystemProperties.isVerge());
-            Preference latestTrain = findPreference(Constants.KEY_WORKOUTVIEWER);
             Preference appInfo = findPreference(Constants.KEY_APPINFO);
-            latestTrain.setOnPreferenceClickListener(OnPreferenceClickListener);
             appInfo.setOnPreferenceClickListener(OnPreferenceClickListener);
 
             setupListPreferences(true);
@@ -88,17 +86,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         private final OnPreferenceClickListener OnPreferenceClickListener = preference -> {
             String key = preference.getKey();
-            switch (key) {
-                case Constants.KEY_WORKOUTVIEWER: {
-                    Intent intent = new Intent(preference.getContext(), SavedWorkoutsActivity.class);
-                    preference.getContext().startActivity(intent);
-                    break;
-                }
-                case Constants.KEY_APPINFO: {
-                    Intent intent = new Intent(preference.getContext(), AppInfo.class);
-                    preference.getContext().startActivity(intent);
-                    break;
-                }
+            if (Constants.KEY_APPINFO.equals(key)) {
+                Intent intent = new Intent(preference.getContext(), AppInfo.class);
+                preference.getContext().startActivity(intent);
             }
             return true;
         };
