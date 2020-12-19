@@ -5,7 +5,7 @@
 This app is an interval/reps/workout timer for amazfit devices to do trainings with HR/kcal monitoring and TCX exports, default values are tabata training's but you can use any times and sets you want
 
 ## Bugs and suggestions
-This app is in continuous development and I don't have every device to test, so you may find bugs, if you find any please create an issue with logcat and I'll try to fix it as fast as I can. Don't report bugs that are already reported.
+This app is in continuous development and I don't have every device to test, so you might find bugs, if you find any please create an issue with logcat and I'll try to fix it as fast as I can. Don't report bugs that are already reported.
 If you have any suggestions open an issue or answer the XDA thread
 
 ## Compatible devices
@@ -15,10 +15,11 @@ Any amazfit device running android 5.1 MIPS (Pace, stratos 1/2/3, verge)
 - TCX files are saved in "Internal Storage/AmazTimer", for some reason windows sometimes can't read it, so you can get them using `adb pull /sdcard/AmazTimer` or through AmazMod
 
 ## HW Buttons
-- Pace/Verge/S2 with new layout: Single click to end set, long click to start/stop timer. Center button on S2
+- Single button devices and Stratos with new key layout: Single click to end set, long click to start/stop timer. Center button on S2
 - Stratos with old key layout: lower button to start, center button for settings and upper button to end sets
-- Stratos 3: Upper button to start activity, middle upper button to end sets and middle lower button to open settings
-- You can invert start/finish set keys by enabling invert keys preference
+- Stratos 3: Same as stratos old key layout. Upper button = Upper button, Middle upper button = Middle button, Middle down button = Down button
+
+You can invert top/lower buttons by enabling invert keys preference
 
 ## Installation
 Install using `adb install AmazTimer-X.X.apk` and update using `adb install -r AmazTimer-X.X.apk`
