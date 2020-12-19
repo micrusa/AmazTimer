@@ -35,6 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:textSize="8pt"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:textSize="6pt"
         app:layout_constraintEnd_toEndOf="@+id/timer_item_name"
         app:layout_constraintStart_toStartOf="@+id/timer_item_name"
         app:layout_constraintTop_toBottomOf="@+id/timer_item_name"
@@ -55,13 +57,14 @@
         android:id="@+id/textView12"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="2dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/round_keyboard_arrow_right_black_36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/timer_item_sets"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/timer_item_name" />
 
     <Space
+        android:id="@+id/space"
         android:layout_width="match_parent"
         android:layout_height="4dp"
         app:layout_constraintTop_toBottomOf="@+id/timer_item_sets"

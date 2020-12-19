@@ -44,43 +44,95 @@
             android:textSize="10pt"
             tools:text="Custom 1" />
 
-        <TextView
-            android:id="@+id/timer_preview_sets"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_marginTop="5dp"
-            android:textSize="8pt"
-            android:textColor="@color/almost_white"
-            android:textAlignment="center"
-            tools:text="Sets: 6" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="8pt"
+                android:textColor="@color/almost_white"
+                android:textAlignment="center"
+                android:text="@string/sets" />
+            <TextView
+                android:id="@+id/timer_preview_sets"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="8pt"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                tools:text="6" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/timer_preview_work"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_marginTop="2.5dp"
-            android:textSize="8pt"
-            android:textColor="@color/almost_white"
-            android:textAlignment="center"
-            tools:text="Work: 30s" />
-        <TextView
-            android:id="@+id/timer_preview_rest"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="8pt"
+                android:textColor="@color/almost_white"
+                android:textAlignment="center"
+                android:text="@string/work" />
+            <TextView
+                android:id="@+id/timer_preview_work"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="8pt"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                tools:text="00:30" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_marginTop="2.5dp"
-            android:textSize="8pt"
-            android:textColor="@color/almost_white"
-            android:textAlignment="center"
-            tools:text="Rest: 20s" />
-        <TextView
-            android:id="@+id/timer_preview_hr"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="8pt"
+                android:textColor="@color/almost_white"
+                android:textAlignment="center"
+                android:text="@string/rest" />
+            <TextView
+                android:id="@+id/timer_preview_rest"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="8pt"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                tools:text="00:20" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_marginTop="2.5dp"
-            android:textSize="8pt"
-            android:textColor="@color/almost_white"
-            android:textAlignment="center"
-            tools:text="HR: Enabled" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="8pt"
+                android:textColor="@color/almost_white"
+                android:textAlignment="center"
+                android:text="@string/hr" />
+            <TextView
+                android:id="@+id/timer_preview_hr"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="8pt"
+                android:textColor="@color/colorAccent"
+                android:textAlignment="center"
+                tools:text="Enabled" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/timer_preview_start"
@@ -92,6 +144,10 @@
             android:textSize="8pt"
             android:background="@drawable/circle_button"
             android:text="@string/start" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
     </LinearLayout>
 
 </ScrollView>
