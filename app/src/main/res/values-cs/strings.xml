@@ -10,7 +10,7 @@
     <string name="lang">Jazyk</string>
     <string name="startsettings">Dlouhý stisk start pro nastavení</string>
     <string name="hrEnabled">Monitoring tepové frekvence</string>
-    <string name="saved">Předvolby</string>
+    <string name="presets">Předvolby</string>
     <string name="edit">Upravit</string>
     <string name="misc">Různé</string>
     <string name="weight">Hmotnost</string>

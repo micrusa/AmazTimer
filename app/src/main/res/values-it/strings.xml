@@ -11,7 +11,7 @@
     <string name="hrEnabled">Rileva battiti</string>
     <string name="edit">Modifica</string>
     <string name="sets">Giri</string>
-    <string name="saved">Predefiniti</string>
+    <string name="presets">Predefiniti</string>
     <string name="misc">Varie</string>
     <string name="weight">Peso</string>
     <string name="age">Anno di nascita</string>

@@ -11,7 +11,7 @@
     <string name="lang">Язык</string>
     <string name="startsettings">Долгое нажатие для перехода в настройки</string>
     <string name="hrEnabled">Мониторинг ЧСС</string>
-    <string name="saved">Предустановки</string>
+    <string name="presets">Предустановки</string>
     <string name="edit">Изменить</string>
     <string name="misc">Остальное</string>
     <string name="weight">Вес</string>

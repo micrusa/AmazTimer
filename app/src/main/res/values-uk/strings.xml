@@ -11,7 +11,7 @@
     <string name="lang"> Мова </string>
     <string name="startsettings"> Використовуйте довгий тап для переходу в настройки</string>
     <string name="hrEnabled"> Моніторинг ЧСС</string>
-    <string name="saved"> Пресети </string>
+    <string name="presets"> Пресети </string>
     <string name="edit"> Змінити </string>
     <string name="misc"> Iнше </string>
     <string name="weight"> Вага </string>

@@ -90,10 +90,6 @@
     <PreferenceCategory app:title="@string/misc">
 
         <Preference
-            app:key="saved"
-            app:title="@string/saved" />
-
-        <Preference
             app:key="latesttrain"
             app:title="@string/workouts" />
 

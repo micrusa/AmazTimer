@@ -91,11 +91,6 @@ public class SettingsActivity extends AppCompatActivity {
         private final OnPreferenceClickListener OnPreferenceClickListener = preference -> {
             String key = preference.getKey();
             switch (key) {
-                case Constants.KEY_SAVED: {
-                    Intent intent = new Intent(preference.getContext(), PresetsActivity.class);
-                    preference.getContext().startActivity(intent);
-                    break;
-                }
                 case Constants.KEY_WORKOUTVIEWER: {
                     Intent intent = new Intent(preference.getContext(), SavedWorkoutsActivity.class);
                     preference.getContext().startActivity(intent);

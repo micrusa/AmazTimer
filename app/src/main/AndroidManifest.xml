@@ -12,23 +12,27 @@
     <application
         android:name=".AmazTimerApplication"
         android:allowBackup="false"
-        android:testOnly="false"
         android:icon="@mipmap/ic_launcher"
         android:label="AmazTimer"
         android:supportsRtl="true"
+        android:testOnly="false"
         android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".AmazTimer"
             android:icon="@mipmap/ic_launcher"
             android:label="AmazTimer">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-
         <activity android:name=".saveworkout.ui.WorkoutViewerActivity" />
-        <activity android:name=".saveworkout.ui.SavedWorkoutsActivity" android:exported="true" />
+        <activity
+            android:name=".saveworkout.ui.SavedWorkoutsActivity"
+            android:exported="true" />
         <activity android:name=".activities.PrepareActivity" />
         <activity android:name=".TimerActivity" />
         <activity android:name=".activities.AppInfo" />

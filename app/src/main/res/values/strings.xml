@@ -14,7 +14,7 @@
     <string name="lang">Language</string>
     <string name="startsettings">Long press start for settings</string>
     <string name="hrEnabled">Heart rate monitoring</string>
-    <string name="saved">Presets</string>
+    <string name="presets">Presets</string>
     <string name="edit">Edit</string>
     <string name="misc">Misc</string>
     <string name="weight">Weight</string>
@@ -76,4 +76,7 @@
     <string name="duration">Duration</string>
     <string name="worktime">Work time</string>
     <string name="resttime">Rest time</string>
+
+    <string name="saved">Saved</string>
+    <string name="create_new">Create New</string>
 </resources>
