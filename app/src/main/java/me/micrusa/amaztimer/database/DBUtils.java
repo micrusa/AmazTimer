@@ -24,14 +24,30 @@
 
 package me.micrusa.amaztimer.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.Room;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import me.micrusa.amaztimer.AmazTimerApplication;
 
 public class DBUtils {
-
     public static AmazTimerDB createInstance(){
         return Room.databaseBuilder(AmazTimerApplication.getContext(),
-                AmazTimerDB.class, DBConstants.DB_NAME).build();
+                AmazTimerDB.class, DBConstants.DB_NAME)
+                .addMigrations(new SQLMigration(1, 2, new String[]{"CREATE TABLE IF NOT EXISTS `Timer` (`timeAdded` INTEGER NOT NULL, `name` TEXT, `sets` INTEGER NOT NULL, `work` INTEGER NOT NULL, `rest` INTEGER NOT NULL, `mode` INTEGER NOT NULL, `heartrate` INTEGER NOT NULL, `gps` INTEGER NOT NULL, PRIMARY KEY(`timeAdded`))"}))
+                .build();
+    }
+
+    public static class SQLMigration extends Migration {
+        private String[] SQL;
+        public SQLMigration(int start, int end, String[] SQL){
+            super(start, end);
+            this.SQL = SQL;
+        }
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            for(String str : SQL) database.execSQL(str);
+        }
     }
 }

@@ -34,7 +34,7 @@ import me.micrusa.amaztimer.database.dao.WorkoutDao;
 import me.micrusa.amaztimer.database.objects.Timer;
 import me.micrusa.amaztimer.database.objects.Workout;
 
-@Database(version = DBConstants.VERSION, entities = {Workout.class, Timer.class}, exportSchema = false)
+@Database(version = DBConstants.VERSION, entities = {Workout.class, Timer.class})
 @TypeConverters(Converters.class)
 public abstract class AmazTimerDB extends RoomDatabase {
     public abstract WorkoutDao workoutDao();
