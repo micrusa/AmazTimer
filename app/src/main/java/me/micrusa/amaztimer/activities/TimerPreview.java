@@ -60,9 +60,9 @@ public class TimerPreview extends AppCompatActivity {
         start = findViewById(R.id.timer_preview_start);
 
         name.setText(t.name);
-        sets.setText(getString(R.string.sets) + ": " + t.sets);
-        work.setText(getString(R.string.work) + ": " + t.work);
-        rest.setText(getString(R.string.rest) + ": " + t.rest);
+        sets.setText(getString(R.string.sets) + "=> " + t.sets);
+        work.setText(getString(R.string.work) + "=> " + Utils.formatTime(t.work));
+        rest.setText(getString(R.string.rest) + "=> " + Utils.formatTime(t.rest));
         hr.setText(getString(R.string.hr) + ": " + getString(t.heartrate ? R.string.enabled : R.string.disabled));
         start.setOnClickListener(view -> Utils.start(this, t));
     }

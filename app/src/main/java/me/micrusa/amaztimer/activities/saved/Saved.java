@@ -63,7 +63,7 @@ public class Saved extends AppCompatActivity implements AdapterView.OnItemClickL
             AmazTimerDB db = DBUtils.createInstance();
             List<Timer> timers = db.timerDao().getAll();
             db.close();
-
+            timers.add(0, getTimer("Tabata", 8, 20, 10));
             handler.post(() -> lv.setAdapter(new TimerAdapter(this, timers)));
         }).start();
     }
@@ -93,5 +93,15 @@ public class Saved extends AppCompatActivity implements AdapterView.OnItemClickL
                 .setNegativeButton("No", (dialogI, i1) -> dialogI.dismiss())
                 .create().show();
         return true;
+    }
+
+    private static Timer getTimer(String name, int sets, int work, int rest){
+        Timer t = new Timer();
+        t.name = name;
+        t.sets = sets;
+        t.work = work;
+        t.rest = rest;
+        t.heartrate = true;
+        return t;
     }
 }
