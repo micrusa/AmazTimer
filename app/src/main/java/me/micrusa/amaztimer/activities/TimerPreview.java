@@ -37,6 +37,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.activities.saved.SavedTimerRun;
+import me.micrusa.amaztimer.utils.Utils;
 
 public class TimerPreview extends AppCompatActivity {
     private TextView name, sets, work, rest, hr;
@@ -63,11 +64,6 @@ public class TimerPreview extends AppCompatActivity {
         work.setText(getString(R.string.work) + ": " + t.work);
         rest.setText(getString(R.string.rest) + ": " + t.rest);
         hr.setText(getString(R.string.hr) + ": " + getString(t.heartrate ? R.string.enabled : R.string.disabled));
-        start.setOnClickListener(view -> {
-            Prefs.putInt(Constants.KEY_SETS, t.sets);
-            Prefs.putInt(Constants.KEY_WORK, t.work);
-            Prefs.putInt(Constants.KEY_REST, t.rest);
-            Prefs.putBoolean(Constants.KEY_HRTOGGLE, t.heartrate);
-        });
+        start.setOnClickListener(view -> Utils.start(this, t));
     }
 }

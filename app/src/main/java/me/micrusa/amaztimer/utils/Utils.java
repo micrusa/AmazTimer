@@ -46,6 +46,7 @@ import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.activities.TimerActivity;
 import me.micrusa.amaztimer.activities.PrepareActivity;
+import me.micrusa.amaztimer.activities.saved.SavedTimerRun;
 import me.micrusa.amaztimer.utils.devices.AmazfitUtils;
 
 public class Utils {
@@ -138,15 +139,15 @@ public class Utils {
         int sets = data[0]; //data -> 0 = sets, 1 = work, 2 = rest, 3 = res
         int workTime = data[1];
         int restTime = data[2];
-        if (data[3] == R.id.plus) {
+        if (data[3] == R.id.plus1) {
             sets = Utils.getUpdatedSets(sets, longClick ? 5 : 1, context);
         } else if (data[3] == R.id.plus2) {
             workTime = Utils.getUpdatedTime(workTime, longClick ? 60 : 1, context);
         } else if (data[3] == R.id.plus3) {
             restTime = Utils.getUpdatedTime(restTime, longClick ? 60 : 1, context);
-        } else if (data[3] == R.id.minus2) {
+        } else if (data[3] == R.id.minus1) {
             sets = Utils.getUpdatedSets(sets, longClick ? -5 : -1, context);
-        } else if (data[3] == R.id.minus) {
+        } else if (data[3] == R.id.minus2) {
             workTime = Utils.getUpdatedTime(workTime, longClick ? -60 : -1, context);
         } else if (data[3] == R.id.minus3) {
             restTime = Utils.getUpdatedTime(restTime, longClick ? -60 : -1, context);
@@ -159,5 +160,13 @@ public class Utils {
                 Prefs.getBoolean(Constants.KEY_ENABLEPREPARE, false)
                         && !prepareDone
                         ? PrepareActivity.class : TimerActivity.class));
+    }
+
+    public static void start(Context context, SavedTimerRun t){
+        Prefs.putInt(Constants.KEY_SETS, t.sets);
+        Prefs.putInt(Constants.KEY_WORK, t.work);
+        Prefs.putInt(Constants.KEY_REST, t.rest);
+        Prefs.putBoolean(Constants.KEY_HRTOGGLE, t.heartrate);
+        context.startActivity(new Intent(context, TimerActivity.class));
     }
 }

@@ -83,4 +83,6 @@
     <string name="create_new">Create New</string>
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
+    <string name="save">Save</string>
+    <string name="custom">Custom</string>
 </resources>
