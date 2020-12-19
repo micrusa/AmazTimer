@@ -22,30 +22,33 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.saveworkout.database.dao;
+package me.micrusa.amaztimer.database.objects;
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.List;
 
-import me.micrusa.amaztimer.saveworkout.database.objects.Workout;
+@Entity
+public class Workout {
 
-@Dao
-public interface WorkoutDao {
+    @PrimaryKey
+    public long time;
 
-    @Query("SELECT * FROM workout")
-    List<Workout> getAll();
+    @ColumnInfo(name = "heart_rate")
+    public List<Integer> hr;
 
-    @Query("SELECT * FROM workout WHERE time LIKE :time LIMIT 1")
-    Workout findByTime(long time);
+    @ColumnInfo(name = "sets")
+    public List<Integer> sets;
 
-    @Insert
-    void insertAll(Workout... workouts);
+    @ColumnInfo(name = "reps_per_set")
+    public List<Integer> setsReps;
 
-    @Delete
-    void delete(Workout workout);
+    @ColumnInfo(name = "kcal")
+    public int kcal;
+
+    @ColumnInfo(name = "duration")
+    public int totalTime;
 
 }

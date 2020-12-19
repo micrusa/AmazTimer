@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer;
+package me.micrusa.amaztimer.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,6 +37,8 @@ import androidx.core.content.ContextCompat;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
+import me.micrusa.amaztimer.Constants;
+import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.saveworkout.SaveWorkout;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.dialog.NewRepExerciseDialog;

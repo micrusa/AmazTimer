@@ -22,19 +22,30 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.activities;
+package me.micrusa.amaztimer.database.dao;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
 
-import android.os.Bundle;
+import java.util.List;
 
-import me.micrusa.amaztimer.R;
+import me.micrusa.amaztimer.database.objects.Workout;
 
-public class Saved extends AppCompatActivity {
+@Dao
+public interface WorkoutDao {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved);
-    }
+    @Query("SELECT * FROM workout")
+    List<Workout> getAll();
+
+    @Query("SELECT * FROM workout WHERE time LIKE :time LIMIT 1")
+    Workout findByTime(long time);
+
+    @Insert
+    void insertAll(Workout... workouts);
+
+    @Delete
+    void delete(Workout workout);
+
 }

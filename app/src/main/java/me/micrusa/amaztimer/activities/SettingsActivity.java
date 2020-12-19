@@ -116,14 +116,6 @@ public class SettingsActivity extends AppCompatActivity {
             repsMode.setEnabled(!(workout || repsCounter));
             workoutMode.setEnabled(!(reps || repsCounter));
             repsCounterMode.setEnabled(!(workout || reps));
-
-            //HR modes
-            SwitchPreferenceCompat hrEnabled = findPreference(Constants.KEY_HRTOGGLE);
-            SwitchPreferenceCompat hrOnStart = findPreference(Constants.KEY_HRONSTART);
-            SwitchPreferenceCompat experimentalHr = findPreference(Constants.KEY_HREXPERIMENT);
-
-            hrOnStart.setEnabled(hrEnabled.isChecked());
-            experimentalHr.setEnabled(hrEnabled.isChecked());
         }
 
         private void setupListPreferences(boolean isFirstRun){

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@android:color/background_dark"
     android:keepScreenOn="true"
-    tools:context=".TimerActivity">
+    tools:context=".activities.TimerActivity">
 
     <TextView
         android:id="@+id/time"

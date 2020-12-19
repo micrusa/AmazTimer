@@ -32,7 +32,7 @@ import android.os.Handler;
 import android.widget.Button;
 
 import me.micrusa.amaztimer.activities.CreateNew;
-import me.micrusa.amaztimer.activities.Saved;
+import me.micrusa.amaztimer.activities.saved.Saved;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.utils.Utils;
 import me.micrusa.amaztimer.utils.button.buttonEvent;

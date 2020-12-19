@@ -22,7 +22,9 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.saveworkout.ui;
+package me.micrusa.amaztimer.activities.saved;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -32,29 +34,26 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.List;
 
 import me.micrusa.amaztimer.R;
+import me.micrusa.amaztimer.activities.TimerPreview;
 import me.micrusa.amaztimer.database.AmazTimerDB;
 import me.micrusa.amaztimer.database.DBUtils;
-import me.micrusa.amaztimer.database.objects.Workout;
+import me.micrusa.amaztimer.database.objects.Timer;
 
-public class SavedWorkoutsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class Saved extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_workouts);
+        setContentView(R.layout.activity_saved);
 
-        lv = findViewById(R.id.saved_workouts_lv);
-
+        lv = findViewById(R.id.saved_timers_lv);
         lv.setOnItemClickListener(this);
         lv.setOnItemLongClickListener(this);
-
         addDataToList();
     }
 
@@ -62,31 +61,31 @@ public class SavedWorkoutsActivity extends AppCompatActivity implements AdapterV
         final Handler handler = new Handler();
         new Thread(() -> {
             AmazTimerDB db = DBUtils.createInstance();
-            List<Workout> workouts = db.workoutDao().getAll();
+            List<Timer> timers = db.timerDao().getAll();
             db.close();
 
-            handler.post(() -> lv.setAdapter(new WorkoutAdapter(this, workouts)));
+            handler.post(() -> lv.setAdapter(new TimerAdapter(this, timers)));
         }).start();
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Workout workout = (Workout) adapterView.getItemAtPosition(i);
-        Intent intent = new Intent(this, WorkoutViewerActivity.class);
-        intent.putExtra("id", workout.time);
-        startActivity(intent);
+        Timer timer = (Timer) adapterView.getItemAtPosition(i);
+        SavedTimerRun tr = SavedTimerRun.fromTimer(timer);
+        Intent intent = new Intent(this, TimerPreview.class);
+        startActivity(tr.toIntent(intent));
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Workout workout = (Workout) adapterView.getItemAtPosition(i);
+        Timer timer = (Timer) adapterView.getItemAtPosition(i);
         new AlertDialog.Builder(this)
-                .setTitle(R.string.deleteworkout)
+                .setTitle(R.string.deletetimer)
                 .setPositiveButton("Yes", (di, i1) -> {
                     new Thread(() -> {
                         AmazTimerDB database = DBUtils.createInstance();
 
-                        database.workoutDao().delete(workout);
+                        database.timerDao().delete(timer);
                         database.close();
                     }).start();
                     addDataToList();

@@ -22,16 +22,27 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.saveworkout.database;
+package me.micrusa.amaztimer.database.converters;
 
-import androidx.room.Room;
+import androidx.room.TypeConverter;
 
-import me.micrusa.amaztimer.AmazTimerApplication;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-public class DBUtils {
+import java.lang.reflect.Type;
+import java.util.List;
 
-    public static AmazTimerDB createDBInstance(){
-        return Room.databaseBuilder(AmazTimerApplication.getContext(),
-                AmazTimerDB.class, DBConstants.DB_NAME).build();
+public class Converters {
+
+    @TypeConverter
+    public static List<Integer> fromString(String value) {
+        Type listType = new TypeToken<List<Integer>>(){}.getType();
+        return new Gson().fromJson(value, listType);
     }
+
+    @TypeConverter
+    public static String fromArrayList(List<Integer> list) {
+        return new Gson().toJson(list);
+    }
+
 }

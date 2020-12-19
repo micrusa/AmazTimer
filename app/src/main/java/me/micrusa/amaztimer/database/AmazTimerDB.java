@@ -22,10 +22,22 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.saveworkout.database;
+package me.micrusa.amaztimer.database;
 
-public class DBConstants {
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
-    public static final String DB_NAME = "amaztimer_db";
-    public static final int VERSION = 1;
+import me.micrusa.amaztimer.database.converters.Converters;
+import me.micrusa.amaztimer.database.dao.TimerDao;
+import me.micrusa.amaztimer.database.dao.WorkoutDao;
+import me.micrusa.amaztimer.database.objects.Timer;
+import me.micrusa.amaztimer.database.objects.Workout;
+
+@Database(version = DBConstants.VERSION, entities = {Workout.class, Timer.class}, exportSchema = false)
+@TypeConverters(Converters.class)
+public abstract class AmazTimerDB extends RoomDatabase {
+    public abstract WorkoutDao workoutDao();
+    public abstract TimerDao timerDao();
 }
+

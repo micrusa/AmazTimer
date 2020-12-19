@@ -44,7 +44,7 @@ import java.util.Locale;
 
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.Constants;
-import me.micrusa.amaztimer.TimerActivity;
+import me.micrusa.amaztimer.activities.TimerActivity;
 import me.micrusa.amaztimer.activities.PrepareActivity;
 import me.micrusa.amaztimer.utils.devices.AmazfitUtils;
 

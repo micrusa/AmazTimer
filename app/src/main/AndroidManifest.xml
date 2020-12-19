@@ -17,8 +17,9 @@
         android:supportsRtl="true"
         android:testOnly="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CreateNew"></activity>
-        <activity android:name=".activities.Saved" />
+        <activity android:name=".activities.TimerPreview"></activity>
+        <activity android:name=".activities.CreateNew" />
+        <activity android:name=".activities.saved.Saved" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +36,7 @@
             android:name=".saveworkout.ui.SavedWorkoutsActivity"
             android:exported="true" />
         <activity android:name=".activities.PrepareActivity" />
-        <activity android:name=".TimerActivity" />
+        <activity android:name=".activities.TimerActivity" />
         <activity android:name=".activities.AppInfo" />
         <activity android:name=".activities.SettingsActivity" />
     </application>

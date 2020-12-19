@@ -71,6 +71,7 @@
     <string name="jjacks">Jumping jacks</string>
     <string name="other">Other</string>
     <string name="deleteworkout">Do you want to delete the workout?</string>
+    <string name="deletetimer">Do you want to delete the timer?</string>
     <string name="workouts">Workouts</string>
     <string name="workout_name">Workout</string>
     <string name="duration">Duration</string>

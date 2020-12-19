@@ -22,28 +22,38 @@
  * SOFTWARE.
  */
 
-package me.micrusa.amaztimer.saveworkout.database.converters;
+package me.micrusa.amaztimer.database.objects;
 
-import androidx.room.TypeConverter;
+import android.content.Intent;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+@Entity
+public class Timer {
 
-public class Converters {
+    @PrimaryKey
+    public long timeAdded;
 
-    @TypeConverter
-    public static List<Integer> fromString(String value) {
-        Type listType = new TypeToken<List<Integer>>(){}.getType();
-        return new Gson().fromJson(value, listType);
-    }
+    @ColumnInfo(name = "name")
+    public String name;
 
-    @TypeConverter
-    public static String fromArrayList(List<Integer> list) {
-        return new Gson().toJson(list);
-    }
+    @ColumnInfo(name = "sets")
+    public int sets;
 
+    @ColumnInfo(name = "work")
+    public int work;
+
+    @ColumnInfo(name = "rest")
+    public int rest;
+
+    @ColumnInfo(name = "mode")
+    public int mode;
+
+    @ColumnInfo(name = "heartrate")
+    public boolean heartrate;
+
+    @ColumnInfo(name = "gps")
+    public boolean gps;
 }

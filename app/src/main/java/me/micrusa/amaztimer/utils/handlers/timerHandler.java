@@ -31,7 +31,7 @@ import android.widget.TextView;
 
 import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.utils.Utils;
-import me.micrusa.amaztimer.TimerActivity;
+import me.micrusa.amaztimer.activities.TimerActivity;
 
 public class timerHandler {
 

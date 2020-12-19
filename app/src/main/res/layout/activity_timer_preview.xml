@@ -28,11 +28,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.saved.Saved">
-
-    <ListView
-        android:id="@+id/saved_timers_lv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    tools:context=".activities.TimerPreview">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

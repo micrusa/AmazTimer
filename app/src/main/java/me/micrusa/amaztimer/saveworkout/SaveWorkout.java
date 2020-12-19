@@ -30,9 +30,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import me.micrusa.amaztimer.Constants;
-import me.micrusa.amaztimer.saveworkout.database.AmazTimerDB;
-import me.micrusa.amaztimer.saveworkout.database.DBUtils;
-import me.micrusa.amaztimer.saveworkout.database.objects.Workout;
+import me.micrusa.amaztimer.database.AmazTimerDB;
+import me.micrusa.amaztimer.database.DBUtils;
+import me.micrusa.amaztimer.database.objects.Workout;
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrUtils;
 
 public class SaveWorkout {
@@ -73,7 +73,7 @@ public class SaveWorkout {
 
         //Save to DB in a second Thread to avoid an UI lock
         new Thread(() -> {
-            AmazTimerDB db = DBUtils.createDBInstance();
+            AmazTimerDB db = DBUtils.createInstance();
 
             db.workoutDao().insertAll(workout);
 

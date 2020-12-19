@@ -38,7 +38,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import me.micrusa.amaztimer.R;
-import me.micrusa.amaztimer.saveworkout.database.objects.Workout;
+import me.micrusa.amaztimer.database.objects.Workout;
 import me.micrusa.amaztimer.utils.sensors.heartrate.hrUtils;
 
 public class WorkoutAdapter extends ArrayAdapter<Workout> {
