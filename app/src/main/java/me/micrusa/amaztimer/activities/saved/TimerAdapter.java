@@ -53,7 +53,7 @@ public class TimerAdapter extends ArrayAdapter<Timer> {
         if(v == null) {
             v = LayoutInflater.from(getContext()).inflate(R.layout.item_timer, parent, false);
             TextView name = v.findViewById(R.id.timer_item_name);
-            TextView sets = v.findViewById(R.id.sets);
+            TextView sets = v.findViewById(R.id.timer_item_sets);
 
             name.setText(t.name);
             sets.setText(t.sets + " " + getContext().getString(R.string.sets).toLowerCase());
