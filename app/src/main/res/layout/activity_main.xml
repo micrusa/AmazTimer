@@ -36,9 +36,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:textSize="10pt"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textSize="8.5pt"
         android:text="@string/saved"
         android:background="@drawable/circle_button" />
     <Button
@@ -46,10 +46,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:textSize="10pt"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textSize="8.5pt"
         android:text="@string/create_new"
         android:background="@drawable/circle_button" />
     <Button
@@ -57,10 +57,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:textSize="10pt"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textSize="8.5pt"
         android:text="@string/workouts"
         android:background="@drawable/circle_button" />
     <Button
@@ -68,11 +68,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
-        android:textSize="10pt"
+        android:textSize="8.5pt"
         android:text="@string/settings"
         android:background="@drawable/circle_button" />
 
