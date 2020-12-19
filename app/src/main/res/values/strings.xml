@@ -79,7 +79,7 @@
     <string name="worktime">Work time</string>
     <string name="resttime">Rest time</string>
 
-    <string name="saved">Saved</string>
+    <string name="saved">Saved Timers</string>
     <string name="create_new">Create New</string>
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
