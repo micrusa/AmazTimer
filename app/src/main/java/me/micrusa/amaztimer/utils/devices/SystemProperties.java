@@ -28,17 +28,31 @@ import android.os.Build;
 
 import org.tinylog.Logger;
 
-import me.micrusa.amaztimer.utils.devices.AmazfitUtils;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class SystemProperties {
 
-    public static String getSystemProperty(String name) {
-        return System.getProperty(name);
+    public static String getSystemProperty(String key) {
+        String val = "";
+        try {
+            Process p = new ProcessBuilder("/system/bin/getprop", key).redirectErrorStream(true).start();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line = br.readLine()) != null) {
+                val = line;
+            }
+            p.destroy();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return val;
     }
 
     public static boolean getBoolean(String key, boolean def) {
         try {
-            return Boolean.parseBoolean(System.getProperty(key, String.valueOf(def)));
+            return Boolean.parseBoolean(getSystemProperty(key));
         } catch (Exception e) {
             Logger.error(e);
             return def;
