@@ -25,7 +25,9 @@
 package me.micrusa.amaztimer.utils.button;
 
 import android.content.Context;
+import android.os.Handler;
 import android.os.PowerManager;
+import android.util.Log;
 
 import org.tinylog.Logger;
 
@@ -42,7 +44,7 @@ import static android.content.Context.POWER_SERVICE;
 
 //Big thanks to AmazMod team for this way of getting button presses
 
-public class buttonListener {
+public class ButtonListener {
     private final int TYPE_KEYBOARD = 1;
 
     public static final int KEY_DOWN = 64; //S3 key middle up
@@ -57,17 +59,16 @@ public class buttonListener {
     private final int LONG_TRIGGER_MAX = TRIGGER * 10;
 
     private PowerManager powerManager;
-    PowerManager.WakeLock wakeLock;
-    
-    Thread thread;
+    private Handler handler;
+    private PowerManager.WakeLock wakeLock;
+    private Thread thread;
 
-    public void start(Context context, final buttonInterface buttonInterface) {
+    public void start(Context context, final ButtonInterface buttonInterface) {
         if(isListening() || !isAmazfit()) return;
 
+        handler = new Handler(context.getMainLooper());
         powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
-
-        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                "AmazTimer:buttonListener");
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AmazTimer:buttonListener");
         wakeLock.acquire();
         thread = new listenerThread(buttonInterface);
         thread.start();
@@ -93,9 +94,9 @@ public class buttonListener {
         private long lastKeyCenterKeyUp = 0;
         private long lastKeyUpKeyUp = 0;
 
-        private buttonInterface buttonInterface;
+        private ButtonInterface buttonInterface;
 
-        private listenerThread(buttonInterface bInterface){
+        private listenerThread(ButtonInterface bInterface){
             if(isStratos3())
                 FILE_PATH = "/dev/input/event1";
             else
@@ -144,9 +145,9 @@ public class buttonListener {
                 case KEY_DOWN: {
                     if (value == KEY_EVENT_UP) {
                         if(isStratos3())
-                            buttonEventKey = buttonEvent.S3_KEY_MIDDLE_UP;
+                            buttonEventKey = ButtonEvent.S3_KEY_MIDDLE_UP;
                         else
-                            buttonEventKey = buttonEvent.KEY_DOWN;
+                            buttonEventKey = ButtonEvent.KEY_DOWN;
                         sendKeyEvent(lastKeyDownKeyDown, buttonEventKey);
                     } else if (value == KEY_EVENT_PRESS) {
                         lastKeyDownKeyDown = now;
@@ -156,9 +157,9 @@ public class buttonListener {
                 case KEY_CENTER: {
                     if (value == KEY_EVENT_UP) {
                         if(isStratos3())
-                            buttonEventKey = buttonEvent.S3_KEY_UP;
+                            buttonEventKey = ButtonEvent.S3_KEY_UP;
                         else
-                            buttonEventKey = buttonEvent.KEY_CENTER;
+                            buttonEventKey = ButtonEvent.KEY_SELECT;
                         sendKeyEvent(lastKeyCenterKeyUp, buttonEventKey);
                     } else if (value == KEY_EVENT_PRESS) {
                         lastKeyCenterKeyUp = now;
@@ -168,9 +169,9 @@ public class buttonListener {
                 case KEY_UP: {
                     if (value == KEY_EVENT_UP) {
                         if(isStratos3())
-                            buttonEventKey = buttonEvent.S3_KEY_MIDDLE_DOWN;
+                            buttonEventKey = ButtonEvent.S3_KEY_MIDDLE_DOWN;
                         else
-                            buttonEventKey = buttonEvent.KEY_UP;
+                            buttonEventKey = ButtonEvent.KEY_UP;
                         sendKeyEvent(lastKeyUpKeyUp, buttonEventKey);
                     } else if (value == KEY_EVENT_PRESS) {
                         lastKeyUpKeyUp = now;
@@ -187,10 +188,10 @@ public class buttonListener {
         private void sendKeyEvent(long lastKeyDown, int buttonEventKey){
             long delta = System.currentTimeMillis() - lastKeyDown;
             if ((delta > TRIGGER) && (delta < LONG_TRIGGER)) {
-                buttonInterface.onKeyEvent(new buttonEvent(true, buttonEventKey));
+                handler.post(() -> buttonInterface.onKeyEvent(new ButtonEvent(true, buttonEventKey)));
             } else {
                 if (delta < TRIGGER) {
-                    buttonInterface.onKeyEvent(new buttonEvent(false, buttonEventKey));
+                    handler.post(() -> buttonInterface.onKeyEvent(new ButtonEvent(false, buttonEventKey)));
                 }
             }
         }
