@@ -28,7 +28,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.Button;
 
 import me.micrusa.amaztimer.activities.CreateNew;
@@ -36,8 +35,7 @@ import me.micrusa.amaztimer.activities.saved.Saved;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.saveworkout.ui.SavedWorkoutsActivity;
 import me.micrusa.amaztimer.utils.Utils;
-import me.micrusa.amaztimer.utils.button.ButtonSelector;
-import me.micrusa.amaztimer.utils.button.ButtonListener;
+import me.micrusa.amaztimer.utils.button.selector.ButtonSelector;
 
 public class MainActivity extends AppCompatActivity {
     private Button saved, createNew, settings, workouts;

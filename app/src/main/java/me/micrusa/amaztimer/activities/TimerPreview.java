@@ -28,17 +28,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.pixplicity.easyprefs.library.Prefs;
-
-import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.activities.saved.SavedTimerRun;
 import me.micrusa.amaztimer.utils.Utils;
-import me.micrusa.amaztimer.utils.button.ButtonSelector;
+import me.micrusa.amaztimer.utils.button.selector.ButtonSelector;
 
 public class TimerPreview extends AppCompatActivity {
     private TextView name, sets, work, rest, hr;
