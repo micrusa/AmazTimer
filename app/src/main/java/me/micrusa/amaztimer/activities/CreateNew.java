@@ -45,6 +45,7 @@ import me.micrusa.amaztimer.database.AmazTimerDB;
 import me.micrusa.amaztimer.database.DBUtils;
 import me.micrusa.amaztimer.database.objects.Timer;
 import me.micrusa.amaztimer.utils.Utils;
+import me.micrusa.amaztimer.utils.button.ButtonSelector;
 
 public class CreateNew extends AppCompatActivity {
 
@@ -52,6 +53,7 @@ public class CreateNew extends AppCompatActivity {
     private Button save, start;
     private SwitchCompat hr;
     private TextView sets, work, rest;
+    private ButtonSelector buttonSelector;
     private final OnClickListener plusMinusBtnListener = view -> plusMinusUpdates(view.getId(), false);
     private final OnLongClickListener plusMinusBtnLongListener = view -> plusMinusUpdates(view.getId(), true);
     private int setsCount = 8, workTime = 30, restTime = 20;
@@ -86,7 +88,7 @@ public class CreateNew extends AppCompatActivity {
         start = findViewById(R.id.create_new_start);
         save = findViewById(R.id.create_new_save);
         hr = findViewById(R.id.create_new_hr_switch);
-
+        buttonSelector = new ButtonSelector(new Button[]{start, save}, this);
         sets = findViewById(R.id.sets_count);
         work = findViewById(R.id.work_count);
         rest = findViewById(R.id.rest_count);
@@ -127,5 +129,20 @@ public class CreateNew extends AppCompatActivity {
         sets.setText(String.valueOf(setsCount));
         work.setText(Utils.formatTime(workTime));
         rest.setText(Utils.formatTime(restTime));
+    }
+
+    public void onStop() {
+        buttonSelector.stopListening();
+        super.onStop();
+    }
+
+    public void onPause() {
+        buttonSelector.stopListening();
+        super.onPause();
+    }
+
+    public void onResume() {
+        buttonSelector.startListening();
+        super.onResume();
     }
 }

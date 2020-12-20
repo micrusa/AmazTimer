@@ -40,6 +40,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.saveworkout.SaveWorkout;
+import me.micrusa.amaztimer.utils.button.ButtonSelector;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.dialog.NewRepExerciseDialog;
 import me.micrusa.amaztimer.utils.tcx.TCXConstants;
@@ -69,7 +70,7 @@ public class TimerActivity extends AppCompatActivity {
     
     public static boolean isRunning;
 
-    private ButtonListener buttonListener = new ButtonListener();
+    private ButtonSelector buttonSelector;
 
     private void init(){
         Utils.setupLang(this);
@@ -85,7 +86,9 @@ public class TimerActivity extends AppCompatActivity {
         finishset = findViewById(R.id.finishset);
         hrZoneView = findViewById(R.id.hrzoneView);
         hrZoneHandler = new hrZoneHandler(hrZoneView);
-        setupBtnListener();
+
+        buttonSelector = new ButtonSelector(new Button[]{cancel, finishset}, this);
+        buttonSelector.startListening();
 
         cancel.setOnLongClickListener(view -> {
             Utils.vibrate(Constants.HAPTIC_VIBRATION, view.getContext());
@@ -173,12 +176,12 @@ public class TimerActivity extends AppCompatActivity {
     //Destroy, pause, resume and button stuff
     public void onDestroy() {
         super.onDestroy();
-        buttonListener.stop();
+        buttonSelector.stopListening();
         endActivity();
     }
     public void onPause() {
         this.hasResumed = false;
-        buttonListener.stop();
+        buttonSelector.stopListening();
         new Handler().postDelayed(() -> {
             if(!hasResumed) endActivity();
         }, 9 * 1000);
@@ -186,12 +189,12 @@ public class TimerActivity extends AppCompatActivity {
     }
     public void onResume() {
         hasResumed = true;
-        setupBtnListener();
+        buttonSelector.startListening();
         super.onResume();
     }
     public void onStop(){
         super.onStop();
-        buttonListener.stop();
+        buttonSelector.startListening();
         new Handler().postDelayed(() -> {
             if(!hasResumed) endActivity();
         }, 9 * 1000);
@@ -199,15 +202,6 @@ public class TimerActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
         hasResumed = true;
-        setupBtnListener();
-    }
-    private void setupBtnListener(){
-        Handler handler = new Handler();
-        buttonListener.start(this, ButtonEvent -> {
-            if(ButtonEvent.getKey() == me.micrusa.amaztimer.utils.button.ButtonEvent.KEY_DOWN)
-                handler.post(() -> cancel.performLongClick());
-            else if(ButtonEvent.getKey() == me.micrusa.amaztimer.utils.button.ButtonEvent.KEY_UP)
-                handler.post(() -> finishset.performClick());
-        });
+        buttonSelector.startListening();
     }
 }

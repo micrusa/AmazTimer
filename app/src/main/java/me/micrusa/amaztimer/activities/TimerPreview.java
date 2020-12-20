@@ -38,9 +38,11 @@ import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.activities.saved.SavedTimerRun;
 import me.micrusa.amaztimer.utils.Utils;
+import me.micrusa.amaztimer.utils.button.ButtonSelector;
 
 public class TimerPreview extends AppCompatActivity {
     private TextView name, sets, work, rest, hr;
+    private ButtonSelector buttonSelector;
     private Button start;
 
     @Override
@@ -58,6 +60,8 @@ public class TimerPreview extends AppCompatActivity {
         rest = findViewById(R.id.timer_preview_rest);
         hr = findViewById(R.id.timer_preview_hr);
         start = findViewById(R.id.timer_preview_start);
+        buttonSelector = new ButtonSelector(new Button[]{start}, this);
+        buttonSelector.startListening();
 
         name.setText(t.name);
         sets.setText(String.valueOf(t.sets));
@@ -65,5 +69,20 @@ public class TimerPreview extends AppCompatActivity {
         rest.setText(Utils.formatTime(t.rest));
         hr.setText(t.heartrate ? R.string.enabled : R.string.disabled);
         start.setOnClickListener(view -> Utils.start(this, t));
+    }
+
+    public void onStop() {
+        buttonSelector.stopListening();
+        super.onStop();
+    }
+
+    public void onPause() {
+        buttonSelector.stopListening();
+        super.onPause();
+    }
+
+    public void onResume() {
+        buttonSelector.startListening();
+        super.onResume();
     }
 }
