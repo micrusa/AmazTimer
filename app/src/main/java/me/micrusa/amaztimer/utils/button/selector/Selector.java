@@ -40,7 +40,6 @@ public abstract class Selector implements ButtonInterface {
         if(!AmazfitUtils.isAmazfit()) return;
         buttonListener = new ButtonListener();
         this.context = context;
-        refreshSelectedButton();
     }
 
     public abstract void refreshSelectedButton();

@@ -38,6 +38,7 @@ public class ButtonSelector extends Selector {
     public ButtonSelector(Button[] buttons, Context context){
         super(context);
         this.buttons = buttons;
+        refreshSelectedButton();
     }
 
     public void clickButton(){
