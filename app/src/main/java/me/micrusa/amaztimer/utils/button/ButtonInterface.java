@@ -24,6 +24,6 @@
 
 package me.micrusa.amaztimer.utils.button;
 
-public interface buttonInterface {
-    void onKeyEvent(buttonEvent buttonEvent);
+public interface ButtonInterface {
+    void onKeyEvent(ButtonEvent buttonEvent);
 }

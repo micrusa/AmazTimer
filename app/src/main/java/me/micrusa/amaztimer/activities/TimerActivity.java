@@ -43,8 +43,7 @@ import me.micrusa.amaztimer.saveworkout.SaveWorkout;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.RepsCounter;
 import me.micrusa.amaztimer.utils.sensors.repsCounter.ui.dialog.NewRepExerciseDialog;
 import me.micrusa.amaztimer.utils.tcx.TCXConstants;
-import me.micrusa.amaztimer.utils.button.buttonEvent;
-import me.micrusa.amaztimer.utils.button.buttonListener;
+import me.micrusa.amaztimer.utils.button.ButtonListener;
 import me.micrusa.amaztimer.utils.handlers.chronoHandler;
 import me.micrusa.amaztimer.utils.handlers.hrZoneHandler;
 import me.micrusa.amaztimer.utils.handlers.timeHandler;
@@ -70,7 +69,7 @@ public class TimerActivity extends AppCompatActivity {
     
     public static boolean isRunning;
 
-    private me.micrusa.amaztimer.utils.button.buttonListener buttonListener = new buttonListener();
+    private ButtonListener buttonListener = new ButtonListener();
 
     private void init(){
         Utils.setupLang(this);
@@ -205,9 +204,9 @@ public class TimerActivity extends AppCompatActivity {
     private void setupBtnListener(){
         Handler handler = new Handler();
         buttonListener.start(this, ButtonEvent -> {
-            if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
+            if(ButtonEvent.getKey() == me.micrusa.amaztimer.utils.button.ButtonEvent.KEY_DOWN)
                 handler.post(() -> cancel.performLongClick());
-            else if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
+            else if(ButtonEvent.getKey() == me.micrusa.amaztimer.utils.button.ButtonEvent.KEY_UP)
                 handler.post(() -> finishset.performClick());
         });
     }

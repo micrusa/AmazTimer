@@ -34,10 +34,10 @@ import static me.micrusa.amaztimer.utils.devices.AmazfitUtils.isStratos3;
 import static me.micrusa.amaztimer.utils.devices.AmazfitUtils.isStratosNewKeys;
 import static me.micrusa.amaztimer.utils.devices.AmazfitUtils.isVerge;
 
-public class buttonEvent {
+public class ButtonEvent {
 
     public static final int KEY_UP = 0;
-    public static final int KEY_CENTER = 1;
+    public static final int KEY_SELECT = 1;
     public static final int KEY_DOWN = 2;
 
     static final int S3_KEY_UP = 3;
@@ -48,7 +48,7 @@ public class buttonEvent {
     private boolean isInverted;
     private int key;
 
-    public buttonEvent(boolean IsLongPress, int Key){
+    public ButtonEvent(boolean IsLongPress, int Key){
         this.isLongPress = IsLongPress;
         this.key = Key;
         this.isInverted = Prefs.getBoolean(Constants.KEY_INVERTKEYS, false);
@@ -62,16 +62,16 @@ public class buttonEvent {
         int finalKey = -5; //If nothing changed return -5 to not trigger anything
         if(isSingleKey()){
             if(isLongPress())
-                finalKey = KEY_DOWN;
+                finalKey = KEY_SELECT;
             else
                 finalKey = KEY_UP;
         } else if(isStratos3())
             switch(key){
                 case S3_KEY_UP:
-                    finalKey = KEY_UP;
+                    finalKey = KEY_SELECT;
                     break;
                 case S3_KEY_MIDDLE_UP:
-                    finalKey = KEY_CENTER;
+                    finalKey = KEY_UP;
                     break;
                 case S3_KEY_MIDDLE_DOWN:
                     finalKey = KEY_DOWN;
@@ -86,7 +86,7 @@ public class buttonEvent {
     }
 
     private int getInverted(int key){
-        if(!isInverted || key == KEY_CENTER)
+        if(!isInverted || key == KEY_SELECT)
             return key;
 
         if(key == KEY_UP)
@@ -98,7 +98,7 @@ public class buttonEvent {
     }
 
     private boolean isSingleKey(){ //Stratos new layout can just use center button
-        return isPace() || isVerge() || (isStratosNewKeys() && key == KEY_CENTER);
+        return isPace() || isVerge() || (isStratosNewKeys() && key == KEY_SELECT);
     }
 
     private boolean isStratos2Old(){

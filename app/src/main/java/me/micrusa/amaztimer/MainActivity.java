@@ -36,21 +36,20 @@ import me.micrusa.amaztimer.activities.saved.Saved;
 import me.micrusa.amaztimer.activities.SettingsActivity;
 import me.micrusa.amaztimer.saveworkout.ui.SavedWorkoutsActivity;
 import me.micrusa.amaztimer.utils.Utils;
-import me.micrusa.amaztimer.utils.button.buttonEvent;
-import me.micrusa.amaztimer.utils.button.buttonListener;
+import me.micrusa.amaztimer.utils.button.ButtonSelector;
+import me.micrusa.amaztimer.utils.button.ButtonListener;
 
 public class MainActivity extends AppCompatActivity {
-
     private Button saved, createNew, settings, workouts;
+    private ButtonSelector buttonSelector;
     private boolean hasLaunchedActivities = false;
-    private buttonListener buttonListener = new buttonListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setupBtnListener();
         init();
+        buttonSelector.startListening();
     }
 
     private void init(){
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         createNew = findViewById(R.id.main_create_new);
         settings = findViewById(R.id.main_settings);
         workouts = findViewById(R.id.main_workouts);
+        buttonSelector = new ButtonSelector(new Button[]{saved, createNew, workouts, settings}, this);
 
         saved.setOnClickListener(view -> launchActivity(new Intent(this, Saved.class)));
         createNew.setOnClickListener(view -> launchActivity(new Intent(this, CreateNew.class)));
@@ -65,39 +65,27 @@ public class MainActivity extends AppCompatActivity {
         workouts.setOnClickListener(view -> launchActivity(new Intent(this, SavedWorkoutsActivity.class)));
     }
 
-    private void setupBtnListener(){
-        Handler handler = new Handler();
-        buttonListener.start(this, ButtonEvent -> {
-            if(ButtonEvent.getKey() == buttonEvent.KEY_UP)
-                handler.post(() -> saved.performClick());
-            else if(ButtonEvent.getKey() == buttonEvent.KEY_CENTER)
-                handler.post(() -> createNew.performLongClick());
-            else if(ButtonEvent.getKey() == buttonEvent.KEY_DOWN)
-                handler.post(() -> settings.performLongClick());
-        });
-    }
-
     private void launchActivity(Intent intent){
         if(hasLaunchedActivities) return; //Avoid multiple activities launched
         Utils.vibrate(Constants.HAPTIC_VIBRATION, this);
         hasLaunchedActivities = true;
-        buttonListener.stop();
+        buttonSelector.stopListening();
         startActivity(intent);
     }
 
     public void onStop() {
         super.onStop();
-        buttonListener.stop();
+        buttonSelector.stopListening();
     }
 
     public void onPause() {
-        buttonListener.stop();
+        buttonSelector.stopListening();
         super.onPause();
     }
 
     public void onResume() {
         hasLaunchedActivities = false;
-        setupBtnListener();
+        buttonSelector.startListening();
         super.onResume();
     }
 }
