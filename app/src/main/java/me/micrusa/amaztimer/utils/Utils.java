@@ -167,6 +167,6 @@ public class Utils {
         Prefs.putInt(Constants.KEY_WORK, t.work);
         Prefs.putInt(Constants.KEY_REST, t.rest);
         Prefs.putBoolean(Constants.KEY_HRTOGGLE, t.heartrate);
-        context.startActivity(new Intent(context, TimerActivity.class));
+        context.startActivity(new Intent(context, Prefs.getBoolean(Constants.KEY_ENABLEPREPARE, false) ? PrepareActivity.class : TimerActivity.class));
     }
 }
