@@ -155,13 +155,6 @@ public class Utils {
         return new int[]{sets, workTime, restTime};
     }
 
-    public static void startTimer(Context context, boolean prepareDone){
-        context.startActivity(new Intent(context,
-                Prefs.getBoolean(Constants.KEY_ENABLEPREPARE, false)
-                        && !prepareDone
-                        ? PrepareActivity.class : TimerActivity.class));
-    }
-
     public static void start(Context context, SavedTimerRun t){
         Prefs.putInt(Constants.KEY_SETS, t.sets);
         Prefs.putInt(Constants.KEY_WORK, t.work);

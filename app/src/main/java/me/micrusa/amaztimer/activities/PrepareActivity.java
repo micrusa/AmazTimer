@@ -24,6 +24,7 @@
 
 package me.micrusa.amaztimer.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -71,7 +72,7 @@ public class PrepareActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 finished = true;
-                Utils.startTimer(PrepareActivity.this, true);
+                startActivity(new Intent(PrepareActivity.this, TimerActivity.class));
                 finish();
             }
         }.start();
