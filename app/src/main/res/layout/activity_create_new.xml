@@ -150,23 +150,51 @@
                 android:layout_height="40dp"
                 android:background="@drawable/add" />
         </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="7.5dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/create_new_hr_switch"
-            android:text="@string/heartrate"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:checked="true"
-            android:textSize="6pt"
+        <LinearLayout
+            android:layout_marginTop="7.5dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/create_new_hr_switch"
+                android:text="@string/heartrate"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:checked="true"
+                android:textSize="6pt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <RadioGroup
+            android:id="@+id/new_mode_group"
+            android:layout_marginTop="7.5dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/new_mode_default"
+                android:text="@string/normalmode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/new_mode_reps"
+                android:text="@string/repsmode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/new_mode_workout"
+                android:text="@string/workout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/new_mode_repscounter"
+                android:text="@string/repscountermode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
         <Button
             android:id="@+id/create_new_start"
             android:layout_marginTop="10dp"

@@ -160,6 +160,25 @@ public class Utils {
         Prefs.putInt(Constants.KEY_WORK, t.work);
         Prefs.putInt(Constants.KEY_REST, t.rest);
         Prefs.putBoolean(Constants.KEY_HRTOGGLE, t.heartrate);
+
+        //Mode
+        Prefs.putBoolean(Constants.KEY_REPSMODE, false);
+        Prefs.putBoolean(Constants.KEY_REPSCOUNT, false);
+        Prefs.putBoolean(Constants.KEY_WORKOUT, false);
+        switch(t.mode){
+            case Constants.MODE_REPS:
+                Prefs.putBoolean(Constants.KEY_REPSMODE, true);
+                break;
+            case Constants.MODE_WORKOUT:
+                Prefs.putBoolean(Constants.KEY_WORKOUT, true);
+                break;
+            case Constants.MODE_REPSCOUNTER:
+                Prefs.putBoolean(Constants.KEY_REPSCOUNT, true);
+                break;
+            default:
+                break;
+        }
+
         context.startActivity(new Intent(context, Prefs.getBoolean(Constants.KEY_ENABLEPREPARE, false) ? PrepareActivity.class : TimerActivity.class));
     }
 }

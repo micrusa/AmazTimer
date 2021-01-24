@@ -60,7 +60,6 @@ public final class Constants {
     public static final String KEY_WEIGHT = "weight";
     public static final String KEY_ENABLEPREPARE = "prepon";
     public static final String KEY_REPSMODE = "repsmode";
-    public static final String KEY_WORKOUTVIEWER = "latesttrain";
     public static final String KEY_APPINFO = "appinfo";
     public static final String KEY_WORKOUT = "workoutmode";
     public static final String KEY_TCX = "tcx";
@@ -75,4 +74,9 @@ public final class Constants {
     public static final String VERSION_NAME = "v" + BuildConfig.VERSION_NAME;
     public static final int VERSION_CODE = BuildConfig.VERSION_CODE;
     public static final int CURRENT_YEAR = Integer.parseInt(new SimpleDateFormat("yyyy", Locale.US).format(new Date()));
+
+    public static final int MODE_DEF = -1;
+    public static final int MODE_REPS = 0;
+    public static final int MODE_WORKOUT = 1;
+    public static final int MODE_REPSCOUNTER = 2;
 }

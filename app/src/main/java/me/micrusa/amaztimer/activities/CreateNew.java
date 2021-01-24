@@ -32,10 +32,13 @@ import android.os.Handler;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.List;
 
+import me.micrusa.amaztimer.Constants;
 import me.micrusa.amaztimer.R;
 import me.micrusa.amaztimer.activities.saved.SavedTimerRun;
 import me.micrusa.amaztimer.database.AmazTimerDB;
@@ -51,6 +54,8 @@ public class CreateNew extends AppCompatActivity {
     private SwitchCompat hr;
     private TextView sets, work, rest;
     private ButtonSelector buttonSelector;
+    private RadioGroup modes;
+    private RadioButton mDefault, mReps, mWorkout, mRepsCounter;
     private final OnClickListener plusMinusBtnListener = view -> plusMinusUpdates(view.getId(), false);
     private final OnLongClickListener plusMinusBtnLongListener = view -> plusMinusUpdates(view.getId(), true);
     private int setsCount = 8, workTime = 30, restTime = 20;
@@ -89,6 +94,11 @@ public class CreateNew extends AppCompatActivity {
         sets = findViewById(R.id.sets_count);
         work = findViewById(R.id.work_count);
         rest = findViewById(R.id.rest_count);
+        modes = findViewById(R.id.new_mode_group);
+        mDefault = findViewById(R.id.new_mode_default);
+        mReps = findViewById(R.id.new_mode_reps);
+        mRepsCounter = findViewById(R.id.new_mode_repscounter);
+        mWorkout = findViewById(R.id.new_mode_workout);
     }
 
     private void setClickListeners(){
@@ -115,11 +125,23 @@ public class CreateNew extends AppCompatActivity {
                 t.work = workTime;
                 t.rest = restTime;
                 t.heartrate = hr.isChecked();
+                t.mode = getMode();
                 db.timerDao().insertAll(t);
                 db.close();
                 handler.post(this::finish);
             }).start();
         });
+    }
+
+    private int getMode(){
+        int id = -1;
+        if(mWorkout.isChecked())
+            id = Constants.MODE_WORKOUT;
+        else if(mReps.isChecked())
+            id = Constants.MODE_REPS;
+        else if(mRepsCounter.isChecked())
+            id = Constants.MODE_REPSCOUNTER;
+        return id;
     }
 
     private void setTexts(){

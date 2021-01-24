@@ -30,6 +30,7 @@
     <string name="morepreparetime">More time to prepare</string>
     <string name="morepreparetimesum">If you enable this, prepare timer will last 60 seconds instead of 5, so you\'ll have enough time to start an activity</string>
     <string name="repsmode">Reps mode</string>
+    <string name="normalmode">Normal mode</string>
     <string name="hrzone">HR zone</string>
     <string name="appinfo">App info</string>
     <string name="appcredit">App by @micrusa</string>
@@ -86,4 +87,6 @@
     <string name="save">Save</string>
     <string name="custom">Custom</string>
     <string name="profile">Profile</string>
+
+    <string name="gps">GPS</string>
 </resources>
