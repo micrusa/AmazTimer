@@ -62,9 +62,9 @@ public class ButtonEvent {
         int finalKey = -5; //If nothing changed return -5 to not trigger anything
         if(isSingleKey()){
             if(isLongPress())
-                finalKey = KEY_SELECT;
-            else
                 finalKey = KEY_UP;
+            else
+                finalKey = KEY_SELECT;
         } else if(isStratos3())
             switch(key){
                 case S3_KEY_UP:
@@ -86,13 +86,10 @@ public class ButtonEvent {
     }
 
     private int getInverted(int key){
-        if(!isInverted || key == KEY_SELECT)
-            return key;
-
-        if(key == KEY_UP)
-            key = KEY_DOWN;
-        else if(key == KEY_DOWN)
-            key = KEY_UP;
+        if(isSingleKey())
+            key = key == KEY_UP ? KEY_SELECT : KEY_UP;
+        else if (isInverted && key != KEY_SELECT)
+            key = key == KEY_UP ? KEY_DOWN : KEY_UP;
 
         return key;
     }
