@@ -45,5 +45,5 @@ dependencies {
     implementation 'org.tinylog:tinylog-api:2.2.1'
     runtimeOnly 'org.tinylog:tinylog-impl:2.2.1'
     implementation "androidx.room:room-runtime:2.2.6"
-    annotationProcessor "androidx.room:room-compiler:2.2.6"
+    annotationProcessor "androidx.room:room-compiler:2.3.0"
 }
